@@ -1,2 +1,6 @@
 /.metadata/
+<<<<<<< HEAD
 /mainPage/
+=======
+*.manifest
+>>>>>>> 89f847395c39c4765aaf270fd1b86e7eb3d875fb
