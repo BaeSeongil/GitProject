@@ -6,9 +6,35 @@
 </head>
 <body>
 	<header th:insert="/headerNav"></header>
-	<h1>회원리스트</h1>
-	<p>안녕하세요~</p>
-	<p>안녕하세요~</p>
-	
+	<main class="m-5" >
+		<h1 class="m-3 d-flex justify-content-between" >
+			<span>유저리스트</span>
+		</h1>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>아이디</th>
+					<th>이름</th>
+					<th>전화번호</th>
+					<th>이메일</th>
+					<th>나이</th>
+					<th>주소</th>
+					<th>가입일</th>
+			    </tr>
+			</thead>
+			<tbody>
+				<tr th:each="users : ${userList}">
+					<td th:text="${users.userid}"></td>
+					<td th:text="${users.username}"></td>
+					<td th:text="${users.phone}"></td>
+					<td th:text="${users.email}"></td>
+					<td th:text="${(#dates.format(#calendars.createNow(),'yyyy'))} - ${(#dates.format(users.birth,'yyyy'))}"></td>
+					<td th:text="${users.address}"></td>
+					<td th:text="${users.signup}"></td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="d-flex justify-content-evenly" th:insert="/pagination.html"></div>
+	</main>
 </body>
 </html>
