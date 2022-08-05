@@ -22,6 +22,7 @@ public class UsersController {
 	public String list(@PathVariable int page) {
 		List<UsersDto> userList = userMapper.selectAll(page);
 		System.out.println(userList);
+		System.out.println("userList");
 		return "/users/list";
 	}
 	
