@@ -11,5 +11,8 @@
  	<select id="selectPageAllCount" resultType = "int" >
  		SELECT COUNT(*) FROM USERS 
  	</select>
- 	
+ 	<!-- 로그인 -->
+ 	<select id="selectIdPwOne" resultType="UsersDto">
+ 		SELECT * FROM USERS WHERE userid = #{userId} AND userpw = #{userPw}
+ 	</select>
  </mapper>

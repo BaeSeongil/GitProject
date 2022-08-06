@@ -26,11 +26,7 @@
 		<div class="d-flex justify-content-around collapse navbar-collapse" id="navbarNav"> 
 			<ul class="mb-0 navbar-nav">
 				<li class="nav-item">
-					<a class="nav-link active" aria-current="page" href="#">Top</a>
-				</li>
-				
-				<li class="nav-item">
-					<a class="nav-link" href="/users/list/1">USERS</a>
+					<a class="nav-link bi bi-clipboard-fill" href="/users/list/1">회원리스트</a>
 				</li>
 				
 				<li class="nav-item">
@@ -51,8 +47,17 @@
 			</ul>
 		</div>   
 		<div class="d-flex justify-content-end m-1">
-			<a class="btn btn-sm btn-outline-secondary">로그인</a>
-			<a class="btn btn-sm btn-light">회원가입</a> 
+			<th:block th:if="${session.loginUsers == null}">
+				<a class="btn btn-sm btn-outline-secondary" href="/users/login.do">로그인</a>
+				<a class="btn btn-sm btn-light">회원가입</a> 
+			</th:block>
+			<th:block th:unless="${session.loginUsers == null}">
+				<a th:href="@{/users/detail/{userid}(userid=${session.loginUsers.userid})}" class="btn btn-sm btn-outline-secondary">
+					<span th:text="${session.loginUsers.username}"></span>
+					(<span th:text="${session.loginUsers.userid}"></span>)					
+				</a>
+				<a href="/users/logout.do" class="btn btn-sm btn-danger">로그아웃</a>
+			</th:block>
 		</div>
 	</div>
 </nav>

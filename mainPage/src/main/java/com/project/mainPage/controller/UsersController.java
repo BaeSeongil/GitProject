@@ -2,12 +2,16 @@ package com.project.mainPage.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project.mainPage.dto.Pagination;
 import com.project.mainPage.dto.UsersDto;
@@ -37,7 +41,33 @@ public class UsersController {
 		return "/users/list";
 	}
 	
+	@GetMapping("/login.do")
+		public void login() {};
+	@PostMapping("/login.do")
+		public String login(
+				@RequestParam(value="userid") String userId, 
+				@RequestParam(value="userpw") String userPw,
+				HttpSession session) {
+			UsersDto users = null;
+			try {
+				users = usersMapper.selectIdPwOne(userId, userPw);
+			}catch(Exception e) {e.printStackTrace();}
+			
+			if(users != null) {
+				session.setAttribute("loginUsers", users);
+				System.out.println("로그인 성공! " + users);
+				return "redirect:/";
+			}else {
+				return "redirect:/users/login.do";				
+			}
+	}
 	
+	@GetMapping("/logout.do")
+	public String logout(HttpSession session) {
+		session.removeAttribute("loginUsers");
+		System.out.println("로그아웃 성공");
+		return "redirect:/";
+	}
 	
 	
 	

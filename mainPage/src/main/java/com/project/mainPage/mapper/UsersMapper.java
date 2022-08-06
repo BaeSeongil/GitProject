@@ -10,5 +10,6 @@ import com.project.mainPage.dto.UsersDto;
 public interface UsersMapper {
 	List<UsersDto> selectPageAll(int startRow, int pageSize);
 	int selectPageAllCount();
+	UsersDto selectIdPwOne(String userId, String userPw);
 	
 }

@@ -38,12 +38,22 @@ body{
     display: block;
 }
 .content{
-    padding: 80px;
+    padding: 50px;
     display: flex;
     justify-content: center;
 }
 .content .inner{
+	/* border : 1px solid; */
+	text-align: center;
     width: 1280px;
     display: flex;
+    justify-content: center;
     gap: 70px ; 
+}
+
+.content .inner div h2{
+	padding-bottom: 15px;
+}
+.content .inner div ol li{
+	padding-bottom: 15px;
 }
