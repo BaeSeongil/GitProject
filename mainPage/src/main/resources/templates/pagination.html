@@ -1,0 +1,26 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="/css/pagination.css" >
+	<nav aria-label="Page navigation example">
+		<ul class="pagination">
+			<li class="page-item" th:classappend="${ (pagination.yourPreviousPage) ? '' : 'disabled' }">
+				<a class="page-link" th:href="@{{url}{page}(url=${pagination.url},page=${pagination.previousPage})}" >
+					Previous
+				</a>
+			</li>
+			  
+			<th:block th:each="n:${#numbers.sequence(pagination.start,pagination.end)}">
+				<li class="page-item" th:classappend="${(pagination.page==n)?'active':''}">
+					<a class="page-link" th:href="@{{url}{page}(url=${pagination.url},page=${n})}" th:text="${n}"></a>
+				</li>
+			</th:block>
+			    
+			<li class="page-item" th:classappend="${ (pagination.yourNext) ? '' : 'disabled' }">
+				<a class="page-link" th:href="@{{url}{page}(url=${pagination.url},page=${pagination.nextPage})}" >
+					Next
+				</a>
+			</li>
+		</ul>
+	</nav> 
+</html> 

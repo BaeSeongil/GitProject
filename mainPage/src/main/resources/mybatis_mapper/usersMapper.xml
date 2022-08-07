@@ -3,7 +3,16 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="com.project.mainPage.mapper.UsersMapper">
- 	<select id="selectAll" resultType="UsersDto">
- 		select * from USERS;
+ 
+ 	<select id="selectPageAll" resultType="UsersDto">
+ 		select * from USERS LIMIT #{startRow},#{pageSize}
+ 	</select>
+ 	
+ 	<select id="selectPageAllCount" resultType = "int" >
+ 		SELECT COUNT(*) FROM USERS 
+ 	</select>
+ 	<!-- 로그인 -->
+ 	<select id="selectIdPwOne" resultType="UsersDto">
+ 		SELECT * FROM USERS WHERE userid = #{userId} AND userpw = #{userPw}
  	</select>
  </mapper>

@@ -8,5 +8,8 @@ import com.project.mainPage.dto.UsersDto;
 
 @Mapper
 public interface UsersMapper {
-	List<UsersDto> selectAll(int page);
+	List<UsersDto> selectPageAll(int startRow, int pageSize);
+	int selectPageAllCount();
+	UsersDto selectIdPwOne(String userId, String userPw);
+	
 }
