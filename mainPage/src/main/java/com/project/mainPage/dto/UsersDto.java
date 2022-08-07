@@ -30,7 +30,7 @@ public class UsersDto {
 	@DateTimeFormat(pattern =  "yyyy-MM-dd")
 	private Date birth;
 	private String address;
-	@DateTimeFormat(pattern =  "yyyy-MM-dd'T'HH:mm:ss")
+	@DateTimeFormat(pattern =  "yyyy-MM-dd'T'HH:mm")
 	private Date signup;
 	
 }

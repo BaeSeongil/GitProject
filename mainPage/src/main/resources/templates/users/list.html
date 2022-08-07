@@ -35,7 +35,7 @@
 					<td th:text="${users.email}"></td>
 					<td th:text="${(#dates.format(#calendars.createNow(),'yyyy'))} - ${(#dates.format(users.birth,'yyyy'))}"></td>
 					<td th:text="${users.address}"></td>
-					<td th:text="${#dates.format(users.signup,'yyyy-MM-dd HH:mm:ss')}"></td>
+					<td th:text="${#dates.format(users.signup,'yyyy-MM-dd HH:mm')}"></td>
 					<td>
 						<a th:href="@{/users/detail/{userid}(userid=${users.userid})}">상세보기</a>
 					</td>
