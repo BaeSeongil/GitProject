@@ -91,9 +91,9 @@ public class UsersController {
 	public String detail(@PathVariable String userId, Model model) {
 		UsersDto user = usersMapper.selectOne(userId);
 		model.addAttribute(user);
-		System.out.println(user);
+		System.out.println("user : "+user);
 		return "users/detail";
-	}
+	} 
 	@PostMapping("/update.do")
 	public String update(UsersDto user) {
 		int update=0;
@@ -105,6 +105,7 @@ public class UsersController {
 			e.printStackTrace();
 		}
 		if(update>0) {
+			System.out.println("수정성공 : "+ user);
 			return "redirect:/users/list/1";
 		}else {
 			return "redirect:/users/detail/"+user.getUserid();
