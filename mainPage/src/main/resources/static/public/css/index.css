@@ -1,0 +1,47 @@
+@charset "UTF-8";
+
+
+
+.outer{
+   position: relative;
+   background-image: url(/img/outer.jpg);
+   width : 48%;
+   height: 300px;
+    background-size: cover;
+}
+.dress{
+   position: relative;
+   background-image: url(/img/dress.jpg);
+   
+}
+.etc{
+   position: relative;
+   background-image: url(/img/etc.jpg);
+   
+}
+.img .content, .content>a{
+   position: absolute;
+     top:50%;
+     left:50%;
+     transform: translate(-50%, -50%);                                                                   
+     font-size:3.5rem;
+     color: white;
+     z-index: 2;
+     text-align: center;
+     text-decoration: none;
+}
+.content>a:hover{
+   position: absolute;
+    text-decoration: none;
+    font-size:3.5rem;
+     color: black;
+     z-index: 2;
+    text-align: center;
+}
+.img-cover:hover{
+   position: absolute;
+   height: 100%;
+   width: 100%;
+   background-color: rgba(0, 0, 0, 0.2);                                                                 
+   z-index:1;
+}

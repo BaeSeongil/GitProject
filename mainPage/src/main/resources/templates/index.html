@@ -24,32 +24,15 @@
 			</div>
 			<video src="/medias/shopping.mp4" autoplay muted loop></video>
 		</section>
-		
-        <section class=d-flex id="category">
-        <div id="knit">
-        	<a th:href="@{/product/list/{categoryid}(categoryid=10)}">
-        	<img alt="" src="/img/knit.jpg" width="40%">
-        	<span class="bottomadd"><b>Knit</b></span>
-        	</a>
-        </div>
-        <div id="outer">
-			<a th:href="@{/product/list/{categoryid}(categoryid=20)}">
-        	<img alt="" src="/img/outer.jpg" width="40%">
-        	<span class="bottomadd"><b>Outer</b></span>
-        	</a>
-        </div>
-        <div id="dress">
-			<a th:href="@{/product/list/{categoryid}(categoryid=30)}">
-        	<img alt="" src="/img/dress.jpg" width="40%">
-        	<span class="bottomadd"><b>Dress</b></span>
-        	</a>
-        </div>
-        <div id="etc">
-			<a th:href="@{/product/list/{categoryid}(categoryid=40)}">
-        	<img alt="" src="/img/etc.jpg" width="40%">
-        	<span class="bottomadd"><b>Etc</b></span>
-        	</a>
-        </div>
+		<section  id="category ml-5">
+        	<div class="container" >
+        		 <div class="text-center">
+			          <img alt="상의" class="rounded float-start" src="/img/knit.jpg" width="23%" >
+			          <img alt="아우터" src="/img/outer.jpg" width="23%">
+			          <img alt="드레스" src="/img/dress.jpg" width="23%">
+			          <img alt="신발" class="rounded float-end" src="/img/etc.jpg" width="23%" >
+			      </div>
+			</div>
         </section>
 	</div>
 </body>
