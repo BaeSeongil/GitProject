@@ -13,7 +13,7 @@
 			<div class="heading">
 				<h1>
 					<span>With Acorn Academy</span>
-					SHOOPING HOME
+					SHOPPING
 				</h1>
 				<p>
 					의류 쇼핑몰을 방문해 주셔서 감사합니다.
@@ -24,31 +24,32 @@
 			</div>
 			<video src="/medias/shopping.mp4" autoplay muted loop></video>
 		</section>
-		<section class="content">
-            <div class="inner">
-                <div>
-                    <h2>의류 상품 종류</h2>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus ratione rerum ad, facilis recusandae doloremque voluptas ducimus deleniti fuga nisi dicta aperiam corrupti repudiandae cupiditate placeat earum dolore non labore natus consequuntur in aspernatur cum? Nostrum ad delectus atque quos illum sapiente earum? Quos deserunt dicta, deleniti accusamus inventore necessitatibus!
-                    </p>
-                </div>
-                <div>
-                    <div>
-                        <h2>의류 상품 사이즈</h2>
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus ratione rerum ad, facilis recusandae doloremque voluptas ducimus deleniti fuga nisi dicta aperiam corrupti repudiandae cupiditate placeat earum dolore non labore natus consequuntur in aspernatur cum? Nostrum ad delectus atque quos illum sapiente earum? Quos deserunt dicta, deleniti accusamus inventore necessitatibus!
-                        </p>
-                    </div>
-                </div>
-                <div>
-                     <div>
-	                 <h2>의류 상품의 평가</h2>
-	                     <p>
-	                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus ratione rerum ad, facilis recusandae doloremque voluptas ducimus deleniti fuga nisi dicta aperiam corrupti repudiandae cupiditate placeat earum dolore non labore natus consequuntur in aspernatur cum? Nostrum ad delectus atque quos illum sapiente earum? Quos deserunt dicta, deleniti accusamus inventore necessitatibus!
-	                     </p>
-                     </div>
-                </div>
-            </div>    
+		
+        <section class=d-flex id="category">
+        <div id="knit">
+        	<a th:href="@{/product/list/{categoryid}(categoryid=10)}">
+        	<img alt="" src="/img/knit.jpg" width="40%">
+        	<span class="bottomadd"><b>Knit</b></span>
+        	</a>
+        </div>
+        <div id="outer">
+			<a th:href="@{/product/list/{categoryid}(categoryid=20)}">
+        	<img alt="" src="/img/outer.jpg" width="40%">
+        	<span class="bottomadd"><b>Outer</b></span>
+        	</a>
+        </div>
+        <div id="dress">
+			<a th:href="@{/product/list/{categoryid}(categoryid=30)}">
+        	<img alt="" src="/img/dress.jpg" width="40%">
+        	<span class="bottomadd"><b>Dress</b></span>
+        	</a>
+        </div>
+        <div id="etc">
+			<a th:href="@{/product/list/{categoryid}(categoryid=40)}">
+        	<img alt="" src="/img/etc.jpg" width="40%">
+        	<span class="bottomadd"><b>Etc</b></span>
+        	</a>
+        </div>
         </section>
 	</div>
 </body>

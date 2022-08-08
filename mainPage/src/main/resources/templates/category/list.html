@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<header th:insert="/headerNav"></header>
+	<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>상품 아이디</th>
+					<th>카테고리</th>
+			    </tr>
+			</thead>
+			<tbody>
+				<tr th:each="category : ${categoryList}">
+					<td th:text="${category.categoryId}"></td>
+					<td th:text="${category.categoryName}"></td>
+				</tr>
+			</tbody>
+		</table>
+</body>
+</html>
