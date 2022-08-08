@@ -1,7 +1,6 @@
 
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<link rel="stylesheet" href="/css/pagination.css" >
 	<nav aria-label="Page navigation example">
 		<ul class="pagination">
 			<li class="page-item" th:classappend="${ (pagination.yourFirst) ? '' : 'disabled' }">
@@ -30,7 +29,7 @@
       			<a class="page-link" th:href="@{{url}{page}(url=${pagination.url},page=${pagination.lastPage})}">
 		      	  <span aria-hidden="true">&raquo;</span>
 		      	</a>
-    </li>
+   			</li>
 		</ul>
 	</nav> 
 </html> 

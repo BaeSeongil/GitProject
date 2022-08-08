@@ -1,5 +1,5 @@
 const insertForm=document.forms.insertForm;
-const checkIdUrl="/user/idCheck/";
+const checkIdUrl="/users/idCheck/";
 const idHelp=document.getElementById("idHelp");
 
 insertForm["userid"].addEventListener("change",checkId);

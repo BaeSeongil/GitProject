@@ -76,7 +76,11 @@ public class UsersController {
 	public String signup(UsersDto user) {
 		int insert=0;
 		System.out.println(user);
-		insert=usersMapper.insertOne(user);
+		try {
+			insert=usersMapper.insertOne(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		if(insert>0) {
 			return "redirect:/users/list/1";
 		}else {
@@ -94,8 +98,10 @@ public class UsersController {
 	public String update(UsersDto user) {
 		int update=0;
 		try {
-			update = usersMapper.updateOne(user);			
-		}catch(Exception e) {
+			update=usersMapper.updateOne(user);
+			System.out.println(user);
+			System.out.println(update);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		if(update>0) {
@@ -125,6 +131,4 @@ public class UsersController {
 			return "redirect:/users/detail/"+userId;
 		}
 	} 	
-	
-	
 }
