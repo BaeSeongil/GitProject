@@ -22,10 +22,15 @@
  	</select>
  	
  	<update id="updateOne" parameterType="UsersDto">
- 		UPDATE USERS SET userid=#{userid}, username=#{username},
- 		userpw=#{userpw}, phone=#{phone}, email=#{email},
- 		birth=#{birth}, address=#{address}, signup=#{signup}
- 		WHERE userid=#{userid}
+ 		UPDATE USERS SET 
+ 			userid=#{userid}, 
+ 			username=#{username},
+ 			userpw=#{userpw}, 
+ 			phone=#{phone}, 
+ 			email=#{email},
+ 			birth=#{birth},
+ 			address=#{address}
+ 			WHERE userid=#{userid}
  	</update>
  	
  	<insert id="insertOne" parameterType="UsersDto">
