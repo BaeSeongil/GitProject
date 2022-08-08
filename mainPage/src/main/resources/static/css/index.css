@@ -57,32 +57,36 @@ body{
 .content .inner div ol li{
 	padding-bottom: 15px;
 }
+#category{
+   flex-wrap: wrap;
+   justify-content: center;
+}
 .knit{
    position: relative;
    background-image: url(/img/knit.jpg);
-   width : 48%;
-   height: 300px; 
+   width : 49%;
+   height: 400px; 
     background-size: cover;
 }
 .outer{
    position: relative;
    background-image: url(/img/outer.jpg);
-   width : 48%;
-   height: 300px;
+   width : 49%;
+   height: 400px;
     background-size: cover;
 }
 .dress{
    position: relative;
    background-image: url(/img/dress.jpg);
-    width : 48%;
-   height: 300px;
+    width : 49%;
+   height: 400px;
     background-size: cover;
 }
 .etc{
    position: relative;
    background-image: url(/img/etc.jpg);
-    width : 48%;
-   height: 300px;
+    width : 49%;
+   height: 400px;
     background-size: cover;
 }
 .img .content, .content>a{
