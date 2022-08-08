@@ -24,16 +24,36 @@
 			</div>
 			<video src="/medias/shopping.mp4" autoplay muted loop></video>
 		</section>
-		<section  id="category ml-5">
-        	<div class="container" >
-        		 <div class="text-center">
-			          <img alt="상의" class="rounded float-start" src="/img/knit.jpg" width="23%" >
-			          <img alt="아우터" src="/img/outer.jpg" width="23%">
-			          <img alt="드레스" src="/img/dress.jpg" width="23%">
-			          <img alt="신발" class="rounded float-end" src="/img/etc.jpg" width="23%" >
-			      </div>
-			</div>
+        <section class=d-flex id="category">
+	        <div class="knit">
+	        	<div class="content img-cover">
+		        	<a th:href="@{/product/list/{categoryid}(categoryid=10)}">
+		        		Knit
+		        	</a>
+		        </div>
+	        </div>
+	         <div class="outer">
+	        	<div class="content img-cover">
+	        		<a th:href="@{/product/list/{categoryid}(categoryid=20)}">
+		        		Outer
+		        	</a>
+		        </div>
+	        </div>
+	        <div class="dress">
+				<div class="content img-cover">
+	        		<a th:href="@{/product/list/{categoryid}(categoryid=30)}">
+		        		Dress
+		        	</a>
+		        </div>
+	        </div>
+	        <div class="etc">
+				<div class="content img-cover">
+		        	<a th:href="@{/product/list/{categoryid}(categoryid=40)}">
+		        		Etc.
+		        	</a>
+	        	</div>
+	        </div>
         </section>
-	</div>
+        </div>
 </body>
 </html>
