@@ -57,3 +57,11 @@ body{
 .content .inner div ol li{
 	padding-bottom: 15px;
 }
+#category{
+	flex-wrap: wrap;
+    justify-content: space-evenly
+}
+#knit,#outer,#dress,#etc{
+	width: 48%;
+	height: 300px;
+}
