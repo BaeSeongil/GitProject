@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.project.mainPage.mapper.UsersMapper">
+ 
+ 	<select id="selectPageAll" resultType="UsersDto">
+ 		select * from USERS LIMIT #{startRow},#{pageSize}
+ 	</select>
+ 	
+ 	<select id="selectPageAllCount" resultType = "int" >
+ 		SELECT COUNT(*) FROM USERS 
+ 	</select>
+ 	
+ 	<!-- 로그인 -->
+ 	<select id="selectIdPwOne" resultType="UsersDto">
+ 		SELECT * FROM USERS WHERE userid = #{userId} AND userpw = #{userPw}
+ 	</select>
+ 	
+ 	<select id="selectOne" resultType="UsersDto" parameterType="String">
+ 		SELECT * FROM USERS WHERE userid=#{userId}
+ 	</select>
+ 	
+ 	<update id="updateOne" parameterType="UsersDto">
+ 		UPDATE USERS SET 
+ 			userid=#{userid}, 
+ 			username=#{username},
+ 			userpw=#{userpw}, 
+ 			phone=#{phone}, 
+ 			email=#{email},
+ 			birth=#{birth},
+ 			address=#{address}
+ 			WHERE userid=#{userid}
+ 	</update>
+ 	
+ 	<insert id="insertOne" parameterType="UsersDto">
+	 	 INSERT INTO USERS (userid, username, userpw, phone, email, birth, address, signup)
+	 	 	VALUES (#{userid},#{username},#{userpw},#{phone},
+	 	 	#{email},#{birth},#{address},#{signup})
+ 	</insert>
+ 	
+ 	<delete id="deleteOne" parameterType="UsersDto">
+ 		DELETE FROM USERS WHERE userid=#{userId}
+ 	</delete>
+ 	
+ </mapper>
