@@ -61,29 +61,35 @@
             </div>    
         </section> -->
         <section class=d-flex id="category">
-        <div id="knit">
+        <div class="knit">
+        	<div class="content img-cover">
         	<a th:href="@{/product/list/{categoryid}(categoryid=10)}">
-        	<img alt="" src="/img/knit.jpg" width="40%">
-        	<span class="bottomadd"><b>Knit</b></span>
+        	Knit
         	</a>
         </div>
-        <div id="outer">
-			<a th:href="@{/product/list/{categoryid}(categoryid=20)}">
-        	<img alt="" src="/img/outer.jpg" width="40%">
-        	<span class="bottomadd"><b>Outer</b></span>
+        </div>
+         <div class="outer">
+        	<div class="content img-cover">
+        	<a th:href="@{/product/list/{categoryid}(categoryid=20)}">
+        	Outer
         	</a>
         </div>
+        </div>
+        </section>
+        <section class=d-flex id="category2">
         <div id="dress">
-			<a th:href="@{/product/list/{categoryid}(categoryid=30)}">
-        	<img alt="" src="/img/dress.jpg" width="40%">
-        	<span class="bottomadd"><b>Dress</b></span>
+			<div class="content img-cover">
+        	<a th:href="@{/product/list/{categoryid}(categoryid=30)}">
+        	Dress
         	</a>
+        </div>
         </div>
         <div id="etc">
-			<a th:href="@{/product/list/{categoryid}(categoryid=40)}">
-        	<img alt="" src="/img/etc.jpg" width="40%">
-        	<span class="bottomadd"><b>Etc</b></span>
+			<div class="content img-cover">
+        	<a th:href="@{/product/list/{categoryid}(categoryid=40)}">
+        	Etc.
         	</a>
+        </div>
         </div>
         </section>
 	</div>
