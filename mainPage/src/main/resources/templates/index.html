@@ -13,7 +13,7 @@
 			<div class="heading">
 				<h1>
 					<span>With Acorn Academy</span>
-					SHOOPING HOME
+					SHOPPING
 				</h1>
 				<p>
 					의류 쇼핑몰을 방문해 주셔서 감사합니다.
@@ -25,15 +25,31 @@
 			<video src="/medias/shopping.mp4" autoplay muted loop></video>
 		</section>
 		
-		<section class="content">
-		
-			<div class="text-center">
-	  			<img src="/pulic/image/tshirt.jpg" class="rounded" alt="">
-	  			<img src="" class="rounded" alt="">
-	  			<img src="" class="rounded" alt="">
-	  			<img src="" class="rounded" alt="">
-			</div>
-			           
+        <section class=d-flex id="category">
+        <div id="knit">
+        	<a th:href="@{/product/list/{categoryid}(categoryid=10)}">
+        	<img alt="" src="/img/knit.jpg" width="40%">
+        	<span class="bottomadd"><b>Knit</b></span>
+        	</a>
+        </div>
+        <div id="outer">
+			<a th:href="@{/product/list/{categoryid}(categoryid=20)}">
+        	<img alt="" src="/img/outer.jpg" width="40%">
+        	<span class="bottomadd"><b>Outer</b></span>
+        	</a>
+        </div>
+        <div id="dress">
+			<a th:href="@{/product/list/{categoryid}(categoryid=30)}">
+        	<img alt="" src="/img/dress.jpg" width="40%">
+        	<span class="bottomadd"><b>Dress</b></span>
+        	</a>
+        </div>
+        <div id="etc">
+			<a th:href="@{/product/list/{categoryid}(categoryid=40)}">
+        	<img alt="" src="/img/etc.jpg" width="40%">
+        	<span class="bottomadd"><b>Etc</b></span>
+        	</a>
+        </div>
         </section>
 	</div>
 </body>

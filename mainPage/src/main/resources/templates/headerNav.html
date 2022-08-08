@@ -5,21 +5,24 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 
 <nav class="navbar navbar-expand-lg bg-light">
-	<div class="container-fluid">
-		<div class="d-flex m-1">
-			<a class="navbar-brand" href="/">HOME</a>
-			</div>
-		<div class="d-flex justify-content-end collapse navbar-collapse" >
-			<div class="mb-0">
-				<form class="d-flex" role="search">
-				<input class="form-control" type="search" placeholder="Search" aria-label="Search">
-				<button class="btn btn-outline-success btn-sm "data-bs-toggle="collapse" 
-								style="-bs-btn-padding-y: .3rem;" type="submit">Search</button>
-				</form>
-			</div>
-		</div>
+  <div class="container-fluid">
+ 	<div class="d-flex m-1">
+  		<a class="navbar-brand" href="/">HOME</a>
 	</div>
+    <div class="d-flex justify-content-end collapse navbar-collapse" >
+    	<div class="mb-0">
+	    	<form class="d-flex" role="search">
+	        	<input class="form-control" type="search" placeholder="Search" aria-label="Search">
+	        	<button class="btn btn-outline-success btn-sm " 
+	        		data-bs-toggle="collapse" 
+	        		style="-bs-btn-padding-y: .3rem;"
+	        		type="submit">Search</button>
+	     	</form>
+	    </div>
+    </div>
+  </div>
 </nav>
+
 
 <nav class="navbar navbar-expand-lg bg-light">
 	<div class="container-fluid">	
@@ -49,7 +52,7 @@
 		<div class="d-flex justify-content-end m-1">
 			<th:block th:if="${session.loginUsers == null}">
 				<a class="btn btn-sm btn-outline-secondary" href="/users/login.do">로그인</a>
-				<a class="btn btn-sm btn-light">회원가입</a> 
+				<a href="/users/signup.do" class="btn btn-sm btn-light">회원가입</a> 
 			</th:block>
 			<th:block th:unless="${session.loginUsers == null}">
 				<a th:href="@{/users/detail/{userid}(userid=${session.loginUsers.userid})}" class="btn btn-sm btn-outline-secondary">
@@ -60,6 +63,7 @@
 			</th:block>
 		</div>
 	</div>
+
 </nav>
 
 </html>

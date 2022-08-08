@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.project.mainPage.dto.IdCheck;
 import com.project.mainPage.dto.Pagination;
 import com.project.mainPage.dto.UsersDto;
 import com.project.mainPage.mapper.UsersMapper;
@@ -68,10 +70,56 @@ public class UsersController {
 		System.out.println("로그아웃 성공");
 		return "redirect:/";
 	}
-	
-	
-	
-	 	
+	@GetMapping("/signup.do")
+	public void signup() {}
+	@PostMapping("/signup.do")
+	public String signup(UsersDto user) {
+		int insert=0;
+		System.out.println(user);
+		insert=usersMapper.insertOne(user);
+		if(insert>0) {
+			return "redirect:/users/list/1";
+		}else {
+			return "redirect:/users/signup.do";
+		}
+	}
+	@GetMapping("/detail/{userId}")
+	public String detail(@PathVariable String userId, Model model) {
+		UsersDto user = usersMapper.selectOne(userId);
+		model.addAttribute(user);
+		System.out.println(user);
+		return "users/detail";
+	}
+	@PostMapping("/update.do")
+	public String update(UsersDto user) {
+		int update=0;
+		update=usersMapper.updateOne(user);
+		if(update>0) {
+			return "redirect:/users/list/1";
+		}else {
+			return "redirect:/users/detail/"+user.getUserid();
+		}
+	}
+	@GetMapping("/idCheck/{userId}")
+	public @ResponseBody IdCheck idCheck(@PathVariable String userId) {
+		IdCheck idCheck = new IdCheck();
+		UsersDto user=usersMapper.selectOne(userId);
+		if(user!=null) {
+			idCheck.idCheck=true;
+			idCheck.user=user;
+		}
+		return idCheck;
+	}
+	@GetMapping("/delete/{userId}")
+	public String delete(@PathVariable String userId) {
+		int delete=0;
+		delete=usersMapper.deleteOne(userId);
+		if(delete>0) {
+			return "redirect:/users/list/1";
+		}else {
+			return "redirect:/users/detail/"+userId;
+		}
+	} 	
 	
 	
 }
