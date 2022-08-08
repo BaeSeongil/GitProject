@@ -57,33 +57,35 @@ body{
 .content .inner div ol li{
 	padding-bottom: 15px;
 }
-#category{
+.category{
 	flex-wrap: wrap;
+	overflow : auto;
     justify-content: space-evenly
+    
 }
 .knit{
 	position: relative;
 	background-image: url(/img/knit.jpg);
 	width : 48%;
-	height: 300px;
     background-size: cover;
 }
 .outer{
 	position: relative;
 	background-image: url(/img/outer.jpg);
 	width : 48%;
-	height: 300px;
-    background-size: cover;
+	float : right;
 }
 .dress{
 	position: relative;
+	width : 48%;
 	background-image: url(/img/dress.jpg);
-	
+	 background-size: cover;
 }
 .etc{
 	position: relative;
+	width : 48%;
 	background-image: url(/img/etc.jpg);
-	
+	 background-size: cover;
 }
 .img .content, .content>a{
 	position: absolute;
