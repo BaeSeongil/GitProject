@@ -27,10 +27,10 @@ public class UsersDto {
 	private String userpw;
 	private String phone;
 	private String email;
-	@DateTimeFormat(pattern =  "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birth;
 	private String address;
-	@DateTimeFormat(pattern =  "yyyy-MM-dd'T'HH:mm")
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
 	private Date signup;
 	
 }

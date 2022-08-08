@@ -97,6 +97,14 @@
 			  </div>
 			</div>
 			<div class="row mb-3 g-3 align-items-center">
+			  <div class="col-auto">
+			    <label for="inputAddress" class="col-form-label">가입일</label>
+			  </div>
+			  <div class="col-auto" >
+			    <input type="datetime-local" name="signup" id="inputSignup" class="form-control">
+			  </div>
+			</div>
+			<div class="row mb-3 g-3 align-items-center">
 				<div class="col-auto">
 				<button type="reset" class="btn btn-light">초기화</button>
 				</div>
@@ -107,4 +115,7 @@
 		</form>
 	</main>
 </body>
+<script type="text/javascript">
+document.getElementById('inputSignup').value=new Date().toISOString().slice(0, 16);
+</script>
 </html>
