@@ -115,20 +115,3 @@ body{
    background-color: rgba(0, 0, 0, 0.2);                                                                 
    z-index:1;
 }
-#footerConfig{
-	width: 100%;
-    background: #f0f0f0;
-    overflow: hidden;
-    word-break: keep-all;
-    padding: 40px;
-}
-.footerList{
-	display: inline-block;
-    float: none;
-    text-align: center;
-}
-.footerList>a{
-	text-decoration: none;
-	margin-right: 15px;
-	color: black;
-}
