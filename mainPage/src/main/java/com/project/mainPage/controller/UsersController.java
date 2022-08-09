@@ -129,5 +129,12 @@ public class UsersController {
 		}else {
 			return "redirect:/users/detail/"+userId;
 		}
-	} 	
+	} 
+	@GetMapping("/agreement")
+	public void agreement() {};
+	@GetMapping("/privacy")
+	public void privacy() {};
+	@GetMapping("/emailRejection")
+	public void emailRejection() {};
+	
 }
