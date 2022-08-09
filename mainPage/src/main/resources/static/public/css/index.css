@@ -57,32 +57,36 @@ body{
 .content .inner div ol li{
 	padding-bottom: 15px;
 }
+#category{
+   flex-wrap: wrap;
+   justify-content: center;
+}
 .knit{
    position: relative;
    background-image: url(/img/knit.jpg);
-   width : 48%;
-   height: 300px; 
+   width : 49%;
+   height: 400px; 
     background-size: cover;
 }
 .outer{
    position: relative;
    background-image: url(/img/outer.jpg);
-   width : 48%;
-   height: 300px;
+   width : 49%;
+   height: 400px;
     background-size: cover;
 }
 .dress{
    position: relative;
    background-image: url(/img/dress.jpg);
-    width : 48%;
-   height: 300px;
+    width : 49%;
+   height: 400px;
     background-size: cover;
 }
 .etc{
    position: relative;
    background-image: url(/img/etc.jpg);
-    width : 48%;
-   height: 300px;
+    width : 49%;
+   height: 400px;
     background-size: cover;
 }
 .img .content, .content>a{
@@ -111,6 +115,7 @@ body{
    background-color: rgba(0, 0, 0, 0.2);                                                                 
    z-index:1;
 }
+
 #category{
    flex-wrap: wrap;
    justify-content: center;
@@ -142,4 +147,22 @@ body{
     width : 49%;
    height: 400px;
     background-size: cover;
+}
+
+#footerConfig{
+	width: 100%;
+    background: #f0f0f0;
+    overflow: hidden;
+    word-break: keep-all;
+    padding: 40px;
+}
+.footerList{
+	display: inline-block;
+    float: none;
+    text-align: center;
+}
+.footerList>a{
+	text-decoration: none;
+	margin-right: 15px;
+	color: black;
 }
