@@ -1,0 +1,168 @@
+@charset "UTF-8";
+body{
+    font-size: 25px;      
+    line-height: 1.8rem; 
+}
+.shopping{
+	margin: 10px;
+    height: 50vh;                    
+    position: relative;            
+    overflow: hidden;         
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to left, black,  transparent);
+}
+.shopping video{
+    position: absolute;          
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -1;                 
+
+}
+.shopping .heading{
+    text-align: center;
+    width: 60%;
+    color:#fff;
+}
+.shopping .heading h1{
+    font-weight: 500;
+    line-height: 1.6em;
+    font-size: 2em;
+}
+.shopping .heading span{
+    color: red;
+    display: block;
+}
+.content{
+    padding: 50px;
+    display: flex;
+    justify-content: center;
+}
+.content .inner{
+	/* border : 1px solid; */
+	text-align: center;
+    width: 1280px;
+    display: flex;
+    justify-content: center;
+    gap: 70px ; 
+}
+
+.content .inner div h2{
+	padding-bottom: 15px;
+}
+.content .inner div ol li{
+	padding-bottom: 15px;
+}
+#category{
+   flex-wrap: wrap;
+   justify-content: center;
+}
+.knit{
+   position: relative;
+   background-image: url(/img/knit.jpg);
+   width : 49%;
+   height: 400px; 
+    background-size: cover;
+}
+.outer{
+   position: relative;
+   background-image: url(/img/outer.jpg);
+   width : 49%;
+   height: 400px;
+    background-size: cover;
+}
+.dress{
+   position: relative;
+   background-image: url(/img/dress.jpg);
+    width : 49%;
+   height: 400px;
+    background-size: cover;
+}
+.etc{
+   position: relative;
+   background-image: url(/img/etc.jpg);
+    width : 49%;
+   height: 400px;
+    background-size: cover;
+}
+.img .content, .content>a{
+   position: absolute;
+     top:50%;
+     left:50%;
+     transform: translate(-50%, -50%);                                                                   
+     font-size:3.5rem;
+     color: white;
+     z-index: 2;
+     text-align: center;
+     text-decoration: none;
+}
+.content>a:hover{
+   position: absolute;
+    text-decoration: none;
+    font-size:3.5rem;
+     color: black;
+     z-index: 2;
+    text-align: center;
+}
+.img-cover:hover{
+   position: absolute;
+   height: 100%;
+   width: 100%;
+   background-color: rgba(0, 0, 0, 0.2);                                                                 
+   z-index:1;
+}
+
+#category{
+   flex-wrap: wrap;
+   justify-content: center;
+}
+.knit{
+   position: relative;
+   background-image: url(/img/knit.jpg);
+   width : 49%;
+   height: 400px; 
+    background-size: cover;
+}
+.outer{
+   position: relative;
+   background-image: url(/img/outer.jpg);
+   width : 49%;
+   height: 400px;
+    background-size: cover;
+}
+.pants{
+   position: relative;
+   background-image: url(/img/pants.jpg);
+    width : 49%;
+   height: 400px;
+    background-size: cover;
+}
+.etc{
+   position: relative;
+   background-image: url(/img/etc.jpg);
+    width : 49%;
+   height: 400px;
+    background-size: cover;
+}
+
+#footerConfig{
+	width: 100%;
+    background: #f0f0f0;
+    overflow: hidden;
+    word-break: keep-all;
+    padding: 40px;
+}
+.footerList{
+	display: inline-block;
+    float: none;
+    text-align: center;
+}
+.footerList>a{
+	text-decoration: none;
+	margin-right: 15px;
+	color: black;
+}

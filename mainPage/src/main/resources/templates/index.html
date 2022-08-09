@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/public/css/index.css">
 </head>
 
 <body>
@@ -24,33 +24,70 @@
 			</div>
 			<video src="/medias/shopping.mp4" autoplay muted loop></video>
 		</section>
-		
         <section class=d-flex id="category">
-        <div id="knit">
-        	<a th:href="@{/product/list/{categoryid}(categoryid=10)}">
-        	<img alt="" src="/img/knit.jpg" width="40%">
-        	<span class="bottomadd"><b>Knit</b></span>
-        	</a>
-        </div>
-        <div id="outer">
-			<a th:href="@{/product/list/{categoryid}(categoryid=20)}">
-        	<img alt="" src="/img/outer.jpg" width="40%">
-        	<span class="bottomadd"><b>Outer</b></span>
-        	</a>
-        </div>
-        <div id="dress">
-			<a th:href="@{/product/list/{categoryid}(categoryid=30)}">
-        	<img alt="" src="/img/dress.jpg" width="40%">
-        	<span class="bottomadd"><b>Dress</b></span>
-        	</a>
-        </div>
-        <div id="etc">
-			<a th:href="@{/product/list/{categoryid}(categoryid=40)}">
-        	<img alt="" src="/img/etc.jpg" width="40%">
-        	<span class="bottomadd"><b>Etc</b></span>
-        	</a>
-        </div>
+	        <div class="knit">
+	        	<div class="content img-cover">
+		        	<a th:href="@{/product/list/{categoryid}(categoryid=10)}">
+		        		Knit
+		        	</a>
+		        </div>
+	        </div>
+	         <div class="outer">
+	        	<div class="content img-cover">
+	        		<a th:href="@{/product/list/{categoryid}(categoryid=20)}">
+		        		Outer
+		        	</a>
+		        </div>
+	        </div>
+	        <div class="pants">
+				<div class="content img-cover">
+	        		<a th:href="@{/product/list/{categoryid}(categoryid=30)}">
+		        		pants
+		        	</a>
+		        </div>
+	        </div>
+	        <div class="etc">
+				<div class="content img-cover">
+		        	<a th:href="@{/product/list/{categoryid}(categoryid=40)}">
+		        		Etc.
+		        	</a>
+	        	</div>
+	        </div>
         </section>
-	</div>
+        </div>
 </body>
+<footer>
+	<div id="footerConfig">
+		<ul>
+			<li class="footerList">
+				<a href="/users/agreement">서비스이용약관</a>
+			</li>
+			<li class="footerList">
+				<a href="/users/privacy">개인정보취급방침</a>
+			</li>
+			<li class="footerList">
+				<a href="/users/emailRejection">이메일무단수집거부</a>
+			</li>
+		</ul>
+		<address>
+			<span>
+			서울특별시 마포구 양화로 122 LAB7 빌딩 3층, 4층
+			<b>|</b>
+			회사명 : 에이콘 쇼핑몰
+			<b>|</b>
+			대표 : 
+			<b>|</b>
+			</span>
+		</address>
+		<div class="fInfo">
+			<span>
+				사업자번호 : 116-81-07777
+				<b>|</b>
+				개인정보 보호관리자 : 
+			</span>
+			<span>COPYRIGHTⓒ2022 Acorn. All Right Reserved.</span>
+		
+		</div>
+	</div>
+</footer>
 </html>

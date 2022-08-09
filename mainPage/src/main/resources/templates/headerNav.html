@@ -3,6 +3,7 @@
 <link rel="stylesheet" href="/bootstrap-5.2.0-dist/css/bootstrap.css">
 <script th:src="@{/bootstrap-5.2.0-dist/js/bootstrap.bundle.js}"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+<link rel="stylesheet" href="/css/hover.css">
 
 <nav class="navbar navbar-expand-lg bg-light">
   <div class="container-fluid">
@@ -32,9 +33,33 @@
 					<a class="nav-link bi bi-clipboard-fill" href="/users/list/1">회원리스트</a>
 				</li>
 				
+<<<<<<< HEAD
 				<li class="nav-item">
-					<a class="nav-link" href="/category/list/1">카테고리</a>
+				<div class="dropdown">
+			      <button class="dropbtn"> 
+			        카테고리
+			      </button>
+			      <div class="dropdown-content">
+			        <a class="nav-link" href="/category/list/1">profile</a>
+			        <a href="#">write a post</a>
+			        <a href="#">settings</a>
+			      </div>
+			    </div>
 				</li>
+=======
+				<li class="nav-item dropdown">
+         			<a class="nav-link dropdown-toggle"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
+           				카테고리
+         			</a>
+		          	<ul class="dropdown-menu">
+		            	<li><a class="dropdown-item" href="/category/list/1">상의</a></li>
+		            	<li><a class="dropdown-item" href="#">하의</a></li>
+		            	<li><a class="dropdown-item" href="#">아우터</a></li>
+		            	<li><a class="dropdown-item" href="#">신발</a></li>
+		            	<li><a class="dropdown-item" href="#">모자</a></li>
+		          	</ul>
+        		</li>
+>>>>>>> 93d1c0300e5c438fea59b34ce6da804b7d83ecf5
 				
 				<li class="nav-item">
 					<a class="nav-link" href="#">Outer</a>
