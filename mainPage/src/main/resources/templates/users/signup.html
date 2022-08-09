@@ -14,21 +14,21 @@
 		<form action="/users/signup.do" name="insertForm" method="post">
 			<div class="row mb-3 g-3 align-items-center">
 				<div class="col-auto">
-				아이디
+					아이디
 				</div>
 				<div class="col-auto d-flex justify-content-between">
 					<input name="userid" type="text" class="form-control" aria-describedby="idHelp" required>
 				</div>
 				<div class="col-auto">
-				    <span id="idHelp" class="col-auto form-text">
-			     	&nbsp; 최소 네글자이상이어야 합니다.
-				    </span>
-				    <span class="valid-feedback">
-			     	&nbsp; 사용 가능한 아이디
-				    </span>
-				    <span class="invalid-feedback">
-			     	&nbsp; 중복된 아이디
-				    </span>
+					<span id="idHelp" class="col-auto form-text">
+						&nbsp; 최소 네글자이상이어야 합니다.
+					</span>
+					<span class="valid-feedback">
+						&nbsp; 사용 가능한 아이디
+					</span>
+					<span class="invalid-feedback">
+						&nbsp; 중복된 아이디
+					</span>
 				</div>
 			</div>
 			<div class="row mb-3 g-3 align-items-center">
@@ -47,62 +47,60 @@
 					<input id="inputPw" class="form-control" name="userpw" type="text" aria-describedby="pwHelp" required>
 				</div>	
 				<div class="col-auto">
-			    <span id="pwHelp" class="form-text">
-			      최소 4자리이상이어야 합니다.
-			    </span>
-			  </div>			
+					<span id="pwHelp" class="form-text">
+						최소 4자리이상이어야 합니다.
+					</span>
+				</div>			
 			</div>
 			<div class="row mb-3 g-3 align-items-center">
-			  <div class="col-auto">
-			    <label for="inputPhone" class="col-form-label">Phone</label>
-			  </div>
-			  <div class="col-auto">
-			    <input type="tel" name="phone" id="inputPhone" class="form-control"
-			     aria-describedby="phoneHelp" required>
-			  </div>
-			  <div class="col-auto">
-			    <span id="phoneHelp" class="form-text">
-			      Must be 000-0000-0000 pattern.
-			    </span>
-			  </div>
+				<div class="col-auto">
+					<label for="inputPhone" class="col-form-label">Phone</label>
+				</div>
+				<div class="col-auto">
+					<input type="tel" name="phone" id="inputPhone" class="form-control" aria-describedby="phoneHelp" required>
+				</div>
+				<div class="col-auto">
+					<span id="phoneHelp" class="form-text">
+						Must be 000-0000-0000 pattern.
+					</span>
+				</div>
 			</div>
 			<div class="row mb-3 g-3 align-items-center">
-			  <div class="col-auto">
-			    <label for="inputEmail" class="col-form-label">Email</label>
-			  </div>
-			  <div class="col-auto">
-			    <input type="email" name="email" id="inputEmail" class="form-control"
-			     aria-describedby="emailHelp" required>
-			  </div>
-			  <div class="col-auto">
-			    <span id="emailHelp" class="form-text">
-			      Must be id@domain pattern.
-			    </span>
-			  </div>
+				<div class="col-auto">
+					<label for="inputEmail" class="col-form-label">Email</label>
+				</div>
+				<div class="col-auto">
+					<input type="email" name="email" id="inputEmail" class="form-control" aria-describedby="emailHelp" required>
+				</div>
+				<div class="col-auto">
+					<span id="emailHelp" class="form-text">
+						Must be id@domain pattern.
+					</span>
+				</div>
 			</div>
 			<div class="row mb-3 g-3 align-items-center">
-			  <div class="col-auto">
-			    <label for="inputBirth" class="col-form-label">생일</label>
-			  </div>
-			  <div class="col-auto">
-			    <input type="date" name="birth" id="inputBirth" class="form-control" required>
-			  </div>
+				<div class="col-auto">
+					<label for="inputBirth" class="col-form-label">생일</label>
+				</div>
+				<div class="col-auto">
+					<input type="date" name="birth" id="inputBirth" class="form-control" required>
+				</div>
 			</div>
 			<div class="row mb-3 g-3 align-items-center">
-			  <div class="col-auto">
-			    <label for="inputAddress" class="col-form-label">주소</label>
-			  </div>
-			  <div class="col-auto">
-			    <input type="text" size="50" name="address" id="inputAddress" class="form-control" required>
-			  </div>
+				<div class="col-auto">
+					<label for="inputAddress" class="col-form-label">주소</label>
+				</div>
+				<div class="col-auto">
+					<input type="text" size="50" name="address" id="inputAddress" class="form-control" required>
+				</div>
 			</div>
 			<div class="row mb-3 g-3 align-items-center">
-			  <div class="col-auto">
-			    <label for="inputAddress" class="col-form-label">가입일</label>
-			  </div>
-			  <div class="col-auto" >
-			    <input type="datetime-local" name="signup" id="inputSignup" class="form-control">
-			  </div>
+				<div class="col-auto">
+			   		<label for="inputAddress" class="col-form-label">가입일</label>
+				</div>
+				<div class="col-auto" >
+					<input type="datetime-local" name="signup" id="inputSignup" class="form-control">
+				</div>
 			</div>
 			<div class="row mb-3 g-3 align-items-center">
 				<div class="col-auto">
@@ -116,6 +114,6 @@
 	</main>
 </body>
 <script type="text/javascript">
-document.getElementById('inputSignup').value=new Date().toISOString().slice(0, 16);
+	document.getElementById('inputSignup').value=new Date().toISOString().slice(0, 16);
 </script>
 </html>
