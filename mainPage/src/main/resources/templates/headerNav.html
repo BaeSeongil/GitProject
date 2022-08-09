@@ -9,16 +9,6 @@
  	<div class="d-flex m-1">
   		<a class="navbar-brand" href="/">HOME</a>
 	</div>
-    <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button> -->
-   <!--  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/"></a>
-        </li>
-      </ul>
-    </div> -->
     <div class="d-flex justify-content-end collapse navbar-collapse" >
     	<div class="mb-0">
 	    	<form class="d-flex" role="search">
@@ -33,58 +23,7 @@
   </div>
 </nav>
 
-<!-- <nav class="navbar navbar-expand-lg bg-light">
-  <div class="container-fluid">
-  	
-    <div class="d-flex justify-content-around collapse navbar-collapse" id="navbarNav">
-      
-      <ul class="mb-0 navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Top</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Shirt</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Knit</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Outer</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Dress</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Etc</a>
-        </li>
-      </ul>
-      </div>
-      
-       <div class="d-flex justify-content-end m-1">
-		    <a class="btn btn-sm btn-outline-secondary">로그인</a>
-	    	<a class="btn btn-sm btn-light">회원가입</a> 
-	   </div>
-    
-    
-   
-  </div>
 
-	<div class="container-fluid">
-		<div class="d-flex m-1">
-			<a class="navbar-brand" href="/">HOME</a>
-			</div>
-		<div class="d-flex justify-content-end collapse navbar-collapse" >
-			<div class="mb-0">
-				<form class="d-flex" role="search">
-				<input class="form-control" type="search" placeholder="Search" aria-label="Search">
-				<button class="btn btn-outline-success btn-sm "data-bs-toggle="collapse" 
-								style="-bs-btn-padding-y: .3rem;" type="submit">Search</button>
-				</form>
-			</div>
-		</div>
-	</div>
-</nav>
- -->
 <nav class="navbar navbar-expand-lg bg-light">
 	<div class="container-fluid">	
 		<div class="d-flex justify-content-around collapse navbar-collapse" id="navbarNav"> 
@@ -93,9 +32,18 @@
 					<a class="nav-link bi bi-clipboard-fill" href="/users/list/1">회원리스트</a>
 				</li>
 				
-				<li class="nav-item">
-					<a class="nav-link" href="#">Knit</a>
-				</li>
+				<li class="nav-item dropdown">
+         			<a class="nav-link dropdown-toggle"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
+           				카테고리
+         			</a>
+		          	<ul class="dropdown-menu">
+		            	<li><a class="dropdown-item" href="/category/list/1">상의</a></li>
+		            	<li><a class="dropdown-item" href="#">하의</a></li>
+		            	<li><a class="dropdown-item" href="#">아우터</a></li>
+		            	<li><a class="dropdown-item" href="#">신발</a></li>
+		            	<li><a class="dropdown-item" href="#">모자</a></li>
+		          	</ul>
+        		</li>
 				
 				<li class="nav-item">
 					<a class="nav-link" href="#">Outer</a>
@@ -112,7 +60,7 @@
 		</div>   
 		<div class="d-flex justify-content-end m-1">
 			<th:block th:if="${session.loginUsers == null}">
-				<a class="btn btn-sm btn-outline-secondary" href="/users/login.do">로그인</a>
+				<a class="btn btn-sm btn-outline-secondary" href="/users/login.do">화원 로그인</a>
 				<a href="/users/signup.do" class="btn btn-sm btn-light">회원가입</a> 
 			</th:block>
 			<th:block th:unless="${session.loginUsers == null}">

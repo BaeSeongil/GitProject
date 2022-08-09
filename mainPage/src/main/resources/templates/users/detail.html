@@ -6,20 +6,21 @@
 </head>
 <body>
 	<header th:insert="/headerNav"></header>
-	<main class="container m-5" >
-		<h1 class="m-3 d-flex justify-content-between align-items-center" >
+		<h1 class="m-5 d-flex justify-content-center align-items-center" >
 			<span>회원 정보</span>
 		</h1>
+	<main class="d-flex justify-content-center" >
 		<form action="/users/update.do" method="post">
 			<div class="row mb-3 g-3 align-items-center">
 				<div class="col-auto">
-				아이디
-				<input name="userid" type="hidden" th:value="${usersDto.userid}">
+					아이디
+					<input name="userid" type="hidden" th:value="${usersDto.userid}">
 				</div>
 				<div class="col-auto">
 					<strong th:text="${usersDto.userid}"></strong>
 				</div>
 			</div>
+			
 			<div class="row mb-3 g-3 align-items-center">
 				<div class="col-auto">
 					<label for ="inputName" class="col-form-label">이름</label>
@@ -28,6 +29,7 @@
 					<input id="inputName" class="form-control" name="username" type="text" th:value="${usersDto.username}">
 				</div>				
 			</div>
+			
 			<div class="row mb-3 g-3 align-items-center">
 				<div class="col-auto">
 					<label for ="inputPw" class="col-form-label">패스워드</label>
@@ -37,69 +39,66 @@
 				</div>				
 			</div>
 			<div class="row mb-3 g-3 align-items-center">
-			  <div class="col-auto">
-			    <label for="inputPhone" class="col-form-label">Phone</label>
-			  </div>
-			  <div class="col-auto">
-			    <input type="tel" name="phone" id="inputPhone" class="form-control"
-			     aria-describedby="phoneHelpInline" th:value="${usersDto.phone}">
-			  </div>
-			  <div class="col-auto">
-			    <span id="phoneHelpInline" class="form-text">
-			      Must be 000-0000-0000 pattern.
-			    </span>
-			  </div>
-			</div>
-			<div class="row mb-3 g-3 align-items-center">
-			  <div class="col-auto">
-			    <label for="inputEmail" class="col-form-label">Email</label>
-			  </div>
-			  <div class="col-auto">
-			    <input type="email" name="email" id="inputEmail" class="form-control"
-			     aria-describedby="emailHelpInline" th:value="${usersDto.email}">
-			  </div>
-			  <div class="col-auto">
-			    <span id="emailHelpInline" class="form-text">
-			      Must be id@domain pattern.
-			    </span>
-			  </div>
-			</div>
-			<div class="row mb-3 g-3 align-items-center">
-			  <div class="col-auto">
-			    <label for="inputBirth" class="col-form-label">생일</label>
-			  </div>
-			  <div class="col-auto">
-			    <input type="date" name="birth" id="inputBirth" class="form-control"
-			     th:value="${#dates.format(usersDto.birth, 'yyyy-MM-dd')}">
-			  </div>
-			</div>
-			<div class="row mb-3 g-3 align-items-center">
-			  <div class="col-auto">
-			    <label for="inputAddress" class="col-form-label">주소</label>
-			  </div>
-			  <div class="col-auto">
-			    <input type="text" size="50" name="address" id="inputAddress" class="form-control"
-			     th:value="${usersDto.address}">
-			  </div>
-			</div>
-			<div class="row mb-3 g-3 align-items-center">
-			  <div class="col-auto">
-			    <label for="inputSignup" class="col-form-label">가입일</label>
-			  </div>
-			  <div class="col-auto">
-			    <input type="datetime-local" name="signup" id="inputSignup" class="form-control"
-			     th:value="${#dates.format(usersDto.signup, 'yyyy-MM-dd''T''HH:mm')}">
-			  </div>
+				<div class="col-auto">
+					<label for="inputPhone" class="col-form-label">Phone</label>
+				</div>
+				
+			 	<div class="col-auto">
+			   		<input type="tel" name="phone" id="inputPhone" class="form-control" aria-describedby="phoneHelpInline" th:value="${usersDto.phone}">
+			  	</div>
+				<div class="col-auto">
+					<span id="phoneHelpInline" class="form-text">
+						Must be 000-0000-0000 pattern.
+					</span>
+				</div>
 			</div>
 			<div class="row mb-3 g-3 align-items-center">
 				<div class="col-auto">
-				<button type="reset" class="btn btn-light">초기화</button>
+					<label for="inputEmail" class="col-form-label">Email</label>
 				</div>
 				<div class="col-auto">
-				<button type="submit" class="btn btn-primary">수정</button>
+					<input type="email" name="email" id="inputEmail" class="form-control" aria-describedby="emailHelpInline" th:value="${usersDto.email}">
 				</div>
 				<div class="col-auto">
-				<a class="btn btn-danger" th:href="@{/users/delete/{userid}(userid=${usersDto.userid})}">삭제</a>
+					<span id="emailHelpInline" class="form-text">
+						Must be id@domain pattern.
+					</span>
+				</div>
+			</div>
+			<div class="row mb-3 g-3 align-items-center">
+				<div class="col-auto">
+					<label for="inputBirth" class="col-form-label">생일</label>
+				</div>
+				<div class="col-auto">
+					<input type="date" name="birth" id="inputBirth" class="form-control" th:value="${#dates.format(usersDto.birth, 'yyyy-MM-dd')}">
+				</div>
+			</div>
+			<div class="row mb-3 g-3 align-items-center">
+				<div class="col-auto">
+			   		<label for="inputAddress" class="col-form-label">주소</label>
+			    </div>
+			    <div class="col-auto">
+			   		<input type="text" size="50" name="address" id="inputAddress" class="form-control" th:value="${usersDto.address}">
+				</div>
+			</div>
+			<div class="row mb-3 g-3 align-items-center">
+				<div class="col-auto">
+			    	<label for="inputSignup" class="col-form-label">가입일</label>
+			  	</div>
+			 	 <div class="col-auto">
+			    	<input type="datetime-local" name="signup" id="inputSignup" class="form-control"
+			    			 th:value="${#dates.format(usersDto.signup, 'yyyy-MM-dd''T''HH:mm')}" readonly>
+			 	 </div>
+			</div>
+			<div class="row mb-3 g-3 align-items-center">
+				<div class="col-auto">
+					<button type="reset" class="btn btn-light">초기화</button>
+				</div>
+				<div class="col-auto">
+					<button type="submit" class="btn btn-primary">수정</button>
+				</div>
+				<div class="col-auto">
+					<a class="btn btn-danger" th:href="@{/users/delete/{userid}(userid=${usersDto.userid})}">삭제</a>
 				</div>
 			</div>
 		</form>
