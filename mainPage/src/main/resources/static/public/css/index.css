@@ -111,3 +111,35 @@ body{
    background-color: rgba(0, 0, 0, 0.2);                                                                 
    z-index:1;
 }
+#category{
+   flex-wrap: wrap;
+   justify-content: center;
+}
+.knit{
+   position: relative;
+   background-image: url(/img/knit.jpg);
+   width : 49%;
+   height: 400px; 
+    background-size: cover;
+}
+.outer{
+   position: relative;
+   background-image: url(/img/outer.jpg);
+   width : 49%;
+   height: 400px;
+    background-size: cover;
+}
+.pants{
+   position: relative;
+   background-image: url(/img/pants.jpg);
+    width : 49%;
+   height: 400px;
+    background-size: cover;
+}
+.etc{
+   position: relative;
+   background-image: url(/img/etc.jpg);
+    width : 49%;
+   height: 400px;
+    background-size: cover;
+}
