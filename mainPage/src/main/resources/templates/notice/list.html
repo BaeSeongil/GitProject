@@ -21,21 +21,16 @@
 					<th>타이틀</th>
 					<th>등록일</th>
 					<th>조회수</th>
-					<th>good</th>
-					<th>bad</th>
-					<th>댓글수</th>
 				</tr>
 			</thead>
 			<tbody>
 				<th:block th:each="notice : ${noticeList}" >
-					<tr>
+					<tr th:onclick="location.href='/notice/detail/[[${notice.notice_no}]]'">
 						<td th:text="${notice.notice_no}"></td>
 						<td th:text="${notice.users?.userid}"></td>
 						<td th:text="${notice.title}"></td>
 						<td th:text="${#dates.format(notice.post_time,'yyyy-MM-dd HH:mm:ss')}"></td>
 						<td th:text="${notice.views}"></td>
-						<td th:text="${notice.good}"></td>
-						<td th:text="${notice.bad}"></td>
 					</tr>				
 				</th:block>
 			</tbody>

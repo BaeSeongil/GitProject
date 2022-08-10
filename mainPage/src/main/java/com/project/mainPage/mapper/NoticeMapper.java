@@ -10,4 +10,6 @@ import com.project.mainPage.dto.Notice;
 @Mapper
 public interface NoticeMapper {
 	List<Notice> selectPageAll();
+	Notice selectDetailOne(int noticeNo);
+	int updateViews(int noticeNo);
 }
