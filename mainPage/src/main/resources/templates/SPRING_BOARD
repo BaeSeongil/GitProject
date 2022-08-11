@@ -85,5 +85,34 @@ INSERT INTO USERS (userid, username, userpw, phone, email, birth, address) VALUE
 ('48907711','하늘미','1234','010-2374-0406','user39@gmail.com','1962-11-29','서울 강남구 언주로93길 22-5 도영빌딩 1층');
 
 
+CREATE TABLE CATEGORY (
+	categoryid INT,
+    categoryName VARCHAR(45),
+    PRIMARY KEY(categoryid)
+);
 
+CREATE TABLE PRODUCT(
+    productid INT,
+    productName VARCHAR(45) NOT NULL,
+    productSize VARCHAR(45) NOT NULL,
+    productColor VARCHAR(45) NOT NULL,
+    productGroup VARCHAR(45) NOT NULL,
+    productInfo TEXT,
+    productStock INT,
+    productDate DATE,
+    price INT NOT NULL,
+    categoryid INT, 
+    PRIMARY KEY(productid),
+    FOREIGN KEY(categoryid) REFERENCES CATEGORY(categoryid)
+    ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE productImg(
+	product_img_no INT AUTO_INCREMENT,
+	productid INT NOT NULL, 
+	img_path VARCHAR(255) NOT NULL,
+	PRIMARY KEY(product_img_no),
+	FOREIGN KEY(productid) REFERENCES  PRODUCT(productid)
+	ON UPDATE CASCADE ON DELETE CASCADE
+);
 
