@@ -50,14 +50,21 @@
 			WHERE n.notice_no = #{noticeNo}
 	</select>
 	
+	<!-- 조회수 -->
 	<update id="updateViews" parameterType="int">
 		UPDATE NOTICE SET 
 			views = views+1
 			WHERE notice_no = #{noticeNo}
 	</update>
 	
+	<!-- 공지사항 등록 -->
 	<insert id="insertOne" parameterType="Notice" useGeneratedKeys="true" keyProperty="notice_no">
 		INSERT INTO NOTICE (title,contents,userid) VALUE (#{title},#{contents},#{users.userid})
 	</insert>
+	
+	<!-- 공지사항 삭제 -->
+	<delete id="deleteOne" parameterType="int">
+		DELETE FROM NOTICE WHERE notice_no = #{noticeNo}
+	</delete>
 	
 </mapper>

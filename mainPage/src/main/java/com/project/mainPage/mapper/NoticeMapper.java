@@ -13,4 +13,5 @@ public interface NoticeMapper {
 	Notice selectDetailOne(int noticeNo);
 	int updateViews(int noticeNo);
 	int insertOne(Notice notice);
+	int deleteOne(int noticeNo);
 }

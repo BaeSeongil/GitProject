@@ -2,7 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.mainPage.mapper.NoticeImgMapper">
+	
 	<insert id="insertOne" parameterType="NoticeImg">
 		INSERT INTO NOTICE_IMG (notice_no,img_path) VALUES (#{notice_no},#{img_path})
 	</insert>
+	
+	<select id="selectNoticeNo" resultType="NoticeImg" parameterType="int">
+		SELECT * FROM NOTICE_IMG WHERE notice_no=#{noticeNo}
+	</select>
 </mapper>
