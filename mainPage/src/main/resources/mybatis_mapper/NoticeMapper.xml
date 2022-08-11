@@ -35,21 +35,17 @@
 	
 	<select id="selectDetailOne" resultMap="NoticeMap">
 		SELECT n.*,
-			u.userid, u.username,
-			r.noticeReply_no,
-			r.title as reply_title,
-			r.contents as reply_contents,
-			r.post_time as reply_post_time,
-			r.img_path as reply_img_path,
-			r.good as reply_good,
-			r.bad as reply_bad,
-			r.userid as reply_userid
+			u.userid,
+			u.username,
+			i.notice_img_no as inotice_img_no,
+			i.img_path as iimg_path
 			
 			FROM NOTICE n INNER JOIN USERS u
 			USING(userid)
 			
-			LEFT JOIN NOTICEREPLY r 
-			USING(userid)
+			LEFT JOIN NOTICE_IMG i 
+			USING(notice_no)
+		
 			
 			WHERE n.notice_no = #{noticeNo}
 	</select>
@@ -59,4 +55,9 @@
 			views = views+1
 			WHERE notice_no = #{noticeNo}
 	</update>
+	
+	<insert id="insertOne" parameterType="Notice" useGeneratedKeys="true" keyProperty="notice_no">
+		INSERT INTO NOTICE (title,contents,userid) VALUE (#{title},#{contents},#{users.userid})
+	</insert>
+	
 </mapper>

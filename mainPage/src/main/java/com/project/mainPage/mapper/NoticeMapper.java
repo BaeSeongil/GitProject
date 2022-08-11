@@ -12,4 +12,5 @@ public interface NoticeMapper {
 	List<Notice> selectPageAll();
 	Notice selectDetailOne(int noticeNo);
 	int updateViews(int noticeNo);
+	int insertOne(Notice notice);
 }

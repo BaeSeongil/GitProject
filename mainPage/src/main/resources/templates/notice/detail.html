@@ -8,20 +8,12 @@
 	<header th:insert="/headerNav"></header>
  	<!-- <p th:text="${notice}"></p>  -->
 	<main class="container">
-		<div class="d-flex justify-content-between">
-			<div>
-				<h1 class="m-5">
-					<span th:text="${notice.notice_no}"></span>. 
-					<span th:text="${notice.title}"></span>
-				</h1>
-			</div> 
-			<div th:if="${session.loginUsers != null && session.loginUsers?.userid == notice.users.userid}"
-				 class="m-5">
-				<a th:href="@{/notice/update/{notice_no}(notice_no=${notice.notice_no})}" class="btn btn-success">
-					수정
-				</a>
-			</div>		
-		</div>
+		<div>
+			<h1 class="m-5">
+				<span th:text="${notice.notice_no}"></span>. 
+				<span th:text="${notice.title}"></span>
+			</h1>
+		</div> 	
 		<p>
 			아이디 : <strong th:text="${notice.users.userid}"></strong> 
 			<br>   
@@ -36,7 +28,7 @@
 		
 		<div>
 			<th:block th:each="noticeImg : ${notice.noticeImgs}">
-				<img th:src="@{/public/img/{fileName}(fileName=${noticeImg.img_path})}" width="200" class="img-thumbnail" alt="게시글 이미지">
+				<img th:src="@{/public/img/{fileName}(fileName=${noticeImg.img_path})}" width="100%" class="img-thumbnail" alt="게시글 이미지">
 			</th:block>
 		</div>
 		<div class="form-floating">
@@ -46,4 +38,5 @@
 	</main>
 	
 </body>
+<footer th:insert="/footer"></footer>
 </html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>공지사항 등록</title>
+</head>
+<body>
+<main class="container">
+	<header th:insert="/headerNav"></header>
+		<h1 class="m-3">공지사항 등록 페이지</h1>
+		
+		<form  action="/notice/insert.do" method="post" class="row g-3 needs-validation" validate enctype="multipart/form-data">
+			<div class="mb-3 was-validated">
+				<label for="inputId" class="form-label">아이디</label>
+				<input name="users.userid" class="form-control" id="inputId" placeholder="" required readonly
+				th:value="${session.loginUsers.userid}">
+			</div>
+			<div class="mb-3 was-validated">
+				<label for="inputTitle" class="form-label">타이틀</label>
+				<input name="title" class="form-control" id="inputTitle" placeholder="타이틀을 입력하세요" required>
+					<div class="invalid-feedback">
+						Please enter a message in the textarea.
+					</div>
+			</div>
+			
+			<div class="mb-3">
+				<label for="inputTitle" class="form-label">이미지</label>
+				<input name="imgFiles" class="form-control mb-1" Type="file">
+			</div>
+			
+			
+			<div class="mb-3 was-validated">
+				<label for="inputContents" class="form-label">내용</label>
+				<textarea name="contents" class="form-control" id="inputContents" placeholder="내용을 입력하세요" required></textarea>
+					<div class="invalid-feedback">
+						Please enter a message in the textarea.
+					</div>
+			</div>
+			<div class="col-12">
+				<button class="btn btn-primary" type="submit">Submit form</button>
+			</div>
+		</form>
+
+	</main>
+</body>
+<footer th:insert="/footer"></footer>
+</html>

@@ -8,8 +8,9 @@
 	<header th:insert="/headerNav"></header>
 <!-- 	<p th:text="${noticeList}"></p> -->
 	<div class="container">
-		<div class = "d-flex justify-content-between mt-5">
+		<div class = "d-flex justify-content-between mt-5 align-items-center">
 			<h1>공지사항</h1>
+			<a href="/notice/insert.do" class="btn btn-primary">공지사항 등록</a>
 		</div>
 	</div>
 	<div class="container mt-5">
@@ -37,4 +38,5 @@
 		</table>
 	</div>
 </body>
+<footer th:insert="/footer"></footer>
 </html>

@@ -85,13 +85,23 @@ public class NoticeController {
 						String newFileName = "notice_"+System.nanoTime()+"."+type.split("/")[1]; 
 						Path newFilePath = Paths.get(savePath+"/"+newFileName);
 						imgFile.transferTo(newFilePath); // 파일데이터를 지정한 file로 저장
-						
-						
+						NoticeImg noticeImg = new NoticeImg();
+						noticeImg.setImg_path(newFileName);
+						noticeImgs.add(noticeImg);						
 					}
 				}
+				if(noticeImgs.size()>0) {
+					notice.setNoticeImgs(noticeImgs);
+				}
 			}
+			insert = noticeService.NoticeAndNoticeImg(notice);
 		}catch(Exception e) {e.printStackTrace();}
-		return "redirect:/notice/list/1";
+		if(insert>0) {
+			return "redirect:/notice/list/1";			
+		}else {
+			return "redirect:/notice/insert.do";						
+		}
+		
 	}
 	
 	
