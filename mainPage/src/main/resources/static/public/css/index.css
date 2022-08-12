@@ -115,3 +115,38 @@ body{
    background-color: rgba(0, 0, 0, 0.2);                                                                 
    z-index:1;
 }
+<<<<<<< HEAD:mainPage/src/main/resources/static/css/index.css
+=======
+#category{
+   flex-wrap: wrap;
+   justify-content: center;
+}
+.knit{
+   position: relative;
+   background-image: url(/img/knit.jpg);
+   width : 49%;
+   height: 400px; 
+    background-size: cover;
+}
+.outer{
+   position: relative;
+   background-image: url(/img/outer.jpg);
+   width : 49%;
+   height: 400px;
+    background-size: cover;
+}
+.pants{
+   position: relative;
+   background-image: url(/img/pants.jpg);
+    width : 49%;
+   height: 400px;
+    background-size: cover;
+}
+.etc{
+   position: relative;
+   background-image: url(/img/etc.jpg);
+    width : 49%;
+   height: 400px;
+    background-size: cover;
+}
+>>>>>>> 25ff19dc9d371fabd0a72d529350f9966cdd4cb6:mainPage/src/main/resources/static/public/css/index.css

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/public/css/index.css">
 </head>
 
 <body>
@@ -24,6 +24,7 @@
 			</div>
 			<video src="/medias/shopping.mp4" autoplay muted loop></video>
 		</section>
+<<<<<<< HEAD
 
 		<!-- <section class="content">
             <div class="inner">
@@ -94,7 +95,39 @@
         </div>
         </div>
 
+=======
+        <section class=d-flex id="category">
+	        <div class="knit">
+	        	<div class="content img-cover">
+		        	<a th:href="@{/product/list/{categoryid}(categoryid=10)}">
+		        		Knit
+		        	</a>
+		        </div>
+	        </div>
+	         <div class="outer">
+	        	<div class="content img-cover">
+	        		<a th:href="@{/product/list/{categoryid}(categoryid=20)}">
+		        		Outer
+		        	</a>
+		        </div>
+	        </div>
+	        <div class="pants">
+				<div class="content img-cover">
+	        		<a th:href="@{/product/list/{categoryid}(categoryid=30)}">
+		        		Pants
+		        	</a>
+		        </div>
+	        </div>
+	        <div class="etc">
+				<div class="content img-cover">
+		        	<a th:href="@{/product/list/{categoryid}(categoryid=40)}">
+		        		Etc.
+		        	</a>
+	        	</div>
+	        </div>
+>>>>>>> 25ff19dc9d371fabd0a72d529350f9966cdd4cb6
         </section>
         </div>
 </body>
+<footer th:insert="/footer"></footer>
 </html>

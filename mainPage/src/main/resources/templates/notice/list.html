@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>공지사항 게시글</title>
+</head>
+<body>
+	<header th:insert="/headerNav"></header>
+<!-- 	<p th:text="${noticeList}"></p> -->
+	<div class="container">
+		<div class = "d-flex justify-content-between mt-5 align-items-center">
+			<h1>공지사항</h1>
+			<a href="/notice/insert.do" class="btn btn-primary">공지사항 등록</a>
+		</div>
+	</div>
+	<div class="container mt-5">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>no</th>
+					<th>글쓴이 아이디</th>
+					<th>타이틀</th>
+					<th>등록일</th>
+					<th>조회수</th>
+				</tr>
+			</thead>
+			<tbody>
+				<th:block th:each="notice : ${noticeList}" >
+					<tr th:onclick="location.href='/notice/detail/[[${notice.notice_no}]]'">
+						<td th:text="${notice.notice_no}"></td>
+						<td th:text="${notice.users?.userid}"></td>
+						<td th:text="${notice.title}"></td>
+						<td th:text="${#dates.format(notice.post_time,'yyyy-MM-dd HH:mm:ss')}"></td>
+						<td th:text="${notice.views}"></td>
+					</tr>				
+				</th:block>
+			</tbody>
+		</table>
+	</div>
+</body>
+<footer th:insert="/footer"></footer>
+</html>

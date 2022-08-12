@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>공지사항 게시글</title>
+</head>
+<body>
+	<header th:insert="/headerNav"></header>
+ 	<!-- <p th:text="${notice}"></p>  -->
+	<main class="container">
+		<div>
+			<h1 class="m-5">
+				<span th:text="${notice.notice_no}"></span>. 
+				<span th:text="${notice.title}"></span>
+				<a th:href="@{/notice/delete/{notice_no}/{userId}(notice_no=${notice.notice_no},userId=${notice.users.userid})}" 
+				class="btn btn-primary">공지사항 삭제</a>
+			</h1>
+		</div> 	
+		<p>
+			아이디 : <strong th:text="${notice.users.userid}"></strong> 
+			<br>   
+			이름 : <strong th:text="${notice.users.username}"></strong>
+		</p>
+		<i class="bi bi-eye"
+			data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="조회수">
+			views : <span th:text="${notice.views}"></span>
+		</i>
+		<br>
+		<span th:text="${#dates.format(notice.post_time,'yyyy-MM-dd HH:mm:ss')}"></span>
+		
+		<div>
+			<th:block th:each="noticeImg : ${notice.noticeImgs}">
+				<img th:src="@{/public/img/{fileName}(fileName=${noticeImg.img_path})}" width="100%" class="img-thumbnail" alt="게시글 이미지">
+			</th:block>
+		</div>
+		<div class="form-floating">
+			<textarea class="form-control" placeholder="Leave a comment here"
+			style="height: 100px; resize: none;" th:text="${notice.contents}" readonly="readonly" ></textarea>
+		</div>
+	</main>
+	
+</body>
+<footer th:insert="/footer"></footer>
+</html>

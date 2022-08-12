@@ -6,19 +6,11 @@
 </head>
 <body>
 	<header th:insert="/headerNav"></header>
-	<table class="table table-striped">
-			<thead>
-				<tr>
-					<th>상품 아이디</th>
-					<th>카테고리</th>
-			    </tr>
-			</thead>
-			<tbody>
-				<tr th:each="category : ${categoryList}">
-					<td th:text="${category.categoryId}"></td>
-					<td th:text="${category.categoryName}"></td>
-				</tr>
-			</tbody>
-		</table>
+		<nav class="m-5 pr-8">
+			<button type="button" class="btn btn-light">티셔츠</button>
+			<button type="button" class="btn btn-light">맨투맨/후드/집업</button>
+			<button type="button" class="btn btn-light">긴팔티셔츠</button>
+		</nav>
+		
 </body>
 </html>
