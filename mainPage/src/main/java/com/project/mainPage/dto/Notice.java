@@ -29,10 +29,7 @@ public class Notice {
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date post_time;
 	private UsersDto users;
-	private int good;
-	private int bad;
 	private int views;
-	private List<NoticeReply> notReply; // 1 : N NoticeReply.notice_no fk
 	private List<NoticeImg> noticeImgs;
 	private int notreplys_size;
 }

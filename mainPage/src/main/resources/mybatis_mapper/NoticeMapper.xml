@@ -26,8 +26,7 @@
 	
 	
 	<select id="selectPageAll" resultType="Notice">
-		SELECT *, notice_no noticeNO,
-			(SELECT COUNT(*) FROM NoticeReply n WHERE n.notice_no = noticeNO) notreplys_size,
+		SELECT *, notice_no noticeNo,
 			n.userid as 'users.userid' 
 			FROM NOTICE n
 			ORDER BY n.notice_no
