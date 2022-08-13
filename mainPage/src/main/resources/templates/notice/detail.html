@@ -12,6 +12,8 @@
 			<h1 class="m-5">
 				<span th:text="${notice.notice_no}"></span>. 
 				<span th:text="${notice.title}"></span>
+				<a th:href="@{/notice/delete/{notice_no}/{userId}(notice_no=${notice.notice_no},userId=${notice.users.userid})}" 
+				class="btn btn-primary">공지사항 삭제</a>
 			</h1>
 		</div> 	
 		<p>

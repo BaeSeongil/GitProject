@@ -116,3 +116,197 @@ CREATE TABLE productImg(
 	ON UPDATE CASCADE ON DELETE CASCADE
 );
 
+CREATE TABLE NOTICE(
+	notice_no INT AUTO_INCREMENT,
+	title VARCHAR(255) NOT NULL,
+	contents VARCHAR(255) DEFAULT '',
+	post_time DATETIME DEFAULT CURRENT_TIMESTAMP(),
+	userid VARCHAR(255) NOT NULL,
+	views INT  NOT NULL DEFAULT 0 ,
+	PRIMARY KEY(notice_no),
+	FOREIGN KEY(userid) REFERENCES USERS(userid)
+	ON UPDATE CASCADE ON DELETE CASCADE
+);
+  
+INSERT INTO NOTICE (title,contents,userid) VALUES 
+('6월 배송 안내','6월 18일(토) 택배없는 날에는 택배사가 휴무로 인하여 택배배송이 불가합니다. 6월17일 오후 2시까지 주문건은 20일부터 순차 출고 진행할 예정입니다.','11240372'),
+('7월 배송 안내','7월 9일(토) 택배없는 날에는 택배사가 휴무로 인하여 택배배송이 불가합니다. 7월8일 오후 2시까지 주문건은 15일부터 순차 출고 진행할 예정입니다.','11240372'),
+('8월 배송 안내','8월 13일(토) 택배없는 날에는 택배사가 휴무로 인하여 택배배송이 불가합니다. 8월12일 오후 2시까지 주문건은 17일부터 순차 출고 진행할 예정입니다.','11240372'),
+('9월 배송 안내','9월 13일(토) 택배없는 날에는 택배사가 휴무로 인하여 택배배송이 불가합니다. 9월12일 오후 2시까지 주문건은 17일부터 순차 출고 진행할 예정입니다.','11240372');
+
+
+CREATE TABLE NOTICE_IMG(
+	notice_img_no INT AUTO_INCREMENT,
+	notice_no INT NOT NULL,
+	img_path VARCHAR(255) NOT NULL,
+	PRIMARY KEY(notice_img_no),
+	FOREIGN KEY(notice_no) REFERENCES NOTICE(notice_no)
+	ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+
+CREATE TABLE BOARD(
+	board_no INT AUTO_INCREMENT,
+	title VARCHAR(255) NOT NULL,
+	contents VARCHAR(255) DEFAULT '',
+	post_time DATETIME DEFAULT CURRENT_TIMESTAMP(),
+	userid VARCHAR(255) NOT NULL,
+	good INT NOT NULL DEFAULT 0 ,
+	bad INT  NOT NULL DEFAULT 0 ,
+	views INT  NOT NULL DEFAULT 0 ,
+	PRIMARY KEY(board_no),
+	FOREIGN KEY(userid) REFERENCES USERS(userid)
+	ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE BOARD_IMG(
+	board_img_no INT AUTO_INCREMENT,
+	board_no INT NOT NULL,
+	img_path VARCHAR(255) NOT NULL,
+	PRIMARY KEY(board_img_no),
+	FOREIGN KEY(board_no) REFERENCES BOARD(board_no)
+	ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE REPLY(
+	reply_no INT AUTO_INCREMENT,
+	title VARCHAR(255) NOT NULL,
+	contents VARCHAR(255) DEFAULT '',
+	post_time DATETIME DEFAULT CURRENT_TIMESTAMP(),
+	img_path VARCHAR(255),
+	good INT NOT NULL DEFAULT 0 ,
+	bad INT  NOT NULL DEFAULT 0 ,
+	
+	board_no INT NOT NULL,
+	userid VARCHAR(255) NOT NULL,
+	
+	PRIMARY KEY(reply_no),
+	FOREIGN KEY(userid) REFERENCES USERS(userid)
+	ON UPDATE CASCADE ON DELETE CASCADE,
+	FOREIGN KEY(board_no) REFERENCES BOARD(board_no)
+	ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+
+
+INSERT INTO USERS (userid,username,userpw ,phone,email,birth,address ) VALUES 
+('awriter','글쓴이','1234','011-7777-7777','awriter@gmail.com','1990-01-01','광주 광산구 풍영로101번길 22 104동'),
+('junseong','제이슨','1234','010-8888-8888','limjunseong@gmail.com','1987-02-07','광주 광산구 임방울대로 356 603호');
+
+INSERT INTO BOARD (title,contents,userid) VALUES 
+('awriter 가 쓴 1번 글입니다.','글내용입니다.','awriter'),
+('awriter 가 쓴 2번 글입니다.','글내용입니다.','awriter'),
+('awriter 가 쓴 3번 글입니다.','글내용입니다.','awriter'),
+('awriter 가 쓴 4번 글입니다.','글내용입니다.','awriter');
+
+
+INSERT INTO BOARD (title,contents,userid) VALUES 
+('junseong 가 쓴 5번 글입니다.','글내용입니다.','junseong'),
+('junseong 가 쓴 6번 글입니다.','글내용입니다.','junseong'),
+('junseong 가 쓴 7번 글입니다.','글내용입니다.','junseong');
+
+
+INSERT INTO USERS (userid,username,userpw ,phone,email,birth,address ) VALUES 
+('a_reply_writer','리플글쓴이','1234','011-7778-7778','a_reply_writer@gmail.com','1990-01-02','광주 광산구 장신로 143 45타워'),
+('b_reply_writer','리플글쓴이1','1234','011-7779-7778','b_reply_writer@gmail.com','1990-01-11','광주 남구 효천2로가길 21 WE타워 3층 304호 한우리독서토론논술'),
+('c_reply_writer','리플글쓴이2','1234','011-7710-7778','c_reply_writer@gmail.com','1990-01-13','광주 남구 봉선중앙로 8');
+
+INSERT INTO REPLY (title,contents,userid,board_no) VALUES 
+('a_reply_writer 가 쓴 1번 글입니다.','글내용입니다.','a_reply_writer',1),
+('a_reply_writer 가 쓴 2번 글입니다.','글내용입니다.','a_reply_writer',1),
+('a_reply_writer 가 쓴 3번 글입니다.','글내용입니다.','a_reply_writer',1),
+('a_reply_writer 가 쓴 4번 글입니다.','글내용입니다.','a_reply_writer',1),
+('a_reply_writer 가 쓴 5번 글입니다.','글내용입니다.','a_reply_writer',1),
+('a_reply_writer 가 쓴 6번 글입니다.','글내용입니다.','a_reply_writer',1),
+('b_reply_writer 가 쓴 1번 글입니다.','글내용입니다.','a_reply_writer',2),
+('b_reply_writer 가 쓴 2번 글입니다.','글내용입니다.','a_reply_writer',2),
+('b_reply_writer 가 쓴 3번 글입니다.','글내용입니다.','a_reply_writer',2),
+('b_reply_writer 가 쓴 4번 글입니다.','글내용입니다.','a_reply_writer',2),
+('b_reply_writer 가 쓴 5번 글입니다.','글내용입니다.','a_reply_writer',2);
+
+CREATE TABLE BOARD_PREFER(
+	board_prefer_no INT AUTO_INCREMENT,
+	board_no INT NOT NULL,
+	prefer BOOLEAN,
+	userid VARCHAR(255) NOT NULL,
+	PRIMARY KEY (board_prefer_no),
+	FOREIGN KEY (userid) REFERENCES USERS(userid)
+	ON UPDATE CASCADE ON DELETE CASCADE,
+	FOREIGN KEY (board_no) REFERENCES BOARD(board_no)
+	ON UPDATE CASCADE ON DELETE CASCADE,
+	UNIQUE KEY (board_no,userid)
+);
+
+
+CREATE TABLE REPLY_PREFER(
+	reply_prefer_no INT AUTO_INCREMENT,
+	reply_no INT NOT NULL,
+	prefer BOOLEAN,
+	userid VARCHAR(255) NOT NULL,
+	PRIMARY KEY (reply_prefer_no),
+	FOREIGN KEY (userid) REFERENCES USERS(userid)
+	ON UPDATE CASCADE ON DELETE CASCADE,
+	FOREIGN KEY (reply_no) REFERENCES REPLY(reply_no)
+	ON UPDATE CASCADE ON DELETE CASCADE,
+	UNIQUE KEY (reply_no,userid)
+);
+
+
+INSERT INTO USERS (userid, username, userpw, phone, email, birth, address) VALUES
+('user1','user1','1234','010-8180-1324','degeke83@chimpad.com','1981-10-01','서울 강남구 학동로 338 강남파라곤S동 103호1F'),
+('user2','user2','1234','010-8180-4087','degeke8@chimpad.com','1982-10-01','서울 강남구 학동로 338 강남파라곤S동 103호2F'),
+('user3','user3','1234','010-8180-4088','degeke88@chimpad.com','1984-10-01','서울 강남구 학동로 338 강남파라곤S동 103호3F'),
+('user4','user4','1234','010-8180-4089','degeke86@chimpad.com','1987-10-01','서울 강남구 학동로 338 강남파라곤S동 103호4F'),
+('user5','user5','1234','010-8180-4010','degeke87@chimpad.com','1874-10-01','서울 강남구 학동로 338 강남파라곤S동 103호5F'),
+('user6','user6','1234','010-8180-4011','degeke90@chimpad.com','1896-10-01','서울 강남구 학동로 338 강남파라곤S동 103호6F'),
+('user7','user7','1234','010-8180-4012','degeke891@chimpad.com','1812-10-01','서울 강남구 학동로 338 강남파라곤S동 103호7F'),
+('user8','user8','1234','010-8180-4013','degeke8920@chimpad.com','1810-10-01','서울 강남구 학동로 338 강남파라곤S동 103호8F');
+
+
+
+
+
+INSERT INTO REPLY_PREFER (reply_no, userid, prefer)
+VALUES ( 6, 'user1',true),
+ ( 6, 'user2',true ),
+ ( 6, 'user3',true ),
+ ( 6, 'user4',true ),
+ ( 6, 'user5',true ),
+ ( 5, 'user5',true ),
+ ( 5, 'user6',true ),
+ ( 6, 'user7',false),
+ ( 6, 'user8',false),
+ ( 4, 'user1',false),
+ ( 4, 'user2',false),
+ ( 4, 'user3',false),
+ ( 4, 'user4',false),
+ ( 4, 'user5',false),
+ ( 4, 'user6',false);
+
+
+INSERT INTO BOARD_PREFER (board_no, userid, prefer)
+VALUES ( 1, 'user1',true),
+ ( 1, 'user2',true ),
+ ( 1, 'user3',true ),
+ ( 1, 'user4',true ),
+ ( 1, 'user5',true ),
+ ( 2, 'user5',true ),
+ ( 2, 'user6',true );
+
+INSERT INTO BOARD_PREFER (board_no, userid, prefer)
+VALUES ( 1, 'user7',false),
+ ( 1, 'user8',false),
+ ( 3, 'user1',false),
+ ( 3, 'user2',false),
+ ( 3, 'user3',false),
+ ( 3, 'user4',false),
+ ( 3, 'user5',false),
+ ( 3, 'user6',false);
+
+ SELECT 
+	board_no no, 
+	title, 
+	(SELECT COUNT(*) FROM BOARD_PREFER WHERE prefer=true AND board_no=no ) goods,
+	(SELECT COUNT(*) FROM BOARD_PREFER WHERE prefer=false AND board_no=no ) bads
+	FROM BOARD;
+
