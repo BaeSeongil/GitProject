@@ -1,11 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>shop</title>
 <link rel="stylesheet" href="/public/css/index.css">
 </head>
-
+<style>
+.footer {
+	display: block;
+	position: relative;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}
+</style>
 <body>
 	<header th:insert="/headerNav"></header>
 	<div class="container">
@@ -24,78 +32,7 @@
 			</div>
 			<video src="/medias/shopping.mp4" autoplay muted loop></video>
 		</section>
-<<<<<<< HEAD
 
-		<!-- <section class="content">
-            <div class="inner">
-                <div>
-                    <h2> 상품 종류 </h2>
-                    <ol>
-						<li> 상의 </li>						
-						<li> 하의</li>
-						<li> 아우터</li>
-						<li> 신발</li>
-						<li> 모자</li>
-					</ol>
-                </div>
-			</div>
-            <div class="inner">    
-                <div>
-                    <div>
-                        <h2> 상품 사이즈 </h2>
-                        <ol>
-							<li> S (90) </li>						
-							<li> M (95) </li>
-							<li> L (100) </li>
-							<li> XL 105) </li>
-							<li> XXL (110) </li>
-						</ol>
-                    </div>
-                </div>
-            </div>
- 			 <div class="inner">               
-                <div>
-                     <div>
-	                 <h2> 상품 평가 </h2>
-	                    
-                     </div>
-                </div>
-            </div>    
-        </section>
-	 -->
-
-        <section class=d-flex id="category">
-
-        <div class="knit">
-        	<div class="content img-cover">
-        	<a th:href="@{/product/list/{categoryid}(categoryid=10)}">
-        	Knit
-        	</a>
-        </div>
-        </div>
-         <div class="outer">
-        	<div class="content img-cover">
-        	<a th:href="@{/product/list/{categoryid}(categoryid=20)}">
-        	Outer
-        	</a>
-        </div>
-        </div>
-        <div class="dress">
-			<div class="content img-cover">
-        	<a th:href="@{/product/list/{categoryid}(categoryid=30)}">
-        	Dress
-        	</a>
-        </div>
-        </div>
-        <div class="etc">
-			<div class="content img-cover">
-        	<a th:href="@{/product/list/{categoryid}(categoryid=40)}">
-        	Etc.
-        	</a>
-        </div>
-        </div>
-
-=======
         <section class=d-flex id="category">
 	        <div class="knit">
 	        	<div class="content img-cover">
@@ -125,9 +62,9 @@
 		        	</a>
 	        	</div>
 	        </div>
->>>>>>> 25ff19dc9d371fabd0a72d529350f9966cdd4cb6
         </section>
-        </div>
+    </div>
+    <footer class="footer" th:insert="/footer"></footer>
+    
 </body>
-<footer th:insert="/footer"></footer>
 </html>
