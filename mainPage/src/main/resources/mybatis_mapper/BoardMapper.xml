@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.mainPage.mapper.BoardMapper">
+	<resultMap type="Board" id="BoardMap">
+		<id column="board_no" property="board_no"/>
+		<result column="title" property="title"/>
+		<result column="contents" property="contents"/>
+		<result column="post_time" property="post_time"/>
+		<result column="prefer_good" property="good"/>
+		<result column="prefer_bad" property="bad"/>
+		<result column="views" property="views"/>
+		<result column="views" property="views"/>	
+		<result column="replys_size" property="replys_size"/>
+		<!-- Board : UsersDto = N : 1   -->	
+		<association property="users" javaType="UsersDto" foreignColumn="userid">
+			<id column="userid" property="userid"/>
+			<result column="username" property="username"/>
+			<result column="email" property="email"/>
+		</association>
+		<!-- Board : Reply = 1 : N  -->
+		<collection property="replys" javaType="java.util.ArrayList" ofType="Reply">
+			<id column="reply_no" property="reply_no"/>
+			<result column="reply_title" property="title"/>
+			<result column="reply_contents" property="contents"/>
+			<result column="reply_post_time" property="post_time"/>
+			<result column="reply_img_path" property="img_path"/>
+			<result column="reply_good" property="good"/>
+			<result column="reply_bad" property="bad"/>
+			<!-- Reply : UsersDto = N : 1 -->
+				<association property="users" javaType="UsersDto">
+					<id column="reply_userid" property="userid"/>
+				</association>
+				
+				<collection property="good_prefers" ofType="ReplyPrefer" javaType="java.util.ArrayList">
+					<id column="rp_good_reply_prefer_no" property="reply_prefer_no"/>
+					<result column="rp_good_reply_no" property="reply_no"/>
+					<result column="rp_good_prefer" property="prefer"/>
+					<result column="rp_good_userid" property="userid"/>
+				</collection>
+				
+				<collection property="bad_prefers" ofType="ReplyPrefer" javaType="java.util.ArrayList">
+					<id column="rp_bad_reply_prefer_no" property="reply_prefer_no"/>
+					<result column="rp_bad_reply_no" property="reply_no"/>
+					<result column="rp_bad_prefer" property="prefer"/>
+					<result column="rp_bad_userid" property="userid"/>
+				</collection>
+				
+		</collection>
+		
+		<collection property="boardImgs" javaType="java.util.ArrayList" ofType="BoardImg">
+			<id column="iboard_img_no" property="board_img_no"/>
+			<result column="iimg_path" property="img_path"/>
+		</collection>
+	</resultMap>
+
+	<!-- list 페이지  -->
+	<select id="selectPageAll" resultType="Board">
+		SELECT
+			board_no, title, post_time, views, board_no boardNo,
+			(SELECT count(*) FROM REPLY r WHERE r.board_no = boardNo ) replys_size,
+			userid as 'users.userid'
+			FROM BOARD
+			ORDER BY board_no 
+	</select>
+
+
+
+
+
+
+
+
+
+
+</mapper>
