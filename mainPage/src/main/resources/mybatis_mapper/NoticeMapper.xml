@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.mainPage.mapper.NoticeMapper">
+	<resultMap type="Notice" id="NoticeMap">
+		<id column="notice_no" property="notice_no"/>
+		<result column="title" property="title"/>
+		<result column="contents" property="contents"/>
+		<result column="post_time" property="post_time"/>
+		<result column="good" property="good"/>
+		<result column="bad" property="bad"/>
+		<result column="views" property="views"/>
+		<result column="notreplys_size" property="notreplys_size"/>
+		
+		<association property="users" javaType="UsersDto" foreignColumn="userid">
+			<id column="userid" property="userid"/>
+			<id column="username" property="username"/>
+			<id column="email" property="email"/>
+		</association>
+		
+		<collection property="noticeImgs" javaType="java.util.ArrayList" ofType="NoticeImg">
+			<id column="inotice_img_no" property="notice_img_no"/>
+			<id column="iimg_path" property="img_path"/>
+		</collection>
+	</resultMap>
+	
+	
+	<select id="selectPageAll" resultType="Notice">
+		SELECT *, notice_no noticeNo,
+			n.userid as 'users.userid' 
+			FROM NOTICE n
+			ORDER BY n.notice_no
+	</select>
+	
+	<select id="selectDetailOne" resultMap="NoticeMap">
+		SELECT n.*,
+			u.userid,
+			u.username,
+			i.notice_img_no as inotice_img_no,
+			i.img_path as iimg_path
+			
+			FROM NOTICE n INNER JOIN USERS u
+			USING(userid)
+			
+			LEFT JOIN NOTICE_IMG i 
+			USING(notice_no)
+		
+			
+			WHERE n.notice_no = #{noticeNo}
+	</select>
+	
+	<!-- 조회수 -->
+	<update id="updateViews" parameterType="int">
+		UPDATE NOTICE SET 
+			views = views+1
+			WHERE notice_no = #{noticeNo}
+	</update>
+	
+	<!-- 공지사항 등록 -->
+	<insert id="insertOne" parameterType="Notice" useGeneratedKeys="true" keyProperty="notice_no">
+		INSERT INTO NOTICE (title,contents,userid) VALUE (#{title},#{contents},#{users.userid})
+	</insert>
+	
+	<!-- 공지사항 삭제 -->
+	<delete id="deleteOne" parameterType="int">
+		DELETE FROM NOTICE WHERE notice_no = #{noticeNo}
+	</delete>
+	
+</mapper>

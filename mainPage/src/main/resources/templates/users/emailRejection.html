@@ -15,7 +15,7 @@ body{
 	position: relative;
     width: 100%;
     background: white;
-    border: 1px #777 solid;
+  
 }
 h2{
 	color: #303030;
@@ -24,10 +24,11 @@ h2{
     text-align: center;
 }
 .content{
-	margin: 0 15px;
+	margin-top: 20px;
+	border: 1px #777 solid;
 }
 .innerBox{
-  margin: 0 20px;
+  margin: 20px 20px;
 }
 .title{
 	color: #333;
@@ -43,13 +44,9 @@ h2{
     line-height: 1.4;
 }
 span{
-  display: block;
+  color : #777;
   font-size: 13px;
-  color: #6c6c6c;
-  line-height: 1.2;
-  font-weight: normal;
-  margin: 20px;
-  margin-left: 35px; 
+  margin-left: 20px;
 }
 </style>
 </head>
@@ -79,4 +76,5 @@ span{
 		</div>
 	</div>
 </body>
+<footer th:insert="/footer"></footer>
 </html>

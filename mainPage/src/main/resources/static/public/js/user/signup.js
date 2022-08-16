@@ -5,7 +5,7 @@ const idHelp=document.getElementById("idHelp");
 insertForm["userid"].addEventListener("change",checkId);
 async function checkId(e){
 	let formCheck=false;
-	let v = insertForm["userid"].value;
+	let v = insertForm["userid"].value; //ID 입력되는 값
 	if(v.length>3){
 		let res=await fetch(checkIdUrl+v);
 		let idCheckJson=await res.json();
@@ -33,11 +33,17 @@ function checkPw(){
 	let formCheck = false;
 	if(v.length>2){
 		formCheck=true;
+		pwHelp.style.display="none";
 		insertForm["userpw"].classList.add("is-valid");
 		insertForm["userpw"].classList.remove("is-invalid");
+		pwHelp.classList.remove("is-invalid");
+		pwHelp.classList.add("is-valid");
 	}else{
+		pwHelp.style.display="none";
 		insertForm["userpw"].classList.add("is-invalid");
 		insertForm["userpw"].classList.remove("is-valid");
+		pwHelp.classList.remove("is-valid");
+		pwHelp.classList.add("is-invalid");
 	}
 	return formCheck;
 }
