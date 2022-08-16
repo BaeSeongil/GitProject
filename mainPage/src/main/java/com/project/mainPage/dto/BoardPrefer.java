@@ -19,6 +19,6 @@ public class BoardPrefer {
 	private int board_prefer_no;
 	private int board_no;		// 댓글 번호 
 	private boolean prefer;  // 댓글 좋아요 1(true) , 싫어요 : 0 (false)
-	private UsersDto users;  // UsersDto.userid
+	private String userid;		
 	
 }

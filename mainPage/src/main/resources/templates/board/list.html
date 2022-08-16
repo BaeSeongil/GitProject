@@ -7,33 +7,51 @@
 <body>
 	<header th:insert="/headerNav"></header>
 	<main  class="container">
-		<h1 class="m-3 d-flex justify-content-between align-items-center" >
-			<span>게시판</span>
-		</h1>
-		<table class="table table-hover">
-			<thead>
-				<tr>
-					<th>no</th>
-					<th>제목</th>
-					<th>글쓴이</th>
-					<th>등록일</th>
-					<th>조회수</th>
-					<th>댓글수</th>
-				</tr>
-			</thead>
-			<tbody>
-				<th:block th:each="board : ${boardList}" >
-					<tr th:onclick="location.href='/board/detail/[[${board.board_no}]]'">
-						<td th:text="${board.board_no}"></td>
-						<td th:text="${board.title}"></td>
-						<td th:text="${board.users?.userid}"></td>
-						<td th:text="${#dates.format(board.post_time,'yyyy-MM-dd HH:mm:ss')}"></td>
-						<td th:text="${board.views}"></td>
-						<td th:text="${board.replys_size}"></td>
-					</tr>				
-				</th:block>
-			</tbody>
-		</table>
+		<form action="/board/update.do" method="post">		
+			<h1 class="m-3 d-flex justify-content-between align-items-center" >
+				<span>게시판</span>
+				<a href="/board/insert.do" class="btn btn-primary">게시글 등록</a>
+			</h1>
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>no</th>
+						<th>제목</th>
+						<th>글쓴이</th>
+						<th>등록일</th>
+						<th>조회수</th>
+						<th>좋아요</th>
+						<th>댓글수</th>
+					</tr>
+				</thead>
+				<tbody>
+					<th:block th:each="board : ${boardList}" >
+						<tr>
+							<td th:text="${board.board_no}"></td>
+							<td> 
+								<a th:text="${board.title}" th:href="@{/board/detail/{boardNo}(boardNo=${board.board_no})}" ></a>
+							</td>
+							<td th:text="${board.users?.userid}"></td>
+							<td th:text="${#dates.format(board.post_time,'yyyy-MM-dd HH:mm:ss')}"></td>
+							<td th:text="${board.views}"></td>
+							<td th:text="${board.good}"></td>
+							<td th:text="${board.replys_size}"></td>
+							<td>
+								<div  class="row g-3 align-items-center" 
+										th:if="${session.loginUsers != null && session.loginUsers?.userid==board.users.userid}">
+									<p class="mb-1">
+										<a class="btn btn-outline-danger btn btn-sm">삭제</a>
+										<a class="btn btn-sm btn btn-outline-primary" 
+											th:href="@{/board/update/{boardNo}(boardNo=${board.board_no})}">수정</a>
+										
+									</p>
+								</div>
+							</td>
+						</tr>					
+					</th:block>
+				</tbody>
+			</table>
+		</form>
 	</main>
 </body>
 <footer th:insert="/footer"></footer>
