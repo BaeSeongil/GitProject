@@ -26,7 +26,7 @@
 			<tbody>
 				<th:block th:each="board : ${boardList}" >
 					<tr>
-					<td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+					<td><input type="checkbox" class="form-check-input"  value="" id="flexCheckDefault"></td>
 					<td th:text="${board.board_no}"></td>
 					<td> 
 						<a th:text="${board.title}" th:href="@{/board/detail/{board_no}(board_no=${board.board_no})}" ></a>
@@ -40,8 +40,9 @@
 				</th:block>
 			</tbody>
 		</table>
-		
-		<div class="row mb-3 g-3 align-items-center">
+		<th:block th:each="board : ${boardList}" >
+		<div class="row mb-3 g-3 align-items-center" 
+			th:if="${session.loginUsers != null && session.loginUsers?.userid==board.users.userid}">
 			<div class="col-auto">
 				<button type="submit" class="btn btn-primary">수정</button>
 			</div>
@@ -49,6 +50,7 @@
 				<a class="btn btn-danger">삭제</a>
 			</div>
 		</div>
+		</tbody>
 	</main>
 </body>
 <footer th:insert="/footer"></footer>

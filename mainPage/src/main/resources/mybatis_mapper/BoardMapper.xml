@@ -59,6 +59,7 @@
 		SELECT
 			board_no, title, post_time, views, board_no boardNo,
 			(SELECT count(*) FROM REPLY r WHERE r.board_no = boardNo ) replys_size,
+			(SELECT count(*) FROM BOARD_PREFER WHERE board_no = boardNo) good,
 			userid as 'users.userid'
 			FROM BOARD
 			ORDER BY board_no 
