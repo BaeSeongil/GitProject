@@ -15,6 +15,5 @@ public interface BoardMapper {
 	int detailUpdateViews(int boardNo);
 	int deleteOne(int boardNo);
 	int insertOne(Board board);
-	Board selectOne(int boardNo);
 	int updateOne(Board board);
 }

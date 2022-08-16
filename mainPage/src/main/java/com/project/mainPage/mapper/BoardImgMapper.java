@@ -7,13 +7,12 @@ import org.apache.ibatis.annotations.Mapper;
 import com.project.mainPage.dto.BoardImg;
 @Mapper
 public interface BoardImgMapper {
-
-	List<BoardImg> selectBoardNo(int boardNo);
-
-	BoardImg selectOne(int no);
-
-	int deleteOne(int no);
-
 	int insertOne(BoardImg boardImg);
+	List<BoardImg> selectBoardNo(int boardNo);
+	List<BoardImg> selectUserId(String userId);
+	BoardImg selectOne(int boardImgNo);
+	int deleteOne(int boardImgNo);
+	int selectCountBoardNo(int boardNo);
+
 
 }

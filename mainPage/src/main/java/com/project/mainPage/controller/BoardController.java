@@ -105,58 +105,26 @@ public class BoardController {
 		if(session.getAttribute("loginUsers")!=null) {
 			return "/board/insert";
 		}else {
-			return "redirect:/board/login.do";
+			return "redirect:/users/login.do";
 		}
 	}
-	
-	//회원로그인페이지
-	@GetMapping("/login.do")
-		public void login() {};
-	//회원로그인
-	@PostMapping("/login.do")
-		public String login(
-				@RequestParam(value="userid") String userId, 
-				@RequestParam(value="userpw") String userPw,
-				HttpSession session) {
-			UsersDto users = null;
-			try {
-				users = usersMapper.selectIdPwOne(userId, userPw);
-			}catch(Exception e) {e.printStackTrace();}
-			
-			if(users != null) {
-				session.setAttribute("loginUsers", users);
-				System.out.println("로그인 성공! " + users);
-				System.out.println(session.getAttribute("loginUsers"));
-				session.setAttribute("users", users);
-				return "redirect:/board/insert.do";
-			}else {
-				return "redirect:/board/login.do";				
-			}
-	}
 		
-	@PostMapping(path = "/insert.do",consumes = "multipart/form-data")
+	@PostMapping("/insert.do")
 	public String insert(
-				@RequestParam(value="userid") String userId, 
 				Board  board,
 				List <MultipartFile> imgFiles) {
-		//model2(톰캣) 전송된 파일 저장하는 방법
-		//1.cos.jar 추가 : 톰캣에서 blob으로 넘어온 data를 multipartRequest로 받을 수 있다.(파일 저장)
-		//2.form 에 enctype="multipart/form-data" 추가 : 모든 파라미터를 blob으로 전송 
-		//3.서버에서 multipartRequest 객체로 파일과 문자열 파라미터를 구분해서 처리
 		System.out.println(board);
 		System.out.println(savePath);
-		//MultipartFile 받아온 파일은 임시로 저장된 파일
-		//transferTo 임시로 저장된 파일을 실제로 저장하는 함수
-		//Paths.get("경로+/+파일이름) : 임시 파일을 실제로 저장할 경로를 지정
 		int insert=0;
 		try {
 			//이미지 저장 및 처리
 			if(imgFiles!=null) {
 				List<BoardImg> boardImgs=new ArrayList<BoardImg>();
+				// imgFiles 가 null이면 여기서 오류 발생!! 
 				for(MultipartFile imgFile:imgFiles) {		
-					String type=imgFile.getContentType(); //"image/jpeg"
+					String type=imgFile.getContentType(); 
 					if(type.split("/")[0].equals("image")) {
-						String newFileName="board_"+System.nanoTime()+"."+type.split("/")[1];
+						String newFileName="board_"+System.nanoTime()+"."+type.split("/")[1]; //"image/jpeg"
 						Path newFilePath=Paths.get(savePath+"/"+newFileName);
 						imgFile.transferTo(newFilePath);
 						BoardImg boardImg=new BoardImg();
@@ -168,7 +136,6 @@ public class BoardController {
 					board.setBoardImgs(boardImgs);
 				}
 			}
-			board.setUsers(usersMapper.selectOne(userId));
 			insert=boardService.registBoard(board);
 		}catch (Exception e) {
 			e.printStackTrace();
