@@ -64,9 +64,55 @@
 			FROM BOARD
 			ORDER BY board_no 
 	</select>
+	
+	<select id="selectDetailOneAll" resultMap="BoardMap">
+		SELECT b.*,
+			(SELECT count(*) FROM BOARD_PREFER WHERE board_no = b.board_no AND prefer = true) prefer_good,
+			(SELECT count(*) FROM BOARD_PREFER WHERE board_no = b.board_no AND prefer = false) prefer_bad,
+			u.userid,u.username,u.email,
+			r.reply_no,
+			r.title as reply_title, 
+			r.contents as reply_contents, 
+			r.post_time as reply_post_time,
+			r.img_path as reply_img_path,
+			
+			i.board_img_no as iboard_img_no,
+			i.img_path as iimg_path,
+			
+			rp_good.userid 				as rp_good_userid,
+			rp_good.reply_prefer_no 	as rp_good_reply_prefer_no,
+			rp_good.reply_no 			as rp_good_reply_no,
+			rp_good.prefer 				as rp_good_prefer,
+			
+			rp_bad.userid 				as rp_bad_userid,
+			rp_bad.reply_prefer_no 		as rp_bad_reply_prefer_no,
+			rp_bad.reply_no 			as rp_bad_reply_no,
+			rp_bad.prefer 				as rp_bad_prefer
+			
+			FROM BOARD b INNER JOIN USERS u 
+			USING(userid)
+			
+			LEFT JOIN BOARD_IMG i 
+			USING(board_no)
+			
+			LEFT JOIN REPLY r 
+			USING(board_no)
+			
+			LEFT JOIN  (SELECT * FROM REPLY_PREFER WHERE prefer=true) rp_good
+			ON r.reply_no = rp_good.reply_no
+			
+			LEFT JOIN  (SELECT * FROM REPLY_PREFER WHERE prefer=false) rp_bad
+			ON r.reply_no = rp_bad.reply_no
+			
+			WHERE b.board_no = #{boardNo}
+			ORDER BY reply_no DESC
+	</select>
 
-
-
+	<update id="detailUpdateViews" parameterType="int">
+		UPDATE BOARD SET 
+			views = views+1
+			WHERE board_no=#{boardNo}
+	</update>
 
 
 

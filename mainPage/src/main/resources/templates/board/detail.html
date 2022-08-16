@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>게시글 상세페이지</title>
+<script th:src="@{/public/js/board/detail.js}" defer></script>
+
+</head>
+<body>
+<header th:insert="/headerNav"></header>
+	<!-- <p th:text="${board}"></p> -->
+	<main class="container">
+		<h1 class ="m-3" >
+			Q & A
+		</h1>
+		<p>
+			아이디 : <strong th:text="${board.users.userid}"></strong>
+		</p>
+		<p>
+			이름 : <strong th:text="${board.users.username}"></strong>
+		</p>
+		<p>
+			이메일 : <strong th:text="${board.users.email}"></strong>
+		</p>
+		<div class="mb-3 d-flex flex-row-reverse">
+			<div>
+				<th:block th:if="${boardPrefer == null}">
+					<a
+					data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="좋아요!" 
+					th:href="@{/board/prefer/insert/{no}/{prefer}(no=${board.board_no},prefer=${true})}"
+					class="btn btn-outline-primary">
+						<i class="bi bi-hand-thumbs-up"></i>	
+						Good : <span th:text="${board.good}"></span>
+					</a> /
+					<a
+					data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="싫어요!"
+					 th:href="@{/board/prefer/insert/{no}/{prefer}(no=${board.board_no},prefer=${false})}" 
+					 class="btn btn-outline-danger">
+						<i class="bi bi-hand-thumbs-down"></i>	
+						bad : <span th:text="${board.bad}"></span>
+					</a> /
+				</th:block>
+				<!--boardPrefer != null 로그인 한 사람이 좋아요 싫어요를 한번이라도 한 글  -->
+				<!--  boardPrefer?.prefer==true : 좋아요를 누른 사람 (좋아요: 삭제, 싫어요 : 수정)-->
+				<th:block th:if="${boardPrefer?.prefer == true}">
+					<a
+					data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="좋아요!" 
+					th:href="@{/board/prefer/delete/{no}/{preferNo}(no=${board.board_no},preferNo=${boardPrefer.board_prefer_no})}"
+					class="btn btn-outline-primary">
+						<i class="bi bi-hand-thumbs-up-fill"></i>	
+						Good : <span th:text="${board.good}"></span>
+					</a> /
+					<a
+					data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="싫어요!"
+					 th:href="@{/board/prefer/update/{no}/{preferNo}/{prefer}(no=${board.board_no},preferNo=${boardPrefer.board_prefer_no},prefer=${false})}" 
+					 class="btn btn-outline-danger">
+						<i class="bi bi-hand-thumbs-down"></i>	
+						bad : <span th:text="${board.bad}"></span>
+					</a> /
+				</th:block>
+				<!--  boardPrefer?.prefer==true : 싫어요를 누른 사람 (좋아요: 삭제, 싫어요 : 수정)-->
+				<th:block th:if="${boardPrefer?.prefer == false}">
+					<a
+					data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="좋아요!" 
+					 th:href="@{/board/prefer/update/{no}/{preferNo}/{prefer}(no=${board.board_no},preferNo=${boardPrefer.board_prefer_no},prefer=${true})}"
+					 class="btn btn-outline-primary" >
+						<i class="bi bi-hand-thumbs-up"></i>	
+						Good : <span th:text="${board.good}"></span>
+					</a> /
+					<a
+					data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="싫어요!"
+					th:href="@{/board/prefer/delete/{no}/{preferNo}(no=${board.board_no},preferNo=${boardPrefer.board_prefer_no})}" 
+					class="btn btn-outline-danger">
+						<i class="bi bi-hand-thumbs-down-fill"></i>	
+						bad : <span th:text="${board.bad}"></span>
+					</a> /
+				</th:block>
+				<i class="bi bi-eye"
+				data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="조회수">
+				views : <span th:text="${board.views}"></span>
+				</i>
+			</div>
+		</div>
+							
+		<hr>
+		<h3>
+		  	<span>
+				<small th:text="${board.board_no}"></small>.
+				<b th:text="${board.title}"></b>
+		  	</span>
+		</h3>
+	</main>
+	
+</body>
+</html>

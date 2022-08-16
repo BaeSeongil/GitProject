@@ -17,5 +17,5 @@ public class ReplyPrefer {
 	private int reply_prefer_no; 
 	private int reply_no;		// 댓글 번호
 	private boolean prefer;		// 좋아요 : 1 , 싫어요 : 0 
-	private UsersDto users;		// UsersDto.userid fk 
+	private String userid;		
 }
