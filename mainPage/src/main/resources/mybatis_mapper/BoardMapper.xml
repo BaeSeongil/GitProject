@@ -114,6 +114,13 @@
 			WHERE board_no=#{boardNo}
 	</update>
 
+	<insert id="insertOne" parameterType="Board"
+	 useGeneratedKeys="true" keyProperty="board_no">
+		INSERT INTO BOARD (title,contents,userid)
+		VALUES (#{title},#{contents},#{users.userid})
+	</insert>
+
+
 
 
 

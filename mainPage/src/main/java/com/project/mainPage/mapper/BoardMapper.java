@@ -13,5 +13,8 @@ public interface BoardMapper {
 	List<Board> selectPageAll();
 	Board selectDetailOneAll(int boardNo);
 	int detailUpdateViews(int boardNo);
-	
+	int deleteOne(int boardNo);
+	int insertOne(Board board);
+	Board selectOne(int boardNo);
+	int updateOne(Board board);
 }
