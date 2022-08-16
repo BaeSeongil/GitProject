@@ -11,4 +11,14 @@ import com.project.mainPage.dto.Board;
 @Mapper
 public interface BoardMapper {
 	List<Board> selectPageAll();
+
+	int deleteOne(int boardNo);
+
+	int insertOne(Board board);
+
+	void updateViews(int boardNo);
+
+	Board selectOne(int boardNo);
+
+	int updateOne(Board board);
 }

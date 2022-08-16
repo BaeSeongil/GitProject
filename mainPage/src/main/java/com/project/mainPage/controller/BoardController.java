@@ -8,17 +8,25 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.acon.board.dto.BoardImg;
+import com.project.mainPage.dto.BoardImg;
+import com.project.mainPage.dto.UsersDto;
+import com.project.mainPage.service.BoardService;
 import com.project.mainPage.dto.Board;
 import com.project.mainPage.mapper.BoardMapper;
+import com.project.mainPage.mapper.UsersMapper;
 
 
 @Controller
@@ -27,6 +35,15 @@ public class BoardController {
 
 	@Autowired
 	private BoardMapper boardMapper;
+	
+	@Autowired
+	private BoardService boardService;
+	
+	@Autowired
+	private UsersMapper usersMapper;
+	
+	@Value("${spring.servlet.multipart.location}") //파일이 임시저장되는 경로+파일을 저장할 경로
+	private String savePath;
 	
 	
 	@GetMapping("/list/{page}")
@@ -39,14 +56,40 @@ public class BoardController {
 	@GetMapping("/insert.do")
 	public String insert(HttpSession session) {
 		//로그인 한사람만 등록 페이지 가능
-		if(session.getAttribute("loginUser")!=null) {
+		if(session.getAttribute("loginUsers")!=null) {
 			return "/board/insert";
 		}else {
-			return "redirect:/";
+			return "redirect:/board/boardLogin.do";
 		}
 	}
+	
+	//회원로그인페이지
+	@GetMapping("/boardLogin.do")
+		public void login() {};
+	//회원로그인
+	@PostMapping("/boardLogin.do")
+		public String login(
+				@RequestParam(value="userid") String userId, 
+				@RequestParam(value="userpw") String userPw,
+				HttpSession session) {
+			UsersDto users = null;
+			try {
+				users = usersMapper.selectIdPwOne(userId, userPw);
+			}catch(Exception e) {e.printStackTrace();}
+			
+			if(users != null) {
+				session.setAttribute("loginUsers", users);
+				System.out.println("로그인 성공! " + users);
+				System.out.println(session.getAttribute("loginUsers"));
+				session.setAttribute("users", users);
+				return "redirect:/board/insert.do";
+			}else {
+				return "redirect:/board/boardLogin.do";				
+			}
+	}
+		
 	@PostMapping(path = "/insert.do",consumes = "multipart/form-data")
-	public String insert(Board  board
+	public String insert(@RequestParam(value="userid") String userId, Board  board
 			,List <MultipartFile> imgFiles
 			) {
 		//model2(톰캣) 전송된 파일 저장하는 방법
@@ -77,7 +120,8 @@ public class BoardController {
 				if(boardImgs.size()>0) {
 					board.setBoardImgs(boardImgs);
 				}
-			}			
+			}
+			board.setUsers(usersMapper.selectOne(userId));
 			insert=boardService.registBoard(board);
 		} catch (Exception e) {
 			e.printStackTrace();
