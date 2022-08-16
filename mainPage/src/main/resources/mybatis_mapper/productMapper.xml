@@ -4,6 +4,19 @@
        
 
 <mapper namespace="com.project.mainPage.mapper.ProductMapper">
+	<resultMap type="Product" id="ProductMap">
+		<association property="product" javaType="Product" foreignColumn="categoryId">
+				<id column="categoryId" property="categoryId"/>
+				<result column="categoryName" property="categoryName"/>
+		</association>
+	</resultMap>
 
+	<select id="selectAll" resultType="Product">
+		SELECT *,categoryId 'cate.categoryId' FROM PRODUCT LIMIT #{startRow},#{pageSize}
+	</select>
+
+	 <select id="selectAllCount" resultType = "int" >
+ 		SELECT COUNT(*) FROM PRODUCT 
+ 	</select>
 
 </mapper>
