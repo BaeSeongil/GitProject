@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>상품 전체 보기</title>
+<style type="text/css">
+
+#wrapper {
+	height: auto;
+  	min-height: 100%;
+  	position: relative;
+}
+
+div {
+	float: left;
+}
+
+</style>
+</head>
+<body>
+<header th:insert="/headerNav"></header>
+
+	<div id="wrapper">
+	<th:block th:each="product:${productList}">
+		<div class="d-flex m-5 justify-content-start" 
+			th:onclick="location.href='/product/detail/[[${product.productid}]]'">
+			<div class="card" style="width: 18rem;">
+			  <img class="card-img-top" alt="상품 이미지">
+			  <div class="card-body">
+			    <p class="card-text" th:text="${product.productName}"></p>
+			    <p class="card-text" th:text="${product.productid}"></p>
+			  </div>
+			</div>
+		</div>
+	</th:block>
+	
+	
+	<footer th:insert="/footer"></footer>
+	</div>
+</body>
+
+</html>

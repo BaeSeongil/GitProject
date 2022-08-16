@@ -18,10 +18,18 @@ public class CategoryController {
 
 		@Autowired
 		private CategoryMapper categoryMapper;
-		
+	
 		@GetMapping("/list/{page}")
 		public String list(@PathVariable int page, Model model) {
 			List<Category> categoryList = categoryMapper.selectCategoryAll(page);
+			System.out.println(categoryList);
+			model.addAttribute(categoryList);
+			return "/category/list";
+		}
+		
+		@GetMapping("/list/{page}/{cate}")
+		public String list(@PathVariable int page, @PathVariable int cate, Model model) {
+			List<Category> categoryList = categoryMapper.selectCategoryAll(page, cate);
 			System.out.println(categoryList);
 			model.addAttribute(categoryList);
 			return "/category/list";
