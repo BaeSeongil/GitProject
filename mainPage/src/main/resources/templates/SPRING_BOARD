@@ -195,9 +195,9 @@ CREATE TABLE REPLY(
 
 
 
-INSERT INTO USERS (userid,username,userpw ,phone,email,birth,address ) VALUES 
-('awriter','글쓴이','1234','011-7777-7777','awriter@gmail.com','1990-01-01','광주 광산구 풍영로101번길 22 104동'),
-('junseong','제이슨','1234','010-8888-8888','limjunseong@gmail.com','1987-02-07','광주 광산구 임방울대로 356 603호');
+INSERT INTO USERS (userid, username, userpw, phone, email, birth, add2,add1) VALUES 
+('awriter','글쓴이','1234','011-7777-7777','awriter@gmail.com','1990-01-01','광주 광산구 풍영로101번길 22 104동','02-106'),
+('junseong','제이슨','1234','010-8888-8888','limjunseong@gmail.com','1987-02-07','광주 광산구 임방울대로 356 603호','02-106');
 
 INSERT INTO BOARD (title,contents,userid) VALUES 
 ('awriter 가 쓴 1번 글입니다.','글내용입니다.','awriter'),
@@ -212,10 +212,10 @@ INSERT INTO BOARD (title,contents,userid) VALUES
 ('junseong 가 쓴 7번 글입니다.','글내용입니다.','junseong');
 
 
-INSERT INTO USERS (userid,username,userpw ,phone,email,birth,address ) VALUES 
-('a_reply_writer','리플글쓴이','1234','011-7778-7778','a_reply_writer@gmail.com','1990-01-02','광주 광산구 장신로 143 45타워'),
-('b_reply_writer','리플글쓴이1','1234','011-7779-7778','b_reply_writer@gmail.com','1990-01-11','광주 남구 효천2로가길 21 WE타워 3층 304호 한우리독서토론논술'),
-('c_reply_writer','리플글쓴이2','1234','011-7710-7778','c_reply_writer@gmail.com','1990-01-13','광주 남구 봉선중앙로 8');
+INSERT INTO USERS (userid,username,userpw ,phone,email,birth,add2,add1 ) VALUES 
+('a_reply_writer','리플글쓴이','1234','011-7778-7778','a_reply_writer@gmail.com','1990-01-02','광주 광산구 장신로 143 45타워','02-106'),
+('b_reply_writer','리플글쓴이1','1234','011-7779-7778','b_reply_writer@gmail.com','1990-01-11','광주 남구 효천2로가길 21 WE타워 3층 304호 한우리독서토론논술','02-106'),
+('c_reply_writer','리플글쓴이2','1234','011-7710-7778','c_reply_writer@gmail.com','1990-01-13','광주 남구 봉선중앙로 8','02-106');
 
 INSERT INTO REPLY (title,contents,userid,board_no) VALUES 
 ('a_reply_writer 가 쓴 1번 글입니다.','글내용입니다.','a_reply_writer',1),
@@ -258,15 +258,15 @@ CREATE TABLE REPLY_PREFER(
 );
 
 
-INSERT INTO USERS (userid, username, userpw, phone, email, birth, address) VALUES
-('user1','user1','1234','010-8180-1324','degeke83@chimpad.com','1981-10-01','서울 강남구 학동로 338 강남파라곤S동 103호1F'),
-('user2','user2','1234','010-8180-4087','degeke8@chimpad.com','1982-10-01','서울 강남구 학동로 338 강남파라곤S동 103호2F'),
-('user3','user3','1234','010-8180-4088','degeke88@chimpad.com','1984-10-01','서울 강남구 학동로 338 강남파라곤S동 103호3F'),
-('user4','user4','1234','010-8180-4089','degeke86@chimpad.com','1987-10-01','서울 강남구 학동로 338 강남파라곤S동 103호4F'),
-('user5','user5','1234','010-8180-4010','degeke87@chimpad.com','1874-10-01','서울 강남구 학동로 338 강남파라곤S동 103호5F'),
-('user6','user6','1234','010-8180-4011','degeke90@chimpad.com','1896-10-01','서울 강남구 학동로 338 강남파라곤S동 103호6F'),
-('user7','user7','1234','010-8180-4012','degeke891@chimpad.com','1812-10-01','서울 강남구 학동로 338 강남파라곤S동 103호7F'),
-('user8','user8','1234','010-8180-4013','degeke8920@chimpad.com','1810-10-01','서울 강남구 학동로 338 강남파라곤S동 103호8F');
+INSERT INTO USERS (userid, username, userpw, phone, email, birth,add2,add1 ) VALUES 
+('user1','user1','1234','010-8180-1324','degeke83@chimpad.com','1981-10-01','서울 강남구 학동로 338 강남파라곤S동 103호1F','02-106'),
+('user2','user2','1234','010-8180-4087','degeke8@chimpad.com','1982-10-01','서울 강남구 학동로 338 강남파라곤S동 103호2F','02-106'),
+('user3','user3','1234','010-8180-4088','degeke88@chimpad.com','1984-10-01','서울 강남구 학동로 338 강남파라곤S동 103호3F','02-106'),
+('user4','user4','1234','010-8180-4089','degeke86@chimpad.com','1987-10-01','서울 강남구 학동로 338 강남파라곤S동 103호4F','02-106'),
+('user5','user5','1234','010-8180-4010','degeke87@chimpad.com','1874-10-01','서울 강남구 학동로 338 강남파라곤S동 103호5F','02-106'),
+('user6','user6','1234','010-8180-4011','degeke90@chimpad.com','1896-10-01','서울 강남구 학동로 338 강남파라곤S동 103호6F','02-106'),
+('user7','user7','1234','010-8180-4012','degeke891@chimpad.com','1812-10-01','서울 강남구 학동로 338 강남파라곤S동 103호7F','02-106'),
+('user8','user8','1234','010-8180-4013','degeke8920@chimpad.com','1810-10-01','서울 강남구 학동로 338 강남파라곤S동 103호8F','02-106');
 
 
 

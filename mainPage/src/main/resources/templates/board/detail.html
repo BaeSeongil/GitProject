@@ -89,6 +89,19 @@
 				<b th:text="${board.title}"></b>
 		  	</span>
 		</h3>
+		
+		<div class = "mt-5">
+			<th:block th:each="boardImg : ${board.boardImgs}">
+				<img th:src="@{/public/img/{fileName}(fileName=${boardImg.img_path})}" style="height:150px; width:150px; object-fit:cover;"
+				 class="img-thumbnail" alt="게시글 이미지">
+			</th:block>
+		</div>
+		
+		<div class="form-floating">
+			<textarea class="form-control mt-5" placeholder="Leave a comment here"
+			style="height: 150px; resize: none;" th:text="${board.contents}" readonly="readonly" ></textarea>
+		</div>
+		
 	</main>
 	
 </body>
