@@ -10,17 +10,31 @@ html, body {
 	flex-flow: column;
 	
 }
+
 footer {
 	flex: 1;
 	height: auto;
   	min-height: 100%; /* footer 높이 조절 */
   	position: relative;
 }
+
+#wrapper {	
+	height: auto;
+  	/* min-height: 100%; */
+  	position: relative;
+  
+}
 </style>
 </head>
 <body>
 	<header th:insert="/headerNav"></header>
 	
+	<div class="d-grid">
+		<div style="padding: 50px;"></div>
+		<div class="d-flex mb-10 justify-content-evenly">
+			<a href="/product/update.do" class="btn btn-outline-secondary">상품 수정</a>
+		</div>
+	</div>
 	<div id="wrapper">
 		<main class="mt-5 container">
 			<section  style="display: table-cell; vertical-align: top;">
@@ -77,7 +91,7 @@ footer {
 					  	<div class="col-12 mt-3">
 					    <button type="submit" class="btn btn-outline-success">Add Cart</button>
 						    <button type="submit" class="btn btn-outline-primary">Pay Now</button>
-						    <button type="submit" class="btn btn-outline-danger">Reset</button>
+						    <button type="reset" class="btn btn-outline-danger">Reset</button>
 					 	</div>
 				 	</section>
 				 	
