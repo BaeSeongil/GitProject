@@ -22,12 +22,12 @@ public class ProductController {
 	@Autowired
 	private ProductMapper productMapper;
 
-	@GetMapping("/list/{page}")
+	@GetMapping("/cate/{page}")
 	public String list(@PathVariable int page, Model model) {
 		List<Product> productList = productMapper.selectPageAll();
 		System.out.println(productList);
 		model.addAttribute(productList);
-		return "/product/list";
+		return "/product/cate";
 	}
 	
 	@GetMapping("/detail/{productid}")
