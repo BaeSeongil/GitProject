@@ -4,6 +4,7 @@
        
 
 <mapper namespace="com.project.mainPage.mapper.ProductMapper">
+
 	<resultMap type="Product" id="ProductMap">
 		<id column="productid" property="productid"/>
 		<result column="productName" property="productName"/>
@@ -35,4 +36,17 @@
 			WHERE productid=#{productid}
 	</select>
 	
+	<update id="updateOne" parameterType="Product">
+		UPDATE PRODUCT SET 
+			productName=#{productName},
+			productSize=#{productSize},
+			productColor=#{productColor},
+			productGroup=#{productGroup},
+			productInfo=#{productInfo},
+			productStock=#{productStock},
+			price=#{price}
+			WHERE productid=#{productid}
+	</update>
+	
+
 </mapper>

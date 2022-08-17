@@ -12,8 +12,5 @@ public interface ProductMapper {
 	List<Product> selectAll(int startRow, int pageSize);
 	List<Product> selectAll();
 	int selectAllCount();
-
-	
 	Product selectOne(int productid);
-
 }
