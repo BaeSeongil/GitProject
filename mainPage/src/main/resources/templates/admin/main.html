@@ -30,10 +30,10 @@
                 <div>
                     <ul class="admin_navi_wrap">
                         <li>
-                            <a class="admin_list_01" href="/#">상품 등록</a>
+                            <a class="admin_list_01" href="/product/insert.do">상품 등록</a>
                         </li>
                         <li>
-                            <a class="admin_list_02" href="/#">상품 목록</a>
+                            <a class="admin_list_02" href="/product/list/1">상품 목록</a>
                         </li>
                         <li>
                             <a class="admin_list_03" href="/#">카테고리 등록</a>                            
@@ -42,10 +42,13 @@
                             <a class="admin_list_04" href="/#">주문 관리</a>                            
                         </li>
                         <li>
-                            <a class="admin_list_05" href="/#">게시판 관리</a>                            
+                            <a class="admin_list_05" href="/board/list/1">게시판 관리</a>                            
                         </li>
                         <li>
-                            <a class="admin_list_06" href="/#">회원 관리</a>                            
+                            <a class="admin_list_06" href="/notice/list/1">공지사항 관리</a>                            
+                        </li>
+                        <li>
+                            <a class="admin_list_07" href="/users/list/1">회원 관리</a>                            
                         </li>                                                                                             
                     </ul>
 <!-- 
@@ -60,8 +63,8 @@
                 <div class="clearfix"></div>
             </div>
         </div>
-        <footer th:insert="/footer"></footer>
     </div>
 </body>
+        <footer th:insert="/footer"></footer>
 
 </html>
