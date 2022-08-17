@@ -5,5 +5,33 @@
 
 <mapper namespace="com.project.mainPage.mapper.ProductMapper">
 
+	<resultMap type="Product" id="ProductMap">
+		<id column="productid" property="productid"/>
+		<result column="productName" property="productName"/>
+		<result column="productSize" property="productSize"/>
+		<result column="productColor" property="productColor"/>
+		<result column="productGroup" property="productGroup"/>
+		<result column="productInfo" property="productInfo"/>
+		<result column="productStock" property="productStock"/>
+		<result column="productDate" property="productDate"/>
+		<result column="price" property="price"/>
+		<!-- Product : Category = N : 1 -->
+		<association property="category" javaType="Category" foreignColumn="categoryId">
+			<id column="categoryid" property="categoryId"/>
+			<result column="categoryName" property="categoryName"/>
+		</association>
+	</resultMap>
+		
+
+	<select id="selectPageAll" resultMap="ProductMap">
+		SELECT * FROM PRODUCT
+	</select>
+	
+	<select id="selectOne" resultMap="ProductMap">
+		SELECT *
+			FROM PRODUCT
+			WHERE productid=#{producid}
+	</select>
+	
 
 </mapper>

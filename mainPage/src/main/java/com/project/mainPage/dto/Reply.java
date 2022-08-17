@@ -1,6 +1,7 @@
 package com.project.mainPage.dto;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -26,13 +27,14 @@ import lombok.Data;
 @Data
 public class Reply {
 	private int reply_no;
-	private String title;
-	private String contents;
+	private String title;   // 댓글 제목
+	private String contents;  // 댓글 내용 
 	@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
-	private Date post_time;
-	private String img_path;
-	private int board_no;
-	private int good;
-	private int bad;
+	private Date post_time;   // 댓글 등록일 
+	private String img_path;  // 댓글 이미지 
+	private int board_no; 
 	private UsersDto users;  // UsersDto userid : fk
+	private Boolean prefer_active = null; // null : 누른적이 없는 , true : good를 누른것 , false: bad를 누른것 
+	private List<ReplyPrefer> good_prefers;
+	private List<ReplyPrefer> bad_prefers;
 }
