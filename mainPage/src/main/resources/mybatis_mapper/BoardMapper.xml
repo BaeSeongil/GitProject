@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.mainPage.mapper.BoardMapper">
+	<resultMap type="Board" id="BoardMap">
+		<id column="board_no" property="board_no"/>
+		<result column="title" property="title"/>
+		<result column="contents" property="contents"/>
+		<result column="post_time" property="post_time"/>
+		<result column="prefer_good" property="good"/>
+		<result column="prefer_bad" property="bad"/>
+		<result column="views" property="views"/>
+		<result column="views" property="views"/>	
+		<result column="replys_size" property="replys_size"/>
+		<!-- Board : UsersDto = N : 1   -->	
+		<association property="users" javaType="UsersDto" foreignColumn="userid">
+			<id column="userid" property="userid"/>
+			<result column="username" property="username"/>
+			<result column="email" property="email"/>
+		</association>
+		<!-- Board : Reply = 1 : N  -->
+		<collection property="replys" javaType="java.util.ArrayList" ofType="Reply">
+			<id column="reply_no" property="reply_no"/>
+			<result column="reply_title" property="title"/>
+			<result column="reply_contents" property="contents"/>
+			<result column="reply_post_time" property="post_time"/>
+			<result column="reply_img_path" property="img_path"/>
+			<result column="reply_good" property="good"/>
+			<result column="reply_bad" property="bad"/>
+			<!-- Reply : UsersDto = N : 1 -->
+				<association property="users" javaType="UsersDto">
+					<id column="reply_userid" property="userid"/>
+				</association>
+				
+				<collection property="good_prefers" ofType="ReplyPrefer" javaType="java.util.ArrayList">
+					<id column="rp_good_reply_prefer_no" property="reply_prefer_no"/>
+					<result column="rp_good_reply_no" property="reply_no"/>
+					<result column="rp_good_prefer" property="prefer"/>
+					<result column="rp_good_userid" property="userid"/>
+				</collection>
+				
+				<collection property="bad_prefers" ofType="ReplyPrefer" javaType="java.util.ArrayList">
+					<id column="rp_bad_reply_prefer_no" property="reply_prefer_no"/>
+					<result column="rp_bad_reply_no" property="reply_no"/>
+					<result column="rp_bad_prefer" property="prefer"/>
+					<result column="rp_bad_userid" property="userid"/>
+				</collection>
+				
+		</collection>
+		
+		<collection property="boardImgs" javaType="java.util.ArrayList" ofType="BoardImg">
+			<id column="iboard_img_no" property="board_img_no"/>
+			<result column="iimg_path" property="img_path"/>
+		</collection>
+	</resultMap>
+
+	<!-- list 페이지  -->
+	<select id="selectPageAll" resultType="Board">
+		SELECT
+			board_no, title, post_time, views, board_no boardNo,
+			(SELECT count(*) FROM REPLY r WHERE r.board_no = boardNo ) replys_size,
+			(SELECT count(*) FROM BOARD_PREFER WHERE board_no = boardNo) good,
+			userid as 'users.userid'
+			FROM BOARD
+			ORDER BY board_no 
+	</select>
+	
+	<select id="selectDetailOneAll" resultMap="BoardMap">
+		SELECT b.*,
+			(SELECT count(*) FROM BOARD_PREFER WHERE board_no = b.board_no AND prefer = true) prefer_good,
+			(SELECT count(*) FROM BOARD_PREFER WHERE board_no = b.board_no AND prefer = false) prefer_bad,
+			u.userid,u.username,u.email,
+			r.reply_no,
+			r.title as reply_title, 
+			r.contents as reply_contents, 
+			r.post_time as reply_post_time,
+			r.img_path as reply_img_path,
+			
+			i.board_img_no as iboard_img_no,
+			i.img_path as iimg_path,
+			
+			rp_good.userid 				as rp_good_userid,
+			rp_good.reply_prefer_no 	as rp_good_reply_prefer_no,
+			rp_good.reply_no 			as rp_good_reply_no,
+			rp_good.prefer 				as rp_good_prefer,
+			
+			rp_bad.userid 				as rp_bad_userid,
+			rp_bad.reply_prefer_no 		as rp_bad_reply_prefer_no,
+			rp_bad.reply_no 			as rp_bad_reply_no,
+			rp_bad.prefer 				as rp_bad_prefer
+			
+			FROM BOARD b INNER JOIN USERS u 
+			USING(userid)
+			
+			LEFT JOIN BOARD_IMG i 
+			USING(board_no)
+			
+			LEFT JOIN REPLY r 
+			USING(board_no)
+			
+			LEFT JOIN  (SELECT * FROM REPLY_PREFER WHERE prefer=true) rp_good
+			ON r.reply_no = rp_good.reply_no
+			
+			LEFT JOIN  (SELECT * FROM REPLY_PREFER WHERE prefer=false) rp_bad
+			ON r.reply_no = rp_bad.reply_no
+			
+			WHERE b.board_no = #{boardNo}
+			ORDER BY reply_no DESC
+	</select>
+
+	<update id="detailUpdateViews" parameterType="int">
+		UPDATE BOARD SET 
+			views = views+1
+			WHERE board_no=#{boardNo}
+	</update>
+
+	<insert id="insertOne" parameterType="Board"
+	 useGeneratedKeys="true" keyProperty="board_no">
+		INSERT INTO BOARD (title,contents,userid)
+		VALUES (#{title},#{contents},#{users.userid})
+	</insert>
+
+
+
+
+
+
+
+
+</mapper>

@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+
+import com.project.mainPage.dto.Category;
+import com.project.mainPage.dto.Pagination;
+
 import com.project.mainPage.dto.Product;
 import com.project.mainPage.mapper.ProductMapper;
 import com.project.mainPage.service.ProductService;
@@ -21,6 +25,7 @@ public class ProductController {
 	
 	@Autowired
 	private ProductMapper productMapper;
+
 
 	@GetMapping("/cate/{page}")
 	public String list(@PathVariable int page, Model model) {
@@ -48,5 +53,28 @@ public class ProductController {
 		return "redirect:/product/list/1";
 			
 	}
+
+	
+//	@GetMapping("/list/{page}")
+//	public String list(@PathVariable int page, 
+//					@PathVariable int startRow,
+//					@PathVariable int pageSize,
+//					Model model) {
+//		int row = 10;
+//		int startRow = (page - 1)*row;
+//		List<Product> productList = productMapper.selectAll(startRow,row);
+//		int count = productMapper.selectAllCount();
+//		
+//		Pagination pagination = new Pagination(page, count, "/product/list/", row);
+//		System.out.println(pagination);
+//		model.addAttribute("pagination",pagination);
+//		model.addAttribute("productList",productList);
+//		model.addAttribute("row",row);
+//		model.addAttribute("count",count);
+//		model.addAttribute("page",page);	
+//		return "/product/list";
+//	}
+	
+
 	
 }

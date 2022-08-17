@@ -29,14 +29,16 @@
  			phone=#{phone}, 
  			email=#{email},
  			birth=#{birth},
- 			address=#{address}
+ 			add1=#{add1},
+ 			add2=#{add2},
+ 			add3=#{add3}
  			WHERE userid=#{userid}
  	</update>
  	
  	<insert id="insertOne" parameterType="UsersDto">
-	 	 INSERT INTO USERS (userid, username, userpw, phone, email, birth, address, signup)
+	 	 INSERT INTO USERS (userid, username, userpw, phone, email, birth, add1, add2, add3, signup)
 	 	 	VALUES (#{userid},#{username},#{userpw},#{phone},
-	 	 	#{email},#{birth},#{address},#{signup})
+	 	 	#{email},#{birth},#{add1},#{add2},#{add3},#{signup})
  	</insert>
  	
  	<delete id="deleteOne" parameterType="UsersDto">

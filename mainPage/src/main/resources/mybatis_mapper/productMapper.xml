@@ -4,7 +4,7 @@
        
 
 <mapper namespace="com.project.mainPage.mapper.ProductMapper">
-
+	
 	<resultMap type="Product" id="ProductMap">
 		<id column="productid" property="productid"/>
 		<result column="productName" property="productName"/>
@@ -33,5 +33,13 @@
 			WHERE productid=#{producid}
 	</select>
 	
+	<select id="selectAll" resultType="Product">
+		SELECT *,categoryId 'cate.categoryId' FROM PRODUCT LIMIT #{startRow},#{pageSize}
+	</select>
+
+	 <select id="selectAllCount" resultType = "int" >
+ 		SELECT COUNT(*) FROM PRODUCT 
+ 	</select>
+
 
 </mapper>
