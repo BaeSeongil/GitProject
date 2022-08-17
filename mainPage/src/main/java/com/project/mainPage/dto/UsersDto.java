@@ -32,7 +32,7 @@ public class UsersDto {
  	private String email; //회원 이메일
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birth; //회원 생일
-	private String adminCk; //관리자 체크
+	private int adminCk; //관리자 체크
 	private String add1; //회원 주소(우편번호)
 	private String add2; //회원 주소(주소)
 	private String add3; //회원 주소(상세주소)

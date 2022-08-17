@@ -1,10 +1,33 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org">
+<nav class="navbar navbar-expand-lg bg-light">
+	<div class="container-fluid">	
+		<div class="d-flex justify-content-start">
+			<a href="/"><img src="/img/logo.webp" style= "width:75px; height:50px;"></a>
+		</div>
+		<div class="d-flex justify-content-end">
+			<!-- 비로그인시 -->
+			<th:block th:if="${session.loginUsers == null}">
+				<a class="btn btn-sm btn-outline-secondary" href="/users/login.do">회원 로그인</a>
+				<a href="/users/signup.do" class="btn btn-sm btn-outline-primary">회원가입</a> 
+			</th:block>
+			<!-- 로그인시 -->
+			<th:block th:unless="${session.loginUsers == null}">
+				<th:block th:if="${session.loginUsers.adminCk == 1}"><!-- 관리자용 -->
+					<a href="/admin/main" class="btn btn-sm btn-outline-warning">관리자페이지</a>
+				</th:block>
+				<a th:href="@{/users/detail/{userid}(userid=${session.loginUsers.userid})}" 
+				class="btn btn-sm btn-outline-info">
+					<span th:text="${session.loginUsers.username}"></span>
+					(<span th:text="${session.loginUsers.userid}"></span>)					
+				</a>
+				<a href="/cart/" class="btn btn-sm btn-outline-primary">장바구니</a>
+				<a href="/users/logout.do" class="btn btn-sm btn-outline-danger">로그아웃</a>
+			</th:block>
+			<div>
+				<a href="/cart/" class="btn btn-sm btn-outline-success">고객센터</a>
+			</div>
+		</div>
+	</div>
+</nav>
 
-</body>
 </html>
