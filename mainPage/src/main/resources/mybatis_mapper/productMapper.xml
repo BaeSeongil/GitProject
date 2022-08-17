@@ -21,7 +21,6 @@
 			<result column="categoryName" property="categoryName"/>
 		</association>
 	</resultMap>
-		
 
 	<select id="selectPageAll" resultMap="ProductMap">
 		SELECT * FROM PRODUCT
