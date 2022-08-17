@@ -1,3 +1,4 @@
+package com.project.mainPage;
 //package com.project.mainPage.config;
 //
 //import org.springframework.context.annotation.Bean;

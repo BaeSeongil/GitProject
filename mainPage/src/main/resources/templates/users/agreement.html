@@ -47,7 +47,7 @@ h2{
 	position: relative;
     width: 100%;
 }
-span{
+.text{
   color : #777;
   font-size: 13px;
   margin-left: 20px;
@@ -55,10 +55,11 @@ span{
 </style>
 </head>
 <body>
+	<header th:insert="/gAndB"></header>
 	<header th:insert="/headerNav"></header>
 	<div class="content">
 	<h2>서비스 이용약관</h2>
-	<span>회원 가입을 하기에 앞서 서비스 이용약관을 읽어보시기 바랍니다.</span>
+	<span class="text">회원 가입을 하기에 앞서 서비스 이용약관을 읽어보시기 바랍니다.</span>
 		<div>
 			<div class="innerBox">
 				<p class="title">서비스 이용약관</p>
