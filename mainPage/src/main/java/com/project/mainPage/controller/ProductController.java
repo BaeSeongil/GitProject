@@ -34,7 +34,7 @@ public class ProductController {
 		int startRow = (page - 1) * row;
 		List<Product> productList = productMapper.selectAll(startRow, row);
 		int count = productMapper.selectAllCount();
-
+		
 		Pagination pagination = new Pagination(page, count, "/product/list/", row);
 		System.out.println(pagination);
 		model.addAttribute("pagination", pagination);
