@@ -8,9 +8,6 @@ import com.project.mainPage.dto.Product;
 
 @Mapper
 public interface ProductMapper {
-
-
-	List<Product> selectPageAll();
 	
 
 	List<Product> selectAll(int startRow, int pageSize);
