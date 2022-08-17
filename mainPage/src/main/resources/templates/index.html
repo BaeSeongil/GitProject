@@ -1,61 +1,76 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>shop</title>
 <link rel="stylesheet" href="/public/css/index.css">
 </head>
-
+<style>
+html, body {
+	height: 100%;
+	display: flex;
+	flex-flow: column;
+}
+footer {
+	flex: 1;
+	height: auto;
+  	min-height: 20%; /* footer 높이 조절 */
+  	position: relative;
+}
+</style>
 <body>
 	<header th:insert="/gAndB"></header>
 	<header th:insert="/headerNav"></header>
-	<div class="container">
-		<section class="shopping">
-			<div class="heading">
-				<h1>
-					<span>With Acorn Academy</span>
-					SHOPPING
-				</h1>
-				<p>
-					의류 쇼핑몰을 방문해 주셔서 감사합니다.
-				</p>
-				<p>
-					최고의 서비스를 제공하도록 노력하겠습니다.
-				</p>
-			</div>
-			<video src="/medias/shopping.mp4" autoplay muted loop></video>
-		</section>
-        <section class=d-flex id="category">
-	        <div class="knit">
-	        	<div class="content img-cover">
-		        	<a th:href="@{/product/list/{categoryid}(categoryid=10)}">
-		        		Knit
-		        	</a>
+	<div id="wrapper">
+		<div class="container">
+			<section class="shopping">
+				<div class="heading">
+					<h1>
+						<span>With Acorn Academy</span>
+						SHOPPING
+					</h1>
+					<p>
+						의류 쇼핑몰을 방문해 주셔서 감사합니다.
+					</p>
+					<p>
+						최고의 서비스를 제공하도록 노력하겠습니다.
+					</p>
+				</div>
+				<video src="/medias/shopping.mp4" autoplay muted loop></video>
+			</section>
+	        <section class=d-flex id="category">
+		        <div class="knit">
+		        	<div class="content img-cover">
+			        	<a th:href="@{/product/list/{categoryid}(categoryid=10)}">
+			        		Knit
+			        	</a>
+			        </div>
 		        </div>
-	        </div>
-	         <div class="outer">
-	        	<div class="content img-cover">
-	        		<a th:href="@{/product/list/{categoryid}(categoryid=20)}">
-		        		Outer
-		        	</a>
+		         <div class="outer">
+		        	<div class="content img-cover">
+		        		<a th:href="@{/product/list/{categoryid}(categoryid=20)}">
+			        		Outer
+			        	</a>
+			        </div>
 		        </div>
-	        </div>
-	        <div class="pants">
-				<div class="content img-cover">
-	        		<a th:href="@{/product/list/{categoryid}(categoryid=30)}">
-		        		Pants
-		        	</a>
+		        <div class="pants">
+					<div class="content img-cover">
+		        		<a th:href="@{/product/list/{categoryid}(categoryid=30)}">
+			        		Pants
+			        	</a>
+			        </div>
 		        </div>
-	        </div>
-	        <div class="etc">
-				<div class="content img-cover">
-		        	<a th:href="@{/product/list/{categoryid}(categoryid=40)}">
-		        		Etc.
-		        	</a>
-	        	</div>
-	        </div>
-        </section>
-        </div>
+		        <div class="etc">
+					<div class="content img-cover">
+			        	<a th:href="@{/product/list/{categoryid}(categoryid=40)}">
+			        		Etc.
+			        	</a>
+		        	</div>
+		        </div>
+	        </section>
+	    </div>
+  	  <footer class="footer" th:insert="/footer"></footer>
+    </div>
+    
 </body>
-<footer th:insert="/footer"></footer>
 </html>

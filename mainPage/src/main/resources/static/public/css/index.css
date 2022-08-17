@@ -115,6 +115,8 @@ body{
    background-color: rgba(0, 0, 0, 0.2);                                                                 
    z-index:1;
 }
+<<<<<<< HEAD:mainPage/src/main/resources/static/css/index.css
+=======
 #category{
    flex-wrap: wrap;
    justify-content: center;
@@ -147,3 +149,4 @@ body{
    height: 400px;
     background-size: cover;
 }
+>>>>>>> 25ff19dc9d371fabd0a72d529350f9966cdd4cb6:mainPage/src/main/resources/static/public/css/index.css
