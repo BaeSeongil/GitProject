@@ -47,7 +47,7 @@ public class ProductController {
 
 	
 	  @GetMapping("/cate/{page}") public String prolist(@PathVariable int page,Model model) { 
-			int row = 10;
+			int row = 12;
 			int startRow = (page - 1) * row;
 			List<Product> productList = productMapper.selectAll(startRow, row);
 			int count = productMapper.selectAllCount();

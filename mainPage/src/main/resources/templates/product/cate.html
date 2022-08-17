@@ -39,20 +39,20 @@ footer {
 	<div style="padding: 30px;">
 		<h3 class="mt-5 d-flex justify-content-center align-items-center">ALL</h3>
 	</div>
-	<div class="d-flex mb-10 justify-content-evenly">
-			<a href="/product/insert.do" class="btn btn-outline-secondary">상품 등록</a>
-		</div>	
 	<div id="wrapper">
-		<th:block th:each="product:${productList}">
-			<div id="lefe" class="d-flex m-5 justify-content-start" 
-				th:onclick="location.href='/product/detail/[[${product.productid}]]'">
-				<div id="lefe" class="card" style="width: 18rem;">
-				  <img class="card-img-top" alt="상품 이미지">
-				  <div id="lefe" class="card-body">
-				    <p class="card-text" th:text="${product.productName}"></p>
-				    <p class="card-text" th:text="${product.productid}"></p>
-				  </div>
+		<div class="container">
+			<th:block th:each="product:${productList}">
+				<div id="lefe" class="d-flex m-5 justify-content-start" 
+					th:onclick="location.href='/product/detail/[[${product.productid}]]'">
+					<div id="lefe" class="card" style="width: 18rem;">
+					  <img class="card-img-top" alt="상품 이미지">
+					  <div id="lefe" class="card-body">
+					    <p class="card-text" th:text="${product.productName}"></p>
+					    <p class="card-text" th:text="${product.productid}"></p>
+					  </div>
+					</div>
 				</div>
+
 			</div>
 		</th:block>
 		
