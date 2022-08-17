@@ -74,12 +74,12 @@ public class ProductController {
 				model.addAttribute(product);
 				return "/product/detail";
 			} else {
-				return "redirect:/product/list/1";
+				return "redirect:/product/cate/1";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/product/list/1";
+		return "redirect:/product/cate/1";
 
 	}
 //	@GetMapping("/list/{page}")

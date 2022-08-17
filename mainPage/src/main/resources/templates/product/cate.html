@@ -5,15 +5,28 @@
 <title>상품 전체 보기</title>
 <style type="text/css">
 
-#wrapper {
+html, body {
+	height: 100%;
+	display: flex;
+	flex-flow: column;
+}
+
+footer {
+	flex: 1;
 	height: auto;
-  	min-height: 100%;
+  	min-height: 30%; /* footer 높이 조절 */
   	position: relative;
-  	float: left;
+}
+
+#wrapper {	
+	height: auto;
+  	/* min-height: 100%; */
+  	position: relative;
   
 }
 
 #lefe {
+
 	float: left;
 }
 
@@ -23,7 +36,12 @@
 <body>
 <header th:insert="/headerNav"></header>
 
-	<h1 class="m-3 d-flex justify-content-between align-items-center">전체</h1>
+	<div style="padding: 30px;">
+		<h3 class="mt-5 d-flex justify-content-center align-items-center">ALL</h3>
+	</div>
+	<div class="d-flex mb-10 justify-content-evenly">
+			<a href="/product/insert.do" class="btn btn-outline-secondary">상품 등록</a>
+		</div>	
 	<div id="wrapper">
 		<th:block th:each="product:${productList}">
 			<div id="lefe" class="d-flex m-5 justify-content-start" 
@@ -37,8 +55,12 @@
 				</div>
 			</div>
 		</th:block>
+		
 	</div>
+	<div>
 		<div class="d-flex justify-content-center" th:insert="/pagination.html"></div>
+	</div>
+	<footer th:insert="/footer"></footer>
 </body>
-<footer th:insert="/footer"></footer>
+
 </html>

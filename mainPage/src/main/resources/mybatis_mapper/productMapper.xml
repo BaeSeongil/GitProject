@@ -35,5 +35,18 @@
 			FROM PRODUCT
 			WHERE productid=#{productid}
 	</select>
+	
+	<update id="updateOne" parameterType="Product">
+		UPDATE PRODUCT SET 
+			productName=#{productName},
+			productSize=#{productSize},
+			productColor=#{productColor},
+			productGroup=#{productGroup},
+			productInfo=#{productInfo},
+			productStock=#{productStock},
+			price=#{price}
+			WHERE productid=#{productid}
+	</update>
+	
 
 </mapper>
