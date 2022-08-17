@@ -3,7 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <title>회원 가입</title>
-<script type="text/javascript" src="/public/js/user/signup.js" defer="defer"></script>
+<style type="text/css">
+.width{
+	display:inline-block;
+	width:66px;
+}
+</style>
+<script src="/public/js/user/signup.js" defer="defer"></script>
+<!-- 주소API기능연동 -->
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js" defer="defer"></script>
 </head>
 <body>
 	<header th:insert="/headerNav"></header>
@@ -13,27 +21,27 @@
 	<main class="d-flex justify-content-center" >
 		<form action="/users/signup.do" name="insertForm" method="post">
 			<div class="row mb-3 g-3 align-items-center">
-				<div class="col-auto">
-					아이디
+				<div class="col-auto labelSize">
+					<span class="width">아이디</span>
 				</div>
 				<div class="col-auto d-flex justify-content-between">
 					<input name="userid" type="text" class="form-control" aria-describedby="idHelp" required>
 				</div>
 				<div class="col-auto">
 					<span id="idHelp" class="col-auto form-text">
-						&nbsp; 최소 네글자이상이어야 합니다.
+						 최소 네글자이상이어야 합니다
 					</span>
 					<span class="valid-feedback">
-						&nbsp; 사용 가능한 아이디
+						&nbsp; 사용 가능한 아이디입니다
 					</span>
 					<span class="invalid-feedback">
-						&nbsp; 중복된 아이디
+						&nbsp; 아이디가 이미 존재합니다
 					</span>
 				</div>
 			</div>
 			<div class="row mb-3 g-3 align-items-center">
 				<div class="col-auto">
-					<label for ="inputName" class="col-form-label">이름</label>
+					<label for ="inputName" class="col-form-label"><span class="width">이름</span></label>
 				</div>
 				<div class="col-auto">
 					<input id="inputName" class="form-control" name="username" type="text" required>
@@ -41,20 +49,26 @@
 			</div>
 			<div class="row mb-3 g-3 align-items-center">
 				<div class="col-auto">
-					<label for ="inputPw" class="col-form-label">패스워드</label>
+					<label for ="inputPw" class="col-form-label"><span class="width">패스워드</span></label>
 				</div>
 				<div class="col-auto">
 					<input id="inputPw" class="form-control" name="userpw" type="text" aria-describedby="pwHelp" required>
 				</div>	
 				<div class="col-auto">
 					<span id="pwHelp" class="form-text">
-						최소 4자리이상이어야 합니다.
+						최소 4자리이상이어야 합니다
+					</span>
+					<span class="valid-feedback">
+						&nbsp; 사용 가능한 패스워드입니다
+					</span>
+					<span class="invalid-feedback">
+						&nbsp; 사용 불가능한 패스워드입니다
 					</span>
 				</div>			
 			</div>
 			<div class="row mb-3 g-3 align-items-center">
 				<div class="col-auto">
-					<label for="inputPhone" class="col-form-label">Phone</label>
+					<label for="inputPhone" class="col-form-label"><span class="width">Phone</span></label>
 				</div>
 				<div class="col-auto">
 					<input type="tel" name="phone" id="inputPhone" class="form-control" aria-describedby="phoneHelp" required>
@@ -67,7 +81,7 @@
 			</div>
 			<div class="row mb-3 g-3 align-items-center">
 				<div class="col-auto">
-					<label for="inputEmail" class="col-form-label">Email</label>
+					<label for="inputEmail" class="col-form-label"><span class="width">Email</span></label>
 				</div>
 				<div class="col-auto">
 					<input type="email" name="email" id="inputEmail" class="form-control" aria-describedby="emailHelp" required>
@@ -80,23 +94,42 @@
 			</div>
 			<div class="row mb-3 g-3 align-items-center">
 				<div class="col-auto">
-					<label for="inputBirth" class="col-form-label">생일</label>
+					<label for="inputBirth" class="col-form-label"><span class="width">생일</span></label>
 				</div>
 				<div class="col-auto">
 					<input type="date" name="birth" id="inputBirth" class="form-control" required>
 				</div>
 			</div>
 			<div class="row mb-3 g-3 align-items-center">
-				<div class="col-auto">
-					<label for="inputAddress" class="col-form-label">주소</label>
+				<div class="col-auto labelSize">
+					<span class="width">우편번호</span>
 				</div>
 				<div class="col-auto">
-					<input type="text" size="50" name="address" id="inputAddress" class="form-control" required>
+					<input type="text" size="20" placeholder="우편번호" name="add1" 
+					class="form-control" id="inputAdd1" required readonly style="display:inline; width:50%;">
+					<input  type="button" class="btn" onclick="execution_daum_address()" value="주소 찾기">
 				</div>
 			</div>
 			<div class="row mb-3 g-3 align-items-center">
+				<div class="col-auto labelSize">
+					<span class="width">주소</span>
+				</div>
 				<div class="col-auto">
-			   		<label for="inputAddress" class="col-form-label">가입일</label>
+					<input type="text" size="40" placeholder="도로명주소" name="add2" id="inputAdd2" class="form-control" required readonly>
+				</div>
+			</div>
+			<div class="row mb-3 g-3 align-items-center">
+				<div class="col-auto labelSize">
+					<span class="width">상세주소</span>
+				</div>
+				<div class="col-auto">
+					<input type="text" size="40" placeholder="상세주소" name="add3" id="inputAdd3" class="form-control" readonly>
+				</div>
+			</div>
+			
+			<div class="row mb-3 g-3 align-items-center">
+				<div class="col-auto">
+			   		<label for="inputAddress" class="col-form-label"><span class="width">가입일</span></label>
 				</div>
 				<div class="col-auto" >
 					<input type="datetime-local" name="signup" id="inputSignup" class="form-control">
@@ -115,6 +148,50 @@
 </body>
 <footer th:insert="/footer"></footer>
 <script type="text/javascript">
-	document.getElementById('inputSignup').value=new Date().toISOString().slice(0, 16);
+	document.getElementById("inputSignup").value=new Date().toISOString().slice(0, 16);
+	
+	/* 다음 주소 연동 */
+	function execution_daum_address(){
+		new daum.Postcode({
+	        oncomplete: function(data) {
+	        	// 내려오는 변수가 값이 없는 경우엔 공백("")값을 가지므로, 이를 참고하여 분기 한다.
+                var addr = ""; // 주소 변수
+                var extraAddr = ""; // 참고항목 변수
+                //선택한 주소 타입에 따라 해당 주소 값을 가져온다
+                if (data.userSelectedType === "R") { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우
+                    addr = data.jibunAddress;
+                }
+                // 선택한 주소가 도로명 타입일때 조합
+                if(data.userSelectedType === "R"){
+                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                    if(data.bname !== "" && /[동|로|가]$/g.test(data.bname)){
+                        extraAddr += data.bname;
+                    }
+                    // 건물명이 있고, 공동주택일 경우 추가한다.
+                    if(data.buildingName !== "" && data.apartment === "Y"){
+                        extraAddr += (extraAddr !== "" ? ", " + data.buildingName : data.buildingName);
+                    }
+                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                    if(extraAddr !== ""){
+                        extraAddr = " (" + extraAddr + ")";
+                    }
+                 	// 주소변수 문자열과 참고항목 문자열 합치기
+                    addr += extraAddr;
+                } else {
+                	addr += " ";
+                }
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById("inputAdd1").value = data.zonecode;
+                document.getElementById("inputAdd2").value = addr;
+                // 커서를 상세주소 필드로 이동한다.
+                // readonly 
+                document.getElementById("inputAdd3").focus();
+                document.getElementById("inputAdd3").removeAttribute("readonly");
+            }
+        }).open();
+	     }
 </script>
 </html>

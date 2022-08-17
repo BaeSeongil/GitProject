@@ -1,5 +1,7 @@
 package com.project.mainPage.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.project.mainPage.dto.NoticeImg;
@@ -9,4 +11,5 @@ import com.project.mainPage.dto.NoticeImg;
 @Mapper
 public interface NoticeImgMapper {
 	int insertOne(NoticeImg noticeImg);
+	List<NoticeImg> selectNoticeNo(int noticeNo);
 }

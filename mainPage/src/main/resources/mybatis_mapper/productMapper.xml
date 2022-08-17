@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+       
+
+<mapper namespace="com.project.mainPage.mapper.ProductMapper">
+	<resultMap type="Product" id="ProductMap">
+		<id column="productid" property="productid"/>
+		<result column="productName" property="productName"/>
+		<result column="productSize" property="productSize"/>
+		<result column="productColor" property="productColor"/>
+		<result column="productGroup" property="productGroup"/>
+		<result column="productInfo" property="productInfo"/>
+		<result column="productStock" property="productStock"/>
+		<result column="productDate" property="productDate"/>
+		<result column="price" property="price"/>
+		<!-- Product : Category = N : 1 -->
+		<association property="category" javaType="Category" foreignColumn="categoryId">
+				<id column="categoryId" property="categoryId"/>
+				<result column="categoryName" property="categoryName"/>
+		</association>
+	</resultMap>
+
+	<select id="selectAll" resultType="Product">
+		SELECT *,categoryId 'category.categoryId' FROM PRODUCT LIMIT #{startRow},#{pageSize}
+	</select>
+	
+	 <select id="selectAllCount" resultType = "int" >
+ 		SELECT COUNT(*) FROM PRODUCT 
+ 	</select>
+	
+	<select id="selectOne" resultMap="ProductMap">
+		SELECT *
+			FROM PRODUCT
+			WHERE productid=#{productid}
+	</select>
+	
+</mapper>

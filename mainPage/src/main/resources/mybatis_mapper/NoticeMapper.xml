@@ -26,8 +26,7 @@
 	
 	
 	<select id="selectPageAll" resultType="Notice">
-		SELECT *, notice_no noticeNO,
-			(SELECT COUNT(*) FROM NoticeReply n WHERE n.notice_no = noticeNO) notreplys_size,
+		SELECT *, notice_no noticeNo,
 			n.userid as 'users.userid' 
 			FROM NOTICE n
 			ORDER BY n.notice_no
@@ -50,14 +49,21 @@
 			WHERE n.notice_no = #{noticeNo}
 	</select>
 	
+	<!-- 조회수 -->
 	<update id="updateViews" parameterType="int">
 		UPDATE NOTICE SET 
 			views = views+1
 			WHERE notice_no = #{noticeNo}
 	</update>
 	
+	<!-- 공지사항 등록 -->
 	<insert id="insertOne" parameterType="Notice" useGeneratedKeys="true" keyProperty="notice_no">
 		INSERT INTO NOTICE (title,contents,userid) VALUE (#{title},#{contents},#{users.userid})
 	</insert>
+	
+	<!-- 공지사항 삭제 -->
+	<delete id="deleteOne" parameterType="int">
+		DELETE FROM NOTICE WHERE notice_no = #{noticeNo}
+	</delete>
 	
 </mapper>

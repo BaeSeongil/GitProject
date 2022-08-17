@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.project.mainPage.dto.Notice;
 import com.project.mainPage.dto.NoticeImg;
+import com.project.mainPage.dto.UsersDto;
 import com.project.mainPage.mapper.NoticeMapper;
 import com.project.mainPage.service.NoticeService;
 
@@ -101,6 +103,31 @@ public class NoticeController {
 		}else {
 			return "redirect:/notice/insert.do";						
 		}
+		
+	}
+	
+	// 공지사항 삭제 
+	@GetMapping("/delete/{noticeNo}/{userId}")
+	public String delete(
+			@PathVariable int noticeNo,
+			@PathVariable String userId,
+			@SessionAttribute(name="loginUsers",required = false) UsersDto loginUsers
+			) {
+		// loginUsers null이 아니고 loginUsers == userId 때 삭제 가능 
+			if(loginUsers != null && loginUsers.getUserid().equals(userId)) {
+				int delete = 0 ;
+				try {
+					delete = noticeService.removeNotice(noticeNo);
+				}catch (Exception e) {e.printStackTrace();}
+				if(delete>0) {
+					System.out.println("삭제성공"+noticeNo);
+					return "redirect:/notice/list/1";
+				}else {
+					return "redirect:/notice/detail/"+noticeNo;
+				}
+			}else {
+				return "redirect:/users/login.do";				
+			}
 		
 	}
 	

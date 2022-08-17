@@ -7,7 +7,7 @@
 <nav class="navbar navbar-expand-lg bg-light">
   <div class="container-fluid">
  	<div class="d-flex m-1">
-  		<a class="navbar-brand" href="/">HOME</a>
+  		<a class="navbar-brand bi bi-house-door-fill" href="/"></a>
 	</div>
     <div class="d-flex justify-content-end collapse navbar-collapse" >
     	<div class="mb-0">
@@ -37,21 +37,22 @@
            				카테고리
          			</a>
 		          	<ul class="dropdown-menu">
+		          		<li><a class="dropdown-item" href="/product/cate/1">전체</a></li>
 		            	<li><a class="dropdown-item" href="/category/list/1">상의</a></li>
-		            	<li><a class="dropdown-item" href="#">하의</a></li>
-		            	<li><a class="dropdown-item" href="#">아우터</a></li>
-		            	<li><a class="dropdown-item" href="#">신발</a></li>
-		            	<li><a class="dropdown-item" href="#">모자</a></li>
+		            	<li><a class="dropdown-item" href="/category/list/2">하의</a></li>
+		            	<li><a class="dropdown-item" href="/category/list/3">아우터</a></li>
+		            	<li><a class="dropdown-item" href="/category/list/4">신발</a></li>
+		            	<li><a class="dropdown-item" href="/category/list/5">모자</a></li>
 		          	</ul>
         		</li>
 
 				
 				<li class="nav-item">
-					<a class="nav-link" href="#">Outer</a>
+					<a class="nav-link" href="/product/list/1">상품 리스트</a>
 				</li>
 				
 				<li class="nav-item">
-					<a class="nav-link" href="#">Dress</a>
+					<a class="nav-link" href="/board/list/1">게시판</a>
 				</li>
 				
 				<li class="nav-item">
@@ -61,7 +62,7 @@
 		</div>   
 		<div class="d-flex justify-content-end m-1">
 			<th:block th:if="${session.loginUsers == null}">
-				<a class="btn btn-sm btn-outline-secondary" href="/users/login.do">화원 로그인</a>
+				<a class="btn btn-sm btn-outline-secondary" href="/users/login.do">회원 로그인</a>
 				<a href="/users/signup.do" class="btn btn-sm btn-light">회원가입</a> 
 			</th:block>
 			<th:block th:unless="${session.loginUsers == null}">
