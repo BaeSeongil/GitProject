@@ -39,28 +39,33 @@ div {
 <body>
 	<header th:insert="/gAndB"></header>
 	<header th:insert="/headerNav"></header>
-		<th:block>
-			<nav class="m-5 pr-8">
-				<button type="button" class="btn btn-light">티셔츠</button>
-				<button type="button" class="btn btn-light">맨투맨/후드/집업</button>
-				<button type="button" class="btn btn-light">긴팔티셔츠</button>
-			</nav>
-		</th:block>
-		<h1 class="m-3 d-flex justify-content-between align-items-center"></h1>
+	
+		<nav class="m-5 pr-8">
+			<button type="button" class="btn btn-light">티셔츠</button>
+			<button type="button" class="btn btn-light">맨투맨/후드/집업</button>
+			<button type="button" class="btn btn-light">긴팔티셔츠</button>
+		</nav>
+
+	<h1 class="m-3 d-flex justify-content-between align-items-center"></h1>
 	<div id="wrapper">
-	<th:block th:each="product:${productList}">
-		<div class="d-flex m-5 justify-content-start" 
-			th:onclick="location.href='/product/detail/[[${product.productid}]]'">
-			<div class="card" style="width: 18rem;">
-			  <img class="card-img-top" alt="상품 이미지">
-			  <div class="card-body">
-			    <p class="card-text" th:text="${product.productName}"></p>
-			    <p class="card-text" th:text="${product.productid}"></p>
-			  </div>
+	<th:block th:if="${categoryName=='상의'}">
+		<th:block th:each="category:${categoryList}">
+			<div class="d-flex m-5 justify-content-start">
+				<div class="card" style="width: 18rem;">
+				  <img class="card-img-top" alt="상품 이미지">
+				  <div class="card-body">
+				    <p class="card-text" th:text="${category.product?.productName}"></p>
+				    <p class="card-text" th:text="${category.product?.productid}"></p>
+				  </div>
+				</div>
 			</div>
-		</div>
+		</th:block>
 	</th:block>
 	</div>
+	
+	<!-- <div>
+		<div class="d-flex justify-content-center" th:insert="/pagination.html"></div>
+	</div> -->
 		<div id="footerConfig">
 		<ul style="margin-left:0; padding:0;">
 			<li class="footerList">

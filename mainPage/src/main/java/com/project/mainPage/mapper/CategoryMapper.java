@@ -8,6 +8,9 @@ import com.project.mainPage.dto.Category;
 
 @Mapper
 public interface CategoryMapper {
+	
 	List<Category> selectCategoryAll(int page);
-	List<Category> selectCategoryAll(int page, int cate);
+	List<Category> selectCategoryAll(int startRow, int pageSize);
+	int selectAllCount();
+	Category selectOne(int categoryid);
 }
