@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.project.mainPage.dto.Category;
+import com.project.mainPage.dto.Product;
 import com.project.mainPage.mapper.CategoryMapper;
+import com.project.mainPage.mapper.ProductMapper;
 
 @Controller
 @RequestMapping("/category")
@@ -19,6 +21,9 @@ public class CategoryController {
 		@Autowired
 		private CategoryMapper categoryMapper;
 	
+		@Autowired
+		private ProductMapper productMapper;
+		
 		@GetMapping("/list/{page}")
 		public String list(@PathVariable int page, Model model) {
 			List<Category> categoryList = categoryMapper.selectCategoryAll(page);
@@ -31,7 +36,12 @@ public class CategoryController {
 		public String list(@PathVariable int page, @PathVariable int cate, Model model) {
 			List<Category> categoryList = categoryMapper.selectCategoryAll(page, cate);
 			System.out.println(categoryList);
+			Product product = null;
+			// product = productMapper.selectOne(cate);
+			
 			model.addAttribute(categoryList);
 			return "/category/list";
 		}
+		
+		
 }

@@ -3,17 +3,44 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
 
+#wrapper {
+	height: auto;
+  	min-height: 100%;
+  	position: relative;
+}
+
+div {
+	float: left;
+}
+
+</style>
 </head>
 <body>
 	<header th:insert="/headerNav"></header>
-		<nav class="m-5 pr-8">
-			<button type="button" class="btn btn-light">티셔츠</button>
-			<button type="button" class="btn btn-light">맨투맨/후드/집업</button>
-			<button type="button" class="btn btn-light">긴팔티셔츠</button>
-		</nav>
-		
-
+		<th:block>
+			<nav class="m-5 pr-8">
+				<button type="button" class="btn btn-light">티셔츠</button>
+				<button type="button" class="btn btn-light">맨투맨/후드/집업</button>
+				<button type="button" class="btn btn-light">긴팔티셔츠</button>
+			</nav>
+		</th:block>
+		<h1 class="m-3 d-flex justify-content-between align-items-center">전체</h1>
+	<div id="wrapper">
+	<th:block th:each="product:${productList}">
+		<div class="d-flex m-5 justify-content-start" 
+			th:onclick="location.href='/product/detail/[[${product.productid}]]'">
+			<div class="card" style="width: 18rem;">
+			  <img class="card-img-top" alt="상품 이미지">
+			  <div class="card-body">
+			    <p class="card-text" th:text="${product.productName}"></p>
+			    <p class="card-text" th:text="${product.productid}"></p>
+			  </div>
+			</div>
+		</div>
+	</th:block>
+	</div>
 		
 </body>
 </html>
