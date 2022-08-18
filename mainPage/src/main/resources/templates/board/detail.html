@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <title>게시글 상세페이지</title>
 <script th:src="@{/public/js/board/detail.js}" defer></script>
-
 </head>
 <body>
 <header th:insert="/gAndB"></header>
@@ -84,7 +83,7 @@
 		</div>
 							
 		<hr>
-		<h3>
+		<h3 class = "mt-5">
 		  	<span>
 				<small th:text="${board.board_no}"></small>.
 				<b th:text="${board.title}"></b>
@@ -103,6 +102,10 @@
 			style="height: 150px; resize: none;" th:text="${board.contents}" readonly="readonly" ></textarea>
 		</div>
 		
+		<hr class= "mt-5">
+		<!-- 댓글 리스트 -->
+		<div th:insert="/board/replyList" th:with="replys=${board.replys}" id="replyList">
+		</div>		
 	</main>
 	
 </body>
