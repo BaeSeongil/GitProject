@@ -3,8 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <title>공지사항 게시글</title>
+<style>
+#footerConfig{
+    background: #f0f0f0;
+    overflow: hidden;
+    word-break: keep-all;
+    padding: 40px;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    position: absolute;
+}
+.footerList{
+	display: inline-block;
+    float: none;
+    text-align: center;
+}
+.footerList>a{
+	text-decoration: none;
+	margin-right: 15px;
+	color: black;
+}
+</style>
 </head>
 <body>
+	<header th:insert="/gAndB"></header>
 	<header th:insert="/headerNav"></header>
 <!-- 	<p th:text="${noticeList}"></p> -->
 	<div class="container">
@@ -37,7 +60,38 @@
 			</tbody>
 		</table>
 	</div>
-	<footer th:insert="/footer"></footer>
+	<div id="footerConfig">
+		<ul style="margin-left:0; padding:0;">
+			<li class="footerList">
+				<a href="/users/agreement">서비스이용약관</a>
+			</li>
+			<li class="footerList">
+				<a href="/users/privacy">개인정보취급방침</a>
+			</li>
+			<li class="footerList">
+				<a href="/users/emailRejection">이메일무단수집거부</a>
+			</li>
+		</ul>
+		<address>
+			<span>
+			서울특별시 마포구 양화로 122 LAB7 빌딩 3층, 4층
+			<b>|</b>
+			회사명 : 에이콘 쇼핑몰
+			<b>|</b>
+			대표 : 
+			<b>|</b>
+			</span>
+		</address>
+		<div class="fInfo">
+			<span>
+				사업자번호 : 111-11-77777
+				<b>|</b>
+				개인정보 보호관리자 : 
+			</span>
+			<span>COPYRIGHTⓒ2022 Acorn. All Right Reserved.</span>
+		
+		</div>
+	</div>
 </body>
 
 </html>

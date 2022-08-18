@@ -37,6 +37,10 @@ ul{
     font-weight: 900;
     cursor: pointer;
 }
+.list li a:link {color: black;}
+.list li a:visited {color: black;}
+.list li a:active {color: black;}
+.list li a:hover {color: black;}
 /* 관리자 페이지 상단 현페이지 정보 */
 .admin_top_wrap{
     height:110px;

@@ -14,7 +14,6 @@ html, body {
 footer {
 	flex: 1;
 	height: auto;
-  	min-height: 30%; /* footer 높이 조절 */
   	position: relative;
 }
 
@@ -34,6 +33,7 @@ footer {
 </style>
 </head>
 <body>
+<header th:insert="/gAndB"></header>
 <header th:insert="/headerNav"></header>
 
 	<div style="padding: 30px;">
@@ -60,7 +60,7 @@ footer {
 	<div>
 		<div class="d-flex justify-content-center" th:insert="/pagination.html"></div>
 	</div>
-	<footer th:insert="/footer"></footer>
 </body>
+	<footer th:insert="/footer"></footer>
 
 </html>
