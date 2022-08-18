@@ -21,18 +21,6 @@ public class CategoryController {
 
 		@Autowired
 		private CategoryMapper categoryMapper;
-	
-		@Autowired
-		private ProductMapper productMapper;
-		
-
-		@GetMapping("/list/{page}")
-		public String list(@PathVariable int page, Model model) {
-			List<Category> categoryList = categoryMapper.selectCategoryAll(page);
-			System.out.println(categoryList);
-			model.addAttribute(categoryList);
-			return "/category/list";
-		}
 		
 		  @GetMapping("/cate/{page}") 
 		  public String prolist(@PathVariable int page,Model model) { 

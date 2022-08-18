@@ -33,14 +33,6 @@
 		LEFT JOIN PRODUCT p USING(categoryId)
  	</select>
 	
-	<select id="selectCategoryAll" resultType="Category">
-
-		SELECT *, categoryid as 'categoryId',
-			c.productid as 'products.productid'
-			FROM CATEGORY c
-			
-	</select>
-	
 	<select id="selectCateAll" resultMap="CategoryMap">
 		SELECT c.*, p.productid, p.productName, p.productSize, p.productColor,
 		 p.productGroup, p.productInfo, p.productStock, p. productDate, p.price 

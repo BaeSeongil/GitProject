@@ -10,7 +10,6 @@ import com.project.mainPage.dto.Product;
 @Mapper
 public interface CategoryMapper {
 
-	List<Category> selectCategoryAll(int page);
 	List<Category> selectAll(int startRow,int pageSize);
 	int selectAllCount();
 	
