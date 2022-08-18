@@ -58,7 +58,7 @@ public class CategoryController {
 				List<Category> categoryList = categoryMapper.selectCateAll(categoryId,startRow,row);
 				int count = categoryMapper.selectCateAllCount(categoryId);
 
-
+ 
 				Pagination pagination = new Pagination(page, count, "/category/cate/"+categoryId+"/", row);
 				System.out.println(pagination);
 				model.addAttribute("pagination", pagination);
