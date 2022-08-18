@@ -22,24 +22,34 @@ public class CategoryController {
 		@Autowired
 		private CategoryMapper categoryMapper;
 	
+		@Autowired
+		private ProductMapper productMapper;
 		
-		@GetMapping("/list/{page}")
-		public String list(@PathVariable int page, Model model) {
-			int row = 10;
-			int startRow = (page - 1);
-			//List<Category> categoryList = categoryMapper.selectCategoryAll(page);
-			List<Category> categoryList = categoryMapper.selectCategoryAll(startRow, row);
-			int count = categoryMapper.selectAllCount();
+		@GetMapping("/list/{cate}")
+		public String list(@PathVariable String cate, 
+							Model model) {
 			
-			Pagination pagination = new Pagination(page, count, "/category/list/", row);
-			System.out.println(pagination);
-			System.out.println(categoryList);
 			
-			model.addAttribute("pagination", pagination);
-			model.addAttribute("categoryList", categoryList);
-			model.addAttribute("row",row);
-			model.addAttribute("count", count);
-			model.addAttribute("page",page);
+			List<Product> productList = categoryMapper.selectCategoryAll();
+			System.out.println("위"+productList);
+			model.addAttribute(productList);
+//			int row = 10;
+//			int startRow = (cate - 1);
+//
+//			List<Category> categoryList = categoryMapper.selectCategoryAll(startRow, row);
+//			
+//			int count = categoryMapper.selectAllCount();
+//			System.out.println(categoryList);
+//			Pagination pagination = new Pagination(page, count, "/category/list/cate/", row);		
+//			
+//			model.addAttribute("cate",cate);
+//			model.addAttribute("pagination", pagination);
+//			
+//			model.addAttribute("categoryList", categoryList);
+//			model.addAttribute("productList", productList);
+//			model.addAttribute("row",row);
+//			model.addAttribute("count", count);
+//			model.addAttribute("page",page);
 			return "/category/list";
 		}
 		
