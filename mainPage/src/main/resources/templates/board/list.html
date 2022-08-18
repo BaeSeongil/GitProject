@@ -63,7 +63,8 @@
 								<div  class="row g-3 align-items-center" 
 										th:if="${session.loginUsers != null && session.loginUsers?.userid==board.users.userid}">
 									<p class="mb-1">
-										<a class="btn btn-outline-danger btn btn-sm">삭제</a>
+										<a class="btn btn-outline-danger btn btn-sm"
+											th:href="@{/board/delete/{boardNo}/{userId}(boardNo=${board.board_no},userId=${board.users.userid})}">삭제</a>
 										<a class="btn btn-sm btn btn-outline-primary" 
 											th:href="@{/board/update/{boardNo}(boardNo=${board.board_no})}">수정</a>
 										

@@ -145,8 +145,34 @@ public class BoardController {
 		}else {
 			return "redirect:/board/insert.do";
 		}
-		
 	}
+	
+	// 게시글 삭제 
+	@GetMapping("/delete/{boardNo}/{userId}")
+	public String delete(
+			@PathVariable int boardNo,
+			@PathVariable String userId,
+			@SessionAttribute(name ="loginUsers",required = false) UsersDto loginUsers) {
+		System.out.println("loginUsers : "+loginUsers);
+		if(loginUsers.getUserid().equals(userId)) {
+			int delete=0;
+			try {
+				delete = boardService.removeBorad(boardNo);
+			} catch(Exception e) {e.printStackTrace();}
+			if(delete>0) {
+				System.out.println("삭제성공");
+				return "redirect:/board/list/1";
+			}else {
+				return "redirect:/board/update/"+boardNo;			
+			}			
+		}else {
+			return "redirect:/user/login.do";
+		}
+		
+	};
+	
+	
+	
 }
 	
 	

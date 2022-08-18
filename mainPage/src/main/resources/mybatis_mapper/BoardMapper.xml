@@ -119,7 +119,10 @@
 		INSERT INTO BOARD (title,contents,userid)
 		VALUES (#{title},#{contents},#{users.userid})
 	</insert>
-
+	
+	<delete id="deleteOne" parameterType="int">
+		DELETE FROM BOARD WHERE board_no=#{boardNo}
+	</delete>
 
 
 
