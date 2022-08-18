@@ -25,34 +25,51 @@ public class CategoryController {
 		@Autowired
 		private ProductMapper productMapper;
 		
-		@GetMapping("/list/{cate}")
-		public String list(@PathVariable String cate, 
-							Model model) {
-			
-			
-			List<Product> productList = categoryMapper.selectCategoryAll();
-			System.out.println("위"+productList);
-			model.addAttribute(productList);
-//			int row = 10;
-//			int startRow = (cate - 1);
-//
-//			List<Category> categoryList = categoryMapper.selectCategoryAll(startRow, row);
-//			
-//			int count = categoryMapper.selectAllCount();
-//			System.out.println(categoryList);
-//			Pagination pagination = new Pagination(page, count, "/category/list/cate/", row);		
-//			
-//			model.addAttribute("cate",cate);
-//			model.addAttribute("pagination", pagination);
-//			
-//			model.addAttribute("categoryList", categoryList);
-//			model.addAttribute("productList", productList);
-//			model.addAttribute("row",row);
-//			model.addAttribute("count", count);
-//			model.addAttribute("page",page);
+
+		@GetMapping("/list/{page}")
+		public String list(@PathVariable int page, Model model) {
+			List<Category> categoryList = categoryMapper.selectCategoryAll(page);
+			System.out.println(categoryList);
+			model.addAttribute(categoryList);
 			return "/category/list";
 		}
 		
+		  @GetMapping("/cate/{page}") 
+		  public String prolist(@PathVariable int page,Model model) { 
+				int row = 12;
+				int startRow = (page - 1) * row;
+				List<Category> categoryList = categoryMapper.selectAll(startRow,row);
+				int count = categoryMapper.selectAllCount();
+
+
+				Pagination pagination = new Pagination(page, count, "/category/cate/", row);
+				System.out.println(pagination);
+				model.addAttribute("pagination", pagination);
+				model.addAttribute("categoryList", categoryList);
+				model.addAttribute("row", row);
+				model.addAttribute("count", count);
+				model.addAttribute("page", page);
+				return "/category/cate";
+
+		}
+		
+		  @GetMapping("/cate/{page}/{categoryId}") 
+		  public String prolist(@PathVariable int page,@PathVariable int categoryId ,Model model) { 
+				int row = 12;
+				int startRow = (page - 1) * row;
+				List<Category> categoryList = categoryMapper.selectCateAll(categoryId,startRow,row);
+				int count = categoryMapper.selectCateAllCount(categoryId);
+
+ 
+				Pagination pagination = new Pagination(page, count, "/category/cate/"+categoryId+"/", row);
+				System.out.println(pagination);
+				model.addAttribute("pagination", pagination);
+				model.addAttribute("categoryList", categoryList);
+				model.addAttribute("row", row);
+				model.addAttribute("count", count);
+				model.addAttribute("page", page);
+				return "/category/cate";
+		}
 		
 		
 }

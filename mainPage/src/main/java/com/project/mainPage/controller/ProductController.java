@@ -44,26 +44,7 @@ public class ProductController {
 		model.addAttribute("page", page);
 		return "/product/list";
 	}
-
-	
-	  @GetMapping("/cate/{page}") public String prolist(@PathVariable int page,Model model) { 
-			int row = 10;
-			int startRow = (page - 1) * row;
-			List<Product> productList = productMapper.selectAll(startRow, row);
-			int count = productMapper.selectAllCount();
-
-
-			Pagination pagination = new Pagination(page, count, "/product/cate/", row);
-			System.out.println(pagination);
-			model.addAttribute("pagination", pagination);
-			model.addAttribute("productList", productList);
-			model.addAttribute("row", row);
-			model.addAttribute("count", count);
-			model.addAttribute("page", page);
-			return "/product/cate";
-	}
-	 
-
+ 
 	@GetMapping("/detail/{productid}")
 	public String detail(@PathVariable int productid, Model model) {
 		Product product = null;

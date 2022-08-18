@@ -21,5 +21,6 @@ public class Category {
 	private int categoryId;
 	private String categoryName;
 	
-	private List<Product> products;
+
+	private List<Product> products; 
 }

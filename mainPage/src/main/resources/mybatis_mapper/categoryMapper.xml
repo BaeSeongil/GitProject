@@ -4,9 +4,9 @@
 <mapper namespace="com.project.mainPage.mapper.CategoryMapper">
 
 	<resultMap type="Category" id="CategoryMap">
-		<id column="categoryid" property="categoryId"/>
+		<id column="categoryId" property="categoryId"/>
 		<result column="categoryName" property="categoryName"/>
-		
+		<!-- Category : Product = 1 : N -->
 		<collection property="products" javaType="java.util.ArrayList" ofType="Product">
 			<id column="productid" property="productid"/>
 			<result column="productName" property="productName"/>
@@ -20,46 +20,40 @@
 		</collection>
 	</resultMap>
 	
+	<select id="selectAll" resultMap="CategoryMap">
+		SELECT c.*, p.productid, p.productName, p.productSize, p.productColor,
+		 p.productGroup, p.productInfo, p.productStock, p. productDate, p.price 
+		 FROM CATEGORY c
+		LEFT JOIN PRODUCT p USING(categoryId)
+		LIMIT #{startRow},#{pageSize}
+	</select>
+	
+	 <select id="selectAllCount" resultType = "int" >
+ 		SELECT COUNT(*) FROM CATEGORY c
+		LEFT JOIN PRODUCT p USING(categoryId)
+ 	</select>
 	
 	<select id="selectCategoryAll" resultType="Category">
-		<!-- SELECT *, productid 'product.productid' FROM CATEGORY LIMIT #{startRow},#{pageSize}  -->
-		
-	<!-- 	SELECT 
-			c.categoryid as 'categoryId',
-			c.categoryName as 'categoryName', 
 
-			p.productid as 'products.productid',
-			p.productName as 'products.productName',
-			p.productSize as 'products.productSize',
-			p.productColor as 'products.productColor',
-			p.productGroup as 'products.productGroup',
-			p.productStock as 'products.productStock',
-			p.productDate as 'products.productDate',
-			p.price as 'products.price',
-			p.categoryid as 'category.categoryid'
-
-			FROM CATEGORY c LEFT JOIN PRODUCT p 
-			USING (categoryId)
-			LIMIT #{startRow}, #{pageSize} -->
+		SELECT *, categoryid as 'categoryId',
+			c.productid as 'products.productid'
+			FROM CATEGORY c
 			
-			SELECT *, categoryid as 'categoryId',
-				c.productid as 'products.productid'
-				FROM CATEGORY c
-			
-		<!-- SELECT *,categoryid as 'category.categoryId'FROM PRODUCT LIMIT #{startRow},#{pageSize} -->
-	</select>
-
-	<select id="selectAllCount" resultType="int">
-		SELECT COUNT(*) FROM CATEGORY
 	</select>
 	
-	<select id="selectOne" resultMap="CategoryMap">
-		SELECT * FROM CATEGORY WHERE categoryid=#{categoryid}
+	<select id="selectCateAll" resultMap="CategoryMap">
+		SELECT c.*, p.productid, p.productName, p.productSize, p.productColor,
+		 p.productGroup, p.productInfo, p.productStock, p. productDate, p.price 
+		 FROM CATEGORY c
+		LEFT JOIN PRODUCT p USING(categoryId)
+		WHERE categoryId=#{categoryId}
+		LIMIT #{startRow},#{pageSize}
 	</select>
 	
-	<select id="selectCateProduct" resultMap="CategoryMap">
-		SELECT p.*, c.* FROM PRODUCT p LEFT JOIN CATEGORY c USING (categoryId)
-	</select>
-	
-	
+	<select id="selectCateAllCount" resultType = "int" >
+ 		SELECT COUNT(*) FROM CATEGORY c
+		LEFT JOIN PRODUCT p USING(categoryId)
+ 		WHERE categoryId=#{categoryId}
+ 	</select>
+ 	
 </mapper>
