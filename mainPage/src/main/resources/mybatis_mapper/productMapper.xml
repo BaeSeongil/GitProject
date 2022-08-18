@@ -22,8 +22,8 @@
 		</association>
 	</resultMap>
 
-	<select id="selectAll" resultType="Product">
-		SELECT *,categoryId 'category.categoryId' FROM PRODUCT LIMIT #{startRow},#{pageSize}
+	<select id="selectAll" resultMap="ProductMap">
+		SELECT * FROM PRODUCT LIMIT #{startRow},#{pageSize}
 	</select>
 	
 	 <select id="selectAllCount" resultType = "int" >

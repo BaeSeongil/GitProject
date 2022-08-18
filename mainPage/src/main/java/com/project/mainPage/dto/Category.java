@@ -1,9 +1,13 @@
 package com.project.mainPage.dto;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
 public class Category {
-	public int categoryId;
-	public String categoryName;
+	private int categoryId;
+	private String categoryName;
+	
+	private List<Product> products; 
 }
