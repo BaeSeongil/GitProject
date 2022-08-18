@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>ERROR PAGE</title>
+    </head>
+    <body>
+        <div class="cover">
+            <h1>요청에 문제가 발생했습니다.</h1>
+            <p th:text="'에러 메시지 : '+${message}"></p>
+            <p th:text="'요청 주소 : '+${url}"></p>
+
+            <h2>Error 로그 분석</h2>
+            <div th:each="string:${stackTrace}">
+                <small><th:block th:text="${string}"></th:block></small>
+            </div>
+        </div>
+    </body>
+</html>

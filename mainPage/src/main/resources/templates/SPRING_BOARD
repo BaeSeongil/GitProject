@@ -384,7 +384,7 @@ VALUES (1, 'Shirt', 'S', 'White', '상의',5,'2022-08-02', 25000, 1),
  SELECT 
 	board_no no, 
 	title, 
-	(SELECT COUNT(*) FROM BOARD_PREFER WHERE prefer=true AND board_no=no ) goods,
+	(SELECT COUNT(*) FROM BOARD_PREFER WHERE prefer=true AND board_no=no ) product,
 	(SELECT COUNT(*) FROM BOARD_PREFER WHERE prefer=false AND board_no=no ) bads
 	FROM BOARD;
 

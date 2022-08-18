@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head th:fragment="head-fragment(title,path)">
+        <meta charset="UTF-8" />
+        <title th:text="${title}">Header</title>
+        <link rel="stylesheet" th:href="@{/webjars/swiper/8.3.2/swiper-bundle.min.css}" />
+        <!-- 웹 페이지 별 맞춤형 css -->
+        <link rel="stylesheet" th:href="@{'/mall/styles/'+${path}+'.css'}" />
+    </head>
+    <nav id="nav" th:fragment="nav-fragment"></nav>
+</html>

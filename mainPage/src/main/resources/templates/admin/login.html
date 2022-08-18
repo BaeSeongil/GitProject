@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8" />
+        <title>관리자 로그인 페이지</title>
+        <!-- css 라이브러리 -->
+        <!-- Bootstrap -->
+        <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}" />
+        <!-- Custom styles for this template -->
+        <link rel="stylesheet" th:href="@{/admin/dist/css/main.css}" />
+    </head>
+    <body>
+        <form action="/users/login.do" class="col-lg-4" method="post">
+            <div class="text-center mb-4">
+                <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+            </div>
+
+            <div class="form-label-group">
+                <input type="text" id="inputId" class="form-control" placeholder="Username" required="" autofocus="" />
+                <label for="inputId">Username</label>
+            </div>
+
+            <div class="form-label-group">
+                <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="" />
+                <label for="inputPassword">Password</label>
+            </div>
+
+            <div class="checkbox mb-3">
+                <label> <input type="checkbox" value="remember-me" /> Remember me </label>
+            </div>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+        </form>
+        <!-- jQuery -->
+        <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+        <!-- Bootstrap 4 -->
+        <script th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+    </body>
+</html>
