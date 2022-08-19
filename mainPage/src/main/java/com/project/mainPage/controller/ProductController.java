@@ -61,9 +61,6 @@ public class ProductController {
 			e.printStackTrace();
 		}
 		return "redirect:/product/cate/1";
-
 	}
-
-
 
 }

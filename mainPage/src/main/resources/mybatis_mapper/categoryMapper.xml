@@ -28,10 +28,20 @@
 		LIMIT #{startRow},#{pageSize}
 	</select>
 	
+	<!-- category/list.do  -->
+	<select id="selectListAll" resultMap="CategoryMap">
+		SELECT * FROM CATEGORY LIMIT #{startRow},#{pageSize}
+	</select>
+	
 	 <select id="selectAllCount" resultType = "int" >
  		SELECT COUNT(*) FROM CATEGORY c
 		LEFT JOIN PRODUCT p USING(categoryId)
  	</select>
+ 	
+ 	<!-- category/list.do -->
+	<select id="selectListAllCount" resultType="int">
+		SELECT COUNT(*) FROM CATEGORY
+	</select>
 	
 	<select id="selectCateAll" resultMap="CategoryMap">
 		SELECT c.*, p.productid, p.productName, p.productSize, p.productColor,
@@ -47,5 +57,9 @@
 		LEFT JOIN PRODUCT p USING(categoryId)
  		WHERE categoryId=#{categoryId}
  	</select>
+ 	
+ 	<insert id="insertOne" parameterType="Category">
+ 		INSERT INTO CATEGORY VALUES (#{categoryId}, #{categoryName})
+ 	</insert>
  	
 </mapper>
