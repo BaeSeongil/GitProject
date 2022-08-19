@@ -36,6 +36,7 @@ public class Reply {
 	private int good;
 	private int bad;
 	private UsersDto users;  // UsersDto userid : fk
+
 	private Boolean prefer_active = null; // null : 누른적이 없는 , true : good를 누른것 , false: bad를 누른것 
 	private List<ReplyPrefer> good_prefers;
 	private List<ReplyPrefer> bad_prefers;
