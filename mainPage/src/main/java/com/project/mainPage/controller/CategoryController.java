@@ -51,7 +51,7 @@ public class CategoryController {
 				return "/category/cate";
 		}
 		
-		  @GetMapping("/cate/{page}/{categoryId}") 
+		  @GetMapping("/cate/{categoryId}/{page}") 
 		  public String prolist(@PathVariable int page,@PathVariable int categoryId ,Model model) { 
 				int row = 12;
 				int startRow = (page - 1) * row;
