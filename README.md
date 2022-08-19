@@ -131,8 +131,6 @@
 -   [2022-08-18 update](#2022-08-18)
 <details><summary>## 2022-08-18 update</summary>
 
-# 추가한 부분/ 수정한 부분/ 삭제한 부분
-
 -   resources/templates 폴더 내부에 admin, mall, error 폴더 추가
     -   admin: 쇼핑몰 관리 페이지
     -   mall: 쇼핑몰 웹페이지
@@ -160,5 +158,16 @@
     -   indexConfig: 홈페이지 설정
 -   pom.xml에 JS, CSS Dependencies 추가
     -   ex: SpringBoot, Jquery etc...
+
+</details>
+
+-   [2022-08-19 update](#2022-08-19)
+<details><summary>## 2022-08-19 update</summary>
+-   mapper.xml mapper.java 추가 - 파일명 앞에 tmp\_ 붙임
+-   common에 상수 추가
+-   interceptor에 로그인 인증 및 권한 추가
+-   config에 웹페이지와 인터셉터 연결
+-   controller/vo에 VO 객체 생성
+    -   [VO와 DTO 차이](https://velog.io/@gillog/Entity-DTO-VO-바로-알기)
 
 </details>
