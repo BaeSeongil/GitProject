@@ -21,7 +21,6 @@ footer {
 	height: auto;
   	/* min-height: 100%; */
   	position: relative;
-  
 }
 
 #lefe {
@@ -39,6 +38,7 @@ footer {
 	<div style="padding: 30px;">
 		<h3 class="mt-5 d-flex justify-content-center align-items-center">ALL</h3>
 	</div>
+
 	<div id="wrapper">
 		<div class="container">
 			<th:block th:each="product:${productList}">
@@ -55,8 +55,9 @@ footer {
 
 			</div>
 		</th:block>
-		
 	</div>
+
+	
 	<div>
 		<div class="d-flex justify-content-center" th:insert="/pagination.html"></div>
 	</div>

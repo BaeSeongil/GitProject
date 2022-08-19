@@ -48,5 +48,11 @@
 			WHERE productid=#{productid}
 	</update>
 	
+	<insert id="insertOne" parameterType="Product">
+		INSERT INTO PRODUCT VALUES
+			(#{productid},#{productName},#{productSize},#{productColor},
+			#{productGroup},#{productInfo},#{productStock},#{productDate},
+			#{price},#{category.categoryId})
+	</insert>
 
 </mapper>
