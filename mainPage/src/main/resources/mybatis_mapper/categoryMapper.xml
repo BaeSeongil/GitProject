@@ -28,15 +28,15 @@
 		LIMIT #{startRow},#{pageSize}
 	</select>
 	
+	<select id="selectAllCount" resultType = "int" >
+ 		SELECT COUNT(*) FROM CATEGORY c
+		LEFT JOIN PRODUCT p USING(categoryId)
+ 	</select>
+	
 	<!-- category/list.do  -->
 	<select id="selectListAll" resultMap="CategoryMap">
 		SELECT * FROM CATEGORY LIMIT #{startRow},#{pageSize}
 	</select>
-	
-	 <select id="selectAllCount" resultType = "int" >
- 		SELECT COUNT(*) FROM CATEGORY c
-		LEFT JOIN PRODUCT p USING(categoryId)
- 	</select>
  	
  	<!-- category/list.do -->
 	<select id="selectListAllCount" resultType="int">
