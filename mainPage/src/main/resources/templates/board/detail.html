@@ -3,8 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <title>게시글 상세페이지</title>
+<style>
+	html, body {
+		height: 100%;
+		display: flex;
+		flex-flow: column;
+	}
+	footer {
+		flex: 1;
+		height: auto;
+	  	min-height: 50%; 
+	}
+</style>
 <script th:src="@{/public/js/board/detail.js}" defer></script>
-
 </head>
 <body>
 <header th:insert="/gAndB"></header>
@@ -84,7 +95,7 @@
 		</div>
 							
 		<hr>
-		<h3>
+		<h3 class = "mt-5">
 		  	<span>
 				<small th:text="${board.board_no}"></small>.
 				<b th:text="${board.title}"></b>
@@ -103,8 +114,10 @@
 			style="height: 150px; resize: none;" th:text="${board.contents}" readonly="readonly" ></textarea>
 		</div>
 		
+		<hr class= "mt-5">
+		
+		</div>		
 	</main>
-	
 </body>
-<footer th:insert="/footer"></footer>
+<footer  class="footer" th:insert="/footer"></footer>
 </html>

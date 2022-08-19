@@ -10,7 +10,6 @@
 		<result column="prefer_good" property="good"/>
 		<result column="prefer_bad" property="bad"/>
 		<result column="views" property="views"/>
-		<result column="views" property="views"/>	
 		<result column="replys_size" property="replys_size"/>
 		<!-- Board : UsersDto = N : 1   -->	
 		<association property="users" javaType="UsersDto" foreignColumn="userid">
@@ -30,6 +29,7 @@
 			<!-- Reply : UsersDto = N : 1 -->
 				<association property="users" javaType="UsersDto">
 					<id column="reply_userid" property="userid"/>
+ 					<result column="reply_username" property="username"/>
 				</association>
 				
 				<collection property="good_prefers" ofType="ReplyPrefer" javaType="java.util.ArrayList">
@@ -75,6 +75,7 @@
 			r.contents as reply_contents, 
 			r.post_time as reply_post_time,
 			r.img_path as reply_img_path,
+			r.userid as reply_userid, 
 			
 			i.board_img_no as iboard_img_no,
 			i.img_path as iimg_path,
@@ -119,9 +120,17 @@
 		INSERT INTO BOARD (title,contents,userid)
 		VALUES (#{title},#{contents},#{users.userid})
 	</insert>
+	
+	<delete id="deleteOne" parameterType="int">
+		DELETE FROM BOARD WHERE board_no=#{boardNo}
+	</delete>
 
-
-
+	<update id="updateOne" parameterType="Board">
+		UPDATE BOARD SET 
+			title=#{title},
+			contents=#{contents}
+			WHERE board_no=#{board_no}
+	</update>
 
 
 

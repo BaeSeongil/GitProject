@@ -29,6 +29,7 @@ import com.project.mainPage.dto.Board;
 import com.project.mainPage.dto.BoardPrefer;
 import com.project.mainPage.dto.Reply;
 import com.project.mainPage.dto.ReplyPrefer;
+import com.project.mainPage.mapper.BoardImgMapper;
 import com.project.mainPage.mapper.BoardMapper;
 
 import com.project.mainPage.mapper.BoardPreferMapper;
@@ -38,9 +39,15 @@ import com.project.mainPage.mapper.UsersMapper;
 @Controller
 @RequestMapping("/board")
 public class BoardController {
-
+	
+	// board > board_img 의 수를 5개로 제한 
+	private final static int BOARD_IMG_LIMIT = 5; 
+	
 	@Autowired
 	private BoardMapper boardMapper;
+	
+	@Autowired
+	private BoardImgMapper boardImgMapper;
 	
 	@Autowired
 	private BoardService boardService;
@@ -145,8 +152,92 @@ public class BoardController {
 		}else {
 			return "redirect:/board/insert.do";
 		}
-		
 	}
+	
+	// 게시글 삭제 
+	@GetMapping("/delete/{boardNo}/{userId}")
+	public String delete(
+			@PathVariable int boardNo,
+			@PathVariable String userId,
+			@SessionAttribute(name ="loginUsers",required = false) UsersDto loginUsers) {
+		System.out.println("loginUsers : "+loginUsers);
+		if(loginUsers.getUserid().equals(userId)) {
+			int delete=0;
+			try {
+				delete = boardService.removeBorad(boardNo);
+			} catch(Exception e) {e.printStackTrace();}
+			if(delete>0) {
+				System.out.println("삭제성공");
+				return "redirect:/board/list/1";
+			}else {
+				return "redirect:/board/update/"+boardNo;			
+			}			
+		}else {
+			return "redirect:/user/login.do";
+		}
+		
+	};
+	
+	@GetMapping("/update/{boardNo}")
+	public String update(@PathVariable int boardNo,Model model,HttpSession session) {
+		Board board = boardMapper.selectDetailOneAll(boardNo);
+		Object loginUsers_obj = session.getAttribute("loginUsers");
+		if(((UsersDto)loginUsers_obj).getUserid().equals(board.getUsers().getUserid())) {
+			model.addAttribute(board);
+			return "/board/update";			
+		}else {
+			return "redirect:/users/login.do";
+		}
+	}
+	
+	// 게시글 수정 
+	@PostMapping("/update.do")
+	public String update(
+			Board board,
+			@RequestParam(name="boardImgNo", required = false) int [] boardImgNos, // // required = false : 아무것도 안올 수 있는 경우
+			@RequestParam(name="imgFile", required=false) MultipartFile[] imgFiles,
+ 			HttpSession session
+			) { 
+		int update = 0; 
+		Object loginUsers_obj = session.getAttribute("loginUsers");
+		if( ((UsersDto)loginUsers_obj).getUserid().equals(board.getUsers().getUserid()) ) {
+			try {
+				int boardImgCount = boardImgMapper.selectCountBoardNo(board.getBoard_no());  // baordImg 등록된 개수 
+				int insertBoardImgLength = BOARD_IMG_LIMIT - boardImgCount + ((boardImgNos != null) ? boardImgNos.length : 0); // 5 -  boardImgCount + 등록될 이미지 개수 
+				// 이미지 저장 
+				if(imgFiles != null && insertBoardImgLength>0) {
+					List<BoardImg> boardImgs = new ArrayList<BoardImg>();
+					for(MultipartFile imgFile : imgFiles) { 
+						String[] types = imgFile.getContentType().split("/");
+						System.out.println("types: "+types);
+						if(types[0].equals("image")) {
+							String newFileName = "board_"+System.nanoTime()+"."+types[1];
+							Path path = Paths.get(savePath+"/"+newFileName);
+							imgFile.transferTo(path);
+							BoardImg boardImg = new BoardImg();
+							boardImg.setBoard_no(board.getBoard_no());
+							boardImg.setImg_path(newFileName);
+							boardImgs.add(boardImg);
+							if(--insertBoardImgLength == 0 ) break; // 이미지 수가 5개면 반목문 종료 
+						}
+					}
+					if(boardImgs.size()>0) {
+						board.setBoardImgs(boardImgs);
+					}
+				}
+				update=boardService.modifyBoardRemoveBoardImg(board, boardImgNos);
+			} catch (Exception e) {e.printStackTrace();}
+			if(update>0) {
+				return "redirect:/board/detail/"+board.getBoard_no();
+			}else {
+				return "redirect:/board/update/"+board.getBoard_no();
+			}			
+		}else{
+			return "redirect:/users/login.do";
+		}       
+	};
+		
+	
 }
 	
 	
