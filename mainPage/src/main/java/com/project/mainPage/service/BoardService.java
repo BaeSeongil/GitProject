@@ -16,9 +16,7 @@ import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.project.mainPage.dto.BoardImg;
-import com.project.mainPage.dto.Reply;
 import com.project.mainPage.mapper.BoardImgMapper;
-import com.project.mainPage.mapper.ReplyMapper;
 
 @Service
 public class BoardService {
@@ -27,8 +25,6 @@ public class BoardService {
 
 	@Autowired
 	private BoardImgMapper boardImgMapper;
-	@Autowired
-	private ReplyMapper replyMapper;
 	
 	@Value("${spring.servlet.multipart.location}")
 	String savePath;
