@@ -72,6 +72,7 @@ public class BoardController {
 		BoardPrefer boardPrefer = null;  // 로그인이 안되면 null
 		try {
 			board = boardService.boardUpdateView(boardNo);
+			System.out.println(board);
 			if(loginUsers != null) {
 				boardPrefer = boardPreferMapper.selectFindUserIdAndBoardNo(loginUsers.getUserid(),boardNo);
 				for(Reply reply : board.getReplys()) {
@@ -90,10 +91,10 @@ public class BoardController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println(board);
 		if(board != null) {
 			model.addAttribute("boardPrefer",boardPrefer);
 			model.addAttribute("board",board);
+			System.out.println();
 			return "/board/detail";			
 		}else {
 			return "redirect:/board/list/1";
@@ -113,7 +114,7 @@ public class BoardController {
 	public String insert(
 				Board  board,
 				List <MultipartFile> imgFiles) {
-		System.out.println(board);
+//		System.out.println(board);
 		System.out.println(savePath);
 		int insert=0;
 		try {

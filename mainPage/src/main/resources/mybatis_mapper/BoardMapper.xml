@@ -65,7 +65,7 @@
 			ORDER BY board_no 
 	</select>
 	
-	<select id="selectDetailOneAll" resultMap="BoardMap">
+	<select id="selectDetailOneAll" resultMap="BoardMap" parameterType="int">
 		SELECT b.*,
 			(SELECT count(*) FROM BOARD_PREFER WHERE board_no = b.board_no AND prefer = true) prefer_good,
 			(SELECT count(*) FROM BOARD_PREFER WHERE board_no = b.board_no AND prefer = false) prefer_bad,

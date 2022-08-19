@@ -34,6 +34,8 @@ public class Reply {
 	private String img_path;  // 댓글 이미지 
 	private int board_no; 
 	private UsersDto users;  // UsersDto userid : fk
+	private int good;
+	private int bad;
 	private Boolean prefer_active = null; // null : 누른적이 없는 , true : good를 누른것 , false: bad를 누른것 
 	private List<ReplyPrefer> good_prefers;
 	private List<ReplyPrefer> bad_prefers;
