@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>상품 전체 보기</title>
+<style type="text/css">
+
+html, body {
+	height: 100%;
+	display: flex;
+	flex-flow: column;
+}
+
+footer {
+	flex: 1;
+	height: auto;
+  	position: relative;
+}
+
+#wrapper {	
+	height: auto;
+  	/* min-height: 100%; */
+  	position: relative;
+  
+}
+
+#lefe {
+
+	float: left;
+}
+.card{
+	cursor: pointer;
+}
+
+</style>
+</head>
+<body>
+<header th:insert="/gAndB"></header>
+<header th:insert="/headerNav"></header>
+
+	<div style="padding: 30px;">
+		<h3 class="mt-5 d-flex justify-content-center align-items-center">ALL</h3>
+	</div>
+	<div id="wrapper">
+		<div class="container">
+			<th:block th:each="category:${categoryList}">
+				<th:block th:each="product:${category.products}">
+					<div id="lefe" class="d-flex m-5 justify-content-start" 
+						th:onclick="location.href='/product/detail/[[${product.productid}]]'">
+						<div id="lefe" class="card" style="width: 18rem;">
+						  <img class="card-img-top" alt="상품 이미지">
+						  <div id="lefe" class="card-body">
+						  	<p class="card-text" th:text="${category.categoryId}"></p>
+							    <p class="card-text" th:text="${product.productName}"></p>
+							    <p class="card-text" th:text="${product.productid}"></p>
+						  </div>
+						</div>
+					</div>
+				</th:block>
+
+			</div>
+		</th:block>
+		
+	</div>
+	<div>
+		<div class="d-flex justify-content-center" th:insert="/pagination.html"></div>
+	</div>
+</body>
+	<footer th:insert="/footer"></footer>
+
+</html>

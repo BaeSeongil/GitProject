@@ -7,9 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.project.mainPage.dto.Category;
+import com.project.mainPage.dto.Pagination;
 import com.project.mainPage.dto.Product;
 import com.project.mainPage.mapper.CategoryMapper;
 import com.project.mainPage.mapper.ProductMapper;
@@ -20,28 +22,80 @@ public class CategoryController {
 
 		@Autowired
 		private CategoryMapper categoryMapper;
-	
-		@Autowired
-		private ProductMapper productMapper;
 		
-		@GetMapping("/list/{page}")
-		public String list(@PathVariable int page, Model model) {
-			List<Category> categoryList = categoryMapper.selectCategoryAll(page);
-			System.out.println(categoryList);
-			model.addAttribute(categoryList);
-			return "/category/list";
+		  @GetMapping("/cate/{page}") 
+		  public String prolist(@PathVariable int page,Model model) { 
+				int row = 12;
+				int startRow = (page - 1) * row;
+				List<Category> categoryList = categoryMapper.selectAll(startRow,row);
+				int count = categoryMapper.selectAllCount();
+
+
+				Pagination pagination = new Pagination(page, count, "/category/cate/", row);
+				System.out.println(pagination);
+				model.addAttribute("pagination", pagination);
+				model.addAttribute("categoryList", categoryList);
+				model.addAttribute("row", row);
+				model.addAttribute("count", count);
+				model.addAttribute("page", page);
+				return "/category/cate";
+
 		}
 		
-		@GetMapping("/list/{page}/{cate}")
-		public String list(@PathVariable int page, @PathVariable int cate, Model model) {
-			List<Category> categoryList = categoryMapper.selectCategoryAll(page, cate);
-			System.out.println(categoryList);
-			Product product = null;
-			// product = productMapper.selectOne(cate);
-			
-			model.addAttribute(categoryList);
-			return "/category/list";
+		  @GetMapping("/cate/{categoryId}/{page}") 
+		  public String prolist(@PathVariable int page,@PathVariable int categoryId ,Model model) { 
+				int row = 12;
+				int startRow = (page - 1) * row;
+				List<Category> categoryList = categoryMapper.selectCateAll(categoryId,startRow,row);
+				int count = categoryMapper.selectCateAllCount(categoryId);
+
+ 
+				Pagination pagination = new Pagination(page, count, "/category/cate/"+categoryId+"/", row);
+				System.out.println(pagination);
+				model.addAttribute("pagination", pagination);
+				model.addAttribute("categoryList", categoryList);
+				model.addAttribute("row", row);
+				model.addAttribute("count", count);
+				model.addAttribute("page", page);
+				return "/category/cate";
+		  }
+		  
+		  // 관리자만 할 수 있게 해야 하는데 어떻게.. 하지..........?
+		  // 접근이 안 되는 거라 괜찮나요..? ㅠ_ㅠ 
+		  @GetMapping("/insert.do")
+		  public void insert() {}
+		  
+		  @PostMapping("/insert.do")
+		  public String insert(Category category) {
+			  int insert = 0;
+			  try {
+				  insert = categoryMapper.insertOne(category);
+				  System.out.println("등록 성공");
+			} catch (Exception e) {e.printStackTrace();}
+			  if (insert >0) {
+				  return "redirect:/category/list/1";
+			  } else {
+				  return "redirect:/category/insert.do";
+			  }
+		  }
+		  
+		  @GetMapping("/list/{page}") 
+		  public String catelist(@PathVariable int page,Model model) { 
+				int row = 10;
+				int startRow = (page - 1) * row;
+				List<Category> categoryList = categoryMapper.selectListAll(startRow,row);
+				int count = categoryMapper.selectListAllCount();
+
+				Pagination pagination = new Pagination(page, count, "/category/list/", row);
+				System.out.println(pagination);
+				model.addAttribute("pagination", pagination);
+				model.addAttribute("categoryList", categoryList);
+				model.addAttribute("row", row);
+				model.addAttribute("count", count);
+				model.addAttribute("page", page);
+				return "/category/list";
+
 		}
-		
+		  
 		
 }

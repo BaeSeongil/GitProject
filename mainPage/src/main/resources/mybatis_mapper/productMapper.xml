@@ -22,8 +22,8 @@
 		</association>
 	</resultMap>
 
-	<select id="selectAll" resultType="Product">
-		SELECT *,categoryId 'category.categoryId' FROM PRODUCT LIMIT #{startRow},#{pageSize}
+	<select id="selectAll" resultMap="ProductMap">
+		SELECT * FROM PRODUCT LIMIT #{startRow},#{pageSize}
 	</select>
 	
 	 <select id="selectAllCount" resultType = "int" >
@@ -48,5 +48,11 @@
 			WHERE productid=#{productid}
 	</update>
 	
+	<insert id="insertOne" parameterType="Product">
+		INSERT INTO PRODUCT VALUES
+			(#{productid},#{productName},#{productSize},#{productColor},
+			#{productGroup},#{productInfo},#{productStock},#{productDate},
+			#{price},#{category.categoryId})
+	</insert>
 
 </mapper>

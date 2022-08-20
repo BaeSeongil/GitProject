@@ -32,8 +32,11 @@ public class Reply {
 	@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
 	private Date post_time;   // 댓글 등록일 
 	private String img_path;  // 댓글 이미지 
-	private int board_no; 
+	private int board_no;
+	private int good;
+	private int bad;
 	private UsersDto users;  // UsersDto userid : fk
+
 	private Boolean prefer_active = null; // null : 누른적이 없는 , true : good를 누른것 , false: bad를 누른것 
 	private List<ReplyPrefer> good_prefers;
 	private List<ReplyPrefer> bad_prefers;

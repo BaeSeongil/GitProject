@@ -14,8 +14,7 @@ html, body {
 footer {
 	flex: 1;
 	height: auto;
-  	/* min-height: 20%; /* footer 높이 조절 */ 
-  	position: relative;
+  	min-height: 50%; 
 }
 </style>
 <body>
@@ -41,36 +40,36 @@ footer {
 	        <section class=d-flex id="category">
 		        <div class="knit">
 		        	<div class="content img-cover">
-			        	<a th:href="@{/category/list/{categoryid}(categoryid=1)}">
+			        	<a th:href="@{/category/cate/{categoryid}(categoryid=1)}">
 			        		Knit
 			        	</a>
 			        </div>
 		        </div>
 		         <div class="outer">
 		        	<div class="content img-cover">
-		        		<a th:href="@{/category/list/{categoryid}(categoryid=3)}">
+		        		<a th:href="@{/category/cate/{categoryid}(categoryid=3)}">
 			        		Outer
 			        	</a>
 			        </div>
 		        </div>
 		        <div class="pants">
 					<div class="content img-cover">
-		        		<a th:href="@{/category/list/{categoryid}(categoryid=2)}">
+		        		<a th:href="@{/category/cate/{categoryid}(categoryid=2)}">
 			        		Pants
 			        	</a>
 			        </div>
 		        </div>
 		        <div class="etc">
 					<div class="content img-cover">
-			        	<a th:href="@{/category/list/{categoryid}(categoryid=4)}">
+			        	<a th:href="@{/category/cate/{categoryid}(categoryid=4)}">
 			        		Etc.
 			        	</a>
 		        	</div>
 		        </div>
 	        </section>
 	    </div>
-  	  <footer class="footer" th:insert="/footer"></footer>
     </div>
     
 </body>
+  	  <footer class="footer" th:insert="/footer"></footer>
 </html>
