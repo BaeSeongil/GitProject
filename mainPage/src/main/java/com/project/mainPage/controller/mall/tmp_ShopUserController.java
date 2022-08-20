@@ -78,8 +78,7 @@ public class tmp_ShopUserController {
     }
 
     @PostMapping("/register")
-    @ResponseBody
-    public Result register(@RequestParam("loginName") String loginName,
+    public @ResponseBody Result register(@RequestParam("loginName") String loginName,
                            @RequestParam("password") String password,
                            HttpSession httpSession) {
         if (!StringUtils.hasText(loginName)) {
