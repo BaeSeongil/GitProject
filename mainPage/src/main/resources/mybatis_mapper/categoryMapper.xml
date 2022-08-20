@@ -28,6 +28,10 @@
 		LIMIT #{startRow},#{pageSize}
 	</select>
 	
+	<select id="selectOne" resultType = "int" >
+ 		SELECT * FROM CATEGORY WHERE categoryId=#{categoryId}
+ 	</select>
+ 	
 	<select id="selectAllCount" resultType = "int" >
  		SELECT COUNT(*) FROM CATEGORY c
 		LEFT JOIN PRODUCT p USING(categoryId)
@@ -59,7 +63,7 @@
  	</select>
  	
  	<insert id="insertOne" parameterType="Category">
- 		INSERT INTO CATEGORY VALUES (#{categoryId}, #{categoryName})
+ 		INSERT INTO CATEGORY (categoryId, categoryName) VALUES (#{categoryId}, #{categoryName})
  	</insert>
  	
 </mapper>
