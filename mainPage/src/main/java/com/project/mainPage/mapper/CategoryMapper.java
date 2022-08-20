@@ -23,4 +23,7 @@ public interface CategoryMapper {
 	int selectCateAllCount(int categoryId);
 	
 	int insertOne (Category category);
+	int updateOne (Category category);
+	Category selectOne(int categoryId);
+	int deleteOne (int categoryId);
 }
