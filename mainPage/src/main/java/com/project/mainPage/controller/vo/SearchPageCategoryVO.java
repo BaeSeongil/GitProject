@@ -1,6 +1,6 @@
 package com.project.mainPage.controller.vo;
 
-import com.project.mainPage.dto.Category;
+import com.project.mainPage.dto.tmp_Category;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -12,8 +12,8 @@ import java.util.List;
 @Getter @Setter
 public class SearchPageCategoryVO implements Serializable {
     private String firstLevelCategoryName;
-    private List<Category> secondLevelCategoryList;
+    private List<tmp_Category> secondLevelCategoryList;
     private String secondLevelCategoryName;
-    private List<Category> thirdLevelCategoryList;
+    private List<tmp_Category> thirdLevelCategoryList;
     private String currentCategoryName;
 }

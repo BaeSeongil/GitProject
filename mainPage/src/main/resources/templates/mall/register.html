@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <title>회원가입</title>
+        <!-- css 라이브러리 -->
+        <!-- Bootstrap -->
+        <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}" />
+        <!-- Custom styles for this template -->
+        <link rel="stylesheet" th:href="@{/mall/styles/login.css}" />
+    </head>
+    <body class="text-center">
+        <form id="registerForm" onsubmit="return false;" action="##" class="form-signin">
+            <div class="text-center mb-4">
+                <h1 class="h3 mb-3 font-weight-normal">Sign Up</h1>
+                <p>이미 회원이라면... <a href="login.html" target="_self">로그인</a></p>
+            </div>
+
+            <div class="form-inline form-group">
+                <label for="loginName" class="sr-only">Username</label>
+                <input type="text" id="loginName" class="form-control" placeholder="Username" name="loginName" required="" autofocus="" />
+            </div>
+
+            <div class="form-inline form-group">
+                <label for="password" class="sr-only">Password</label>
+                <input type="password" id="password" class="form-control" placeholder="Password" name="password" required="" />
+            </div>
+
+            <button class="btn btn-lg btn-primary btn-block" type="submit" onclick="login()" value="Sign Up">Sign Up</button>
+        </form>
+    </body>
+    <!-- jQuery -->
+    <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+    <script th:src="@{/admin/dist/js/public.js}"></script>
+    <script th:src="@{/webjars/sweetalert/2.1.2/dist/sweetalert.min.js}"></script>
+    <!-- 주소API기능연동 -->
+    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js" defer="defer"></script>
+    <script type="text/javascript">
+        // 등록 버튼 onclick 이벤트를 register()로 변경
+        function register() {
+            var loginName = $("#loginName").val();
+            if (!validPhoneNumber(loginName)) {
+                swal("올바른 로그인 ID를 입력하십시오", {
+                    icon: "error",
+                });
+                return false;
+            }
+            var password = $("#password").val();
+            if (!validPassword(password)) {
+                swal("올바른 암호 형식을 입력하십시오 (6-20자리와 숫자 조합)", {
+                    icon: "error",
+                });
+                return false;
+            }
+            //인증
+            var params = $("#registerForm").serialize();
+            var url = "/register";
+            $.ajax({
+                type: "POST", //메소드 유형
+                url: url,
+                data: params,
+                success: function (result) {
+                    if (result.resultCode == 200) {
+                        swal({
+                            title: "등록 성공",
+                            text: "로그인 페이지로 이동합니까?",
+                            icon: "success",
+                            buttons: true,
+                            dangerMode: true,
+                        }).then((flag) => {
+                            if (flag) {
+                                window.location.href = "/login";
+                            }
+                        });
+                    } else {
+                        swal(result.message, {
+                            icon: "error",
+                        });
+                    }
+                },
+                error: function () {
+                    swal("작업 실패", {
+                        icon: "error",
+                    });
+                },
+            });
+        }
+    </script>
+</html>

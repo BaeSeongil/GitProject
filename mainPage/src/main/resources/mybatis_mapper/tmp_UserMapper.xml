@@ -14,49 +14,56 @@
     </resultMap>
    
     <sql id="Base_Column_List">
-        user_id, nick_name, login_name, password, introduce_sign, address, is_deleted, 
-        locked_flag, create_time
+        user_id, nick_name, login_name, password, introduce_sign, address, is_deleted, locked_flag, create_time
     </sql>
 
-    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-        select
+    <select id="SELECTByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT
         <include refid="Base_Column_List"/>
-        from tb_newbee_mall_user
-        where user_id = #{userId,jdbcType=BIGINT} and is_deleted = 0
+        FROM TB_USER
+            WHERE user_id = #{userId,jdbcType=BIGINT} 
+            AND is_deleted = 0
     </select>
 
-    <select id="selectByLoginName" parameterType="java.lang.String" resultMap="BaseResultMap">
-        select
+    <select id="SELECTByLoginName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
         <include refid="Base_Column_List"/>
-        from tb_newbee_mall_user
-        where login_name = #{loginName} and is_deleted = 0
+        FROM TB_USER
+            WHERE login_name = #{loginName} 
+            AND is_deleted = 0
     </select>
 
-    <select id="selectByLoginNameAndPasswd" resultMap="BaseResultMap">
-        select
+    <select id="SELECTByLoginNameANDPasswd" resultMap="BaseResultMap">
+        SELECT
         <include refid="Base_Column_List"/>
-        from tb_newbee_mall_user
-        where login_name = #{loginName} and password = #{password} and is_deleted = 0
+        FROM TB_USER
+            WHERE login_name = #{loginName} 
+            AND password = #{password} 
+            AND is_deleted = 0
     </select>
     
     <update id="deleteByPrimaryKey" parameterType="java.lang.Long">
-        update tb_newbee_mall_user set is_deleted = 1
-        where user_id = #{userId,jdbcType=BIGINT} and is_deleted = 0
+        UPDATE TB_USER SET is_deleted = 1
+        WHERE user_id = #{userId,jdbcType=BIGINT} AND is_deleted = 0
     </update>
     
-    <insert id="insert" parameterType="com.project.mainPage.dto.tmp_User">
-        insert into tb_newbee_mall_user (user_id, nick_name, login_name, 
-        password, introduce_sign, address, 
-        is_deleted, locked_flag, create_time
-        )
-        values (#{userId,jdbcType=BIGINT}, #{nickName,jdbcType=VARCHAR}, #{loginName,jdbcType=VARCHAR}, 
-        #{password,jdbcType=VARCHAR}, #{introduceSign,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
-        #{isDeleted,jdbcType=TINYINT}, #{lockedFlag,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}
-        )
+    <insert id="INSERT" parameterType="com.project.mainPage.dto.tmp_User">
+        INSERT INTO TB_USER (user_id, nick_name, login_name, password, introduce_sign, address, is_deleted, locked_flag, create_time)
+            VALUES (
+                #{userId,jdbcType=BIGINT}, 
+                #{nickName,jdbcType=VARCHAR}, 
+                #{loginName,jdbcType=VARCHAR},
+                #{password,jdbcType=VARCHAR}, 
+                #{introduceSign,jdbcType=VARCHAR}, 
+                #{address,jdbcType=VARCHAR},
+                #{isDeleted,jdbcType=TINYINT}, 
+                #{lockedFlag,jdbcType=TINYINT}, 
+                #{createTime,jdbcType=TIMESTAMP}
+            )
     </insert>
     
-    <insert id="insertSelective" parameterType="com.project.mainPage.dto.tmp_User">
-        insert into tb_newbee_mall_user
+    <insert id="INSERTSELECTive" parameterType="com.project.mainPage.dto.tmp_User">
+        INSERT INTO TB_USER
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="userId != null">
                 user_id,
@@ -87,7 +94,7 @@
             </if>
         </trim>
     
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
             <if test="userId != null">
                 #{userId,jdbcType=BIGINT},
             </if>
@@ -117,9 +124,17 @@
             </if>
         </trim>
     </insert>
+
+    <select id="login" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM TB_USER
+            WHERE login_user_name = #{login_name,jdbcType=VARCHAR} AND login_password=#{password,jdbcType=VARCHAR} 
+            AND locked = 0
+    </select>
     
-    <update id="updateByPrimaryKeySelective" parameterType="com.project.mainPage.dto.tmp_User">
-        update tb_newbee_mall_user
+    <update id="UPDATEByPrimaryKeySELECTive" parameterType="com.project.mainPage.dto.tmp_User">
+        UPDATE TB_USER
         <set>
             <if test="nickName != null">
                 nick_name = #{nickName,jdbcType=VARCHAR},
@@ -146,27 +161,28 @@
                 create_time = #{createTime,jdbcType=TIMESTAMP},
             </if>
         </set>
-        where user_id = #{userId,jdbcType=BIGINT}
+        WHERE user_id = #{userId,jdbcType=BIGINT}
     </update>
 
-    <update id="updateByPrimaryKey" parameterType="com.project.mainPage.dto.tmp_User">
-        update tb_newbee_mall_user
-        set nick_name = #{nickName,jdbcType=VARCHAR},
-        login_name = #{loginName,jdbcType=VARCHAR},
-        password = #{password,jdbcType=VARCHAR},
-        introduce_sign = #{introduceSign,jdbcType=VARCHAR},
-        address = #{address,jdbcType=VARCHAR},
-        is_deleted = #{isDeleted,jdbcType=TINYINT},
-        locked_flag = #{lockedFlag,jdbcType=TINYINT},
-        create_time = #{createTime,jdbcType=TIMESTAMP}
-        where user_id = #{userId,jdbcType=BIGINT}
+    <update id="UPDATEByPrimaryKey" parameterType="com.project.mainPage.dto.tmp_User">
+        UPDATE TB_USER
+            SET nick_name = #{nickName,jdbcType=VARCHAR},
+                login_name = #{loginName,jdbcType=VARCHAR},
+                password = #{password,jdbcType=VARCHAR},
+                introduce_sign = #{introduceSign,jdbcType=VARCHAR},
+                address = #{address,jdbcType=VARCHAR},
+                is_deleted = #{isDeleted,jdbcType=TINYINT},
+                locked_flag = #{lockedFlag,jdbcType=TINYINT},
+                create_time = #{createTime,jdbcType=TIMESTAMP}
+            WHERE user_id = #{userId,jdbcType=BIGINT}
     </update>
 
     <update id="lockUserBatch">
-        update tb_newbee_mall_user
-        set locked_flag=#{lockStatus} where user_id in
-        <foreach item="id" collection="ids" open="(" separator="," close=")">
-            #{id}
-        </foreach>
+        UPDATE TB_USER
+            SET locked_flag=#{lockStatus} 
+            WHERE user_id IN
+            <foreach item="id" collection="ids" open="(" separator="," close=")">
+                #{id}
+            </foreach>
     </update>
 </mapper>

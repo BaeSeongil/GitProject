@@ -10,72 +10,76 @@
         <result column="is_deleted" jdbcType="TINYINT" property="isDeleted"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="create_user" jdbcType="INTEGER" property="createUser"/>
-        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
-        <result column="update_user" jdbcType="INTEGER" property="updateUser"/>
+        <result column="UPDATE_time" jdbcType="TIMESTAMP" property="UPDATETime"/>
+        <result column="UPDATE_user" jdbcType="INTEGER" property="UPDATEUser"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        category_id, category_level, parent_id, category_name, category_rank, is_deleted, 
-        create_time, create_user, update_time, update_user
+        category_id, category_level, parent_id, category_name, category_rank, is_deleted, create_time, create_user, UPDATE_time, UPDATE_user
     </sql>
     
-    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-        select
+    <select id="SELECTByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT
         <include refid="Base_Column_List"/>
-        from tb_newbee_mall_product_category
-        where category_id = #{categoryId,jdbcType=BIGINT} and is_deleted=0
+        FROM TB_PRODUCT_CATEGORY
+            WHERE category_id = #{categoryId,jdbcType=BIGINT} 
+            AND is_deleted=0
     </select>
     
-    <select id="selectByLevelAndName" resultMap="BaseResultMap">
-        select
+    <select id="SELECTByLevelANDName" resultMap="BaseResultMap">
+        SELECT
         <include refid="Base_Column_List"/>
-        from tb_newbee_mall_product_category
-        where category_name = #{categoryName,jdbcType=VARCHAR} and category_level = #{categoryLevel,jdbcType=TINYINT}
-        and is_deleted = 0 limit 1
+        FROM TB_PRODUCT_CATEGORY
+            WHERE category_name = #{categoryName,jdbcType=VARCHAR} AND category_level = #{categoryLevel,jdbcType=TINYINT} 
+            AND is_deleted = 0 limit 1
     </select>
     
-    <select id="selectByLevelAndParentIdsAndNumber" resultMap="BaseResultMap">
-        select
+    <select id="SELECTByLevelANDParentIdsANDNumber" resultMap="BaseResultMap">
+        SELECT
         <include refid="Base_Column_List"/>
-        from tb_newbee_mall_product_category
-        where parent_id in
-        <foreach item="parentId" collection="parentIds" open="(" separator="," close=")">
-            #{parentId,jdbcType=BIGINT}
-        </foreach>
-        and category_level = #{categoryLevel,jdbcType=TINYINT}
-        and is_deleted = 0
-        order by category_rank desc
-        <if test="number>0">
-            limit #{number}
-        </if>
+        FROM TB_PRODUCT_CATEGORY
+            WHERE parent_id IN
+            <foreach item="parentId" collection="parentIds" open="(" separator="," close=")">
+                #{parentId,jdbcType=BIGINT}
+            </foreach>
+            AND category_level = #{categoryLevel,jdbcType=TINYINT}
+            AND is_deleted = 0
+            order by category_rank desc
+            <if test="number>0">
+                limit #{number}
+            </if>
     </select>
     
     <update id="deleteByPrimaryKey" parameterType="java.lang.Long">
-        update tb_newbee_mall_product_category set is_deleted=1
-        where category_id = #{categoryId,jdbcType=BIGINT} and is_deleted=0
+        UPDATE TB_PRODUCT_CATEGORY SET is_deleted=1
+            WHERE category_id = #{categoryId,jdbcType=BIGINT} 
+            AND is_deleted=0
     </update>
     
     <update id="deleteBatch">
-        update tb_newbee_mall_product_category
-        set is_deleted=1 where category_id in
-        <foreach item="id" collection="array" open="(" separator="," close=")">
-            #{id}
-        </foreach>
+        UPDATE TB_PRODUCT_CATEGORY
+            SET is_deleted=1 WHERE category_id IN
+            <foreach item="id" collection="array" open="(" separator="," close=")">
+                #{id}
+            </foreach>
     </update>
     
-    <insert id="insert" parameterType="com.project.mainPage.dto.tmp_Category">
-        insert into tb_newbee_mall_product_category (category_id, category_level, parent_id, 
-        category_name, category_rank, is_deleted, 
-        create_time, create_user, update_time, 
-        update_user)
-        values (#{categoryId,jdbcType=BIGINT}, #{categoryLevel,jdbcType=TINYINT}, #{parentId,jdbcType=BIGINT}, 
-        #{categoryName,jdbcType=VARCHAR}, #{categoryRank,jdbcType=INTEGER}, #{isDeleted,jdbcType=TINYINT}, 
-        #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, 
-        #{updateUser,jdbcType=INTEGER})
+    <insert id="INSERT" parameterType="com.project.mainPage.dto.tmp_Category">
+        INSERT INTO TB_PRODUCT_CATEGORY (category_id, category_level, parent_id, category_name, category_rank, is_deleted, create_time, create_user, UPDATE_time, UPDATE_user)
+            VALUES (
+                #{categoryId,jdbcType=BIGINT}, 
+                #{categoryLevel,jdbcType=TINYINT}, 
+                #{parentId,jdbcType=BIGINT}, 
+                #{categoryName,jdbcType=VARCHAR}, 
+                #{categoryRank,jdbcType=INTEGER}, #{isDeleted,jdbcType=TINYINT},
+                #{createTime,jdbcType=TIMESTAMP}, 
+                #{createUser,jdbcType=INTEGER}, 
+                #{UPDATETime,jdbcType=TIMESTAMP}, 
+                #{UPDATEUser,jdbcType=INTEGER})
     </insert>
     
-    <insert id="insertSelective" parameterType="com.project.mainPage.dto.tmp_Category">
-        insert into tb_newbee_mall_product_category
+    <insert id="INSERTSELECTive" parameterType="com.project.mainPage.dto.tmp_Category">
+        INSERT INTO TB_PRODUCT_CATEGORY
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="categoryId != null">
                 category_id,
@@ -101,15 +105,15 @@
             <if test="createUser != null">
                 create_user,
             </if>
-            <if test="updateTime != null">
-                update_time,
+            <if test="UPDATETime != null">
+                UPDATE_time,
             </if>
-            <if test="updateUser != null">
-                update_user,
+            <if test="UPDATEUser != null">
+                UPDATE_user,
             </if>
         </trim>
     
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
             <if test="categoryId != null">
                 #{categoryId,jdbcType=BIGINT},
             </if>
@@ -134,17 +138,17 @@
             <if test="createUser != null">
                 #{createUser,jdbcType=INTEGER},
             </if>
-            <if test="updateTime != null">
-                #{updateTime,jdbcType=TIMESTAMP},
+            <if test="UPDATETime != null">
+                #{UPDATETime,jdbcType=TIMESTAMP},
             </if>
-            <if test="updateUser != null">
-                #{updateUser,jdbcType=INTEGER},
+            <if test="UPDATEUser != null">
+                #{UPDATEUser,jdbcType=INTEGER},
             </if>
         </trim>
     </insert>
     
-    <update id="updateByPrimaryKeySelective" parameterType="com.project.mainPage.dto.tmp_Category">
-        update tb_newbee_mall_product_category
+    <update id="UPDATEByPrimaryKeySELECTive" parameterType="com.project.mainPage.dto.tmp_Category">
+        UPDATE TB_PRODUCT_CATEGORY
         <set>
             <if test="categoryLevel != null">
                 category_level = #{categoryLevel,jdbcType=TINYINT},
@@ -167,27 +171,27 @@
             <if test="createUser != null">
                 create_user = #{createUser,jdbcType=INTEGER},
             </if>
-            <if test="updateTime != null">
-                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            <if test="UPDATETime != null">
+                UPDATE_time = #{UPDATETime,jdbcType=TIMESTAMP},
             </if>
-            <if test="updateUser != null">
-                update_user = #{updateUser,jdbcType=INTEGER},
+            <if test="UPDATEUser != null">
+                UPDATE_user = #{UPDATEUser,jdbcType=INTEGER},
             </if>
         </set>
-        where category_id = #{categoryId,jdbcType=BIGINT}
+        WHERE category_id = #{categoryId,jdbcType=BIGINT}
     </update>
     
-    <update id="updateByPrimaryKey" parameterType="com.project.mainPage.dto.tmp_Category">
-        update tb_newbee_mall_product_category
-        set category_level = #{categoryLevel,jdbcType=TINYINT},
-        parent_id = #{parentId,jdbcType=BIGINT},
-        category_name = #{categoryName,jdbcType=VARCHAR},
-        category_rank = #{categoryRank,jdbcType=INTEGER},
-        is_deleted = #{isDeleted,jdbcType=TINYINT},
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-        create_user = #{createUser,jdbcType=INTEGER},
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-        update_user = #{updateUser,jdbcType=INTEGER}
-        where category_id = #{categoryId,jdbcType=BIGINT}
+    <update id="UPDATEByPrimaryKey" parameterType="com.project.mainPage.dto.tmp_Category">
+        UPDATE TB_PRODUCT_CATEGORY
+            SET category_level = #{categoryLevel,jdbcType=TINYINT},
+                parent_id = #{parentId,jdbcType=BIGINT},
+                category_name = #{categoryName,jdbcType=VARCHAR},
+                category_rank = #{categoryRank,jdbcType=INTEGER},
+                is_deleted = #{isDeleted,jdbcType=TINYINT},
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+                create_user = #{createUser,jdbcType=INTEGER},
+                UPDATE_time = #{UPDATETime,jdbcType=TIMESTAMP},
+                UPDATE_user = #{UPDATEUser,jdbcType=INTEGER}
+            WHERE category_id = #{categoryId,jdbcType=BIGINT}
     </update>
 </mapper>

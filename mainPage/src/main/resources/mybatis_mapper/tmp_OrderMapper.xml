@@ -14,59 +14,68 @@
         <result column="user_address" jdbcType="VARCHAR" property="userAddress"/>
         <result column="is_deleted" jdbcType="TINYINT" property="isDeleted"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
-        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="UPDATE_time" jdbcType="TIMESTAMP" property="UPDATETime"/>
     </resultMap>
     
     <sql id="Base_Column_List">
         order_id, order_no, user_id, total_price, pay_status, pay_type, pay_time, order_status,
-        extra_info, user_name, user_phone, user_address, is_deleted, create_time, update_time
+        extra_info, user_name, user_phone, user_address, is_deleted, create_time, UPDATE_time
     </sql>
     
-    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-        select
+    <select id="SELECTByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT
         <include refid="Base_Column_List"/>
-        from tb_newbee_mall_order
-        where order_id = #{orderId,jdbcType=BIGINT}
+        FROM TB_ORDER
+            WHERE order_id = #{orderId,jdbcType=BIGINT}
     </select>
     
-    <select id="selectByOrderNo" parameterType="java.lang.String" resultMap="BaseResultMap">
-        select
+    <select id="SELECTByOrderNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
         <include refid="Base_Column_List"/>
-        from tb_newbee_mall_order
-        where order_no = #{orderNo,jdbcType=VARCHAR} and is_deleted=0 limit 1
+        FROM TB_ORDER
+            WHERE order_no = #{orderNo,jdbcType=VARCHAR} 
+            AND is_deleted=0 limit 1
     </select>
     
-    <select id="selectByPrimaryKeys" resultMap="BaseResultMap">
-        select
+    <select id="SELECTByPrimaryKeys" resultMap="BaseResultMap">
+        SELECT
         <include refid="Base_Column_List"/>
-        from tb_newbee_mall_order
-        where order_id in
-        <foreach collection="orderIds" item="item" index="index"
-                 open="(" separator="," close=")">#{item}
-        </foreach>
+        FROM TB_ORDER
+            WHERE order_id IN
+            <foreach collection="orderIds" item="item" index="index"
+                    open="(" separator="," close=")">#{item}
+            </foreach>
     </select>
 
     <update id="deleteByPrimaryKey" parameterType="java.lang.Long">
-        update tb_newbee_mall_order set is_deleted=1
-        where order_id = #{orderId,jdbcType=BIGINT} and is_deleted=0
+        UPDATE TB_ORDER SET is_deleted=1
+            WHERE order_id = #{orderId,jdbcType=BIGINT} 
+            AND is_deleted=0
     </update>
     
-    <insert id="insert" parameterType="com.project.mainPage.dto.tmp_Order">
-        insert into tb_newbee_mall_order (order_id, order_no, user_id, 
-        total_price, pay_status, pay_type, 
-        pay_time, order_status, extra_info, 
-        user_address,is_deleted, create_time, update_time
-        )
-        values (#{orderId,jdbcType=BIGINT}, #{orderNo,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, 
-        #{totalPrice,jdbcType=INTEGER}, #{payStatus,jdbcType=TINYINT}, #{payType,jdbcType=TINYINT}, 
-        #{payTime,jdbcType=TIMESTAMP}, #{orderStatus,jdbcType=TINYINT}, #{extraInfo,jdbcType=VARCHAR}, 
-        #{userAddress,jdbcType=VARCHAR},#{isDeleted,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
-        )
+    <insert id="INSERT" parameterType="com.project.mainPage.dto.tmp_Order">
+        INSERT INTO TB_ORDER (order_id, order_no, user_id, 
+        total_price, pay_status, pay_type, pay_time, order_status, extra_info, user_address,is_deleted, create_time, UPDATE_time)
+            VALUES (
+                #{orderId,jdbcType=BIGINT}, 
+                #{orderNo,jdbcType=VARCHAR}, 
+                #{userId,jdbcType=BIGINT}, 
+                #{totalPrice,jdbcType=INTEGER}, 
+                #{payStatus,jdbcType=TINYINT}, 
+                #{payType,jdbcType=TINYINT}, 
+                #{payTime,jdbcType=TIMESTAMP}, 
+                #{orderStatus,jdbcType=TINYINT}, 
+                #{extraInfo,jdbcType=VARCHAR}, 
+                #{userAddress,jdbcType=VARCHAR},
+                #{isDeleted,jdbcType=TINYINT}, 
+                #{createTime,jdbcType=TIMESTAMP}, 
+                #{UPDATETime,jdbcType=TIMESTAMP}
+            )
     </insert>
     
-    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="orderId"
+    <insert id="INSERTSELECTive" useGeneratedKeys="true" keyProperty="orderId"
             parameterType="com.project.mainPage.dto.tmp_Order">
-        insert into tb_newbee_mall_order
+        INSERT INTO TB_ORDER
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="orderId != null">
                 order_id,
@@ -104,12 +113,12 @@
             <if test="createTime != null">
                 create_time,
             </if>
-            <if test="updateTime != null">
-                update_time,
+            <if test="UPDATETime != null">
+                UPDATE_time,
             </if>
         </trim>
     
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
             <if test="orderId != null">
                 #{orderId,jdbcType=BIGINT},
             </if>
@@ -146,41 +155,44 @@
             <if test="createTime != null">
                 #{createTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="updateTime != null">
-                #{updateTime,jdbcType=TIMESTAMP},
+            <if test="UPDATETime != null">
+                #{UPDATETime,jdbcType=TIMESTAMP},
             </if>
         </trim>
     </insert>
     
     <update id="checkDone">
-        update tb_newbee_mall_order
-        set order_status = 2,update_time = now()
-        where order_id in
-        <foreach collection="orderIds" item="item" index="index"
-                 open="(" separator="," close=")">#{item}
-        </foreach>
+        UPDATE TB_ORDER
+            SET order_status = 2,
+                UPDATE_time = now()
+            WHERE order_id IN
+            <foreach collection="orderIds" item="item" index="index"
+                    open="(" separator="," close=")">#{item}
+            </foreach>
     </update>
 
     <update id="checkOut">
-        update tb_newbee_mall_order
-        set order_status = 3,update_time = now()
-        where order_id in
-        <foreach collection="orderIds" item="item" index="index"
-                 open="(" separator="," close=")">#{item}
-        </foreach>
+        UPDATE TB_ORDER
+            SET order_status = 3,
+                UPDATE_time = now()
+            WHERE order_id IN
+            <foreach collection="orderIds" item="item" index="index"
+                    open="(" separator="," close=")">#{item}
+            </foreach>
     </update>
 
     <update id="closeOrder">
-        update tb_newbee_mall_order
-        set order_status = #{orderStatus},update_time = now()
-        where order_id in
-        <foreach collection="orderIds" item="item" index="index"
-                 open="(" separator="," close=")">#{item}
-        </foreach>
+        UPDATE TB_ORDER
+            SET order_status = #{orderStatus},
+                UPDATE_time = now()
+            WHERE order_id IN
+            <foreach collection="orderIds" item="item" index="index"
+                    open="(" separator="," close=")">#{item}
+            </foreach>
     </update>
 
-    <update id="updateByPrimaryKeySelective" parameterType="com.project.mainPage.dto.tmp_Order">
-        update tb_newbee_mall_order
+    <update id="UPDATEByPrimaryKeySELECTive" parameterType="com.project.mainPage.dto.tmp_Order">
+        UPDATE TB_ORDER
         <set>
             <if test="orderNo != null">
                 order_no = #{orderNo,jdbcType=VARCHAR},
@@ -215,27 +227,27 @@
             <if test="createTime != null">
                 create_time = #{createTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="updateTime != null">
-                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            <if test="UPDATETime != null">
+                UPDATE_time = #{UPDATETime,jdbcType=TIMESTAMP},
             </if>
         </set>
-        where order_id = #{orderId,jdbcType=BIGINT}
+        WHERE order_id = #{orderId,jdbcType=BIGINT}
     </update>
 
-    <update id="updateByPrimaryKey" parameterType="com.project.mainPage.dto.tmp_Order">
-        update tb_newbee_mall_order
-        set order_no = #{orderNo,jdbcType=VARCHAR},
-        user_id = #{userId,jdbcType=BIGINT},
-        total_price = #{totalPrice,jdbcType=INTEGER},
-        pay_status = #{payStatus,jdbcType=TINYINT},
-        pay_type = #{payType,jdbcType=TINYINT},
-        pay_time = #{payTime,jdbcType=TIMESTAMP},
-        order_status = #{orderStatus,jdbcType=TINYINT},
-        extra_info = #{extraInfo,jdbcType=VARCHAR},
-        user_address = #{userAddress,jdbcType=VARCHAR},
-        is_deleted = #{isDeleted,jdbcType=TINYINT},
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-        update_time = #{updateTime,jdbcType=TIMESTAMP}
-        where order_id = #{orderId,jdbcType=BIGINT}
+    <update id="UPDATEByPrimaryKey" parameterType="com.project.mainPage.dto.tmp_Order">
+        UPDATE TB_ORDER
+            SET order_no = #{orderNo,jdbcType=VARCHAR},
+                user_id = #{userId,jdbcType=BIGINT},
+                total_price = #{totalPrice,jdbcType=INTEGER},
+                pay_status = #{payStatus,jdbcType=TINYINT},
+                pay_type = #{payType,jdbcType=TINYINT},
+                pay_time = #{payTime,jdbcType=TIMESTAMP},
+                order_status = #{orderStatus,jdbcType=TINYINT},
+                extra_info = #{extraInfo,jdbcType=VARCHAR},
+                user_address = #{userAddress,jdbcType=VARCHAR},
+                is_deleted = #{isDeleted,jdbcType=TINYINT},
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+                UPDATE_time = #{UPDATETime,jdbcType=TIMESTAMP}
+            WHERE order_id = #{orderId,jdbcType=BIGINT}
     </update>
 </mapper>

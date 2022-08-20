@@ -13,27 +13,32 @@
     </sql>
 
     <select id="login" resultMap="BaseResultMap">
-        select
+        SELECT
         <include refid="Base_Column_List" />
-        from tb_newbee_mall_admin_user
-        where login_user_name = #{userName,jdbcType=VARCHAR} AND login_password=#{password,jdbcType=VARCHAR} AND locked = 0
+        FROM TB_ADMIN_USER
+            WHERE login_user_name = #{userName,jdbcType=VARCHAR} AND login_password=#{password,jdbcType=VARCHAR} 
+            AND locked = 0
     </select>
 
-    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-        select
+    <select id="SELECTByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        SELECT
         <include refid="Base_Column_List" />
-        from tb_newbee_mall_admin_user
-        where admin_user_id = #{adminUserId,jdbcType=INTEGER}
+        FROM TB_ADMIN_USER
+            WHERE admin_user_id = #{adminUserId,jdbcType=INTEGER}
     </select>
   
-    <insert id="insert" parameterType="com.project.mainPage.dto.tmp_AdminUser">
-        insert into tb_newbee_mall_admin_user (admin_user_id, login_user_name, login_password,
-        nick_name, locked)
-        values (#{adminUserId,jdbcType=INTEGER}, #{loginUserName,jdbcType=VARCHAR}, #{loginPassword,jdbcType=VARCHAR},
-        #{nickName,jdbcType=VARCHAR}, #{locked,jdbcType=TINYINT})
+    <insert id="INSERT" parameterType="com.project.mainPage.dto.tmp_AdminUser">
+        INSERT INTO TB_ADMIN_USER (admin_user_id, login_user_name, login_password, nick_name, locked)
+        VALUES 
+            (#{adminUserId,jdbcType=INTEGER}, 
+            #{loginUserName,jdbcType=VARCHAR}, 
+            #{loginPassword,jdbcType=VARCHAR}, 
+            #{nickName,jdbcType=VARCHAR}, 
+            #{locked,jdbcType=TINYINT})
     </insert>
-    <insert id="insertSelective" parameterType="com.project.mainPage.dto.tmp_AdminUser">
-        insert into tb_newbee_mall_admin_user
+
+    <insert id="INSERTSELECTive" parameterType="com.project.mainPage.dto.tmp_AdminUser">
+        INSERT INTO TB_ADMIN_USER
         <trim prefix="(" suffix=")" suffixOverrides=",">
         <if test="adminUserId != null">
             admin_user_id,
@@ -51,7 +56,8 @@
             locked,
         </if>
         </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
         <if test="adminUserId != null">
             #{adminUserId,jdbcType=INTEGER},
         </if>
@@ -70,8 +76,8 @@
         </trim>
     </insert>
     
-    <update id="updateByPrimaryKeySelective" parameterType="com.project.mainPage.dto.tmp_AdminUser">
-        update tb_newbee_mall_admin_user
+    <update id="UPDATEByPrimaryKeySELECTive" parameterType="com.project.mainPage.dto.tmp_AdminUser">
+        UPDATE TB_ADMIN_USER
         <set>
         <if test="loginUserName != null">
             login_user_name = #{loginUserName,jdbcType=VARCHAR},
@@ -86,15 +92,15 @@
             locked = #{locked,jdbcType=TINYINT},
         </if>
         </set>
-        where admin_user_id = #{adminUserId,jdbcType=INTEGER}
+        WHERE admin_user_id = #{adminUserId,jdbcType=INTEGER}
     </update>
     
-    <update id="updateByPrimaryKey" parameterType="com.project.mainPage.dto.tmp_AdminUser">
-        update tb_newbee_mall_admin_user
-        set login_user_name = #{loginUserName,jdbcType=VARCHAR},
-        login_password = #{loginPassword,jdbcType=VARCHAR},
-        nick_name = #{nickName,jdbcType=VARCHAR},
-        locked = #{locked,jdbcType=TINYINT}
-        where admin_user_id = #{adminUserId,jdbcType=INTEGER}
+    <update id="UPDATEByPrimaryKey" parameterType="com.project.mainPage.dto.tmp_AdminUser">
+        UPDATE TB_ADMIN_USER
+            SET login_user_name = #{loginUserName,jdbcType=VARCHAR},
+                login_password = #{loginPassword,jdbcType=VARCHAR},
+                nick_name = #{nickName,jdbcType=VARCHAR},
+                locked = #{locked,jdbcType=TINYINT}
+            WHERE admin_user_id = #{adminUserId,jdbcType=INTEGER}
     </update>
 </mapper>

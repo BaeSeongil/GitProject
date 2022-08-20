@@ -8,67 +8,80 @@
         <result column="product_count" jdbcType="INTEGER" property="productCount"/>
         <result column="is_deleted" jdbcType="TINYINT" property="isDeleted"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/> 
-        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="UPDATE_time" jdbcType="TIMESTAMP" property="UPDATETime"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        cart_item_id, user_id, product_id, product_count, is_deleted, create_time, update_time
+        cart_item_id, user_id, product_id, product_count, is_deleted, create_time, UPDATE_time
     </sql>
 
-    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-        select
+    <select id="SELECTByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT
         <include refid="Base_Column_List"/>
-        from tb_newbee_mall_shopping_cart_item
-        where cart_item_id = #{cartItemId,jdbcType=BIGINT} and is_deleted = 0
+        FROM TB_CART_ITEM
+            WHERE cart_item_id = #{cartItemId,jdbcType=BIGINT} 
+            AND is_deleted = 0
     </select>
 
-    <select id="selectByUserIdAndProductId" resultMap="BaseResultMap">
-        select
+    <select id="SELECTByUserIdANDProductId" resultMap="BaseResultMap">
+        SELECT
         <include refid="Base_Column_List"/>
-        from tb_newbee_mall_shopping_cart_item
-        where user_id = #{newBeeUserId,jdbcType=BIGINT} and product_id=#{productId,jdbcType=BIGINT} and is_deleted = 0
-        limit 1
+        FROM TB_CART_ITEM
+            WHERE user_id = #{UserId,jdbcType=BIGINT} 
+            AND product_id=#{productId,jdbcType=BIGINT} 
+            AND is_deleted = 0
+            limit 1
     </select>
 
-    <select id="selectByUserId" resultMap="BaseResultMap">
-        select
+    <select id="SELECTByUserId" resultMap="BaseResultMap">
+        SELECT
         <include refid="Base_Column_List"/>
-        from tb_newbee_mall_shopping_cart_item
-        where user_id = #{newBeeUserId,jdbcType=BIGINT} and is_deleted = 0
-        limit #{number}
+        FROM TB_CART_ITEM
+            WHERE user_id = #{UserId,jdbcType=BIGINT} 
+            AND is_deleted = 0
+            limit #{number}
     </select>
 
-    <select id="selectCountByUserId" resultType="int">
-        select
+    <select id="SELECTCountByUserId" resultType="int">
+        SELECT
         count(*)
-        from tb_newbee_mall_shopping_cart_item
-        where user_id = #{newBeeUserId,jdbcType=BIGINT} and is_deleted = 0
+        FROM TB_CART_ITEM
+            WHERE user_id = #{UserId,jdbcType=BIGINT} 
+            AND is_deleted = 0
     </select>
 
     <update id="deleteByPrimaryKey" parameterType="java.lang.Long">
-        update tb_newbee_mall_shopping_cart_item set is_deleted = 1
-        where cart_item_id = #{cartItemId,jdbcType=BIGINT} and is_deleted = 0
+        UPDATE TB_CART_ITEM 
+            SET is_deleted = 1
+            WHERE cart_item_id = #{cartItemId,jdbcType=BIGINT} 
+             AND is_deleted = 0
     </update>
 
     <update id="deleteBatch">
-        update tb_newbee_mall_shopping_cart_item
-        set is_deleted=1 where cart_item_id in
+        UPDATE TB_CART_ITEM
+        SET is_deleted=1 
+        WHERE cart_item_id IN
         <foreach item="id" collection="list" open="(" separator="," close=")">
             #{id}
         </foreach>
     </update>
 
-    <insert id="insert" parameterType="com.project.mainPage.dto.tmp_CartItem">
-        insert into tb_newbee_mall_shopping_cart_item (cart_item_id, user_id, product_id, 
-        product_count, is_deleted, create_time, 
-        update_time)
-        values (#{cartItemId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{productId,jdbcType=BIGINT}, 
-        #{productCount,jdbcType=INTEGER}, #{isDeleted,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, 
-        #{updateTime,jdbcType=TIMESTAMP})
+    <insert id="INSERT" parameterType="com.project.mainPage.dto.tmp_CartItem">
+        INSERT INTO TB_CART_ITEM (cart_item_id, user_id, product_id, product_count, is_deleted, create_time, 
+        UPDATE_time)
+            VALUES (
+                #{cartItemId,jdbcType=BIGINT}, 
+                #{userId,jdbcType=BIGINT}, 
+                #{productId,jdbcType=BIGINT}, 
+                #{productCount,jdbcType=INTEGER}, 
+                #{isDeleted,jdbcType=TINYINT}, 
+                #{createTime,jdbcType=TIMESTAMP}, 
+                #{UPDATETime,jdbcType=TIMESTAMP}
+            )
     </insert>
 
-    <insert id="insertSelective" parameterType="com.project.mainPage.dto.tmp_CartItem">
-        insert into tb_newbee_mall_shopping_cart_item
+    <insert id="INSERTSELECTive" parameterType="com.project.mainPage.dto.tmp_CartItem">
+        INSERT INTO TB_CART_ITEM
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="cartItemId != null">
                 cart_item_id,
@@ -88,12 +101,12 @@
             <if test="createTime != null">
                 create_time,
             </if>
-            <if test="updateTime != null">
-                update_time,
+            <if test="UPDATETime != null">
+                UPDATE_time,
             </if>
         </trim>
 
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
             <if test="cartItemId != null">
                 #{cartItemId,jdbcType=BIGINT},
             </if>
@@ -112,14 +125,14 @@
             <if test="createTime != null">
                 #{createTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="updateTime != null">
-                #{updateTime,jdbcType=TIMESTAMP},
+            <if test="UPDATETime != null">
+                #{UPDATETime,jdbcType=TIMESTAMP},
             </if>
         </trim>
     </insert>
 
-    <update id="updateByPrimaryKeySelective" parameterType="com.project.mainPage.dto.tmp_CartItem">
-        update tb_newbee_mall_shopping_cart_item
+    <update id="UPDATEByPrimaryKeySELECTive" parameterType="com.project.mainPage.dto.tmp_CartItem">
+        UPDATE TB_CART_ITEM
         <set>
             <if test="userId != null">
                 user_id = #{userId,jdbcType=BIGINT},
@@ -136,21 +149,21 @@
             <if test="createTime != null">
                 create_time = #{createTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="updateTime != null">
-                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            <if test="UPDATETime != null">
+                UPDATE_time = #{UPDATETime,jdbcType=TIMESTAMP},
             </if>
         </set>
-        where cart_item_id = #{cartItemId,jdbcType=BIGINT}
+        WHERE cart_item_id = #{cartItemId,jdbcType=BIGINT}
     </update>
     
-    <update id="updateByPrimaryKey" parameterType="com.project.mainPage.dto.tmp_CartItem">
-        update tb_newbee_mall_shopping_cart_item
-        set user_id = #{userId,jdbcType=BIGINT},
-        product_id = #{productId,jdbcType=BIGINT},
-        product_count = #{productCount,jdbcType=INTEGER},
-        is_deleted = #{isDeleted,jdbcType=TINYINT},
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-        update_time = #{updateTime,jdbcType=TIMESTAMP}
-        where cart_item_id = #{cartItemId,jdbcType=BIGINT}
+    <update id="UPDATEByPrimaryKey" parameterType="com.project.mainPage.dto.tmp_CartItem">
+        UPDATE TB_CART_ITEM
+            SET user_id = #{userId,jdbcType=BIGINT},
+                product_id = #{productId,jdbcType=BIGINT},
+                product_count = #{productCount,jdbcType=INTEGER},
+                is_deleted = #{isDeleted,jdbcType=TINYINT},
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+                UPDATE_time = #{UPDATETime,jdbcType=TIMESTAMP}
+            WHERE cart_item_id = #{cartItemId,jdbcType=BIGINT}
   </update>
 </mapper>

@@ -7,75 +7,36 @@
         <!-- Bootstrap -->
         <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}" />
         <!-- Custom styles for this template -->
-        <link rel="stylesheet" th:href="@{mall/styles/login.css}" />
+        <link rel="stylesheet" th:href="@{/mall/styles/login.css}" />
     </head>
-    <body>
-        <form id="loginForm" onsubmit="return false;" action="##" class="col-lg-4">
+    <body class="text-center">
+        <form id="loginForm" onsubmit="return false;" action="##" class="form-signin">
             <div class="text-center mb-4">
                 <h1 class="h3 mb-3 font-weight-normal">Login</h1>
-                <p>아직 회원이 아닌가요? a href="register.html" target="_self"
-                    >회원가입</a></p>
+                <p>아직 회원이 아닌가요? <a href="register.html" target="_self">회원가입</a></p>
             </div>
 
-            <div class="form-label-group">
-                <input type="text" id="inputId" class="form-control" placeholder="Username" name="inputId" required="" autofocus="" />
-                <label for="inputId">Username</label>
+            <div class="form-inline form-group">
+                <label for="loginName" class="sr-only">Username</label>
+                <input type="text" name="loginName" id="loginName" class="form-control" placeholder="Username" required="" autofocus="" />
             </div>
 
-            <div class="form-label-group">
-                <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="inputPassword" required="" />
-                <label for="inputPassword">Password</label>
+            <div class="form-inline form-group">
+                <label for="password" class="sr-only">Password</label>
+                <input type="password" name="password" id="password" class="form-control" placeholder="Password" required="" />
             </div>
 
             <div class="checkbox mb-3">
                 <label> <input type="checkbox" value="remember-me" /> Remember me </label>
             </div>
+
             <button class="btn btn-lg btn-primary btn-block" type="submit" onclick="login()" value="login">Login</button>
         </form>
-    <!-- jQuery -->
-    <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
-    <!-- Sweetalert -->
-    <script th:src="@{/webjars/sweetalert/2.1.2/dist/sweetalert.min.js}"></script>
-    <script th:src="@{/admin/dist/js/public.js}"></script>
-    <script type="text/javascript">
-        function login() {
-        var loginName = $("#inputId").val();
-        if (!validPhoneNumber(inputId)) {
-            swal("올바른 로그인 ID를 입력하십시오", {
-            icon: "error",
-            });
-            return false;
-        }
-        var password = $("#inputPassword").val();
-        if (!validPassword(inputPassword)) {
-            swal("올바른 암호 형식을 입력하십시오 (6-20자리와 숫자 조합)", {
-            icon: "error",
-            });
-            return false;
-        }
-        //인증
-        var params = $("#loginForm").serialize();
-        var url = "/login";
-        $.ajax({
-            type: "POST", //메소드 유형
-            url: url,
-            data: params,
-            success: function (result) {
-            if (result.resultCode == 200) {
-                window.location.href = "mall/index";
-            } else {
-                swal(result.message, {
-                icon: "error",
-                });
-            }
-            },
-            error: function () {
-            swal("작업 실패", {
-                icon: "error",
-            });
-            },
-        });
-        }
-    </script>
+        <!-- jQuery -->
+        <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+        <!-- Sweetalert -->
+        <script th:src="@{/webjars/sweetalert/2.1.2/dist/sweetalert.min.js}"></script>
+        <script th:src="@{/admin/dist/js/public.js}"></script>
+        <script th:src="@{/mall/js/login.js}"></script>
     </body>
 </html>

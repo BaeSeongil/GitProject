@@ -129,6 +129,9 @@
 ## 변경점
 
 -   [2022-08-18 update](#2022-08-18)
+-   [2022-08-19 update](#2022-08-19)
+-   [2022-08-20 update](#2022-08-20)
+
 <details><summary>## 2022-08-18 update</summary>
 
 -   resources/templates 폴더 내부에 admin, mall, error 폴더 추가
@@ -156,18 +159,27 @@
     -   orderItem: 주문 상품
     -   stockNum: 재고 수
     -   indexConfig: 홈페이지 설정
--   pom.xml에 JS, CSS Dependencies 추가
-    -   ex: SpringBoot, Jquery etc...
+-   pom.xml에 JS, CSS Dependencies 추가 - ex: SpringBoot, Jquery etc...
 
 </details>
 
--   [2022-08-19 update](#2022-08-19)
 <details><summary>## 2022-08-19 update</summary>
+
 -   mapper.xml mapper.java 추가 - 파일명 앞에 tmp\_ 붙임
 -   common에 상수 추가
 -   interceptor에 로그인 인증 및 권한 추가
 -   config에 웹페이지와 인터셉터 연결
 -   controller/vo에 VO 객체 생성
-    -   [VO와 DTO 차이](https://velog.io/@gillog/Entity-DTO-VO-바로-알기)
+    -   [VO와 DTO 차이 참고한 자료](https://velog.io/@gillog/Entity-DTO-VO-바로-알기)
+
+</details>
+
+<details><summary>## 2022-08-20 update</summary>
+
+-   controller 추가
+-   service 추가
+-   Constants 외 상수 추가
+-   임시 sql 추가 테이블명 앞에 TB\_붙임
+-   mapper.xml 수정
 
 </details>

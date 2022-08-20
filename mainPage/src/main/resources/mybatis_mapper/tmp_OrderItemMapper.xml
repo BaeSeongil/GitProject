@@ -17,60 +17,64 @@
         create_time
     </sql>
     
-    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-        select
+    <select id="SELECTByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT
         <include refid="Base_Column_List"/>
-        from tb_newbee_mall_order_item
-        where order_item_id = #{orderItemId,jdbcType=BIGINT}
+        FROM TB_ORDER_ITEM
+            WHERE order_item_id = #{orderItemId,jdbcType=BIGINT}
     </select>
     
-    <select id="selectByOrderId" parameterType="java.lang.Long" resultMap="BaseResultMap">
-        select
+    <select id="SELECTByOrderId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT
         <include refid="Base_Column_List"/>
-        from tb_newbee_mall_order_item
-        where order_id = #{orderItemId,jdbcType=BIGINT}
+        FROM TB_ORDER_ITEM
+            WHERE order_id = #{orderItemId,jdbcType=BIGINT}
     </select>
     
-    <select id="selectByOrderIds" resultMap="BaseResultMap">
-        select
+    <select id="SELECTByOrderIds" resultMap="BaseResultMap">
+        SELECT
         <include refid="Base_Column_List"/>
-        from tb_newbee_mall_order_item
-        where order_id
-        in
-        <foreach item="id" collection="orderIds" open="(" separator="," close=")">
-            #{id}
-        </foreach>
+        FROM TB_ORDER_ITEM
+            WHERE order_id IN
+            <foreach item="id" collection="orderIds" open="(" separator="," close=")">
+                #{id}
+            </foreach>
     </select>
     
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-        delete from tb_newbee_mall_order_item
-        where order_item_id = #{orderItemId,jdbcType=BIGINT}
+        DELETE FROM TB_ORDER_ITEM
+            WHERE order_item_id = #{orderItemId,jdbcType=BIGINT}
     </delete>
     
-    <insert id="insertBatch" parameterType="com.project.mainPage.dto.tmp_OrderItem">
-        insert into tb_newbee_mall_order_item (order_id, product_id,
-        product_name, product_cover_img, selling_price,
-        product_count)
-        values
-        <foreach collection="orderItems" item="orderItem" separator=",">
-            (#{orderItem.orderId,jdbcType=BIGINT}, #{orderItem.productId,jdbcType=BIGINT},
-            #{orderItem.productName,jdbcType=VARCHAR}, #{orderItem.productCoverImg,jdbcType=VARCHAR},
-            #{orderItem.sellingPrice,jdbcType=INTEGER},
-            #{orderItem.productCount,jdbcType=INTEGER})
-        </foreach>
+    <insert id="INSERTBatch" parameterType="com.project.mainPage.dto.tmp_OrderItem">
+        INSERT INTO TB_ORDER_ITEM (order_id, product_id, product_name, product_cover_img, selling_price, product_count)
+            VALUES
+            <foreach collection="orderItems" item="orderItem" separator=",">
+                (#{orderItem.orderId,jdbcType=BIGINT}, 
+                #{orderItem.productId,jdbcType=BIGINT},
+                #{orderItem.productName,jdbcType=VARCHAR}, 
+                #{orderItem.productCoverImg,jdbcType=VARCHAR},
+                #{orderItem.sellingPrice,jdbcType=INTEGER},
+                #{orderItem.productCount,jdbcType=INTEGER})
+            </foreach>
     </insert>
     
-    <insert id="insert" parameterType="com.project.mainPage.dto.tmp_OrderItem">
-        insert into tb_newbee_mall_order_item (order_item_id, order_id, product_id,
-        product_name, product_cover_img, selling_price,
-        product_count, create_time)
-        values (#{orderItemId,jdbcType=BIGINT}, #{orderId,jdbcType=BIGINT}, #{productId,jdbcType=BIGINT},
-        #{productName,jdbcType=VARCHAR}, #{productCoverImg,jdbcType=VARCHAR}, #{sellingPrice,jdbcType=INTEGER},
-        #{productCount,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP})
+    <insert id="INSERT" parameterType="com.project.mainPage.dto.tmp_OrderItem">
+        INSERT INTO TB_ORDER_ITEM (order_item_id, order_id, product_id, product_name, product_cover_img, selling_price, product_count, create_time)
+            VALUES (
+                #{orderItemId,jdbcType=BIGINT}, 
+                #{orderId,jdbcType=BIGINT}, 
+                #{productId,jdbcType=BIGINT},
+                #{productName,jdbcType=VARCHAR}, 
+                #{productCoverImg,jdbcType=VARCHAR}, 
+                #{sellingPrice,jdbcType=INTEGER},
+                #{productCount,jdbcType=INTEGER}, 
+                #{createTime,jdbcType=TIMESTAMP}
+            )
     </insert>
     
-    <insert id="insertSelective" parameterType="com.project.mainPage.dto.tmp_OrderItem">
-        insert into tb_newbee_mall_order_item
+    <insert id="INSERTSELECTive" parameterType="com.project.mainPage.dto.tmp_OrderItem">
+        INSERT INTO TB_ORDER_ITEM
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="orderItemId != null">
                 order_item_id,
@@ -98,7 +102,7 @@
             </if>
         </trim>
     
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
             <if test="orderItemId != null">
                 #{orderItemId,jdbcType=BIGINT},
             </if>
@@ -126,8 +130,8 @@
         </trim>
     </insert>
     
-    <update id="updateByPrimaryKeySelective" parameterType="com.project.mainPage.dto.tmp_OrderItem">
-        update tb_newbee_mall_order_item
+    <update id="UPDATEByPrimaryKeySELECTive" parameterType="com.project.mainPage.dto.tmp_OrderItem">
+        UPDATE TB_ORDER_ITEM
         <set>
             <if test="orderId != null">
                 order_id = #{orderId,jdbcType=BIGINT},
@@ -151,18 +155,18 @@
                 create_time = #{createTime,jdbcType=TIMESTAMP},
             </if>
         </set>
-        where order_item_id = #{orderItemId,jdbcType=BIGINT}
+        WHERE order_item_id = #{orderItemId,jdbcType=BIGINT}
     </update>
     
-    <update id="updateByPrimaryKey" parameterType="com.project.mainPage.dto.tmp_OrderItem">
-        update tb_newbee_mall_order_item
-        set order_id = #{orderId,jdbcType=BIGINT},
-        product_id = #{productId,jdbcType=BIGINT},
-        product_name = #{productName,jdbcType=VARCHAR},
-        product_cover_img = #{productCoverImg,jdbcType=VARCHAR},
-        selling_price = #{sellingPrice,jdbcType=INTEGER},
-        product_count = #{productCount,jdbcType=INTEGER},
-        create_time = #{createTime,jdbcType=TIMESTAMP}
-        where order_item_id = #{orderItemId,jdbcType=BIGINT}
+    <update id="UPDATEByPrimaryKey" parameterType="com.project.mainPage.dto.tmp_OrderItem">
+        UPDATE TB_ORDER_ITEM
+            SET order_id = #{orderId,jdbcType=BIGINT},
+                product_id = #{productId,jdbcType=BIGINT},
+                product_name = #{productName,jdbcType=VARCHAR},
+                product_cover_img = #{productCoverImg,jdbcType=VARCHAR},
+                selling_price = #{sellingPrice,jdbcType=INTEGER},
+                product_count = #{productCount,jdbcType=INTEGER},
+                create_time = #{createTime,jdbcType=TIMESTAMP}
+            WHERE order_item_id = #{orderItemId,jdbcType=BIGINT}
     </update>
 </mapper>

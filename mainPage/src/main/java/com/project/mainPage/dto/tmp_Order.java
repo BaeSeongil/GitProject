@@ -16,7 +16,7 @@ public class tmp_Order {
     private Byte payType;   // 결제방법(0: 없음)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date payTime;   // 결제일
-    private Byte orderStatus;   // 주문상태(0: 미입금 1: 결제완료 2: 배송중 3: 배송완료 4: 수령완료 -1: 수동취소 -2: 시간초과 -3: 판매종료)
+    private Byte orderStatus;   // 주문상태(0: 미입금 1: 결제완료 2: 포장완료 3: 배송완료 4: 수령완료 -1: 수동취소 -2: 시간초과 -3: 판매종료)
     private String extraInfo;   // 주문 추가 정보
     private String userAddress; // 배송주소
     private Byte isDeleted; // ID 필드 삭제 (0: 삭제되지 않음 1: 삭제됨)

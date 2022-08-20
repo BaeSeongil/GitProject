@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.project.mainPage.dto.tmp_Category;
+import com.project.mainPage.util.PageQueryUtil;
 
 @Mapper
 public interface tmp_CategoryMapper {
@@ -27,4 +28,8 @@ public interface tmp_CategoryMapper {
     int deleteBatch(Integer[] ids);
 
     List<tmp_Category> selectByLevelAndParentIdsAndNumber(@Param("parentIds") List<Long> parentIds, @Param("categoryLevel") int categoryLevel, @Param("number") int number);
+
+    int getTotalProductCategories(PageQueryUtil pageUtil);
+
+    List<tmp_Category> findCategoryList(PageQueryUtil pageUtil);
 }

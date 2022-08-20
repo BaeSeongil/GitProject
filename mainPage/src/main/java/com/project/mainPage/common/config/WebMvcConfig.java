@@ -20,7 +20,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     public void addInterceptors(InterceptorRegistry registry) {
         // /admin 접두사가 붙은 url 경로에 인터셉터 추가
-        // 백그라운드 로그인 인터셉터 (AdminLoginInterceptor)
+        // 백엔드 로그인 인터셉터 (AdminLoginInterceptor)
         registry.addInterceptor(adminLoginInterceptor)
                 .addPathPatterns("/admin/**")
                 .excludePathPatterns("/admin/login")
