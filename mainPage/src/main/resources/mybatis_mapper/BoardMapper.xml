@@ -58,13 +58,17 @@
 	<select id="selectPageAll" resultType="Board">
 		SELECT
 			board_no, title, post_time, views, board_no boardNo,
-			(SELECT count(*) FROM REPLY r WHERE r.board_no = boardNo ) replys_size,
-			(SELECT count(*) FROM BOARD_PREFER WHERE board_no = boardNo) good,
+			(SELECT COUNT(*) FROM REPLY r WHERE r.board_no = boardNo ) replys_size,
+			(SELECT COUNT(*) FROM BOARD_PREFER WHERE board_no = boardNo) good,
 			userid as 'users.userid'
 			FROM BOARD
 			ORDER BY board_no 
+			LIMIT #{startRow}, #{row}
 	</select>
-	
+	<select id="selectPageAllCount" resultType="int">
+		SELECT COUNT(*)
+		 	FROM BOARD
+	</select>
 	<select id="selectDetailOneAll" resultMap="BoardMap" parameterType="int">
 		SELECT b.*,
 			(SELECT count(*) FROM BOARD_PREFER WHERE board_no = b.board_no AND prefer = true) prefer_good,

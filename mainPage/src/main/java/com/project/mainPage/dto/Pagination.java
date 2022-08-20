@@ -37,6 +37,10 @@ public class Pagination {
 		this.setAll();
 	}
 	
+	public Pagination(Criteria cri, int productsGetTotal) {
+		// TODO Auto-generated constructor stub
+	}
+
 	public void setAll() {
 		this.lastPage = count/row + ((count%row>0)? 1 : 0);
 		this.previousPage = page - 1;

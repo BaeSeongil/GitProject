@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.mainPage.dto.Category;
+import com.project.mainPage.dto.Criteria;
 import com.project.mainPage.dto.IdCheck;
 import com.project.mainPage.dto.Pagination;
 
@@ -83,6 +85,18 @@ public class ProductController {
 		}
 		return idCheck;
 	}
-	
+	@GetMapping("/search")
+	public String searchProduct(Criteria cri, Model model) {
+		List<Product> list=productService.searchProduct(cri);
+		if(!list.isEmpty()) {
+			model.addAttribute("list",list);
+		}else {
+			model.addAttribute("listCheck","empty");
+			
+			return "/search";
+		}
+		model.addAttribute("pageMaker",new Pagination(cri, productService.productsGetTotal(cri)));
+		return "/search";
+	}
 	
 }

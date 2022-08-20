@@ -90,7 +90,7 @@ body{
    flex-wrap: wrap;
    justify-content: center;
 }
-.knit{
+.top{
    position: relative;
    background-image: url(/img/knit.jpg);
    width : 49%;
@@ -111,12 +111,17 @@ body{
    height: 400px;
     background-size: cover;
 }
-.etc{
+.shoes{
    position: relative;
    background-image: url(/img/etc.jpg);
     width : 49%;
    height: 400px;
     background-size: cover;
-
 }
-
+.hat{
+   position: relative;
+   background-image: url(/img/hat.jpg);
+    width : 49%;
+   height: 400px;
+    background-size: cover;
+}

@@ -54,5 +54,42 @@
 			#{productGroup},#{productInfo},#{productStock},#{productDate},
 			#{price},#{category.categoryId})
 	</insert>
+	<!-- criteria(검색조건) -->
+	<!-- <sql id="criteria">
+		    <if test="keyword != null">
+				where #{type} LIKE CONCAT('%',#{keyword},'%')
+		    </if>
+	</sql> -->
+	<select id="searchProduct" resultType="Product">
+		SELECT * FROM PRODUCT INNER JOIN CATEGORY c USING(categoryid) WHERE
+		<choose>
+			<when test="type !=null and type.equals('productName')">
+			productName LIKE CONCAT('%',#{keyword},'%')
+			</when>
+			<when test="type !=null and type.equals('productSize')">
+			productSize LIKE CONCAT('%',#{keyword},'%')
+			</when>
+			<when test="type !=null and type.equals('catagory.categoryName')">
+			c.categoryName LIKE CONCAT('%',#{keyword},'%')
+			</when>
+		</choose>
+		ORDER BY productName
+		LIMIT #{skip}, #{amount}
+	</select>
+	<!-- 상품 총 개수  -->
+	<select id="productsGetTotal" resultType="int">
+  		SELECT COUNT(*) FROM PRODUCT INNER JOIN CATEGORY c USING(categoryid)
+		<choose>
+			<when test="type !=null and type.equals('productName')">
+			productName LIKE CONCAT('%',#{keyword},'%')
+			</when>
+			<when test="type !=null and type.equals('productSize')">
+			productSize LIKE CONCAT('%',#{keyword},'%')
+			</when>
+			<when test="type !=null and type.equals('catagory.categoryName')">
+			c.categoryName LIKE CONCAT('%',#{keyword},'%')
+			</when>
+		</choose>
+	</select>
 
 </mapper>

@@ -10,7 +10,8 @@ import com.project.mainPage.dto.Board;
 // com.project.mainPage.mapper.BoardMapper
 @Mapper
 public interface BoardMapper {
-	List<Board> selectPageAll();
+	List<Board> selectPageAll(int startRow, int row);
+	int selectPageAllCount();
 	Board selectDetailOneAll(int boardNo);
 	int detailUpdateViews(int boardNo);
 	int deleteOne(int boardNo);

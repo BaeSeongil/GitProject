@@ -50,4 +50,27 @@
 		</div>   
 	</div>
 </nav>
+<th:block th:if="${session.msg!=null}">
+<div class="modal" id="msgModal" tabindex="-1" th:if="${session.msg!=null}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">System Message</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p th:text="${session.msg}"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script th:inline="javascript">
+	const msgModal = new bootstrap.Modal('#msgModal');
+	msgModal.show();
+	/*[[${#session.removeAttribute("msg")}]] */
+</script>
+</th:block>
 </html>
