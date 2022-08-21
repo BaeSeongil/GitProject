@@ -2,11 +2,11 @@ package com.project.mainPage.dto;
 
 import java.util.Date;
 
+import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import lombok.Data;
-
 /*
+
 Product
 +--------------+-------------+------+-----+---------+-------+
 | Field        | Type        | Null | Key | Default | Extra |
@@ -22,6 +22,7 @@ Product
 | price        | int         | NO   |     | NULL    |       |
 | categoryid   | int         | YES  | MUL | NULL    |       |
 +--------------+-------------+------+-----+---------+-------+
+
 */
 
 @Data
@@ -37,6 +38,7 @@ public class Product {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date productDate;
 	private int price;
+	
 	private Category category;
 
 

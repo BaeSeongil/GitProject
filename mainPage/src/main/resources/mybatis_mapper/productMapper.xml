@@ -4,6 +4,7 @@
        
 
 <mapper namespace="com.project.mainPage.mapper.ProductMapper">
+
 	<resultMap type="Product" id="ProductMap">
 		<id column="productid" property="productid"/>
 		<result column="productName" property="productName"/>
@@ -21,8 +22,8 @@
 		</association>
 	</resultMap>
 
-	<select id="selectAll" resultType="Product">
-		SELECT *,categoryId 'category.categoryId' FROM PRODUCT LIMIT #{startRow},#{pageSize}
+	<select id="selectAll" resultMap="ProductMap">
+		SELECT * FROM PRODUCT LIMIT #{startRow},#{pageSize}
 	</select>
 	
 	 <select id="selectAllCount" resultType = "int" >
@@ -35,4 +36,23 @@
 			WHERE productid=#{productid}
 	</select>
 	
+	<update id="updateOne" parameterType="Product">
+		UPDATE PRODUCT SET 
+			productName=#{productName},
+			productSize=#{productSize},
+			productColor=#{productColor},
+			productGroup=#{productGroup},
+			productInfo=#{productInfo},
+			productStock=#{productStock},
+			price=#{price}
+			WHERE productid=#{productid}
+	</update>
+	
+	<insert id="insertOne" parameterType="Product">
+		INSERT INTO PRODUCT VALUES
+			(#{productid},#{productName},#{productSize},#{productColor},
+			#{productGroup},#{productInfo},#{productStock},#{productDate},
+			#{price},#{category.categoryId})
+	</insert>
+
 </mapper>

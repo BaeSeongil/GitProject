@@ -2,9 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>카테고리 리스트</title>
+<title>상품 리스트</title>
 <style type="text/css">
-
 	#detail:hover{
 		cursor: Pointer;
 	}
@@ -36,20 +35,33 @@
 	<div id="wrapper">
 		<div  class="container">
 			<h1 class="m-3 d-flex justify-content-between align-items-center" >
-				<span>카테고리 목록</span>
+				<span>상품 목록</span>
 			</h1>
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th>카테고리 번호</th>
-						<th>카테고리 이름</th>
+						<th>상품번호</th>
+						<th>상품명</th>
+						<th>사이즈</th>
+						<th>색</th>
+						<th>그룹</th>
+						<th>재고량</th>
+						<th>상품 등록일</th>
+						<th>가격</th>
+						<th>카테고리 번호</th>		
 					</tr>
 				</thead>
 				<tbody>
-					<tr id="detail" th:each="category : ${categoryList}"
-						th:onclick="location.href='/category/detail/[[${category.categoryId}]]'">
-						<td th:text="${category.categoryId}"></td>
-						<td th:text="${category.categoryName}"></td>
+					<tr id="detail" th:each="product : ${productList}" th:onclick="location.href='/product/detail/[[${product.productid}]]'">
+						<td th:text="${product.productid}"></td>
+						<td th:text="${product.productName}"></td>
+						<td th:text="${product.productSize}"></td>
+						<td th:text="${product.productColor}"></td>
+						<td th:text="${product.productGroup}"></td>
+						<td th:text="${product.productStock}"></td>
+						<td th:text="${#dates.format(product.productDate,'yyyy-MM-dd')}"></td>
+						<td th:text="${product.price}"></td>
+						<td th:text="${product.category?.categoryId}"></td>
 					</tr>
 				</tbody>
 			</table>

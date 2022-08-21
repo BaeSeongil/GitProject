@@ -5,15 +5,26 @@
 <title>상품 전체 보기</title>
 <style type="text/css">
 
-#wrapper {
+html, body {
+	height: 100%;
+	display: flex;
+	flex-flow: column;
+}
+
+footer {
+	flex: 1;
 	height: auto;
-  	min-height: 100%;
   	position: relative;
-  	float: left;
-  
+}
+
+#wrapper {	
+	height: auto;
+  	/* min-height: 100%; */
+  	position: relative;
 }
 
 #lefe {
+
 	float: left;
 }
 
@@ -23,22 +34,30 @@
 <body>
 <header th:insert="/headerNav"></header>
 
-	<h1 class="m-3 d-flex justify-content-between align-items-center">전체</h1>
+	<div style="padding: 30px;">
+		<h3 class="mt-5 d-flex justify-content-center align-items-center">ALL</h3>
+	</div>
+
 	<div id="wrapper">
 		<th:block th:each="product:${productList}">
 			<div id="lefe" class="d-flex m-5 justify-content-start" 
 				th:onclick="location.href='/product/detail/[[${product.productid}]]'">
 				<div id="lefe" class="card" style="width: 18rem;">
-				  <img class="card-img-top" alt="상품 이미지">
-				  <div id="lefe" class="card-body">
-				    <p class="card-text" th:text="${product.productName}"></p>
-				    <p class="card-text" th:text="${product.productid}"></p>
-				  </div>
+					<img class="card-img-top" alt="상품 이미지">
+						<div id="lefe" class="card-body">
+							<p class="card-text" th:text="${product.productName}"></p>
+							<p class="card-text" th:text="${product.productid}"></p>
+						</div>
 				</div>
 			</div>
 		</th:block>
 	</div>
+
+	
+	<div>
 		<div class="d-flex justify-content-center" th:insert="/pagination.html"></div>
+	</div>
+	<footer th:insert="/footer"></footer>
 </body>
-<footer th:insert="/footer"></footer>
+
 </html>
