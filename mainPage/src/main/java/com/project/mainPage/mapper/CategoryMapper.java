@@ -26,4 +26,5 @@ public interface CategoryMapper {
 	int updateOne (Category category);
 	Category selectOne(int categoryId);
 	int deleteOne (int categoryId);
+
 }
