@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.mainPage.mapper.CategoryMapper">
+
 	<resultMap type="Category" id="CategoryMap">
 		<id column="categoryId" property="categoryId"/>
 		<result column="categoryName" property="categoryName"/>
@@ -27,13 +28,19 @@
 		LIMIT #{startRow},#{pageSize}
 	</select>
 	
-	 <select id="selectAllCount" resultType = "int" >
+	<select id="selectAllCount" resultType = "int" >
  		SELECT COUNT(*) FROM CATEGORY c
 		LEFT JOIN PRODUCT p USING(categoryId)
  	</select>
 	
-	<select id="selectCategoryAll" resultType="Category">
-		SELECT * FROM CATEGORY
+	<!-- category/list.do  -->
+	<select id="selectListAll" resultMap="CategoryMap">
+		SELECT * FROM CATEGORY LIMIT #{startRow},#{pageSize}
+	</select>
+ 	
+ 	<!-- category/list.do -->
+	<select id="selectListAllCount" resultType="int">
+		SELECT COUNT(*) FROM CATEGORY
 	</select>
 	
 	<select id="selectCateAll" resultMap="CategoryMap">
@@ -50,5 +57,31 @@
 		LEFT JOIN PRODUCT p USING(categoryId)
  		WHERE categoryId=#{categoryId}
  	</select>
+ 	
+ 	<select id="selectOne" resultMap="CategoryMap">
+ 		SELECT
+ 			c.*,
+ 			p.productid,
+ 			p.productName
+ 			FROM CATEGORY c
+ 			LEFT JOIN PRODUCT p
+ 			USING (categoryId)
+ 			WHERE c.categoryId=#{categoryId}
+ 			
+ 	</select>
+ 	
+ 	<insert id="insertOne" parameterType="Category">
+ 		INSERT INTO CATEGORY VALUES (#{categoryId}, #{categoryName})
+ 	</insert>
+ 	
+ 	<update id="updateOne" parameterType="Category">
+ 		UPDATE CATEGORY SET
+ 			categoryName=#{categoryName}
+ 				WHERE categoryId = #{categoryId}
+ 	</update>
+ 	
+ 	<delete id="deleteOne" parameterType="Category">
+ 		DELETE FROM CATEGORY WHERE categoryId=#{categoryId}
+ 	</delete>
  	
 </mapper>

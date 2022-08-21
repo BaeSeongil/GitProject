@@ -2,96 +2,62 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>카테고리 리스트</title>
 <style type="text/css">
 
-#wrapper {
-	height: auto;
-  	min-height: 100%;
-  	position: relative;
-}
-
-div {
-	float: left;
-}
-#footerConfig{
-    background: #f0f0f0;
-    overflow: hidden;
-    word-break: keep-all;
-    padding: 40px;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    position: absolute;
-}
-.footerList{
-	display: inline-block;
-    float: none;
-    text-align: center;
-}
-.footerList>a{
-	text-decoration: none;
-	margin-right: 15px;
-	color: black;
-}	
+	#detail:hover{
+		cursor: Pointer;
+	}
+	html, body {
+		height: 100%;
+		display: flex;
+		flex-flow: column;
+		
+	}
+	
+	footer {
+		flex: 1;
+		height: auto;
+	  	min-height: 100%; /* footer 높이 조절 */
+	  	position: relative;
+	}
+	
+	#wrapper {	
+		height: auto;
+	  	/* min-height: 100%; */
+	  	position: relative;
+	  
+	}
+	
 </style>
 </head>
 <body>
-	<header th:insert="/gAndB"></header>
 	<header th:insert="/headerNav"></header>
-		<th:block>
-			<nav class="m-5 pr-8">
-				<button type="button" class="btn btn-light">티셔츠</button>
-				<button type="button" class="btn btn-light">맨투맨/후드/집업</button>
-				<button type="button" class="btn btn-light">긴팔티셔츠</button>
-			</nav>
-		</th:block>
-		<h1 class="m-3 d-flex justify-content-between align-items-center"></h1>
 	<div id="wrapper">
-	<th:block th:each="product:${productList}">
-		<div class="d-flex m-5 justify-content-start" 
-			th:onclick="location.href='/product/detail/[[${product.productid}]]'">
-			<div class="card" style="width: 18rem;">
-			  <img class="card-img-top" alt="상품 이미지">
-			  <div class="card-body">
-			    <p class="card-text" th:text="${product.productName}"></p>
-			    <p class="card-text" th:text="${product.productid}"></p>
-			  </div>
-			</div>
+		<div  class="container">
+			<h1 class="m-3 d-flex justify-content-between align-items-center" >
+				<span>카테고리 목록</span>
+				<a href="/category/insert.do" class="btn btn-secondary">카테고리 등록</a>
+			</h1>
+			
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>카테고리 번호</th>
+						<th>카테고리 이름</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr id="detail" th:each="category : ${categoryList}"
+						th:onclick="location.href='/category/detail/[[${category.categoryId}]]'">
+						<td th:text="${category.categoryId}"></td>
+						<td th:text="${category.categoryName}"></td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="d-flex justify-content-evenly" th:insert="/pagination.html"></div>
 		</div>
-	</th:block>
-	</div>
-		<div id="footerConfig">
-		<ul style="margin-left:0; padding:0;">
-			<li class="footerList">
-				<a href="/users/agreement">서비스이용약관</a>
-			</li>
-			<li class="footerList">
-				<a href="/users/privacy">개인정보취급방침</a>
-			</li>
-			<li class="footerList">
-				<a href="/users/emailRejection">이메일무단수집거부</a>
-			</li>
-		</ul>
-		<address>
-			<span>
-			서울특별시 마포구 양화로 122 LAB7 빌딩 3층, 4층
-			<b>|</b>
-			회사명 : 에이콘 쇼핑몰
-			<b>|</b>
-			대표 : 
-			<b>|</b>
-			</span>
-		</address>
-		<div class="fInfo">
-			<span>
-				사업자번호 : 111-11-77777
-				<b>|</b>
-				개인정보 보호관리자 : 
-			</span>
-			<span>COPYRIGHTⓒ2022 Acorn. All Right Reserved.</span>
-		
-		</div>
+		<footer th:insert="/footer"></footer>
 	</div>
 </body>
 </html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>카테고리 등록 페이지</title>
+</head>
+<body>
+	<header th:insert="/gAndB"></header>
+	<header th:insert="/headerNav"></header>
+	<main class="container">
+		<div class="mt-5 mb-5 justify-content-center">
+			<h1 class="fw-semibold">카테고리 등록</h1>
+		</div>
+		<form action="/category/insert.do" method="post" class="row g-3 needs-validation" validate>
+		
+			<div class="col-30 mb-3 justify-content-center was-validated">
+				<label for="inputCateId" class="form-label">카테고리 번호</label>
+				<input name="categoryId" class="form-control form-control-sm" id="inputCateId" required>
+				
+			</div>
+			<div class="col-30 mb-3 justify-content-center needs-validation">
+				<label for="inputCateName" class="form-label">카테고리 이름</label>
+				<input name="categoryName" class="form-control form-control-sm" id="inputCateName" required>
+			</div>
+			
+			<div class="col-12">
+				<button class="btn btn-outline-success" type="submit">Save</button>
+				<button class="btn btn-outline-warning" type="reset">Reset</button>
+			</div>
+		</form>
+	</main>
+</body>
+</html>

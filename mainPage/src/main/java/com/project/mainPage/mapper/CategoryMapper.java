@@ -5,19 +5,34 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.project.mainPage.dto.Category;
+import com.project.mainPage.dto.Product;
 
 @Mapper
 public interface CategoryMapper {
-	List<Category> selectCategoryAll(int page);
+
+	// Category/cate/1
 	List<Category> selectAll(int startRow,int pageSize);
 	int selectAllCount();
 	
+	// Category/list/1
+	List<Category> selectListAll(int startRow, int pageSize);
+	int selectListAllCount();
+	
+	// Category/cate/1/1
 	List<Category> selectCateAll(int categoryId, int startRow,int pageSize);
 	int selectCateAllCount(int categoryId);
+<<<<<<< HEAD
 	int insertOne(Category category);
 	List<Category> selectListAll(int startRow, int row);
 	int selectListAllCount();
 	Category selectOne(int categoryId);
 	int updateOne(Category category);
 	int deleteOne(int categoryId);
+=======
+	
+	int insertOne (Category category);
+	int updateOne (Category category);
+	Category selectOne(int categoryId);
+	int deleteOne (int categoryId);
+>>>>>>> f0ff44b408314d031743d0cbf4eea2a4e246a8e2
 }
