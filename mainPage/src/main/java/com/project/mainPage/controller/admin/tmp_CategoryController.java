@@ -95,8 +95,7 @@ public class tmp_CategoryController {
 
     // 추가
     @RequestMapping(value = "/categories/save", method = RequestMethod.POST)
-    @ResponseBody
-    public Result save(@RequestBody tmp_Category Category) {
+    public @ResponseBody Result save(@RequestBody tmp_Category Category) {
         if (Objects.isNull(Category.getCategoryLevel())
                 || !StringUtils.hasText(Category.getCategoryName())
                 || Objects.isNull(Category.getParentId())
@@ -114,8 +113,7 @@ public class tmp_CategoryController {
 
  // 업데이트
     @RequestMapping(value = "/categories/update", method = RequestMethod.POST)
-    @ResponseBody
-    public Result update(@RequestBody tmp_Category Category) {
+    public @ResponseBody Result update(@RequestBody tmp_Category Category) {
         if (Objects.isNull(Category.getCategoryId())
                 || Objects.isNull(Category.getCategoryLevel())
                 || !StringUtils.hasText(Category.getCategoryName())
@@ -144,8 +142,7 @@ public class tmp_CategoryController {
 
     // 삭제
     @RequestMapping(value = "/categories/delete", method = RequestMethod.POST)
-    @ResponseBody
-    public Result delete(@RequestBody Integer[] ids) {
+    public @ResponseBody Result delete(@RequestBody Integer[] ids) {
         if (ids.length < 1) {
             return ResultGenerator.genFailResult("파라미터가 비정상입니다！");
         }

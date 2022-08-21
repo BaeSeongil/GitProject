@@ -11,7 +11,7 @@ public class tmp_Order {
     private Long orderId;   // 주문 인덱스
     private String orderNo; // 주문 번호
     private Long userId;    // 구매자 인덱스
-    private Integer totalPrice; // 총 가격
+    private Integer totalPrice; // 총 주문금액
     private Byte payStatus; // 결제상태(0: 미입금, 1: 결제완료 -1: 결제 실패)
     private Byte payType;   // 결제방법(0: 없음)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")

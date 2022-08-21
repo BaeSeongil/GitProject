@@ -7,7 +7,6 @@
         <result column="product_intro" jdbcType="VARCHAR" property="productIntro"/>
         <result column="product_category_id" jdbcType="BIGINT" property="CategoryId"/>
         <result column="product_cover_img" jdbcType="VARCHAR" property="productCoverImg"/>
-        <result column="product_carousel" jdbcType="VARCHAR" property="productCarousel"/>
         <result column="original_price" jdbcType="INTEGER" property="originalPrice"/>
         <result column="selling_price" jdbcType="INTEGER" property="sellingPrice"/>
         <result column="stock_num" jdbcType="INTEGER" property="stockNum"/>
@@ -15,8 +14,8 @@
         <result column="product_sell_status" jdbcType="TINYINT" property="productSellStatus"/>
         <result column="create_user" jdbcType="INTEGER" property="createUser"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
-        <result column="UPDATE_user" jdbcType="INTEGER" property="UPDATEUser"/>
-        <result column="UPDATE_time" jdbcType="TIMESTAMP" property="UPDATETime"/>
+        <result column="update_user" jdbcType="INTEGER" property="updateUser"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
     </resultMap>
 
     <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.project.mainPage.dto.tmp_Product">
@@ -24,7 +23,7 @@
     </resultMap>
     
     <sql id="Base_Column_List">
-        product_id, product_name, product_intro,product_category_id, product_cover_img, product_carousel, original_price, selling_price, stock_num, tag, product_sell_status, create_user, create_time, UPDATE_user, UPDATE_time
+        product_id, product_name, product_intro,product_category_id, product_cover_img, original_price, selling_price, stock_num, tag, product_sell_status, create_user, create_time, UPDATE_user, UPDATE_time
     </sql>
 
     <sql id="Blob_Column_List">
@@ -32,13 +31,12 @@
     </sql>
 
     <insert id="batchINSERT">
-        INSERT INTO TB_PRODUCT_INFO(product_name, product_intro, product_category_id,product_cover_img, product_carousel, product_detail_content,original_price, selling_price, stock_num)
+        INSERT INTO TB_PRODUCT_INFO(product_name, product_intro, product_category_id,product_cover_img, product_detail_content,original_price, selling_price, stock_num)
             VALUES
             <foreach collection="ProductList" item="product" separator=",">
                 (#{product.productName},
                 #{product.productIntro},
                 #{product.CategoryId},#{product.productCoverImg},
-                #{product.productCarousel},
                 #{product.productDetailContent},
                 #{product.originalPrice},
                 #{product.sellingPrice},
@@ -46,7 +44,7 @@
             </foreach>
     </insert>
     
-    <select id="SELECTByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
         SELECT
         <include refid="Base_Column_List"/>
         ,
@@ -55,7 +53,7 @@
             WHERE product_id = #{productId,jdbcType=BIGINT}
     </select>
 
-    <select id="SELECTByCategoryIdANDName" resultMap="ResultMapWithBLOBs">
+    <select id="selectByCategoryIdAndName" resultMap="ResultMapWithBLOBs">
         SELECT
         <include refid="Base_Column_List"/>
         ,
@@ -65,7 +63,7 @@
             AND product_category_id = #{CategoryId,jdbcType=BIGINT}
     </select>
     
-    <update id="UPDATEStockNum">
+    <update id="updateStockNum">
         <foreach collection="StockNumS" item="StockNum" index="index" open="" close="" separator=";">
             UPDATE TB_PRODUCT_INFO
             <set>
@@ -77,7 +75,7 @@
         </foreach>
     </update>
 
-    <update id="batchUPDATESellStatus">
+    <update id="batchUpdateSellStatus">
         UPDATE TB_PRODUCT_INFO
             SET product_sell_status=#{sellStatus},
                 UPDATE_time=now() 
@@ -87,7 +85,7 @@
             </foreach>
     </update>
     
-    <select id="SELECTByPrimaryKeys" resultMap="BaseResultMap">
+    <select id="selectByPrimaryKeys" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM TB_PRODUCT_INFO
@@ -95,7 +93,7 @@
             <foreach item="id" collection="list" open="(" separator="," close=")">
                 #{id}
             </foreach>
-            order by field(product_id,
+            ORDER BY field(product_id,
             <foreach item="id" collection="list" separator=",">
                 #{id}
             </foreach>
@@ -107,14 +105,13 @@
             WHERE product_id = #{productId,jdbcType=BIGINT}
     </delete>
     
-    <insert id="INSERT" parameterType="com.project.mainPage.dto.tmp_Product">
-        INSERT INTO TB_PRODUCT_INFO (product_id, product_name, product_intro, product_cover_img, product_carousel, original_price, selling_price, stock_num, tag, product_sell_status, create_user, create_time, UPDATE_user, UPDATE_time, product_detail_content)
+    <insert id="insert" parameterType="com.project.mainPage.dto.tmp_Product">
+        INSERT INTO TB_PRODUCT_INFO (product_id, product_name, product_intro, product_cover_img, original_price, selling_price, stock_num, tag, product_sell_status, create_user, create_time, UPDATE_user, UPDATE_time, product_detail_content)
             VALUES (
                 #{productId,jdbcType=BIGINT}, 
                 #{productName,jdbcType=VARCHAR}, 
                 #{productIntro,jdbcType=VARCHAR}, 
                 #{productCoverImg,jdbcType=VARCHAR}, 
-                #{productCarousel,jdbcType=VARCHAR}, 
                 #{originalPrice,jdbcType=INTEGER}, 
                 #{sellingPrice,jdbcType=INTEGER}, 
                 #{stockNum,jdbcType=INTEGER}, 
@@ -123,12 +120,12 @@
                 #{createUser,jdbcType=INTEGER}, 
                 #{createTime,jdbcType=TIMESTAMP}, 
                 #{UPDATEUser,jdbcType=INTEGER}, 
-                #{UPDATETime,jdbcType=TIMESTAMP}, 
+                #{updateTime,jdbcType=TIMESTAMP}, 
                 #{productDetailContent,jdbcType=LONGVARCHAR}
             )
     </insert>
     
-    <insert id="INSERTSELECTive" parameterType="com.project.mainPage.dto.tmp_Product">
+    <insert id="insertSelective" parameterType="com.project.mainPage.dto.tmp_Product">
         INSERT INTO TB_PRODUCT_INFO
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="productId != null">
@@ -145,9 +142,6 @@
             </if>
             <if test="productCoverImg != null">
                 product_cover_img,
-            </if>
-            <if test="productCarousel != null">
-                product_carousel,
             </if>
             <if test="originalPrice != null">
                 original_price,
@@ -170,10 +164,10 @@
             <if test="createTime != null">
                 create_time,
             </if>
-            <if test="UPDATEUser != null">
+            <if test="updateUser != null">
                 UPDATE_user,
             </if>
-            <if test="UPDATETime != null">
+            <if test="updateTime != null">
                 UPDATE_time,
             </if>
             <if test="productDetailContent != null">
@@ -181,7 +175,7 @@
             </if>
         </trim>
     
-        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="productId != null">
                 #{productId,jdbcType=BIGINT},
             </if>
@@ -196,9 +190,6 @@
             </if>
             <if test="productCoverImg != null">
                 #{productCoverImg,jdbcType=VARCHAR},
-            </if>
-            <if test="productCarousel != null">
-                #{productCarousel,jdbcType=VARCHAR},
             </if>
             <if test="originalPrice != null">
                 #{originalPrice,jdbcType=INTEGER},
@@ -221,11 +212,11 @@
             <if test="createTime != null">
                 #{createTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="UPDATEUser != null">
+            <if test="updateUser != null">
                 #{UPDATEUser,jdbcType=INTEGER},
             </if>
-            <if test="UPDATETime != null">
-                #{UPDATETime,jdbcType=TIMESTAMP},
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
             </if>
             <if test="productDetailContent != null">
                 #{productDetailContent,jdbcType=LONGVARCHAR},
@@ -233,7 +224,7 @@
         </trim>
     </insert>
     
-    <update id="UPDATEByPrimaryKeySELECTive" parameterType="com.project.mainPage.dto.tmp_Product">
+    <update id="updateByPrimaryKeySelective" parameterType="com.project.mainPage.dto.tmp_Product">
         UPDATE TB_PRODUCT_INFO
         <set>
             <if test="productName != null">
@@ -247,9 +238,6 @@
             </if>
             <if test="productCoverImg != null">
                 product_cover_img = #{productCoverImg,jdbcType=VARCHAR},
-            </if>
-            <if test="productCarousel != null">
-                product_carousel = #{productCarousel,jdbcType=VARCHAR},
             </if>
             <if test="originalPrice != null">
                 original_price = #{originalPrice,jdbcType=INTEGER},
@@ -272,11 +260,11 @@
             <if test="createTime != null">
                 create_time = #{createTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="UPDATEUser != null">
+            <if test="updateUser != null">
                 UPDATE_user = #{UPDATEUser,jdbcType=INTEGER},
             </if>
-            <if test="UPDATETime != null">
-                UPDATE_time = #{UPDATETime,jdbcType=TIMESTAMP},
+            <if test="updateTime != null">
+                UPDATE_time = #{updateTime,jdbcType=TIMESTAMP},
             </if>
             <if test="productDetailContent != null">
                 product_detail_content = #{productDetailContent,jdbcType=LONGVARCHAR},
@@ -285,12 +273,11 @@
         WHERE product_id = #{productId,jdbcType=BIGINT}
     </update>
 
-    <update id="UPDATEByPrimaryKeyWithBLOBs" parameterType="com.project.mainPage.dto.tmp_Product">
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.project.mainPage.dto.tmp_Product">
         UPDATE TB_PRODUCT_INFO
             SET product_name = #{productName,jdbcType=VARCHAR},
                 product_intro = #{productIntro,jdbcType=VARCHAR},
                 product_cover_img = #{productCoverImg,jdbcType=VARCHAR},
-                product_carousel = #{productCarousel,jdbcType=VARCHAR},
                 original_price = #{originalPrice,jdbcType=INTEGER},
                 selling_price = #{sellingPrice,jdbcType=INTEGER},
                 stock_num = #{stockNum,jdbcType=INTEGER},
@@ -299,17 +286,16 @@
                 create_user = #{createUser,jdbcType=INTEGER},
                 create_time = #{createTime,jdbcType=TIMESTAMP},
                 UPDATE_user = #{UPDATEUser,jdbcType=INTEGER},
-                UPDATE_time = #{UPDATETime,jdbcType=TIMESTAMP},
+                UPDATE_time = #{updateTime,jdbcType=TIMESTAMP},
                 product_detail_content = #{productDetailContent,jdbcType=LONGVARCHAR}
             WHERE product_id = #{productId,jdbcType=BIGINT}
     </update>
 
-    <update id="UPDATEByPrimaryKey" parameterType="com.project.mainPage.dto.tmp_Product">
+    <update id="updateByPrimaryKey" parameterType="com.project.mainPage.dto.tmp_Product">
         UPDATE TB_PRODUCT_INFO
             SET product_name = #{productName,jdbcType=VARCHAR},
                 product_intro = #{productIntro,jdbcType=VARCHAR},
                 product_cover_img = #{productCoverImg,jdbcType=VARCHAR},
-                product_carousel = #{productCarousel,jdbcType=VARCHAR},
                 original_price = #{originalPrice,jdbcType=INTEGER},
                 selling_price = #{sellingPrice,jdbcType=INTEGER},
                 stock_num = #{stockNum,jdbcType=INTEGER},
@@ -318,7 +304,100 @@
                 create_user = #{createUser,jdbcType=INTEGER},
                 create_time = #{createTime,jdbcType=TIMESTAMP},
                 UPDATE_user = #{UPDATEUser,jdbcType=INTEGER},
-                UPDATE_time = #{UPDATETime,jdbcType=TIMESTAMP}
+                UPDATE_time = #{updateTime,jdbcType=TIMESTAMP}
             WHERE product_id = #{productId,jdbcType=BIGINT}
     </update>
+
+    <select id="findProductList" parameterType="Map" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM TB_PRODUCT_INFO
+        <where>
+            <if test="productName!=null and productName!=''">
+                AND product_name LIKE CONCAT('%','#{productName}','%')
+            </if>
+            <if test="productSellStatus!=null and productSellStatus!=''">
+                AND product_sell_status = #{productSellStatus}
+            </if>
+            <if test="startTime != null and startTime.trim() != ''">
+                AND create_time &gt; #{startTime}
+            </if>
+            <if test="endTime != null and endTime.trim() != ''">
+                AND create_time &lt; #{endTime}
+            </if>
+        </where>
+        ORDER BY product_id DESC
+        <if test="start!=null and limit!=null">
+            LIMIT #{start},#{limit}
+        </if>
+    </select>
+	
+	<select id="getTotalProduct" parameterType="Map" resultType="int">
+        SELECT count(*) FROM TB_PRODUCT_INFO
+        <where>
+            <if test="productName!=null and productName!=''">
+                AND product_name LIKE CONCAT('%','#{productName}','%')
+            </if>
+            <if test="productSellStatus!=null and productSellStatus!=''">
+                AND product_sell_status = #{productSellStatus}
+            </if>
+            <if test="startTime != null and startTime.trim() != ''">
+                AND create_time &gt; #{startTime}
+            </if>
+            <if test="endTime != null and endTime.trim() != ''">
+                AND create_time &lt; #{endTime}
+            </if>
+        </where>
+    </select>
+    
+	 <select id="findProductListBySearch" parameterType="Map" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM TB_PRODUCT_INFO
+        <where>
+            <if test="keyword!=null and keyword!=''">
+                AND (product_name LIKE CONCAT('%',#{keyword},'%') or product_intro LIKE CONCAT('%',#{keyword},'%'))
+            </if>
+            <if test="CategoryId!=null and CategoryId!=''">
+                AND product_category_id = #{CategoryId}
+            </if>
+            <if test="productSellStatus!=null">
+                AND product_sell_status = #{productSellStatus}
+            </if>
+        </where>
+        <if test="orderBy!=null and orderBy!=''">
+            <choose>
+                <when test="orderBy == 'new'">
+                    <!-- 발행일을 역순으로 정렬 -->
+                    ORDER BY product_id DESC
+                </when>
+                <when test="orderBy == 'price'">
+                    <!-- 가격순으로 작은 것부터 큰 것 순으로 정렬 -->
+                    ORDER BY selling_price ASC
+                </when>
+                <otherwise>
+                    <!-- 재고 수량은 가장 큰 것부터 작은 것 순으로 정렬 -->
+                    ORDER BY stock_num DESC
+                </otherwise>
+            </choose>
+        </if>
+        <if test="start!=null and limit!=null">
+            LIMIT #{start},#{limit}
+        </if>
+    </select>
+
+    <select id="getTotalProductBySearch" parameterType="Map" resultType="int">
+        SELECT count(*) FROM TB_PRODUCT_INFO
+        <where>
+            <if test="keyword!=null and keyword!=''">
+                AND (product_name LIKE CONCAT('%',#{keyword},'%') or product_intro LIKE CONCAT('%',#{keyword},'%'))
+            </if>
+            <if test="CategoryId!=null and CategoryId!=''">
+                AND product_category_id = #{CategoryId}
+            </if>
+            <if test="productSellStatus!=null">
+                AND product_sell_status = #{productSellStatus}
+            </if>
+        </where>
+    </select>
 </mapper>

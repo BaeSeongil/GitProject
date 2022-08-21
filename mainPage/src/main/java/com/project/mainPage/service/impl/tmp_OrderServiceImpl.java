@@ -235,7 +235,7 @@ public class tmp_OrderServiceImpl implements tmp_OrderService {
                 tmp_Order.setOrderNo(orderNo);
                 tmp_Order.setUserId(user.getUserId());
                 tmp_Order.setUserAddress(user.getAddress());
-                // 총 가격
+                // 총 주문금액
                 for (CartItemVO CartItemVO : myCartItems) {
                     priceTotal += CartItemVO.getProductCount() * CartItemVO.getSellingPrice();
                 }

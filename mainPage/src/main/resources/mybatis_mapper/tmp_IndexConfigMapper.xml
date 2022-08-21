@@ -11,8 +11,8 @@
         <result column="is_deleted" jdbcType="TINYINT" property="isDeleted"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="create_user" jdbcType="INTEGER" property="createUser"/>
-        <result column="UPDATE_time" jdbcType="TIMESTAMP" property="UPDATETime"/>
-        <result column="UPDATE_user" jdbcType="INTEGER" property="UPDATEUser"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="update_user" jdbcType="INTEGER" property="updateUser"/>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -20,23 +20,23 @@
         create_time, create_user, UPDATE_time, UPDATE_user
     </sql>
     
-    <select id="findIndexConfigsByTypeANDNum" resultMap="BaseResultMap">
+    <select id="findIndexConfigsByTypeAndNum" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM TB_INDEX_CONFIG
         WHERE config_type = #{configType} AND is_deleted = 0
-        order by config_rank desc
+        ORDER BY config_rank desc
         limit #{number}
     </select>
     
-    <select id="SELECTByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM TB_INDEX_CONFIG
         WHERE config_id = #{configId,jdbcType=BIGINT} AND is_deleted=0
     </select>
     
-    <select id="SELECTByTypeANDProductId" resultMap="BaseResultMap">
+    <select id="selectByTypeAndProductId" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM TB_INDEX_CONFIG
@@ -56,7 +56,7 @@
         </foreach>
     </update>
     
-    <insert id="INSERT" parameterType="com.project.mainPage.dto.tmp_IndexConfig">
+    <insert id="insert" parameterType="com.project.mainPage.dto.tmp_IndexConfig">
         INSERT INTO TB_INDEX_CONFIG (config_id, config_name, config_type, 
         product_id, redirect_url, config_rank, 
         is_deleted, create_time, create_user, 
@@ -64,10 +64,10 @@
         VALUES (#{configId,jdbcType=BIGINT}, #{configName,jdbcType=VARCHAR}, #{configType,jdbcType=TINYINT}, 
         #{productId,jdbcType=BIGINT}, #{redirectUrl,jdbcType=VARCHAR}, #{configRank,jdbcType=INTEGER}, 
         #{isDeleted,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=INTEGER}, 
-        #{UPDATETime,jdbcType=TIMESTAMP}, #{UPDATEUser,jdbcType=INTEGER})
+        #{updateTime,jdbcType=TIMESTAMP}, #{UPDATEUser,jdbcType=INTEGER})
     </insert>
     
-    <insert id="INSERTSELECTive" parameterType="com.project.mainPage.dto.tmp_IndexConfig">
+    <insert id="insertSelective" parameterType="com.project.mainPage.dto.tmp_IndexConfig">
         INSERT INTO TB_INDEX_CONFIG
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="configId != null">
@@ -97,15 +97,15 @@
             <if test="createUser != null">
                 create_user,
             </if>
-            <if test="UPDATETime != null">
+            <if test="updateTime != null">
                 UPDATE_time,
             </if>
-            <if test="UPDATEUser != null">
+            <if test="updateUser != null">
                 UPDATE_user,
             </if>
         </trim>
     
-        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="configId != null">
                 #{configId,jdbcType=BIGINT},
             </if>
@@ -133,16 +133,16 @@
             <if test="createUser != null">
                 #{createUser,jdbcType=INTEGER},
             </if>
-            <if test="UPDATETime != null">
-                #{UPDATETime,jdbcType=TIMESTAMP},
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="UPDATEUser != null">
+            <if test="updateUser != null">
                 #{UPDATEUser,jdbcType=INTEGER},
             </if>
         </trim>
     </insert>
     
-    <update id="UPDATEByPrimaryKeySELECTive" parameterType="com.project.mainPage.dto.tmp_IndexConfig">
+    <update id="updateByPrimaryKeySelective" parameterType="com.project.mainPage.dto.tmp_IndexConfig">
         UPDATE TB_INDEX_CONFIG
         <set>
             <if test="configName != null">
@@ -169,28 +169,55 @@
             <if test="createUser != null">
                 create_user = #{createUser,jdbcType=INTEGER},
             </if>
-            <if test="UPDATETime != null">
-                UPDATE_time = #{UPDATETime,jdbcType=TIMESTAMP},
+            <if test="updateTime != null">
+                UPDATE_time = #{updateTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="UPDATEUser != null">
+            <if test="updateUser != null">
                 UPDATE_user = #{UPDATEUser,jdbcType=INTEGER},
             </if>
         </set>
         WHERE config_id = #{configId,jdbcType=BIGINT}
     </update>
     
-    <update id="UPDATEByPrimaryKey" parameterType="com.project.mainPage.dto.tmp_IndexConfig">
+    <update id="updateByPrimaryKey" parameterType="com.project.mainPage.dto.tmp_IndexConfig">
         UPDATE TB_INDEX_CONFIG
-        SET config_name = #{configName,jdbcType=VARCHAR},
-        config_type = #{configType,jdbcType=TINYINT},
-        product_id = #{productId,jdbcType=BIGINT},
-        redirect_url = #{redirectUrl,jdbcType=VARCHAR},
-        config_rank = #{configRank,jdbcType=INTEGER},
-        is_deleted = #{isDeleted,jdbcType=TINYINT},
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-        create_user = #{createUser,jdbcType=INTEGER},
-        UPDATE_time = #{UPDATETime,jdbcType=TIMESTAMP},
-        UPDATE_user = #{UPDATEUser,jdbcType=INTEGER}
-        WHERE config_id = #{configId,jdbcType=BIGINT}
+            SET config_name = #{
+                configName,jdbcType=VARCHAR},
+                config_type = #{configType,jdbcType=TINYINT},
+                product_id = #{productId,jdbcType=BIGINT},
+                redirect_url = #{redirectUrl,jdbcType=VARCHAR},
+                config_rank = #{configRank,jdbcType=INTEGER},
+                is_deleted = #{isDeleted,jdbcType=TINYINT},
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+                create_user = #{createUser,jdbcType=INTEGER},
+                UPDATE_time = #{updateTime,jdbcType=TIMESTAMP},
+                UPDATE_user = #{UPDATEUser,jdbcType=INTEGER}
+            WHERE config_id = #{configId,jdbcType=BIGINT}
     </update>
+
+    <select id="findIndexConfigList" parameterType="Map" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM TB_INDEX_CONFIG
+        <where>
+            <if test="configType!=null and configType!=''">
+                AND config_type = #{configType}
+            </if>
+            AND is_deleted = 0
+        </where>
+        order by config_rank desc
+        <if test="start!=null and limit!=null">
+            limit #{start},#{limit}
+        </if>
+    </select>
+    
+    <select id="getTotalndexConfigs" parameterType="Map" resultType="int">
+        SELECT count(*) FROM TB_INDEX_CONFIG
+        <where>
+            <if test="configType!=null and configType!=''">
+                AND config_type = #{configType}
+            </if>
+            AND is_deleted = 0
+        </where>
+    </select>
 </mapper>

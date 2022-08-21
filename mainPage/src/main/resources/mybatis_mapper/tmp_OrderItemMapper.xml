@@ -17,21 +17,21 @@
         create_time
     </sql>
     
-    <select id="SELECTByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM TB_ORDER_ITEM
             WHERE order_item_id = #{orderItemId,jdbcType=BIGINT}
     </select>
     
-    <select id="SELECTByOrderId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <select id="selectByOrderId" parameterType="java.lang.Long" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM TB_ORDER_ITEM
             WHERE order_id = #{orderItemId,jdbcType=BIGINT}
     </select>
     
-    <select id="SELECTByOrderIds" resultMap="BaseResultMap">
+    <select id="selectByOrderIds" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM TB_ORDER_ITEM
@@ -46,7 +46,7 @@
             WHERE order_item_id = #{orderItemId,jdbcType=BIGINT}
     </delete>
     
-    <insert id="INSERTBatch" parameterType="com.project.mainPage.dto.tmp_OrderItem">
+    <insert id="insertBatch" parameterType="com.project.mainPage.dto.tmp_OrderItem">
         INSERT INTO TB_ORDER_ITEM (order_id, product_id, product_name, product_cover_img, selling_price, product_count)
             VALUES
             <foreach collection="orderItems" item="orderItem" separator=",">
@@ -59,7 +59,7 @@
             </foreach>
     </insert>
     
-    <insert id="INSERT" parameterType="com.project.mainPage.dto.tmp_OrderItem">
+    <insert id="insert" parameterType="com.project.mainPage.dto.tmp_OrderItem">
         INSERT INTO TB_ORDER_ITEM (order_item_id, order_id, product_id, product_name, product_cover_img, selling_price, product_count, create_time)
             VALUES (
                 #{orderItemId,jdbcType=BIGINT}, 
@@ -73,7 +73,7 @@
             )
     </insert>
     
-    <insert id="INSERTSELECTive" parameterType="com.project.mainPage.dto.tmp_OrderItem">
+    <insert id="insertSelective" parameterType="com.project.mainPage.dto.tmp_OrderItem">
         INSERT INTO TB_ORDER_ITEM
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="orderItemId != null">
@@ -102,7 +102,7 @@
             </if>
         </trim>
     
-        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="orderItemId != null">
                 #{orderItemId,jdbcType=BIGINT},
             </if>
@@ -130,7 +130,7 @@
         </trim>
     </insert>
     
-    <update id="UPDATEByPrimaryKeySELECTive" parameterType="com.project.mainPage.dto.tmp_OrderItem">
+    <update id="updateByPrimaryKeySelective" parameterType="com.project.mainPage.dto.tmp_OrderItem">
         UPDATE TB_ORDER_ITEM
         <set>
             <if test="orderId != null">
@@ -158,7 +158,7 @@
         WHERE order_item_id = #{orderItemId,jdbcType=BIGINT}
     </update>
     
-    <update id="UPDATEByPrimaryKey" parameterType="com.project.mainPage.dto.tmp_OrderItem">
+    <update id="updateByPrimaryKey" parameterType="com.project.mainPage.dto.tmp_OrderItem">
         UPDATE TB_ORDER_ITEM
             SET order_id = #{orderId,jdbcType=BIGINT},
                 product_id = #{productId,jdbcType=BIGINT},

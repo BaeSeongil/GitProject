@@ -20,14 +20,14 @@
             AND locked = 0
     </select>
 
-    <select id="SELECTByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List" />
         FROM TB_ADMIN_USER
             WHERE admin_user_id = #{adminUserId,jdbcType=INTEGER}
     </select>
   
-    <insert id="INSERT" parameterType="com.project.mainPage.dto.tmp_AdminUser">
+    <insert id="insert" parameterType="com.project.mainPage.dto.tmp_AdminUser">
         INSERT INTO TB_ADMIN_USER (admin_user_id, login_user_name, login_password, nick_name, locked)
         VALUES 
             (#{adminUserId,jdbcType=INTEGER}, 
@@ -37,7 +37,7 @@
             #{locked,jdbcType=TINYINT})
     </insert>
 
-    <insert id="INSERTSELECTive" parameterType="com.project.mainPage.dto.tmp_AdminUser">
+    <insert id="insertSelective" parameterType="com.project.mainPage.dto.tmp_AdminUser">
         INSERT INTO TB_ADMIN_USER
         <trim prefix="(" suffix=")" suffixOverrides=",">
         <if test="adminUserId != null">
@@ -57,7 +57,7 @@
         </if>
         </trim>
         
-        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
         <if test="adminUserId != null">
             #{adminUserId,jdbcType=INTEGER},
         </if>
@@ -76,7 +76,7 @@
         </trim>
     </insert>
     
-    <update id="UPDATEByPrimaryKeySELECTive" parameterType="com.project.mainPage.dto.tmp_AdminUser">
+    <update id="updateByPrimaryKeySelective" parameterType="com.project.mainPage.dto.tmp_AdminUser">
         UPDATE TB_ADMIN_USER
         <set>
         <if test="loginUserName != null">
@@ -95,7 +95,7 @@
         WHERE admin_user_id = #{adminUserId,jdbcType=INTEGER}
     </update>
     
-    <update id="UPDATEByPrimaryKey" parameterType="com.project.mainPage.dto.tmp_AdminUser">
+    <update id="updateByPrimaryKey" parameterType="com.project.mainPage.dto.tmp_AdminUser">
         UPDATE TB_ADMIN_USER
             SET login_user_name = #{loginUserName,jdbcType=VARCHAR},
                 login_password = #{loginPassword,jdbcType=VARCHAR},

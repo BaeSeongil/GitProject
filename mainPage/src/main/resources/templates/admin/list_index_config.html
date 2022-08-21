@@ -11,24 +11,24 @@
             <div class="content-wrapper">
                 <!-- Content Header (icon header) -->
                 <div class="content-header">
+                    <!-- container-fluid -->
                     <div class="container-fluid"></div>
                     <!-- /.container-fluid -->
                 </div>
                 <!-- Main content -->
                 <div class="content">
+                    <!-- container-fluid -->
                     <div class="container-fluid">
                         <div class="card card-primary card-outline">
                             <div class="card-header">
-                                <h3 class="card-title">카테고리 관리</h3>
+                                <h3 class="card-title">홈페이지 설정 관리</h3>
                             </div>
                             <!-- /.card-body -->
                             <div class="card-body">
                                 <div class="grid-btn">
-                                    <button class="btn btn-info" onclick="categoryAdd()"><i class="fa fa-plus"></i>추가</button>
-                                    <button class="btn btn-info" onclick="categoryEdit()"><i class="fa fa-pencil-square-o"></i>변경</button>
-                                    <button class="btn btn-danger" onclick="deleteCagegory()"><i class="fa fa-trash-o"></i>삭제</button>
-                                    <button class="btn btn-info" onclick="categoryManage()"><i class="fa fa-list"></i>하위 카테고리 이동</button>
-                                    <button class="btn btn-info" onclick="categoryBack()"><i class="fa fa-backward"></i>이전</button>
+                                    <button class="btn btn-info" onclick="configAdd()"><i class="fa fa-plus"></i>추가</button>
+                                    <button class="btn btn-info" onclick="configEdit()"><i class="fa fa-pencil-square-o"></i>변경</button>
+                                    <button class="btn btn-danger" onclick="deleteConfig()"><i class="fa fa-trash-o"></i>삭제</button>
                                 </div>
                                 <br />
                                 <table id="jqGrid" class="table table-bordered"></table>
@@ -39,10 +39,10 @@
                     </div>
                     <!-- /.container-fluid -->
                 </div>
-                <!-- content -->
+                <!-- /.content -->
                 <div class="content">
                     <!-- Modal -->
-                    <div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="categoryModalLabel">
+                    <div class="modal fade" id="indexConfigModal" tabindex="-1" role="dialog" aria-labelledby="indexConfigModalLabel">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -52,35 +52,41 @@
                                     <h6 class="modal-title" id="categoryModalLabel">Modal</h6>
                                 </div>
                                 <div class="modal-body">
-                                    <form id="categoryForm">
+                                    <form id="indexConfigForm">
                                         <div class="form-group">
                                             <div class="alert alert-danger" id="edit-error-msg" style="display: none">오류 정보 표시란</div>
                                         </div>
-                                        <input type="hidden" class="form-control" id="categoryId" name="categoryId" />
-                                        <input type="hidden" id="categoryLevel" th:value="${categoryLevel}" />
-                                        <input type="hidden" id="parentId" th:value="${parentId}" />
-                                        <input type="hidden" id="backParentId" th:value="${backParentId}" />
+                                        <input type="hidden" class="form-control" id="indexConfigModaconfigId" name="indexConfigModaconfigId" />
+                                        <input type="hidden" id="configType" th:value="${configType}" />
                                         <div class="form-group">
-                                            <label for="categoryName" class="control-label">카테고리명 : </label>
+                                            <label for="configName" class="control-label">구성 항목 표시 문자:</label>
                                             <input
                                                 type="text"
                                                 class="form-control"
-                                                id="categoryName"
-                                                name="categoryName"
-                                                placeholder="카테고리명을 입력하세요"
+                                                id="configName"
+                                                name="configName"
+                                                placeholder="구성 항목 표시 문자를 입력하세요"
                                                 required="true"
                                             />
                                         </div>
                                         <div class="form-group">
-                                            <label for="categoryName" class="control-label">인덱스 : </label>
+                                            <label for="redirectUrl" class="control-label">리디렉션:</label>
                                             <input
-                                                type="number"
+                                                type="text"
                                                 class="form-control"
-                                                id="categoryRank"
-                                                name="categoryRank"
-                                                placeholder="인덱스를 입력하세요"
-                                                required="true"
+                                                id="redirectUrl"
+                                                name="redirectUrl"
+                                                placeholder="URL을 입력하세요"
+                                                value="##"
                                             />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="productId" class="control-label">관련상품번호:</label>
+                                            <input type="number" class="form-control" id="productId" name="productId" placeholder="관련상품번호" value="0" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="configRank" class="control-label">인덱스:</label>
+                                            <input type="number" class="form-control" id="configRank" name="configRank" placeholder="인덱스를 입력하세요" />
                                         </div>
                                     </form>
                                 </div>
@@ -93,7 +99,6 @@
                     </div>
                     <!-- /.Modal -->
                 </div>
-                <!-- /.content -->
             </div>
             <!-- /.content-wrapper -->
             <!-- footer-fragment -->
@@ -108,9 +113,10 @@
         <!-- jqgrid -->
         <script th:src="@{/webjars/jqGrid/5.7.0/js/jquery.jqGrid.min.js}"></script>
         <script th:src="@{/webjars/jqGrid/5.7.0/js/i18n/grid.locale-kr.js}"></script>
+
         <!-- sweetalert -->
         <script th:src="@{/webjars/sweetalert/2.1.2/dist/sweetalert.min.js}"></script>
         <script th:src="@{/admin/dist/js/public.js}"></script>
-        <script th:src="@{/admin/dist/js/list_category.js}"></script>
+        <script th:src="@{/admin/dist/js/list_index_config.js}"></script>
     </body>
 </html>

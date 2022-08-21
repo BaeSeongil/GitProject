@@ -47,7 +47,7 @@ public class tmp_CartController {
             if (itemsTotal < 1) {
                 ShopException.fail("구매 항목을 비워둘 수 없습니다");
             }
-            //총 가격
+            //총 주문금액
             for (CartItemVO CartItemVO : myCartItems) {
                 priceTotal += CartItemVO.getProductCount() * CartItemVO.getSellingPrice();
             }
@@ -115,7 +115,7 @@ public class tmp_CartController {
             // 데이터가 없으면 결제 페이지로 이동하지 않습니다
             return "/cart";
         } else {
-            //총 가격
+            //총 주문금액
             for (CartItemVO CartItemVO : myCartItems) {
                 priceTotal += CartItemVO.getProductCount() * CartItemVO.getSellingPrice();
             }

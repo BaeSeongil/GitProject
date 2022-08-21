@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-    <header th:replace="admin/header::header-fragment"></header>
+    <header th:replace="admin/header::head-fragment"></header>
     <body class="hold-transition sidebar-mini">
         <div class="wrapper">
             <!-- header-fragment -->
@@ -11,11 +11,13 @@
             <div class="content-wrapper">
                 <!-- Content Header (icon header) -->
                 <div class="content-header">
+                    <!-- container-fluid -->
                     <div class="container-fluid"></div>
                     <!-- /.container-fluid -->
                 </div>
                 <!-- Main content -->
                 <div class="content">
+                    <!-- container-fluid -->
                     <div class="container-fluid">
                         <div class="card card-primary card-outline">
                             <div class="card-header">
@@ -51,7 +53,7 @@
         <script th:src="@{/webjars/jqGrid/5.7.0/js/i18n/grid.locale-kr.js}"></script>
         <!-- sweetalert -->
         <script th:src="@{/webjars/sweetalert/2.1.2/dist/sweetalert.min.js}"></script>
-        <script th:src="@{/admin/js/public.js}"></script>
-        <script th:src="@{/admin/js/list_user.js}"></script>
+        <script th:src="@{/admin/dist/js/public.js}"></script>
+        <script th:src="@{/admin/dist/js/list_user.js}"></script>
     </body>
 </html>
