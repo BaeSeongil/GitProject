@@ -14,4 +14,10 @@ public interface CategoryMapper {
 	
 	List<Category> selectCateAll(int categoryId, int startRow,int pageSize);
 	int selectCateAllCount(int categoryId);
+	int insertOne(Category category);
+	List<Category> selectListAll(int startRow, int row);
+	int selectListAllCount();
+	Category selectOne(int categoryId);
+	int updateOne(Category category);
+	int deleteOne(int categoryId);
 }
