@@ -23,7 +23,8 @@
 	</resultMap>
 
 	<select id="selectAll" resultMap="ProductMap">
-		SELECT * FROM PRODUCT LIMIT #{startRow},#{pageSize}
+		select  p.*, c.categoryName
+			from product p left join category c using(categoryid) LIMIT #{startRow},#{pageSize}
 	</select>
 	
 	 <select id="selectAllCount" resultType = "int" >
@@ -54,42 +55,54 @@
 			#{productGroup},#{productInfo},#{productStock},#{productDate},
 			#{price},#{category.categoryId})
 	</insert>
+	
+	
 	<!-- criteria(검색조건) -->
-	<!-- <sql id="criteria">
-		    <if test="keyword != null">
-				where #{type} LIKE CONCAT('%',#{keyword},'%')
-		    </if>
-	</sql> -->
-	<select id="searchProduct" resultType="Product">
-		SELECT * FROM PRODUCT INNER JOIN CATEGORY c USING(categoryid) WHERE
-		<choose>
-			<when test="type !=null and type.equals('productName')">
-			productName LIKE CONCAT('%',#{keyword},'%')
-			</when>
-			<when test="type !=null and type.equals('productSize')">
-			productSize LIKE CONCAT('%',#{keyword},'%')
-			</when>
-			<when test="type !=null and type.equals('catagory.categoryName')">
-			c.categoryName LIKE CONCAT('%',#{keyword},'%')
-			</when>
-		</choose>
-		ORDER BY productName
-		LIMIT #{skip}, #{amount}
+	<sql id="criteria">
+		    <trim prefix="WHERE (" suffix=")" prefixOverrides="AND">
+	  		<foreach item="type" collection="typeArr">
+	  			<trim prefix="AND">
+	  				<choose>
+	  					<when test="type == 'P'.toString()">
+	  						<trim prefixOverrides="or">
+			  					<foreach collection="productArr" item="productid">
+			  						<trim prefix="or">
+			  							productid = #{productid}
+			  						</trim>
+			  					</foreach>  						
+	  						</trim>
+	  					</when>
+	  					<when test="type == 'N'.toString()">
+	  						productName LIKE CONCAT ('%', #{keyword}, '%')
+	  					</when>
+	  					<when test="type == 'S'.toString()">
+	  						productSize LIKE CONCAT ('%', #{keyword}, '%')
+	  					</when>  					
+	  					<when test="type == 'C'.toString()">
+	  						c.categoryName LIKE CONCAT ('%', #{keyword}, '%')
+	  					</when>  					
+	  				</choose>
+	  			</trim>
+	  		</foreach>
+	  	</trim>
+	</sql>
+	<select id="searchProduct" resultMap="ProductMap">
+			select  p.*, c.categoryName
+			from product p left join category c using(categoryid)
+			<include refid="criteria"></include>
+			order by productid desc 
+			limit #{skip}, #{amount}	
+	
 	</select>
-	<!-- 상품 총 개수  -->
+	<!-- 상품 총 개수 -->
 	<select id="productsGetTotal" resultType="int">
   		SELECT COUNT(*) FROM PRODUCT INNER JOIN CATEGORY c USING(categoryid)
-		<choose>
-			<when test="type !=null and type.equals('productName')">
-			productName LIKE CONCAT('%',#{keyword},'%')
-			</when>
-			<when test="type !=null and type.equals('productSize')">
-			productSize LIKE CONCAT('%',#{keyword},'%')
-			</when>
-			<when test="type !=null and type.equals('catagory.categoryName')">
-			c.categoryName LIKE CONCAT('%',#{keyword},'%')
-			</when>
-		</choose>
+		<include refid="criteria"></include>
 	</select>
-
+	<select id="selectSearchAll" resultMap="ProductMap">
+		SELECT * FROM PRODUCT INNER JOIN CATEGORY c USING(categoryid) LIMIT #{skip}, #{amount}
+	</select>
+	<select id="getProductIdList" resultType="String">
+		SELECT productid FROM PRODUCT WHERE productName LIKE CONCAT('%',#{keyword},'%')
+	</select>
 </mapper>
