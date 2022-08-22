@@ -43,7 +43,7 @@ footer {
 		<div class="container">
 			<th:block th:each="product:${productList}">
 				<div id="lefe" class="d-flex m-5 justify-content-start" 
-					th:onclick="location.href='/product/detail/[[${product.productid}]]'">
+					th:onclick="location.href='/product/detail/[[${product.productName}]]'">
 					<div id="lefe" class="card" style="width: 18rem;">
 					  <img class="card-img-top" alt="상품 이미지">
 					  <div id="lefe" class="card-body">

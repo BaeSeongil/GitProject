@@ -53,7 +53,7 @@ public class ProductController {
 		try {
 			if (product != null) {
 				List<Product> products = productMapper.selectByProductName(product.getProductName());
-						
+				System.out.println(products);
 				model.addAttribute(product);
 				model.addAttribute(products);
 				return "/product/detail";
