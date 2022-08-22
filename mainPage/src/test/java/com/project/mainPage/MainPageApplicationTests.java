@@ -1,14 +1,8 @@
 package com.project.mainPage;
-
-import java.util.List;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.web.bind.annotation.PathVariable;
 
-import com.project.mainPage.dto.Criteria;
-import com.project.mainPage.dto.Product;
 import com.project.mainPage.mapper.ProductMapper;
 
 @SpringBootTest

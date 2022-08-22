@@ -62,8 +62,30 @@
  		WHERE categoryId=#{categoryId}
  	</select>
  	
+ 	<select id="selectOne" resultMap="CategoryMap">
+ 		SELECT
+ 			c.*,
+ 			p.productid,
+ 			p.productName
+ 			FROM CATEGORY c
+ 			LEFT JOIN PRODUCT p
+ 			USING (categoryId)
+ 			WHERE c.categoryId=#{categoryId}
+ 			
+ 	</select>
+ 	
  	<insert id="insertOne" parameterType="Category">
  		INSERT INTO CATEGORY (categoryId, categoryName) VALUES (#{categoryId}, #{categoryName})
  	</insert>
+ 	
+ 	<update id="updateOne" parameterType="Category">
+ 		UPDATE CATEGORY SET
+ 			categoryName=#{categoryName}
+ 				WHERE categoryId = #{categoryId}
+ 	</update>
+ 	
+ 	<delete id="deleteOne" parameterType="Category">
+ 		DELETE FROM CATEGORY WHERE categoryId=#{categoryId}
+ 	</delete>
  	
 </mapper>
