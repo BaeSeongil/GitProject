@@ -21,18 +21,11 @@ public interface CategoryMapper {
 	// Category/cate/1/1
 	List<Category> selectCateAll(int categoryId, int startRow,int pageSize);
 	int selectCateAllCount(int categoryId);
-<<<<<<< HEAD
-	int insertOne(Category category);
-	List<Category> selectListAll(int startRow, int row);
-	int selectListAllCount();
-	Category selectOne(int categoryId);
-	int updateOne(Category category);
-	int deleteOne(int categoryId);
-=======
+
 	
 	int insertOne (Category category);
 	int updateOne (Category category);
 	Category selectOne(int categoryId);
 	int deleteOne (int categoryId);
->>>>>>> f0ff44b408314d031743d0cbf4eea2a4e246a8e2
+
 }
