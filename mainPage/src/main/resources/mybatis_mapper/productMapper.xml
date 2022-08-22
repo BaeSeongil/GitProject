@@ -36,6 +36,12 @@
 			WHERE productid=#{productid}
 	</select>
 	
+	<select id="selectByProductName" resultMap="ProductMap">
+		SELECT *
+			FROM PRODUCT
+			WHERE productName=#{productName}
+	</select>
+	
 	<update id="updateOne" parameterType="Product">
 		UPDATE PRODUCT SET 
 			productName=#{productName},

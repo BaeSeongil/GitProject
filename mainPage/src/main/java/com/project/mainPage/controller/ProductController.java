@@ -52,7 +52,10 @@ public class ProductController {
 		System.out.println(product);
 		try {
 			if (product != null) {
+				List<Product> products = productMapper.selectByProductName(product.getProductName());
+						
 				model.addAttribute(product);
+				model.addAttribute(products);
 				return "/product/detail";
 			} else {
 				return "redirect:/product/cate/1";

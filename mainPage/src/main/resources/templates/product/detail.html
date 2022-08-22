@@ -63,22 +63,18 @@ footer {
 				<div class="col-auto mb-3">
 					<h4 th:text="${product.productid}" style="text-align: center;"></h4>
 				</div>
-				<form class="row g-3 justify-content-center">
+				<form action="/cart/insert.do" method="post" class="row g-3 justify-content-center">
 				  	<div class="col-8 mb-3">
 				   	 	<label for="pName" class="form-label mt-3">상품명</label>
 				   		<input th:value="${product.productName}" class="form-control form-control-sm" id="pName" disabled>
 					 </div>
 					 <div class="col-8 mb-3">
 					    <label for="pSize" class="form-label mt-3">사이즈</label>
-						    <select class="form-select form-select-sm " aria-label=".form-select-sm example">
-							  <option selected>- size -</option>
-							  <option th:value="${product.productSize}">S</option>
-							  <option th:value="${product.productSize}">M</option>
-							  <option th:value="${product.productSize}">L</option>
+						    <select class="form-select form-select-sm " aria-label=".form-select-sm example" id="pSize">
+							  <option selected th:text="${product.productSize}"></option>
 						 	</select>
 					</div>
 					<div class="col-8 mb-3">
-	
 					 	<label for="pColor" class="form-label mt-3">색상</label>
 						<input th:value="${product.productColor}" class="form-control form-control-sm" id="pColor">
 					</div>    
@@ -89,7 +85,7 @@ footer {
 	  			    
 	  			    <section class="justify-content-around">
 					  	<div class="col-12 mt-3">
-					    <button type="submit" class="btn btn-outline-success">Add Cart</button>
+					   		<button type="submit" class="btn btn-outline-success">Add Cart</button>
 						    <button type="submit" class="btn btn-outline-primary">Pay Now</button>
 						    <button type="reset" class="btn btn-outline-danger">Reset</button>
 					 	</div>
