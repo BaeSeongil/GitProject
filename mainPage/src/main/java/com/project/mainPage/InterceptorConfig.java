@@ -18,9 +18,9 @@ public class InterceptorConfig implements WebMvcConfigurer{
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(loginCheckInterceptor)
 				.addPathPatterns("/users/**")
-				.addPathPatterns("/*/insert/**")
-				.addPathPatterns("/*/delete/**")
-				.addPathPatterns("/*/update/**")
+				.addPathPatterns("/**/insert/**")
+				.addPathPatterns("/**/delete/**")
+				.addPathPatterns("/**/update/**")
 				.excludePathPatterns("/users/login.do")
 				.excludePathPatterns("/users/privacy")
 				.excludePathPatterns("/users/emailRejection")
@@ -31,6 +31,7 @@ public class InterceptorConfig implements WebMvcConfigurer{
 //				.excludePathPatterns("/ / ");
 		registry.addInterceptor(adminInterceptor)
 				.addPathPatterns("/admin/**")
+				.addPathPatterns("/users/list/**")
 				.addPathPatterns("/notice/insert.do")
 				.addPathPatterns("/notice/delete.do")
 				.addPathPatterns("/product/insert.do")

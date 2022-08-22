@@ -30,7 +30,7 @@
 						<tr>
 							<td th:text="${board.board_no}"></td>
 							<td> 
-								<a th:text="${board.title}" th:href="@{/board/detail/{boardNo}(boardNo=${board.board_no})}" ></a>
+								<a th:text="${board.title}" th:href="@{/board/detail/{boardNo}(boardNo=${board.board_no})}" style="text-decoration: none; color: black;"></a>
 							</td>
 							<td th:text="${board.users?.userid}"></td>
 							<td th:text="${#dates.format(board.post_time,'yyyy-MM-dd HH:mm:ss')}"></td>
