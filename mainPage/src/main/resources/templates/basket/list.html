@@ -5,6 +5,53 @@
 <title>Insert title here</title>
 </head>
 <body>
+<header th:insert="/gAndB"></header>
+<header th:insert="headerNav"></header>
 
+	<!-- Page Add Section Begin -->
+	<section class="page-add cart-page-add">
+		<div class="container mt-5">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="page-breadcrumb">
+						<h1>Cart<span>.</span></h1>
+					</div>
+				</div>
+				<div class="col-lg-5 offset-lg-1 text-left text-lg-right" >
+					<div class="btn btn-outline-danger">선택된 리스트 삭제</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- 장바구니 table -->
+	<div>
+		<div class="container">
+			<table class="table table-striped mt-3">
+				<thead>
+	                <tr>
+	                    <th><input type="checkbox" checked /></th>
+	                    <th class="product-h">Product</th>
+	                    <th>Price</th>
+	                    <th>Quantity</th>
+	                    <th>Total</th>
+	                    <th></th>
+	                </tr>
+	            </thead>
+	            <tbody>
+				<tr th:each="baskets : ${basketList}">
+					<td class="product-close">
+						<input type="checkbox"></td>
+					<td th:text="${baskets.count}"></td>
+				</tr>
+			</tbody>
+			</table>
+		</div>
+	</div>
+       
+     
+            
+                   
+                  
+                    
 </body>
 </html>
