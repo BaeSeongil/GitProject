@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.mainPage.dto.Category;
@@ -20,14 +19,10 @@ import com.project.mainPage.dto.Pagination;
 import com.project.mainPage.dto.Product;
 import com.project.mainPage.mapper.CategoryMapper;
 import com.project.mainPage.mapper.ProductMapper;
-import com.project.mainPage.service.ProductService;
 
 @Controller
 @RequestMapping("/product")
 public class ProductController {
-	@Autowired
-	private ProductService productService;
-
 	@Autowired
 	private ProductMapper productMapper;
 	
@@ -51,14 +46,21 @@ public class ProductController {
 		return "/product/list";
 	}
  
-	@GetMapping("/detail/{productid}")
+	@GetMapping("/detail/{productid}") 
 	public String detail(@PathVariable int productid, Model model) {
 		Product product = null;
-		product = productMapper.selectOne(productid);
-		System.out.println(product);
 		try {
+			product = productMapper.selectOne(productid); 
+			System.out.println(product);
 			if (product != null) {
-				model.addAttribute(product);
+			
+				 List<Product> products =
+				 productMapper.selectByProductName(product.getProductName()); 
+					System.out.println(products);
+
+				model.addAttribute("products",products);
+				 
+				model.addAttribute("product",product); 
 				return "/product/detail";
 			} else {
 				return "redirect:/product/cate/1";
@@ -85,18 +87,39 @@ public class ProductController {
 		}
 		return idCheck;
 	}
-	@GetMapping("/search")
-	public String searchProduct(Criteria cri, Model model) {
-		List<Product> list=productService.searchProduct(cri);
-		if(!list.isEmpty()) {
-			model.addAttribute("list",list);
-		}else {
-			model.addAttribute("listCheck","empty");
-			
-			return "/search";
-		}
-		model.addAttribute("pageMaker",new Pagination(cri, productService.productsGetTotal(cri)));
-		return "/search";
+	@GetMapping("/search/{page}")
+	public String searchProduct(
+			@PathVariable int page, Criteria cri, Model model) {
+		int row = 10;
+		int startRow = (page - 1) * row;
+		cri.setAmount(row);
+		cri.setSkip(startRow);
+		List<Product> list=productMapper.searchProduct(cri);
+		int count = productMapper.productsGetTotal(cri);
+		Pagination pagination = new Pagination(page, count, "/product/search/", row);
+		System.out.println(pagination);
+		model.addAttribute("pagination", pagination);
+		model.addAttribute("list", list);
+		System.out.println("list : "+list);
+		model.addAttribute("row", row);
+		model.addAttribute("count", count);
+		model.addAttribute("page", page);
+		return "/product/search";
 	}
-	
+//	@GetMapping("/search/{page}")
+//	public String searchProduct(
+//			@PathVariable int page, Criteria cri, Model model) {
+//		int row = 10;
+//		int startRow = (page - 1) * row;
+//		int count = productMapper.productsGetTotal(cri);
+//		List<Product> productList = productMapper.selectSearchAll(startRow, row);
+//		Pagination pagination = new Pagination(page, count, "/product/search/", row);
+//		System.out.println(pagination);
+//		model.addAttribute("pagination", pagination);
+//		model.addAttribute("productList", productList);
+//		model.addAttribute("row", row);
+//		model.addAttribute("count", count);
+//		model.addAttribute("page", page);
+//		return "/product/search/{page}";
+//	}
 }

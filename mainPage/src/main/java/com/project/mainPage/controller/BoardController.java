@@ -55,14 +55,12 @@ public class BoardController {
 	
 	@Autowired
 	private BoardPreferMapper boardPreferMapper;
-
+	
+	@Autowired
 	private UsersMapper usersMapper;
 	
 	@Value("${spring.servlet.multipart.location}") //파일이 임시저장되는 경로+파일을 저장할 경로
 	private String savePath;
-	
-
-	
 	@GetMapping("/list/{page}")
 	public String list(@PathVariable int page, Model model) {
 		int row =5;
