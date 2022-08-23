@@ -45,14 +45,21 @@ public class ProductController {
 		return "/product/list";
 	}
  
-	@GetMapping("/detail/{productid}")
+	@GetMapping("/detail/{productid}") 
 	public String detail(@PathVariable int productid, Model model) {
 		Product product = null;
-		product = productMapper.selectOne(productid);
-		System.out.println(product);
 		try {
+			product = productMapper.selectOne(productid); 
+			System.out.println(product);
 			if (product != null) {
-				model.addAttribute(product);
+			
+				 List<Product> products =
+				 productMapper.selectByProductName(product.getProductName()); 
+					System.out.println(products);
+
+				model.addAttribute("products",products);
+				 
+				model.addAttribute("product",product); 
 				return "/product/detail";
 			} else {
 				return "redirect:/product/cate/1";

@@ -10,8 +10,7 @@ import com.project.mainPage.dto.Product;
 public interface ProductMapper {
 
 	List<Product> selectAll(int startRow, int pageSize);
-	List<Product> selectAll();
+	List<Product> selectByProductName(String productName);	
 	int selectAllCount();
 	Product selectOne(int productid);
-	
 }
