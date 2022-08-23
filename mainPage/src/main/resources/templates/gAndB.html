@@ -7,7 +7,10 @@
 		<div class="d-flex justify-content-end">
 			<!-- 비로그인시 -->
 			<th:block th:if="${session.loginUsers == null}">
-				<a class="btn btn-sm btn-outline-secondary" href="/users/login.do">회원 로그인</a>
+				<a class="btn btn-sm btn-outline-secondary" href="/users/login.do">
+					<i class="bi bi-door-open"></i>
+					회원 로그인
+				</a>
 				<a href="/users/signup.do" class="btn btn-sm btn-outline-primary">회원가입</a> 
 			</th:block>
 			<!-- 로그인시 -->
@@ -20,8 +23,14 @@
 					<span th:text="${session.loginUsers.username}"></span>
 					(<span th:text="${session.loginUsers.userid}"></span>)					
 				</a>
-				<a href="/basket/list/1" class="btn btn-sm btn-outline-primary">장바구니</a>
-				<a href="/users/logout.do" class="btn btn-sm btn-outline-danger">로그아웃</a>
+				<a href="/basket/list/1" class="btn btn-sm btn-outline-primary">
+					<i class="bi bi-cart-fill"></i>
+					장바구니
+				</a>
+				<a href="/users/logout.do" class="btn btn-sm btn-outline-danger">
+					<i class="bi bi-door-open-fill"></i>
+					로그아웃
+				</a>
 			</th:block>
 			<div>
 				<a href="/cart/" class="btn btn-sm btn-outline-success">고객센터</a>

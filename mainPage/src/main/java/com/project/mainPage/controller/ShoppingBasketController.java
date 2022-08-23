@@ -35,7 +35,7 @@ public class ShoppingBasketController {
 			int insert=basketMappper.insertOne(basket);
 			//장바구니 페이지로 이동 
 			if(insert>0) {
-				return "redirect:/basket/list";				
+				return "redirect:/basket/list/1";				
 			}
 		}
 		return "redirect:/";			
@@ -47,7 +47,7 @@ public class ShoppingBasketController {
 			Model model){
 		List<ShoppingBasket> basketList = basketMappper.selectAll();
 		System.out.println("basketList : "+basketList);
-		model.addAttribute(basketList);
+		model.addAttribute("basketList",basketList);
 		return "/basket/list";
 	};
 	
