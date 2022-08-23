@@ -27,11 +27,7 @@
 		LEFT JOIN PRODUCT p USING(categoryId)
 		LIMIT #{startRow},#{pageSize}
 	</select>
-	
-	<select id="selectOne" resultType = "int" >
- 		SELECT * FROM CATEGORY WHERE categoryId=#{categoryId}
- 	</select>
- 	
+	 	
 	<select id="selectAllCount" resultType = "int" >
  		SELECT COUNT(*) FROM CATEGORY c
 		LEFT JOIN PRODUCT p USING(categoryId)
@@ -73,7 +69,7 @@
  			WHERE c.categoryId=#{categoryId}
  			
  	</select>
- 	
+	
  	<insert id="insertOne" parameterType="Category">
  		INSERT INTO CATEGORY (categoryId, categoryName) VALUES (#{categoryId}, #{categoryName})
  	</insert>
