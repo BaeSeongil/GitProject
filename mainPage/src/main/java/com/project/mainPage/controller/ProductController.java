@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.mainPage.dto.Category;
@@ -82,6 +83,8 @@ public class ProductController {
 	}
 	@GetMapping("/search/{page}")
 	public String searchProduct(
+			@RequestParam(value = "type") String type,
+			@RequestParam(value = "keyword") String keyword,
 			@PathVariable int page, Criteria cri, Model model) {
 		int row = 10;
 		int startRow = (page - 1) * row;
@@ -89,11 +92,14 @@ public class ProductController {
 		cri.setSkip(startRow);
 		List<Product> list=productMapper.searchProduct(cri);
 		int count = productMapper.productsGetTotal(cri);
-		/*
-		 * if(!list.isEmpty()) { model.addAttribute("list",list);
-		 * 
-		 * }else { model.addAttribute("listCheck","empty"); return "/product/search"; }
-		 */
+		  if(!list.isEmpty()) { model.addAttribute("list",list);
+		  }else { model.addAttribute("listCheck","empty"); return "/product/search"; }
+//		if(type!=null || keyword!=null) {
+//			model.addAttribute("type",type);
+//			model.addAttribute("keyword",keyword);
+//			return "/product/search/";
+//		}
+		
 		Pagination pagination = new Pagination(page, count, "/product/search/", row);
 		System.out.println(pagination);
 		model.addAttribute("pagination", pagination);
@@ -104,20 +110,4 @@ public class ProductController {
 		model.addAttribute("page", page);
 		return "/product/search";
 	}
-//	@GetMapping("/search/{page}")
-//	public String searchProduct(
-//			@PathVariable int page, Criteria cri, Model model) {
-//		int row = 10;
-//		int startRow = (page - 1) * row;
-//		int count = productMapper.productsGetTotal(cri);
-//		List<Product> productList = productMapper.selectSearchAll(startRow, row);
-//		Pagination pagination = new Pagination(page, count, "/product/search/", row);
-//		System.out.println(pagination);
-//		model.addAttribute("pagination", pagination);
-//		model.addAttribute("productList", productList);
-//		model.addAttribute("row", row);
-//		model.addAttribute("count", count);
-//		model.addAttribute("page", page);
-//		return "/product/search/{page}";
-//	}
 }
