@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title> 상품 결제페이지 </title>
+<link rel="stylesheet" href="/public/css/login.css">
+</head>
+<body>
+	<header th:insert="/gAndB"></header>
+	<header th:insert="/headerNav"></header>
+	<main class="container">
+		<h1 class="m-2 d-flex justify-content-center">
+			결제 
+		</h1>
+		 <form action="/order/insert.do" class="col-lg-4" method="post">
+			<div class="m-5 d-flex justify-content-between">
+				<div class="col-8 mb-3">
+					<label for="inputName" class="form-label">이름</label>
+					<input name="users.username" class="form-control" id="inputName" placeholder="" required readonly
+					th:value="${session.loginUsers.username}">
+					<label for="inputEmail" class="mt-2 form-label">유저 이메일</label>
+					<input name="users.email" class="form-control" id="inputEmail" placeholder="" required readonly
+					th:value="${session.loginUsers.email}">
+					<label for="inputPhone" class="mt-2 form-label">유저 폰 번호</label>
+					<input name="users.phone" class="form-control" id="inputPhone" placeholder="" required readonly
+					th:value="${session.loginUsers.phone}">
+				</div>
+		    </div>
+	 	</form> 	
+	</main>
+</body>
+<footer th:insert="/footer"></footer>
+</html>

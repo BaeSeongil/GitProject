@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.project.mainPage.mapper.OrderMapper">
+  	<resultMap type="Order" id="OrderMap">
+  		<id column="orderid" property="orderid"/>
+		<result column="orderdate" property="orderdate"/>
+		<result column="orderPrice" property="orderPrice"/>
+		<result column="orderState" property="orderState"/>
+		<result column="orderAdd" property="orderAdd1"/>
+		<result column="orderOption" property="orderOption"/>
+		<!-- Order : Users = N : 1 -->
+		<association property="users" javaType="UsersDto" foreignColumn="userid">
+			<id column="userid" property="userid"/>
+			<result column="username" property="username"/>
+			<result column="phone" property="phone"/>
+			<result column="email" property="email"/>
+		</association>
+		<collection property="products" javaType="java.util.ArrayList" ofType="Product">
+			<id column="productid" property="productid"/>
+			<result column="productName" property="productName"/>
+			<result column="productSize" property="productSize"/>
+			<result column="productColor" property="productColor"/>
+			<result column="productGroup" property="productGroup"/>
+			<result column="productInfo" property="productInfo"/>
+			<result column="productStock" property="productStock"/>
+			<result column="productDate" property="productDate"/>
+			<result column="price" property="price"/>
+		</collection>
+  	</resultMap>
+
+  	
+  	<insert id="insertOne" parameterType="Order">
+  		INSERT INTO ORDERS 
+  		(orderid,orderPrice,orderState,orderAdd,orderOption,userid,productid)
+  		 VALUES (#{orderid},#{orderPrice},'배송 준비',#{orderAdd},#{orderOption},#{userid},#{productid})
+  	</insert>
+  	
+  </mapper>
