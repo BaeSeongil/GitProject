@@ -12,7 +12,7 @@ html, body {
 footer {
 	flex: 1;
 	height: auto;
-  	position: relative;
+
 }
 #wrapper {	
 	height: auto;
@@ -20,8 +20,18 @@ footer {
   	position: relative;
 }
 </style>
+
 </head>
 <body>
+<script> 
+  function submit2(frm) { 
+	frm.method='get';
+    frm.action='/order/insert.do'; 
+	
+    frm.submit(); 
+    return true; 
+  } 
+</script> 
 	<header th:insert="/gAndB"></header>
 	<header th:insert="/headerNav"></header>
 	
@@ -59,7 +69,9 @@ footer {
 				<div class="col-auto mb-3">
 					<h4 th:text="${product.productid}" style="text-align: center;"></h4>
 				</div>
+
 				<form class="row g-3 justify-content-center" method="post" action="/basket/insert.do">
+
 				  	<div class="col-8 mb-3">
 				   	 	<label for="pName" class="form-label mt-3">상품명</label>
 				   		<input th:value="${product.productName}" class="form-control form-control-sm" id="pName" disabled>
@@ -88,11 +100,13 @@ footer {
 	  			    
 	  			    <section class="justify-content-around">
 					  	<div class="col-12 mt-3">
-					    <button type="submit" class="btn btn-outline-success">Add Cart</button>
+
+					    <button type="button" class="btn btn-outline-success" onclick="submit2(this.form)">구매 하기</button>
 						<button class="btn btn-outline-dark flex-shrink-0" type="submit">
 	                        <i class="bi-cart-fill me-1"></i>
 	                        장바구니
                         </button> 
+
 					 	</div>
 				 	</section>
 				 	
@@ -105,4 +119,5 @@ footer {
 	
 </body>
 		<footer th:insert="/footer"></footer>
+		
 </html>
