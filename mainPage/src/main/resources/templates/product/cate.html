@@ -10,29 +10,22 @@ html, body {
 	display: flex;
 	flex-flow: column;
 }
-
 footer {
 	flex: 1;
 	height: auto;
   	position: relative;
 }
-
 #wrapper {	
 	height: auto;
   	/* min-height: 100%; */
   	position: relative;
 }
-
 #lefe {
-
 	float: left;
 }
-
-
 </style>
 </head>
 <body>
-<header th:insert="/gAndB"></header>
 <header th:insert="/headerNav"></header>
 
 	<div style="padding: 30px;">
@@ -40,6 +33,7 @@ footer {
 	</div>
 
 	<div id="wrapper">
+
 		<div class="container">
 			<th:block th:each="product:${productList}">
 				<div id="lefe" class="d-flex m-5 justify-content-start" 
@@ -51,17 +45,14 @@ footer {
 					    <p class="card-text" th:text="${product.productid}"></p>
 					  </div>
 					</div>
-				</div>
-
 			</div>
-		</th:block>
+			</th:block>
+			</div>
 	</div>
-
-	
 	<div>
 		<div class="d-flex justify-content-center" th:insert="/pagination.html"></div>
 	</div>
-</body>
 	<footer th:insert="/footer"></footer>
+</body>
 
 </html>

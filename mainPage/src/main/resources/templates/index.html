@@ -14,8 +14,7 @@ html, body {
 footer {
 	flex: 1;
 	height: auto;
-  	/* min-height: 20%; /* footer 높이 조절 */ 
-  	position: relative;
+  	min-height: 50%; 
 }
 </style>
 <body>
@@ -39,10 +38,10 @@ footer {
 				<video src="/medias/shopping.mp4" autoplay muted loop></video>
 			</section>
 	        <section class=d-flex id="category">
-		        <div class="knit">
+		        <div class="top">
 		        	<div class="content img-cover">
 			        	<a th:href="@{/category/cate/{categoryid}(categoryid=1)}">
-			        		Knit
+			        		Top
 			        	</a>
 			        </div>
 		        </div>
@@ -60,17 +59,24 @@ footer {
 			        	</a>
 			        </div>
 		        </div>
-		        <div class="etc">
+		        <div class="shoes">
 					<div class="content img-cover">
 			        	<a th:href="@{/category/cate/{categoryid}(categoryid=4)}">
-			        		Etc.
+			        		Shoes
+			        	</a>
+		        	</div>
+		        </div>
+		        <div class="hat">
+					<div class="content img-cover">
+			        	<a th:href="@{/category/cate/{categoryid}(categoryid=5)}">
+			        		Hat
 			        	</a>
 		        	</div>
 		        </div>
 	        </section>
 	    </div>
-  	  <footer class="footer" th:insert="/footer"></footer>
     </div>
     
 </body>
+  	  <footer class="footer" th:insert="/footer"></footer>
 </html>

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.project.mainPage.dto.Criteria;
 import com.project.mainPage.dto.Product;
 
 @Mapper
@@ -15,5 +16,8 @@ public interface ProductMapper {
 	int selectAllCount();
 	Product selectOne(int productid);
 	//String selectNameOne(String productName);
+	
+	public List<Product> searchProduct(Criteria cri);
+	public int productsGetTotal(Criteria cri);
 	
 }

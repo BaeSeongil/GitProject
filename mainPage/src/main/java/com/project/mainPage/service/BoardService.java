@@ -16,9 +16,7 @@ import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.project.mainPage.dto.BoardImg;
-import com.project.mainPage.dto.Reply;
 import com.project.mainPage.mapper.BoardImgMapper;
-import com.project.mainPage.mapper.ReplyMapper;
 
 @Service
 public class BoardService {
@@ -27,8 +25,6 @@ public class BoardService {
 
 	@Autowired
 	private BoardImgMapper boardImgMapper;
-	@Autowired
-	private ReplyMapper replyMapper;
 	
 	@Value("${spring.servlet.multipart.location}")
 	String savePath;
@@ -42,16 +38,16 @@ public class BoardService {
 	public int removeBorad(int boardNo) throws Exception{
 		int remove=0;
 		//보드를 참조하는 리플의 이미지를 삭제하기위해 리플 리스트를 검색 
-		List<Reply> replies=replyMapper.selectBoardNo(boardNo);
-		if(replies!=null) {
-			replies.stream()
-				.filter((r)->(r.getImg_path()!=null))
-				.map(Reply::getImg_path).
-				forEach((img)->{
-					File f=new File(savePath+"/"+img);
-					System.out.println("리플 이미지 삭제:"+f.delete());
-				});
-		}
+//		List<Reply> replies=replyMapper.selectBoardNo(boardNo);
+//		if(replies!=null) {
+//			replies.stream()
+//				.filter((r)->(r.getImg_path()!=null))
+//				.map(Reply::getImg_path).
+//				forEach((img)->{
+//					File f=new File(savePath+"/"+img);
+//					System.out.println("리플 이미지 삭제:"+f.delete());
+//				});
+//		}
 		//Board를 참조하는 Board_img도 삭제
 		List<BoardImg> boardImgs=boardImgMapper.selectBoardNo(boardNo);
 		if(boardImgs!=null) {

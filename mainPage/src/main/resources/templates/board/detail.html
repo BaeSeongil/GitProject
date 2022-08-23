@@ -3,8 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <title>게시글 상세페이지</title>
+<style>
+	html, body {
+		height: 100%;
+		display: flex;
+		flex-flow: column;
+	}
+	footer {
+		flex: 1;
+		height: auto;
+	}
+</style>
 <script th:src="@{/public/js/board/detail.js}" defer></script>
-
 </head>
 <body>
 <header th:insert="/gAndB"></header>
@@ -12,7 +22,7 @@
 	<!-- <p th:text="${board}"></p> -->
 	<main class="container">
 		<h1 class ="m-3" >
-			Q & A
+			게시판
 		</h1>
 		<p>
 			아이디 : <strong th:text="${board.users.userid}"></strong>
@@ -84,7 +94,7 @@
 		</div>
 							
 		<hr>
-		<h3>
+		<h3 class = "mt-5">
 		  	<span>
 				<small th:text="${board.board_no}"></small>.
 				<b th:text="${board.title}"></b>
@@ -102,9 +112,103 @@
 			<textarea class="form-control mt-5" placeholder="Leave a comment here"
 			style="height: 150px; resize: none;" th:text="${board.contents}" readonly="readonly" ></textarea>
 		</div>
-		
+		<hr>
+		<h3 class="mt-3 d-flex justify-content-between">
+		<span>댓글 리스트 : <small th:text="${board.replys?.size}"></small></span>
+		<button class="btn btn-sm btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#replyCollapse">
+    		상세
+  		</button>
+  		</h3>	
+		<div>
+			<ul class="list-group collapse show" id="replyCollapse">
+				<li class="list-group-item text-bg-light border-success" 
+				th:if="${session.loginUsers!=null}">
+<!--///////////////////////////////////// 리플 등록 폼 ///////////////////////////////////////////////////////////////// -->				
+					<form action="/reply/insert.do" method="post" enctype="multipart/form-data">
+						<p class="input-group input-group-sm mb-1">
+							<span class="input-group-text">글쓴이</span>
+							<input name="users.userid" th:value="${session.loginUsers?.userid}" 
+								type="text" class="form-control">
+						</p>
+						<p class="input-group input-group-sm mb-1">
+							<span class="input-group-text">제목</span>
+							<input name="title"type="text" class="form-control">
+						</p>
+						<p class="input-group input-group-sm mb-1">
+							<span class="input-group-text">사진</span>
+							<input name="imgFile"type="file" class="form-control">
+						</p>
+						<p class="input-group input-group-sm mb-1">
+							<span class="input-group-text">내용</span>
+							<textarea name="contents" class="form-control"></textarea>
+						</p>
+						<p class="mb-1">
+							<button type="reset" class="btn btn-sm btn-outline-warning">초기화</button>
+							<button type="submit" class="btn btn-sm btn-outline-primary">제출</button>
+							<input type="hidden" name="board_no" th:value="${board.board_no}">
+						</p>
+					</form>
+				</li>
+				
+				<th:block th:each="reply : ${board.replys}">
+					<th:block th:if="${session.loginUsers?.userid!=reply.users.userid}">
+					<li th:id="${'replyLi'+reply.reply_no}"
+								class="list-group-item d-flex justify-content-between align-items-start">
+					<div class="ms-2 me-auto">
+						<div class="fw-bold">
+					     	<span th:text="${reply.reply_no}"></span> : 
+					      	<span th:text="${reply.title}"></span>	/
+					      	<span th:text="${#dates.format(reply.post_time, 'yyyy-MM-dd HH:mm:ss')}"></span>	
+					    </div>
+				        <div th:if="${reply.img_path!=null}">
+					      	<img alt="댓글 이미지" class="img-thumbnail"  style="height:50px; width:100%; object-fit: cover;"
+					      	th:src="@{/public/img/{file}(file=${reply.img_path})}">
+					    </div>
+					    <div th:text="${reply.contents}"></div>	
+					    </div>
+					    </li>
+				</th:block>
+				<th:block th:unless="${session.loginUsers?.userid!=reply.users.userid}">
+					<li class="list-group-item">
+				  		<form action="/reply/update.do" method="post" enctype="multipart/form-data">
+				  			<p class="input-group mb-1">
+				  				<span class="input-group-text">No</span>
+								<input name="reply_no" th:value="${reply.reply_no}"
+								class="form-control" type="text" readonly>
+								<span class="input-group-text">작성자</span>
+								<input name="users.userid" th:value="${reply.users.userid}"
+								class="form-control" type="text" readonly>
+							</p>
+							<p class="input-group mb-1">
+								<span class="input-group-text">제목</span>
+								<input name="title" th:value="${reply.title}"
+								class="form-control" type="text" required>
+							</p>
+							<div class="mb-1" th:if="${reply.img_path!=null}">
+								</div>
+								<p class="input-group mb-1">
+									<span class="input-group-text">내용</span>
+									<textarea name="contents" th:text="${reply.contents}"
+									class="form-control" required></textarea>
+								</p>
+								<p class="mb-1">
+									<button type="reset" class="btn btn-outline-warning btn-sm">초기화</button>
+									<a class="btn btn-outline-danger btn-sm" th:href="@{/reply/delete/{no}(no=${reply.reply_no})}">삭제</a>
+									<button type="submit" class="btn btn-outline-primary btn-sm">수정</button>
+									<input type="hidden" name="board_no" th:value="${board.board_no}">
+									<input type="hidden" name="img_path" th:value="${reply.img_path}">
+								</p>
+					  		</form>
+				  		</li> 
+				  	</th:block>
+				</th:block>
+			</ul>
+		</div>
 	</main>
-	
 </body>
-<footer th:insert="/footer"></footer>
+<footer  class="footer" th:insert="/footer"></footer>
+<script type="text/javascript">
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+</script>
 </html>
