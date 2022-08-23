@@ -96,11 +96,6 @@ public class ProductController {
 		cri.setSkip(startRow);
 		List<Product> list=productMapper.searchProduct(cri);
 		int count = productMapper.productsGetTotal(cri);
-		/*
-		 * if(!list.isEmpty()) { model.addAttribute("list",list);
-		 * 
-		 * }else { model.addAttribute("listCheck","empty"); return "/product/search"; }
-		 */
 		Pagination pagination = new Pagination(page, count, "/product/search/", row);
 		System.out.println(pagination);
 		model.addAttribute("pagination", pagination);
