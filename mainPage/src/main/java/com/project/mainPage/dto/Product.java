@@ -22,7 +22,7 @@ Product
 | price        | int         | NO   |     | NULL    |       |
 | categoryid   | int         | YES  | MUL | NULL    |       |
 +--------------+-------------+------+-----+---------+-------+
-
+1234-S,ML
 */
 
 @Data

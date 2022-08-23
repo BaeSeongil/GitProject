@@ -14,7 +14,7 @@ html, body {
 footer {
 	flex: 1;
 	height: auto;
-  	position: relative;
+	min-height: 20%;
 }
 
 #wrapper {	
@@ -65,7 +65,6 @@ footer {
 	<div>
 		<div class="d-flex justify-content-center" th:insert="/pagination.html"></div>
 	</div>
+	<footer class="footer" th:insert="/footer"></footer>
 </body>
-	<footer th:insert="/footer"></footer>
-
 </html>

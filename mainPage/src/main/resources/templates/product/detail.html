@@ -59,37 +59,43 @@ footer {
 				<div class="col-auto mb-3">
 					<h4 th:text="${product.productid}" style="text-align: center;"></h4>
 				</div>
-				<form class="row g-3 justify-content-center">
+				<form class="row g-3 justify-content-center" method="post" action="/basket/insert.do">
 				  	<div class="col-8 mb-3">
 				   	 	<label for="pName" class="form-label mt-3">상품명</label>
 				   		<input th:value="${product.productName}" class="form-control form-control-sm" id="pName" disabled>
 					 </div>
 					 <div class="col-8 mb-3">
 					    <label for="pSize" class="form-label mt-3">사이즈</label>
-						    <select class="form-select form-select-sm " aria-label=".form-select-sm example">
-							  <option selected>- size -</option>
-							  <option th:value="${product.productSize}">S</option>
-							  <option th:value="${product.productSize}">M</option>
-							  <option th:value="${product.productSize}">L</option>
-						 	</select>
-					</div>
-					<div class="col-8 mb-3">
-	
-					 	<label for="pColor" class="form-label mt-3">색상</label>
-						<input th:value="${product.productColor}" class="form-control form-control-sm" id="pColor">
-					</div>    
+					    
+					    <select name="productid" class="form-select form-select-sm " aria-label=".form-select-sm example">
+						    <option selected>- size -</option>
+						    <th:block th:each="p : ${products}">
+							    <option  th:value="${p.productid}" th:text="${p.productSize+' '+p.productColor}"></option>
+						    </th:block>
+					 	</select> 
+					</div>  
+   
 					<div class="col-8 mb-3">
 					    <label for="price" class="form-label mt-3">price</label>
 					    <input th:value="${product.price}" class="form-control form-control-sm" id="price" disabled>
 	  			    </div>
+	  			   	  			   
+	  			    <div class="col-8 mb-3">
+	  			     <label for="count" class="form-label mt-3">개수</label>
+                    <input class="form-control text-center me-3" id="count" name="count" type="number" value="1"
+                               style="max-width: 20rem"/>
+                    </div>
 	  			    
 	  			    <section class="justify-content-around">
 					  	<div class="col-12 mt-3">
 					    <button type="submit" class="btn btn-outline-success">Add Cart</button>
-						    <button type="submit" class="btn btn-outline-primary">Pay Now</button>
-						    <button type="reset" class="btn btn-outline-danger">Reset</button>
+						<button class="btn btn-outline-dark flex-shrink-0" type="submit">
+	                        <i class="bi-cart-fill me-1"></i>
+	                        장바구니
+                        </button> 
 					 	</div>
 				 	</section>
+				 	
 				 	
 				</form>
 			</div>

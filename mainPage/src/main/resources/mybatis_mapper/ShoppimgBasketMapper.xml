@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.mainPage.mapper.ShoppingBasketMappper">
+
+	<select id="countByid" resultType="int"> 
+ 		SELECT count(*) FROM SHOPPING_BASKET s JOIN product p ON c.productid=p.productid where userid=#{userid}
+ 	</select>
+ 	
+ 	<select id="selectAll" resultType="ShoppingBasket" >
+ 		SELECT * FROM SHOPPING_BASKET
+ 	</select>
+ 	
+	<insert id="insertOne" parameterType="ShoppingBasket">
+		INSERT into SHOPPING_BASKET(count,productid,userid) values (#{count},#{productid},#{userid})
+	</insert>
+	
+	<delete id="deleteOne">
+ 		DELETE FROM SHOPPING_BASKET WHERE basket_id = #{basket_id}
+ 	</delete>
+</mapper>

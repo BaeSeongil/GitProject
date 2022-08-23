@@ -47,14 +47,21 @@ public class ProductController {
 		return "/product/list";
 	}
  
-	@GetMapping("/detail/{productid}")
+	@GetMapping("/detail/{productid}") 
 	public String detail(@PathVariable int productid, Model model) {
 		Product product = null;
-		product = productMapper.selectOne(productid);
-		System.out.println(product);
 		try {
+			product = productMapper.selectOne(productid); 
+			System.out.println(product);
 			if (product != null) {
-				model.addAttribute(product);
+			
+				 List<Product> products =
+				 productMapper.selectByProductName(product.getProductName()); 
+					System.out.println(products);
+
+				model.addAttribute("products",products);
+				 
+				model.addAttribute("product",product); 
 				return "/product/detail";
 			} else {
 				return "redirect:/product/cate/1";
@@ -94,12 +101,6 @@ public class ProductController {
 		int count = productMapper.productsGetTotal(cri);
 		  if(!list.isEmpty()) { model.addAttribute("list",list);
 		  }else { model.addAttribute("listCheck","empty"); return "/product/search"; }
-//		if(type!=null || keyword!=null) {
-//			model.addAttribute("type",type);
-//			model.addAttribute("keyword",keyword);
-//			return "/product/search/";
-//		}
-		
 		Pagination pagination = new Pagination(page, count, "/product/search/", row);
 		System.out.println(pagination);
 		model.addAttribute("pagination", pagination);
