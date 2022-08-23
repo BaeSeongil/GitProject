@@ -29,11 +29,11 @@ public class tmp_ShopUserController {
     @Resource
     private tmp_UserService UserService;
 
-    @GetMapping({"/personal"})
-    public String personalPage(HttpServletRequest request,
+    @GetMapping({"/myhome"})
+    public String myhomePage(HttpServletRequest request,
                                HttpSession httpSession) {
-        request.setAttribute("path", "personal");
-        return "mall/personal";
+        request.setAttribute("path", "myhome");
+        return "mall/myhome";
     }
 
     @GetMapping("/logout")
@@ -52,7 +52,13 @@ public class tmp_ShopUserController {
         return "mall/register";
     }
 
-    @GetMapping("/personal/addresses")
+    @GetMapping({"", "/", "/index", "/index.html"})
+    public String index(HttpServletRequest request) {
+        request.setAttribute("path", "index");
+        return "mall/index";
+    }
+
+    @GetMapping("/myhome/addresses")
     public String addressesPage() {
         return "mall/addresses";
     }
@@ -97,7 +103,7 @@ public class tmp_ShopUserController {
         return ResultGenerator.genFailResult(registerResult);
     }
 
-    @PostMapping("/personal/updateInfo")
+    @PostMapping("/myhome/updateInfo")
     @ResponseBody
     public Result updateInfo(@RequestBody tmp_User User, HttpSession httpSession) {
         UserVO UserTemp = UserService.updateUserInfo(User, httpSession);

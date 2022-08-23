@@ -60,25 +60,11 @@
                                         <input type="hidden" id="configType" th:value="${configType}" />
                                         <div class="form-group">
                                             <label for="configName" class="control-label">구성 항목 표시 문자:</label>
-                                            <input
-                                                type="text"
-                                                class="form-control"
-                                                id="configName"
-                                                name="configName"
-                                                placeholder="구성 항목 표시 문자를 입력하세요"
-                                                required="true"
-                                            />
+                                            <input type="text" class="form-control" id="configName" name="configName" placeholder="구성 항목 표시 문자를 입력하세요" required="true" />
                                         </div>
                                         <div class="form-group">
                                             <label for="redirectUrl" class="control-label">리디렉션:</label>
-                                            <input
-                                                type="text"
-                                                class="form-control"
-                                                id="redirectUrl"
-                                                name="redirectUrl"
-                                                placeholder="URL을 입력하세요"
-                                                value="##"
-                                            />
+                                            <input type="text" class="form-control" id="redirectUrl" name="redirectUrl" placeholder="URL을 입력하세요" value="##" />
                                         </div>
                                         <div class="form-group">
                                             <label for="productId" class="control-label">관련상품번호:</label>
@@ -106,7 +92,7 @@
         </div>
         <!-- jQuery -->
         <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
-        <!-- Bootstrap 4 -->
+        <!-- Bootstrap -->
         <script th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
         <!-- AdminLTE App -->
         <script th:src="@{/webjars/AdminLTE/3.2.0/dist/js/adminlte.min.js}"></script>

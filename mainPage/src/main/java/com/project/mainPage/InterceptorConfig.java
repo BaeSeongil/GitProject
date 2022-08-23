@@ -30,7 +30,7 @@ public class InterceptorConfig implements WebMvcConfigurer{
 //				.excludePathPatterns("/ / ")
 //				.excludePathPatterns("/ / ");
 		registry.addInterceptor(adminInterceptor)
-				.addPathPatterns("/admin/**")
+//				.addPathPatterns("/admin/**")
 				.addPathPatterns("/notice/insert.do")
 				.addPathPatterns("/notice/delete.do")
 				.addPathPatterns("/product/insert.do")

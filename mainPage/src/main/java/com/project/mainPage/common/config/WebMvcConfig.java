@@ -39,8 +39,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .addPathPatterns("/mall/saveOrder")
                 .addPathPatterns("/mall/orders")
                 .addPathPatterns("/mall/orders/**")            
-                .addPathPatterns("/mall/personal")
-                .addPathPatterns("/mall/personal/updateInfo")
+                .addPathPatterns("/mall/myhome")
+                .addPathPatterns("/mall/myhome/updateInfo")
                 .addPathPatterns("/mall/selectPayType")
                 .addPathPatterns("/mall/payPage");
     }
