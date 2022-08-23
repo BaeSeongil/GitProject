@@ -27,5 +27,7 @@ public interface ProductMapper {
 	public List<Product> selectSearchAll(Criteria cri);
 	//상품 리스트 요청
 	public String[] getProductIdList(String keyword);
+	
+	int updateOne (Product product);
 
 }

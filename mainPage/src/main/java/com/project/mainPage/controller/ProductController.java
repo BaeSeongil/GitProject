@@ -78,6 +78,35 @@ public class ProductController {
 		}
 		return "redirect:/product/cate/1";
 	}
+	
+	@GetMapping("/update/{productid}")
+	public String update(@PathVariable int productid, Model model) {
+		Product product = null;
+		product = productMapper.selectOne(productid);
+		System.out.println(product);
+		model.addAttribute(product);
+		return "/product/update";
+	}
+	
+	@PostMapping("/update.do")
+	public String update(Product product) {
+		int update = 0;
+		try {
+			update = productMapper.updateOne(product);
+			System.out.println(product.getProductName());
+			System.out.println(update);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (update>0) {
+			System.out.println("수정 성공!" + update);
+			return "redirect:/product/list/1";
+		} else {
+			return "redirect:/product/update/"+product.getProductid();
+		}
+		
+	}
+	
 	@GetMapping("/insert.do")
 	public void insert() {};
 	@PostMapping("insert.do")
@@ -114,6 +143,7 @@ public class ProductController {
 		model.addAttribute("page", page);
 		return "/product/search";
 	}
+	
 	
 	
 
