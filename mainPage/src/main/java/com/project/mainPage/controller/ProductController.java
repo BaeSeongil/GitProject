@@ -114,5 +114,7 @@ public class ProductController {
 		model.addAttribute("page", page);
 		return "/product/search";
 	}
+	
+	
 
 }
