@@ -28,9 +28,9 @@
 		LIMIT #{startRow},#{pageSize}
 	</select>
 	
-	<select id="selectOne" resultType = "int" >
+	<!-- <select id="selectOne" resultType = "int" >
  		SELECT * FROM CATEGORY WHERE categoryId=#{categoryId}
- 	</select>
+ 	</select> -->
  	
 	<select id="selectAllCount" resultType = "int" >
  		SELECT COUNT(*) FROM CATEGORY c
