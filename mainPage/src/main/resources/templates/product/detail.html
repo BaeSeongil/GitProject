@@ -63,29 +63,33 @@ footer {
 				<!-- <div class="col-auto mb-3">
 					<h4 th:text="${product.productid}" style="text-align: center;"></h4>
 				</div> --> 
-				<form action="/cart/list.do" method="post" class="row g-3 justify-content-center">
+				<form action="/basket/insert.do" method="post" class="row g-3 justify-content-center">
 				  	<div class="col-8 mb-3">
 				   	 	<label for="pName" class="form-label mt-3">상품명</label>
-				   		<input th:each="product : ${products}" 
-				   			th:value="${product.productName}" class="form-control form-control-sm" id="pName" disabled>
+				   		<input th:value="${product.productName}" class="form-control form-control-sm" 
+				   			id="pName" disabled>
 					 </div>
 					 <div class="col-8 mb-3">
-					    <label for="pSize" class="form-label mt-3">사이즈</label>
+					    <label for="pSize" class="form-label mt-3">사이즈(색상)</label>
 						    <select class="form-select form-select-sm " aria-label=".form-select-sm example" id="pSize">
 						    		<option>-- 선택 --</option>
-						    		<option th:each="product : ${product}"
-						    			th:value="${product.productSize}"
-						    			th:text="${product.productSize}">
+						    		<option th:each="product : ${products}" th:if="${product.productSize!=null}"
+						    			th:text="${product.productSize} +'('+ ${product.productColor} +')'">
 						    		</option>
 						 	</select>
 					</div>
-					<div class="col-8 mb-3">
+					<!-- <div class="col-8 mb-3">
 					 	<label for="pColor" class="form-label mt-3">색상</label>
-						<input th:value="${productColor}" class="form-control form-control-sm" id="pColor">
-					</div>    
+					 	 <select class="form-select form-select-sm " aria-label=".form-select-sm example" id="pColor">
+						    		<option>-- 선택 --</option>
+						    		<option th:each="product : ${products}" th:if="${product.productSize!=null}"
+						    			th:text="${product.productColor}">
+						    		</option>
+						 	</select>
+					</div>     -->
 					<div class="col-8 mb-3">
 					    <label for="price" class="form-label mt-3">price</label>
-					    <input th:value="${price}" class="form-control form-control-sm" id="price" disabled>
+					    <input th:value="${product.price}" class="form-control form-control-sm" id="price" disabled>
 	  			    </div>
 	  			    
 	  			    <section class="justify-content-around">

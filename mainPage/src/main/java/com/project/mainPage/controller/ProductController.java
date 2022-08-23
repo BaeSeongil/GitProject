@@ -53,9 +53,14 @@ public class ProductController {
 		try {
 			if (product != null) {
 				List<Product> products = productMapper.selectByProductName(product.getProductName());
+				products
+					.stream()
+					.filter((p)->p.getProductName().equals("productName"))
+					.distinct();
 				System.out.println(products);
-				model.addAttribute(product);
-				model.addAttribute(products);
+				model.addAttribute("product",product);
+				model.addAttribute("products",products);
+			
 				return "/product/detail";
 			} else {
 				return "redirect:/product/cate/1";

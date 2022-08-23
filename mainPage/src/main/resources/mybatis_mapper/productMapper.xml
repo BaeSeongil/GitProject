@@ -36,6 +36,14 @@
 			WHERE productid=#{productid}
 	</select>
 	
+	<!-- <select id="selectNameOne" resultType="java.lang.String" parameterType="java.lang.String">
+		SELECT DISTINCT (productName) 
+			FROM PRODUCT 
+			<if test="productName!=null and productName!=''">
+			WHERE productName=#{productName}
+			</if>
+	</select> -->
+	
 	<select id="selectByProductName" resultMap="ProductMap">
 		SELECT *
 			FROM PRODUCT

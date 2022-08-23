@@ -14,6 +14,6 @@ public interface ProductMapper {
 	List<Product> selectByProductName(String productName);
 	int selectAllCount();
 	Product selectOne(int productid);
-	Product selectNameOne(String productName);
+	//String selectNameOne(String productName);
 	
 }
