@@ -3,7 +3,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 	<nav aria-label="Page navigation example">
 		<ul class="pagination">
-			<li class="page-item" th:classappend="${ (pagination.yourFirst) ? '' : 'disabled' }">
+			<li class="page-item" th:classappend="${(pagination.yourFirst)?'':'disabled'}">
 				<a class="page-link" th:href="@{{url}{page}(url=${pagination.url},page=${pagination.firstPage})}">
 					<span aria-hidden="true">&laquo;</span>
 				</a>

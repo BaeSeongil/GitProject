@@ -27,6 +27,7 @@ import com.project.mainPage.dto.UsersDto;
 import com.project.mainPage.service.BoardService;
 import com.project.mainPage.dto.Board;
 import com.project.mainPage.dto.BoardPrefer;
+import com.project.mainPage.dto.Pagination;
 import com.project.mainPage.dto.Reply;
 import com.project.mainPage.dto.ReplyPrefer;
 import com.project.mainPage.mapper.BoardImgMapper;
@@ -54,18 +55,22 @@ public class BoardController {
 	
 	@Autowired
 	private BoardPreferMapper boardPreferMapper;
-
+	
+	@Autowired
 	private UsersMapper usersMapper;
 	
 	@Value("${spring.servlet.multipart.location}") //파일이 임시저장되는 경로+파일을 저장할 경로
 	private String savePath;
-	
-
-	
 	@GetMapping("/list/{page}")
 	public String list(@PathVariable int page, Model model) {
-		List<Board> boardList = boardMapper.selectPageAll();
-		model.addAttribute(boardList);
+		int row =5;
+		int startRow = (page-1)*row;
+		
+		List<Board> boardList = boardMapper.selectPageAll(startRow, row);
+		int rowCount = boardMapper.selectPageAllCount();
+		Pagination paging = new Pagination(page, rowCount, "/board/list/", row);
+		model.addAttribute("paging",paging);
+		model.addAttribute("boardList", boardList);
 		return "/board/list";
 	}
 	
@@ -120,10 +125,13 @@ public class BoardController {
 	@PostMapping("/insert.do")
 	public String insert(
 				Board  board,
-				List <MultipartFile> imgFiles) {
+				List <MultipartFile> imgFiles,
+				@SessionAttribute(required = false) UsersDto loginUser,
+				HttpSession session) {
 //		System.out.println(board);
 		System.out.println(savePath);
 		int insert=0;
+		String msg="";
 		try {
 			//이미지 저장 및 처리
 			if(imgFiles!=null) {
@@ -149,8 +157,12 @@ public class BoardController {
 			e.printStackTrace();
 		}
 		if(insert>0) {
+			msg="게시글 등록 성공";
+			session.setAttribute("msg", msg);
 			return "redirect:/board/list/1";
 		}else {
+			msg="게시글 등록 실패";
+			session.setAttribute("msg", msg);
 			return "redirect:/board/insert.do";
 		}
 	}
@@ -160,20 +172,27 @@ public class BoardController {
 	public String delete(
 			@PathVariable int boardNo,
 			@PathVariable String userId,
-			@SessionAttribute(name ="loginUsers",required = false) UsersDto loginUsers) {
-		System.out.println("loginUsers : "+loginUsers);
-		if(loginUsers.getUserid().equals(userId)) {
+			@SessionAttribute(name ="loginUsers",required = false) UsersDto loginUser,
+			HttpSession session) {
+		System.out.println("loginUser : "+loginUser);
+		String msg="";
+		if(loginUser.getUserid().equals(userId)) {
 			int delete=0;
 			try {
 				delete = boardService.removeBorad(boardNo);
 			} catch(Exception e) {e.printStackTrace();}
 			if(delete>0) {
-				System.out.println("삭제성공");
+				msg="게시글 삭제 성공";
+				session.setAttribute("msg", msg);
 				return "redirect:/board/list/1";
 			}else {
+				msg="게시글 삭제 실패";
+				session.setAttribute("msg", msg);
 				return "redirect:/board/update/"+boardNo;			
 			}			
 		}else {
+			msg="로그인 하셔야 이용가능합니다.";
+			session.setAttribute("msg", msg);
 			return "redirect:/user/login.do";
 		}
 		

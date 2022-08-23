@@ -40,6 +40,9 @@ public class Product {
 	private int price;
 	
 	private Category category;
-
+	
+	//검색필터
+	private String type;
+	private String keyword;
 
 }
