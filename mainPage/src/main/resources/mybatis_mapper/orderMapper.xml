@@ -29,10 +29,12 @@
 			<result column="price" property="price"/>
 		</collection>
   	</resultMap>
+
+  	
   	<insert id="insertOne" parameterType="Order">
   		INSERT INTO ORDERS 
-  		(orderid,orderPrice,orderAdd,orderOption,userid,productid)
-  		 VALUES (#{orderid},#{orderPrice},#{orderAdd},#{orderOption},#{users.userid},#{products.productid})
+  		(orderid,orderPrice,orderState,orderAdd,orderOption,userid,productid)
+  		 VALUES (#{orderid},#{orderPrice},'배송 준비',#{orderAdd},#{orderOption},#{users.userid},#{products.productid})
   	</insert>
   	
   </mapper>

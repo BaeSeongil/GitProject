@@ -6,5 +6,7 @@ import com.project.mainPage.dto.Order;
 //com.project.mainPage.mapper.OrderMapper
 @Mapper
 public interface OrderMapper {
+	
+	Order selectProduct(int productid);
 	int insertOne(Order order);
 }
