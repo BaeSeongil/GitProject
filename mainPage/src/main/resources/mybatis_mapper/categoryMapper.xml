@@ -27,7 +27,7 @@
 		LEFT JOIN PRODUCT p USING(categoryId)
 		LIMIT #{startRow},#{pageSize}
 	</select>
-	 	
+
 	<select id="selectAllCount" resultType = "int" >
  		SELECT COUNT(*) FROM CATEGORY c
 		LEFT JOIN PRODUCT p USING(categoryId)

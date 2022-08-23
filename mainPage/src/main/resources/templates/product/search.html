@@ -2,27 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>상품 리스트</title>
-<style type="text/css">
-	#detail:hover{
-		cursor: Pointer;
-	}
-	html, body {
-		height: 100%;
-		display: flex;
-		flex-flow: column;
-	}
-	footer {
-		flex: 1;
-		height: auto;
-	  	position: relative;
-	}
-	#wrapper {	
-		height: auto;
-	  	/* min-height: 100%; */
-	  	position: relative;
-	}
-</style>
+<title>검색결과</title>
 </head>
 <body>
 	<header th:insert="/gAndB"></header>
@@ -30,7 +10,7 @@
 	<div id="wrapper">
 		<div  class="container">
 			<h1 class="m-3 d-flex justify-content-between align-items-center" >
-				<span>상품 목록</span>
+				<span>검색 결과</span>
 			</h1>
 			<table class="table table-hover">
 				<thead>
@@ -42,11 +22,11 @@
 						<th>재고량</th>
 						<th>상품 등록일</th>
 						<th>가격</th>
-						<th>상품분류</th>		
+						<th>상품종류</th>		
 					</tr>
 				</thead>
 				<tbody>
-					<tr id="detail" th:each="product : ${productList}" th:onclick="location.href='/product/detail/[[${product.productid}]]'">
+					<tr id="detail" th:each="product : ${list}" th:onclick="location.href='/product/detail/[[${product.productid}]]'">
 						<td th:text="${product.productid}"></td>
 						<td th:text="${product.productName}"></td>
 						<td th:text="${product.productSize}"></td>
