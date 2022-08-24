@@ -107,8 +107,18 @@
   		SELECT COUNT(*) FROM NOTICE
 		<include refid="criteria"></include>
 	</select>
-	<select id="selectSearchAll" resultType="Notice">
-		SELECT  *
-			FROM NOTICE LIMIT #{skip}, #{amount}
+	
+	<select id="searchAllNotice" resultType="Notice">
+			SELECT  *
+			FROM NOTICE
+			WHERE title LIKE CONCAT ('%', #{keyword}, '%') OR
+				contents LIKE CONCAT ('%', #{keyword}, '%')
+			ORDER BY notice_no desc 
+			LIMIT #{skip}, #{amount}	
+	</select>
+	<select id="noticeAllGetTotal" resultType="int">
+  		SELECT COUNT(*) FROM NOTICE
+			WHERE title LIKE CONCAT ('%', #{keyword}, '%') OR
+				contents LIKE CONCAT ('%', #{keyword}, '%')
 	</select>
 </mapper>

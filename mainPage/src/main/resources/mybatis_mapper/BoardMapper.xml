@@ -175,7 +175,21 @@
   		SELECT COUNT(*) FROM BOARD b LEFT JOIN USERS u using(userid)
 		<include refid="criteria"></include>
 	</select>
-	<select id="selectSearchAll" resultMap="BoardMap">
-		SELECT * FROM PRODUCT FROM BOARD b LEFT JOIN USERS u using(userid) LIMIT #{skip}, #{amount}
+	
+	<select id="searchAllBoard" resultMap="BoardMap">
+			SELECT  b.*, u.userid
+			FROM BOARD b LEFT JOIN USERS u using(userid)
+			WHERE title LIKE CONCAT ('%', #{keyword}, '%') OR
+				contents LIKE CONCAT ('%', #{keyword}, '%') OR
+				u.userid LIKE CONCAT ('%', #{keyword}, '%')
+			ORDER BY board_no desc 
+			LIMIT #{skip}, #{amount}	
 	</select>
+	<select id="boardAllGetTotal" resultType="int">
+  		SELECT COUNT(*) FROM BOARD b LEFT JOIN USERS u using(userid)
+			WHERE title LIKE CONCAT ('%', #{keyword}, '%') OR
+				contents LIKE CONCAT ('%', #{keyword}, '%') OR
+				u.userid LIKE CONCAT ('%', #{keyword}, '%')
+	</select>
+	
 </mapper>

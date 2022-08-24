@@ -24,9 +24,9 @@ public interface ProductMapper {
 	//상품 총 갯수
 	public int productsGetTotal(Criteria cri);
 	
-	public List<Product> selectSearchAll(Criteria cri);
-	//상품 리스트 요청
-	public String[] getProductIdList(String keyword);
+	//통합검색용
+	public List<Product> searchAllProduct(Criteria cri);
+	public int productsAllGetTotal(Criteria cri);
 	
 	int updateOne (Product product);
 	int insertOne (Product product);

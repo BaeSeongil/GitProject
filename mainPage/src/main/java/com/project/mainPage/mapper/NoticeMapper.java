@@ -22,5 +22,7 @@ public interface NoticeMapper {
 	//검색 갯수
 	public int noticeGetTotal(Criteria cri);
 	
-	public List<Notice> selectSearchAll(Criteria cri);
+	//통합검색용
+	public List<Notice> searchAllNotice(Criteria cri);
+	public int noticeAllGetTotal(Criteria cri);
 }

@@ -24,5 +24,7 @@ public interface BoardMapper {
 	//검색 갯수
 	public int boardGetTotal(Criteria cri);
 	
-	public List<Board> selectSearchAll(Criteria cri);
+	//통합검색용
+	public List<Board> searchAllBoard(Criteria cri);
+	public int boardAllGetTotal(Criteria cri);
 }
