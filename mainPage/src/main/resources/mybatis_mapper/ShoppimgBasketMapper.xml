@@ -12,7 +12,7 @@
  	</select>
  	
 	<insert id="insertOne" parameterType="ShoppingBasket">
-		INSERT into SHOPPING_BASKET(count,productid,userid) values (#{count},#{productid},#{userid})
+		INSERT into SHOPPING_BASKET(count,productid,userid) values (#{count},#{product.productid},#{userid})
 	</insert>
 	
 	<delete id="deleteOne">

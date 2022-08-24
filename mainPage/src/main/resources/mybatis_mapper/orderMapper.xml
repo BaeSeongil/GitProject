@@ -30,11 +30,14 @@
 		</collection>
   	</resultMap>
 
+	<select id="selectProduct" resultMap="OrderMap">
+		SELECT * FROM PRODUCT WHERE productid=#{productid}
+	</select>
   	
   	<insert id="insertOne" parameterType="Order">
   		INSERT INTO ORDERS 
-  		(orderid,orderPrice,orderState,orderAdd,orderOption,userid,productid)
-  		 VALUES (#{orderid},#{orderPrice},'배송 준비',#{orderAdd},#{orderOption},#{userid},#{productid})
+  		(orderid,orderPrice,orderState,orderAdd,orderOption,userid,productid,productName)
+  		 VALUES (#{orderid},#{orderPrice},'배송 준비',#{orderAdd},#{orderOption},#{users.userid},#{products.productid},#{products.productName})
   	</insert>
   	
   </mapper>

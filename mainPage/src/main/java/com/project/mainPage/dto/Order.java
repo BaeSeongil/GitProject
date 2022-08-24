@@ -14,6 +14,7 @@ package com.project.mainPage.dto;
  */
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -29,5 +30,5 @@ public class Order {
 	private String orderOption; //결제 방법
 	
 	private UsersDto users; // N:1
-	private Product products;
+	private List<Product> products;
 }
