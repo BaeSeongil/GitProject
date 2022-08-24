@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.project.mainPage.dto.Criteria;
 import com.project.mainPage.dto.UsersDto;
 
 @Mapper
@@ -16,5 +17,10 @@ public interface UsersMapper {
 	int updateOne(UsersDto user);
 	int insertOne(UsersDto user);
 	
+	//검색
+	public List<UsersDto> searchUsers(Criteria cri);
+	//검색 갯수
+	public int usersGetTotal(Criteria cri);
 	
+	public List<UsersDto> selectSearchAll(Criteria cri);
 }

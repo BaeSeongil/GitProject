@@ -17,12 +17,11 @@ public interface CategoryMapper {
 	// Category/cate/1/1
 	List<Category> selectCateAll(int categoryId, int startRow,int pageSize);
 	int selectCateAllCount(int categoryId);
+
 	Category selectOne(int categoryId);
 	int insertOne(Category category);
-
-	int updateOne(Category category);
+	int updateOne (Category category);
 	int deleteOne (int categoryId);
-	
 }
 
 	

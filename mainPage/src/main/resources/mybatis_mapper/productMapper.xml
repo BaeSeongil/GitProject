@@ -108,17 +108,26 @@
 			<include refid="criteria"></include>
 			order by productid desc 
 			limit #{skip}, #{amount}	
-	
 	</select>
 	<!-- 상품 총 개수 -->
 	<select id="productsGetTotal" resultType="int">
   		SELECT COUNT(*) FROM PRODUCT INNER JOIN CATEGORY c USING(categoryid)
 		<include refid="criteria"></include>
 	</select>
-	<select id="selectSearchAll" resultMap="ProductMap">
-		SELECT * FROM PRODUCT INNER JOIN CATEGORY c USING(categoryid) LIMIT #{skip}, #{amount}
+	
+	<select id="searchAllProduct" resultMap="ProductMap">
+			SELECT  p.*, c.categoryName
+			FROM PRODUCT p INNER JOIN CATEGORY c USING(categoryid)
+			WHERE productName LIKE CONCAT ('%', #{keyword}, '%') OR
+				productSize LIKE CONCAT ('%', #{keyword}, '%') OR
+				c.categoryName LIKE CONCAT ('%', #{keyword}, '%')
+			ORDER BY productid desc 
+			LIMIT #{skip}, #{amount}	
 	</select>
-	<select id="getProductIdList" resultType="String">
-		SELECT productid FROM PRODUCT WHERE productName LIKE CONCAT('%',#{keyword},'%')
+	<select id="productsAllGetTotal" resultType="int">
+  		SELECT COUNT(*) FROM PRODUCT INNER JOIN CATEGORY c USING(categoryid)
+  		WHERE productName LIKE CONCAT ('%', #{keyword}, '%') OR
+			productSize LIKE CONCAT ('%', #{keyword}, '%') OR
+			c.categoryName LIKE CONCAT ('%', #{keyword}, '%')
 	</select>
 </mapper>

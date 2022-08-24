@@ -37,7 +37,7 @@
 							<td th:text="${board.views}"></td>
 							<td th:text="${board.good}"></td>
 							<td th:text="${board.replys_size}"></td>
-							<td>
+							<!-- <td>
 								<div  class="row g-3 align-items-center" 
 										th:if="${session.loginUsers != null && session.loginUsers?.userid==board.users.userid}">
 									<p class="mb-1">
@@ -45,15 +45,29 @@
 											th:href="@{/board/delete/{boardNo}/{userId}(boardNo=${board.board_no},userId=${board.users.userid})}">삭제</a>
 										<a class="btn btn-sm btn btn-outline-primary" 
 											th:href="@{/board/update/{boardNo}(boardNo=${board.board_no})}">수정</a>
-										
 									</p>
 								</div>
-							</td>
+							</td> -->
 						</tr>					
 					</th:block>
 				</tbody>
 			</table>
 		</form>
+		<div class="d-flex justify-content-evenly">
+				<div  th:insert="/pagination.html"></div>
+				<form action="/board/search/1" id="searchForm" method="get">
+					<select name="type" class="form-control" style="display: inline; width : 150px;">
+						<option value="none">=== 선택 ===</option>
+						<option value="T">제목</option>
+						<option value="C">내용</option>
+						<option value="U">작성자</option>
+					</select>
+					<div class=search_input style="display: inline;">
+						<input type="text" name="keyword" value="">
+						<button class="btn btn-outline-primary">검색</button>
+					</div>
+				</form>
+			</div>
 	</main>
 </body>
 <footer th:insert="/footer"></footer> 

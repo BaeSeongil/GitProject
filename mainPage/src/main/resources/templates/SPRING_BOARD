@@ -91,18 +91,17 @@ INSERT INTO USERS (userid, username, userpw, phone, email, birth, add2,add1,admi
 ('admin','admin','1234','010-7777-7777','admin@gmail.com','1999-11-11','서울 강남구 언주로93길 22-5','02-106','1');
 
 
-CREATE TABLE CATEGORY ( 카테고리 DB
+CREATE TABLE CATEGORY (
 	categoryid INT,
     categoryName VARCHAR(45) NOT NULL,
     PRIMARY KEY(categoryid)
 );
 
-CREATE TABLE PRODUCT(  상품 DB
+CREATE TABLE PRODUCT(
     productid INT,
     productName VARCHAR(45) NOT NULL,
     productSize VARCHAR(45) NOT NULL,
     productColor VARCHAR(45) NOT NULL,
-    productGroup VARCHAR(45) NOT NULL,
     productInfo TEXT,
     productStock INT,
     productDate DATE,
@@ -114,7 +113,7 @@ CREATE TABLE PRODUCT(  상품 DB
 );
 
 
-CREATE TABLE productImg(   상품 이미지 DB 
+CREATE TABLE productImg(  
 	product_img_no INT AUTO_INCREMENT,
 	productid INT NOT NULL, 
 	img_path VARCHAR(255) NOT NULL,
@@ -123,7 +122,7 @@ CREATE TABLE productImg(   상품 이미지 DB
 	ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-CREATE TABLE NOTICE(   공지사항 DB 
+CREATE TABLE NOTICE(   
 	notice_no INT AUTO_INCREMENT,
 	title VARCHAR(255) NOT NULL,
 	contents VARCHAR(255) DEFAULT '',
@@ -270,9 +269,6 @@ INSERT INTO USERS (userid, username, userpw, phone, email, birth,add2,add1 ) VAL
 ('user8','user8','1234','010-8180-4013','degeke8920@chimpad.com','1810-10-01','서울 강남구 학동로 338 강남파라곤S동 103호8F','02-106');
 
 
-
-
-
 INSERT INTO REPLY_PREFER (reply_no, userid, prefer)
 VALUES ( 6, 'user1',true),
  ( 6, 'user2',true ),
@@ -313,80 +309,81 @@ VALUES ( 1, 'user7',false),
  
 INSERT INTO CATEGORY VALUES (1,'상의'),(2,'하의'),(3,'아우터'),(4,'신발'),(5,'모자');
 
-INSERT INTO PRODUCT (productid, productName, productSize, productColor, productGroup, productStock, productDate, price, categoryid) 
-VALUES (1, 'Shirt', 'S', 'White', '상의',5,'2022-08-02', 25000, 1),
-(2, 'Shirt', 'M', 'White', '상의',10,'2022-08-02', 25000, 1),
-(3, 'Shirt', 'L', 'White', '상의',10,'2022-08-02', 25000, 1),
-(4, 'knit', 'S', 'Beige', '상의',8,'2022-08-09', 30000, 1),
-(5, 'knit', 'M', 'Beige', '상의',15,'2022-08-09', 30000, 1),
-(6, 'knit', 'L', 'Beige', '상의',10,'2022-08-09', 30000, 1),
-(7, 'Sweater', 'S', 'White', '상의',10,'2022-07-30', 28000, 1),
-(8, 'Sweater', 'M', 'White', '상의',20,'2022-07-30', 28000, 1),
-(9, 'Sweater', 'L', 'White', '상의',15,'2022-07-30', 28000, 1),
-(10, 'T-Shirt', 'S', 'Yellow', '상의',7,'2022-08-10', 10000, 1),
-(11, 'T-Shirt', 'M', 'Yellow', '상의',10,'2022-08-10', 10000, 1),
-(12, 'T-Shirt', 'L', 'Yellow', '상의',7,'2022-08-10', 10000, 1),
-(13, 'T-Shirt', 'XL', 'Green', '상의',10,'2022-08-08', 11000, 1),
-(14, 'Shirt', 'L', 'Skyblue', '상의',5,'2022-07-28', 23000, 1),
-(15, 'Blouse', 'S', 'White', '상의',12,'2022-08-13', 28000, 1),
-(16, 'Blouse', 'L', 'White', '상의',3,'2022-07-25', 28000, 1),
-(17, 'Jean', 'S', 'Blue', '하의',10,'2022-08-05', 30000, 2),
-(18, 'Jean', 'M', 'Blue', '하의',20,'2022-08-05', 30000, 2),
-(19, 'Jean', 'L', 'Blue', '하의',8,'2022-08-05', 30000, 2),
-(20, 'Jean', 'XL', 'Blue', '하의',10,'2022-08-06', 30000, 2),
-(21, 'Skirt', 'S', 'Pink', '하의',5,'2022-08-01', 25000, 2),
-(22, 'Skirt', 'M', 'Pink', '하의',5,'2022-08-01', 25000, 2),
-(23, 'Skirt', 'L', 'Pink', '하의',3,'2022-08-01', 25000, 2),
-(24, 'Skirt', 'S', 'White', '하의',10,'2022-08-02', 26000, 2),
-(25, 'Skirt', 'M', 'White', '하의',7,'2022-08-02', 26000, 2),
-(26, 'Training Pants ', 'M', 'Black', '하의',5,'2022-08-05', 22000, 2),
-(27, 'Training Pants ', 'L', 'Black', '하의',5,'2022-08-05', 22000, 2),
-(28, 'Long Skirt', 'M', 'Black', '하의',8,'2022-07-31', 36000, 2),
-(29, 'Long Skirt', 'L', 'White', '하의',10,'2022-07-31', 36000, 2),
-(30, 'Long Skirt', 'XL', 'Black', '하의',2,'2022-07-30', 36000, 2),
-(31, 'Coat', 'S', 'Black', '아우터',3,'2022-07-30', 80000, 3),
-(32, 'Coat', 'M', 'Black', '아우터',2,'2022-07-30', 80000, 3),
-(33, 'Coat', 'L', 'Black', '아우터',3,'2022-07-27', 80000, 3),
-(34, 'Coat', 'XL', 'Black', '아우터',1,'2022-07-20', 80000, 3),
-(35, 'Coat', 'S', 'Brown', '아우터',8,'2022-07-25', 85000, 3),
-(36, 'Coat', 'M', 'Brown', '아우터',7,'2022-07-25', 85000, 3),
-(37, 'Coat', 'L', 'Brown', '아우터',10,'2022-07-25', 85000, 3),
-(38, 'Padding', 'M', 'White', '아우터',7,'2022-08-15', 120000, 3),
-(39, 'Padding', 'L', 'White', '아우터',5,'2022-08-15', 120000, 3),
-(40, 'Padding', 'M', 'Black', '아우터',10,'2022-08-10', 130000, 3),
-(41, 'Padding', 'M', 'Blue', '아우터',5,'2022-07-29', 110000, 3),
-(42, 'Sneakers', '270', 'Black', '신발',5,'2022-07-16', 70000, 4),
-(43, 'Sneakers', '260', 'Black', '신발',3,'2022-07-26', 70000, 4),
-(44, 'Sneakers', '250', 'Black', '신발',6,'2022-07-30', 70000, 4),
-(45, 'Sneakers', '240', 'Black', '신발',2,'2022-07-18', 68000, 4),
-(46, 'Crocs', '270', 'White', '신발',6,'2022-07-18', 20000, 4),
-(47, 'Crocs', '260', 'White', '신발',4,'2022-07-17', 20000, 4),
-(48, 'Crocs', '250', 'White', '신발',3,'2022-07-20', 20000, 4),
-(49, 'Crocs', '240', 'White', '신발',3,'2022-07-26', 20000, 4),
-(50, 'Crocs', '270', 'Black', '신발',6,'2022-07-31', 19000, 4),
-(51, 'Crocs', '260', 'Black', '신발',5,'2022-08-02', 19000, 4),
-(52, 'Crocs', '250', 'Black', '신발',10,'2022-08-10', 19000, 4),
-(53, 'Crocs', '240', 'Black', '신발',3,'2022-08-02', 19000, 4),
-(54, 'Heels', '250', 'Red', '신발',2,'2022-08-05', 55000, 4),
-(55, 'Heels', '240', 'Red', '신발',3,'2022-08-05', 55000, 4),
-(56, 'Heels', '230', 'Red', '신발',2,'2022-08-08', 55000, 4),
-(57, 'Heels', '240', 'Black', '신발',2,'2022-08-09', 60000, 4),
-(58, 'Boots', '270', 'Brown', '신발',7,'2022-08-01', 40000, 4),
-(59, 'Boots', '240', 'Brown', '신발',6,'2022-08-01', 40000, 4),
-(60, 'Boots', '270', 'Black', '신발',2,'2022-08-03', 35000, 4),
-(61, 'Boots', '240', 'Black', '신발',2,'2022-08-03', 35000, 4),
-(62, 'Cap', '57', 'White', '모자',5,'2022-07-25', 30000, 5),
-(63, 'Cap', '54', 'White', '모자',4,'2022-07-25', 30000, 5),
-(64, 'Beanie', '57', 'Black', '모자',3,'2022-08-03', 14000, 5),
-(65, 'Beanie', '54', 'Black', '모자',3,'2022-08-08', 13000, 5),
-(66, 'Bucket Hat', '57', 'Brown', '모자',4,'2022-06-30', 25000, 5),
-(67, 'Bucket Hat', '54', 'Brown', '모자',4,'2022-06-30', 24000, 5);
+INSERT INTO PRODUCT (productid, productName, productSize, productColor, productStock, productDate, price, categoryid) 
+VALUES (1, 'Shirt', 'S', 'White',5,'2022-08-02', 25000, 1),
+(2, 'Shirt', 'M', 'White',10,'2022-08-02', 25000, 1),
+(3, 'Shirt', 'L', 'White',10,'2022-08-02', 25000, 1),
+(4, 'knit', 'S', 'Beige',8,'2022-08-09', 30000, 1),
+(5, 'knit', 'M', 'Beige',15,'2022-08-09', 30000, 1),
+(6, 'knit', 'L', 'Beige',10,'2022-08-09', 30000, 1),
+(7, 'Sweater', 'S', 'White',10,'2022-07-30', 28000, 1),
+(8, 'Sweater', 'M', 'White',20,'2022-07-30', 28000, 1),
+(9, 'Sweater', 'L', 'White',15,'2022-07-30', 28000, 1),
+(10, 'T-Shirt', 'S', 'Yellow',7,'2022-08-10', 10000, 1),
+(11, 'T-Shirt', 'M', 'Yellow',10,'2022-08-10', 10000, 1),
+(12, 'T-Shirt', 'L', 'Yellow',7,'2022-08-10', 10000, 1),
+(13, 'T-Shirt', 'XL', 'Green',10,'2022-08-08', 11000, 1),
+(14, 'Shirt', 'L', 'Skyblue',5,'2022-07-28', 23000, 1),
+(15, 'Blouse', 'S', 'White',12,'2022-08-13', 28000, 1),
+(16, 'Blouse', 'L', 'White',3,'2022-07-25', 28000, 1),
+(17, 'Jean', 'S', 'Blue',10,'2022-08-05', 30000, 2),
+(18, 'Jean', 'M', 'Blue',20,'2022-08-05', 30000, 2),
+(19, 'Jean', 'L', 'Blue',8,'2022-08-05', 30000, 2),
+(20, 'Jean', 'XL', 'Blue',10,'2022-08-06', 30000, 2),
+(21, 'Skirt', 'S', 'Pink',5,'2022-08-01', 25000, 2),
+(22, 'Skirt', 'M', 'Pink',5,'2022-08-01', 25000, 2),
+(23, 'Skirt', 'L', 'Pink',3,'2022-08-01', 25000, 2),
+(24, 'Skirt', 'S', 'White',10,'2022-08-02', 26000, 2),
+(25, 'Skirt', 'M', 'White',7,'2022-08-02', 26000, 2),
+(26, 'Training Pants ', 'M', 'Black',5,'2022-08-05', 22000, 2),
+(27, 'Training Pants ', 'L', 'Black',5,'2022-08-05', 22000, 2),
+(28, 'Long Skirt', 'M', 'Black',8,'2022-07-31', 36000, 2),
+(29, 'Long Skirt', 'L', 'White',10,'2022-07-31', 36000, 2),
+(30, 'Long Skirt', 'XL', 'Black',2,'2022-07-30', 36000, 2),
+(31, 'Coat', 'S', 'Black',3,'2022-07-30', 80000, 3),
+(32, 'Coat', 'M', 'Black',2,'2022-07-30', 80000, 3),
+(33, 'Coat', 'L', 'Black',3,'2022-07-27', 80000, 3),
+(34, 'Coat', 'XL', 'Black',1,'2022-07-20', 80000, 3),
+(35, 'Coat', 'S', 'Brown',8,'2022-07-25', 85000, 3),
+(36, 'Coat', 'M', 'Brown',7,'2022-07-25', 85000, 3),
+(37, 'Coat', 'L', 'Brown',10,'2022-07-25', 85000, 3),
+(38, 'Padding', 'M', 'White',7,'2022-08-15', 120000, 3),
+(39, 'Padding', 'L', 'White',5,'2022-08-15', 120000, 3),
+(40, 'Padding', 'M', 'Black',10,'2022-08-10', 130000, 3),
+(41, 'Padding', 'M', 'Blue',5,'2022-07-29', 110000, 3),
+(42, 'Sneakers', '270', 'Black',5,'2022-07-16', 70000, 4),
+(43, 'Sneakers', '260', 'Black',3,'2022-07-26', 70000, 4),
+(44, 'Sneakers', '250', 'Black',6,'2022-07-30', 70000, 4),
+(45, 'Sneakers', '240', 'Black',2,'2022-07-18', 68000, 4),
+(46, 'Crocs', '270', 'White',6,'2022-07-18', 20000, 4),
+(47, 'Crocs', '260', 'White',4,'2022-07-17', 20000, 4),
+(48, 'Crocs', '250', 'White',3,'2022-07-20', 20000, 4),
+(49, 'Crocs', '240', 'White',3,'2022-07-26', 20000, 4),
+(50, 'Crocs', '270', 'Black',6,'2022-07-31', 19000, 4),
+(51, 'Crocs', '260', 'Black',5,'2022-08-02', 19000, 4),
+(52, 'Crocs', '250', 'Black',10,'2022-08-10', 19000, 4),
+(53, 'Crocs', '240', 'Black',3,'2022-08-02', 19000, 4),
+(54, 'Heels', '250', 'Red',2,'2022-08-05', 55000, 4),
+(55, 'Heels', '240', 'Red',3,'2022-08-05', 55000, 4),
+(56, 'Heels', '230', 'Red',2,'2022-08-08', 55000, 4),
+(57, 'Heels', '240', 'Black',2,'2022-08-09', 60000, 4),
+(58, 'Boots', '270', 'Brown',7,'2022-08-01', 40000, 4),
+(59, 'Boots', '240', 'Brown',6,'2022-08-01', 40000, 4),
+(60, 'Boots', '270', 'Black',2,'2022-08-03', 35000, 4),
+(61, 'Boots', '240', 'Black',2,'2022-08-03', 35000, 4),
+(62, 'Cap', '57', 'White',5,'2022-07-25', 30000, 5),
+(63, 'Cap', '54', 'White',4,'2022-07-25', 30000, 5),
+(64, 'Beanie', '57', 'Black',3,'2022-08-03', 14000, 5),
+(65, 'Beanie', '54', 'Black',3,'2022-08-08', 13000, 5),
+(66, 'Bucket Hat', '57', 'Brown',4,'2022-06-30', 25000, 5),
+(67, 'Bucket Hat', '54', 'Brown',4,'2022-06-30', 24000, 5);
 
 
-INSERT INTO PRODUCT (productid, productName, productSize, productColor, productGroup, productStock, productDate, price, categoryid) 
+INSERT INTO PRODUCT (productid, productName, productSize, productColor, productStock, productDate, price, categoryid) 
 VALUES
-('111','데님1','29','blue','하의',4,'2022-06-30','21000','20'),
-('112','데님1','30','black','하의',4,'2022-06-30','29000','20');
+('111','데님1','29','blue',4,'2022-06-30','21000','20'),
+('112','데님1','30','black',4,'2022-06-30','29000','20');
+
 
  SELECT 
 	board_no no, 
@@ -394,7 +391,6 @@ VALUES
 	(SELECT COUNT(*) FROM BOARD_PREFER WHERE prefer=true AND board_no=no ) goods,
 	(SELECT COUNT(*) FROM BOARD_PREFER WHERE prefer=false AND board_no=no ) bads
 	FROM BOARD;
-
 
 CREATE TABLE SHOPPING_BASKET(
 	basket_id INT AUTO_INCREMENT,
@@ -407,3 +403,19 @@ CREATE TABLE SHOPPING_BASKET(
 	FOREIGN KEY(userid) REFERENCES USERS(userid)
     ON UPDATE CASCADE ON DELETE CASCADE
 ); 
+
+CREATE TABLE ORDERS(
+  orderid INT AUTO_INCREMENT,
+  userid VARCHAR(255) NOT NULL,
+  productid INT NOT NULL,
+  orderdate DATETIME DEFAULT CURRENT_TIMESTAMP(),
+  orderPrice INT NOT NULL,
+  orderState VARCHAR(255),
+  orderAdd VARCHAR(255) NOT NULL,
+  orderOption VARCHAR(255) NOT NULL,
+  PRIMARY KEY(orderid),
+  FOREIGN KEY(userid) REFERENCES USERS(userid)
+  ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY(productid) REFERENCES PRODUCT(productid)
+  ON UPDATE CASCADE ON DELETE CASCADE
+);

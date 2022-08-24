@@ -30,8 +30,11 @@
 			n.userid as 'users.userid' 
 			FROM NOTICE n
 			ORDER BY n.notice_no
+			LIMIT #{startRow},#{pageSize}
 	</select>
-	
+	<select id="selectPageAllCount" resultType = "int">
+		SELECT COUNT(*) FROM NOTICE
+	</select>
 	<select id="selectDetailOne" resultMap="NoticeMap">
 		SELECT n.*,
 			u.userid,
@@ -66,4 +69,56 @@
 		DELETE FROM NOTICE WHERE notice_no = #{noticeNo}
 	</delete>
 	
+	
+	<!-- criteria(검색조건) -->
+	<sql id="criteria">
+		    <trim prefix="WHERE (" suffix=")" prefixOverrides="AND">
+	  		<foreach item="type" collection="typeArr">
+	  			<trim prefix="AND">
+	  				<choose>
+	  					<when test="type == 'N'.toString()">
+	  						<trim prefixOverrides="or">
+			  					<foreach collection="noticeArr" item="notice_no">
+			  						<trim prefix="or">
+			  							notice_no = #{notice_no}
+			  						</trim>
+			  					</foreach>  						
+	  						</trim>
+	  					</when>
+	  					<when test="type == 'T'.toString()">
+	  						title LIKE CONCAT ('%', #{keyword}, '%')
+	  					</when>
+	  					<when test="type == 'C'.toString()">
+	  						contents LIKE CONCAT ('%', #{keyword}, '%')
+	  					</when>  					
+	  				</choose>
+	  			</trim>
+	  		</foreach>
+	  	</trim>
+	</sql>
+	<select id="searchNotice" resultType="Notice">
+			SELECT  *
+			FROM NOTICE
+			<include refid="criteria"></include>
+			ORDER BY notice_no DESC 
+			LIMIT #{skip}, #{amount}	
+	</select>
+	<select id="noticeGetTotal" resultType="int">
+  		SELECT COUNT(*) FROM NOTICE
+		<include refid="criteria"></include>
+	</select>
+	
+	<select id="searchAllNotice" resultType="Notice">
+			SELECT  *
+			FROM NOTICE
+			WHERE title LIKE CONCAT ('%', #{keyword}, '%') OR
+				contents LIKE CONCAT ('%', #{keyword}, '%')
+			ORDER BY notice_no desc 
+			LIMIT #{skip}, #{amount}	
+	</select>
+	<select id="noticeAllGetTotal" resultType="int">
+  		SELECT COUNT(*) FROM NOTICE
+			WHERE title LIKE CONCAT ('%', #{keyword}, '%') OR
+				contents LIKE CONCAT ('%', #{keyword}, '%')
+	</select>
 </mapper>

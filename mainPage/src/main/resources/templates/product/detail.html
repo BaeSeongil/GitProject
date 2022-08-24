@@ -12,16 +12,24 @@ html, body {
 footer {
 	flex: 1;
 	height: auto;
-  	position: relative;
 }
 #wrapper {	
 	height: auto;
-  	/* min-height: 100%; */
   	position: relative;
 }
 </style>
+
 </head>
 <body>
+<script> 
+  function submit2(frm) { 
+	
+    frm.action='/order/inserts.do'; 
+	
+    frm.submit(); 
+    return true; 
+  } 
+</script> 
 	<header th:insert="/gAndB"></header>
 	<header th:insert="/headerNav"></header>
 
@@ -61,6 +69,7 @@ footer {
 				<div class="col-auto mb-3">
 					<h4 th:text="${product.productid}" style="text-align: center;"></h4>
 				</div>
+
 				<form class="row g-3 justify-content-center" method="post" action="/basket/insert.do">
 
 				  	<div class="col-8 mb-3">
@@ -77,37 +86,31 @@ footer {
 						    </th:block>
 					 	</select> 
 					</div>  
-   
-
 					<div class="col-8 mb-3">
 					    <label for="price" class="form-label mt-3">price</label>
 					    <input th:value="${product.price}" class="form-control form-control-sm" id="price" disabled>
 	  			    </div>
-	  			   	  			   
 	  			    <div class="col-8 mb-3">
 	  			     <label for="count" class="form-label mt-3">개수</label>
                     <input class="form-control text-center me-3" id="count" name="count" type="number" value="1"
                                style="max-width: 20rem"/>
                     </div>
-	  			    
 	  			    <section class="justify-content-around">
 					  	<div class="col-12 mt-3">
-						    <button type="submit" class="btn btn-outline-success">Add Cart</button>
-							<button class="btn btn-outline-dark flex-shrink-0" type="submit">
-	                        <i class="bi-cart-fill me-1"></i>
-	                        장바구니
-                        </button> 
 
+					    <button type="button" class="btn btn-outline-success" onclick="submit2(this.form)">구매 하기</button>
+						<button class="btn btn-outline-dark flex-shrink-0" type="submit"></button> 
+						<button class="btn btn-outline-dark flex-shrink-0" type="submit">
+                        	<i class="bi-cart-fill me-1"></i>
+                        장바구니
+                        </button> 
 					 	</div>
 				 	</section>
-				 	
-				 	
 				</form>
 			</div>
 			</section>
 		</main>
 	</div>
-	
 </body>
 		<footer th:insert="/footer"></footer>
 </html>

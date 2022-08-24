@@ -55,28 +55,6 @@
 					</select>
 				</div>
 			</div>
-			
-			<!-- productGroup 테이블에서 빼면 그때 지울게요 -->
-			<div class="row mb-3 g-3 align-items-center">
-				<div class="col-auto">
-				    <label for="inputGroup" class="form-label mt-3">분류 (카테고리와 동일하게 체크)</label>
-				</div>
-			    <div>
-				    <select id="inputGroup" name="productGroup" class="form-select " aria-label=".form-select-sm example">
-					    <option>== 사이즈 == </option>
-					    <th:block th:each="p : ${product}">
-						    <option th:value="${p.productGroup}" th:text="${p.productGroup}+'(Selected)'" selected></option>
-						    <option value="1">1(상의)</option>
-							<option value="2">2(하의)</option>
-							<option value="3">3(아우터)</option>
-							<option value="4">4(신발)</option>
-							<option value="5">5(모자)</option>   
-					    </th:block>
-				 	</select> 
-				</div>
-			</div>
-
-			
 			<div class="row mb-3 g-3 align-items-center">
 				<div class="col-auto">
 				    <label for="inputSize" class="form-label mt-3">사이즈</label>

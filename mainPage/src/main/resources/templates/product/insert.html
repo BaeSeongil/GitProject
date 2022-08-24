@@ -37,8 +37,8 @@
 			</div>
 			<div class="row mb-3 g-3 align-items-center">
 				<div class="col-auto">
-					<label for="inputCate" class="col-form-label"><span>카테고리</span></label>
-					<select id="inputCate" class="form-control" name="category.categoryId" aria-describedby="idHelp" required>
+					<label for="inputCate" class="col-form-label"><span class="width">카테고리</span></label>
+					<select id="inputCate" class="form-control" name="categoryId" aria-describedby="idHelp" required>
 						<option value="none" selected="selected">=== 선택 ===</option>
 						<option value="1">상의</option>
 						<option value="2">하의</option>
@@ -50,14 +50,53 @@
 			</div>
 			<div class="row mb-3 g-3 align-items-center">
 				<div class="col-auto">
-					<label for="inputGroup" class="col-form-label"><span>분류 (카테고리와 동일하게 선택)</span></label>
-					<select id="inputGroup" class="form-control" name="productGroup" aria-describedby="idHelp" required>
+					<label for="inputSize" class="col-form-label"><span class="width">사이즈</span></label>
+					<select id="idHelp" class="form-control" style="display: none;">
 						<option value="none" selected="selected">=== 선택 ===</option>
-						<option value="1">상의</option>
-						<option value="2">하의</option>
-						<option value="3">아우터</option>
-						<option value="4">신발</option>
-						<option value="5">모자</option>
+						<option value="S">S</option>
+						<option value="M">M</option>
+						<option value="L">L</option>
+						<option value="XL">XL</option>
+					</select>
+					<select id="idHelp2" class="form-control" style="display: none;">
+						<option value="none" selected="selected">=== 선택 ===</option>
+						<option value="230">230</option>
+						<option value="235">235</option>
+						<option value="240">240</option>
+						<option value="245">245</option>
+						<option value="250">250</option>
+						<option value="255">255</option>
+						<option value="260">260</option>
+						<option value="265">265</option>
+						<option value="270">270</option>
+					</select>
+					<select id="idHelp3" class="form-control" style="display: none;">
+						<option value="none" selected="selected">=== 선택 ===</option>
+						<option value="54">54</option>
+						<option value="55">55</option>
+						<option value="56">56</option>
+						<option value="57">57</option>
+						<option value="58">58</option>
+						<option value="59">59</option>
+						<option value="60">60</option>
+						<option value="61">61</option>
+					</select>
+				</div>
+			</div>
+			<div class="row mb-3 g-3 align-items-center">
+				<div class="col-auto">
+					<label for ="inputColor" class="col-form-label"><span class="width">색상</span></label>
+					<select id="inputColor" class="form-control" name="productColor" style="display: none;">
+						<option value="none" selected="selected">=== 선택 ===</option>
+						<option value="White">White</option>
+						<option value="Beige">Beige</option>
+						<option value="Yellow">Yellow</option>
+						<option value="Green">Green</option> 
+						<option value="Skyblue">Skyblue</option> 
+						<option value="Blue">Blue</option>     
+						<option value="Pink">Pink</option>  
+						<option value="Black">Black</option>    
+						<option value="Brown">Brown</option> 
 					</select>
 				</div>
 			</div>
@@ -70,76 +109,6 @@
 				<input name="imgFiles" class="form-control mb-1" type="file" >
 				<input name="imgFiles" class="form-control mb-1" type="file" >
 			</div>
-			
-			<div class="row mb-3 g-3 align-items-center">
-				<div class="col-auto">
-					<label for ="inputSize" class="col-form-label"><span class="width">사이즈</span></label>
-				</div>
-				<div class="col-auto">
-					<select id="inputSize" name="productSize" class="form-control">
-						<option value="none" selected="selected">선택</option>
-						<option value="none">=== 의류 ===</option>
-						<option value="S">S</option>
-						<option value="M">M</option>
-						<option value="L">L</option>
-						<option value="XL">XL</option>
-						<option value="none">=== 신발 ===</option>
-						<option value="230">230</option>
-						<option value="235">235</option>
-						<option value="240">240</option>
-						<option value="245">245</option>
-						<option value="250">250</option>
-						<option value="255">255</option>
-						<option value="260">260</option>
-						<option value="265">265</option>
-						<option value="270">270</option>
-					</select>
-				</div>
-				<!-- 아악 죄송해요 ㅠㅠㅠ -->
-				<!-- <div class="col-auto">
-					<select id="idHelp2" class="form-control">
-						<option value="none" selected="selected">=== 신발 ===</option>
-						<option value="230">230</option>
-						<option value="235">235</option>
-						<option value="240">240</option>
-						<option value="245">245</option>
-						<option value="250">250</option>
-						<option value="255">255</option>
-						<option value="260">260</option>
-						<option value="265">265</option>
-						<option value="270">270</option>
-					</select>
-					<select id="idHelp3" class="form-control" style="display: none;">
-						<option value="none" selected="selected">=== 사이즈 ===</option>
-						<option value="54">54</option>
-						<option value="55">55</option>
-						<option value="56">56</option>
-						<option value="57">57</option>
-						<option value="58">58</option>
-						<option value="59">59</option>
-						<option value="60">60</option>
-						<option value="61">61</option>
-					</select>
-				</div>				 -->
-			</div>
-			<div class="row mb-3 g-3 align-items-center">
-				<div class="col-auto">
-					<label for ="inputColor" class="col-form-label"><span class="width">색상</span></label>
-					<select id="inputColor" class="form-control" name="productColor" aria-describedby="idHelp">
-						<option value="none" selected="selected">=== 색상 ===</option>
-						  <option value="White">White</option>
-						  <option value="Beige">Beige</option>
-						  <option value="Yellow">Yellow</option>
-						  <option value="Green">Green</option> 
-						  <option value="Skyblue">Skyblue</option> 
-						  <option value="Blue">Blue</option>     
-						  <option value="Pink">Pink</option>  
-						  <option value="Black">Black</option>    
-						  <option value="Brown">Brown</option> 
-					</select>
-				</div>
-			</div>
-			
 			<div class="row mb-3 g-3 align-items-center">
 				<div class="col-auto">
 					<label for="inputStock" class="col-form-label"><span class="width">상품재고</span></label>
