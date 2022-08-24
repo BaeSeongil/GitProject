@@ -41,11 +41,11 @@
 				    <label for="inputCategory" class="form-label mt-3">카테고리</label>
 			    </div>
 			    <div>
-					<select id="inputCategory" name="categoryId" class="form-select"
+					<select id="inputCategory" name="category.categoryId" class="form-select"
 						aria-label=".form-select-sm example">
 						<option>== 카테고리 ==</option>
 						<th:block>
-							<option th:value="${product.category?.categoryId}"></option>
+							<option th:value="${product.category?.categoryId}" th:text="${product.category?.categoryId}+'(Selected)'" selected></option>
 							<option value="1">1(상의)</option>
 							<option value="2">2(하의)</option>
 							<option value="3">3(아우터)</option>
