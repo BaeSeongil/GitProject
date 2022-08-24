@@ -31,7 +31,7 @@
 	<header th:insert="/headerNav"></header>
 <!-- 	<p th:text="${noticeList}"></p> -->
 	<div class="container">
-		<div class = "d-flex justify-content-between mt-5 align-items-center">
+		<div class="m-3 d-flex justify-content-between align-items-center">
 			<h1>공지사항</h1>
 			<a href="/notice/insert.do" class="btn btn-primary">공지사항 등록</a>
 		</div>
@@ -59,39 +59,21 @@
 				</th:block>
 			</tbody>
 		</table>
-	</div>
-	<div id="footerConfig">
-		<ul style="margin-left:0; padding:0;">
-			<li class="footerList">
-				<a href="/users/agreement">서비스이용약관</a>
-			</li>
-			<li class="footerList">
-				<a href="/users/privacy">개인정보취급방침</a>
-			</li>
-			<li class="footerList">
-				<a href="/users/emailRejection">이메일무단수집거부</a>
-			</li>
-		</ul>
-		<address>
-			<span>
-			서울특별시 마포구 양화로 122 LAB7 빌딩 3층, 4층
-			<b>|</b>
-			회사명 : 에이콘 쇼핑몰
-			<b>|</b>
-			대표 : 
-			<b>|</b>
-			</span>
-		</address>
-		<div class="fInfo">
-			<span>
-				사업자번호 : 111-11-77777
-				<b>|</b>
-				개인정보 보호관리자 : 
-			</span>
-			<span>COPYRIGHTⓒ2022 Acorn. All Right Reserved.</span>
-		
+		<div class="d-flex justify-content-evenly">
+			<div  th:insert="/pagination.html"></div>
+			<form action="/notice/search/1" id="searchForm" method="get">
+				<select name="type" class="form-control" style="display: inline; width : 150px;">
+					<option value="none">=== 선택 ===</option>
+					<option value="T">제목</option>
+					<option value="C">내용</option>
+				</select>
+				<div class=search_input style="display: inline;">
+					<input type="text" name="keyword" value="">
+					<button class="btn btn-outline-primary">검색</button>
+				</div>
+			</form>
 		</div>
 	</div>
 </body>
-
+<footer th:insert="/footer"></footer>
 </html>

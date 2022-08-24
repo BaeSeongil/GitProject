@@ -63,7 +63,7 @@
 			userid as 'users.userid'
 			FROM BOARD
 			ORDER BY board_no 
-			LIMIT #{startRow}, #{row}
+			LIMIT #{startRow},#{pageSize}
 	</select>
 	<select id="selectPageAllCount" resultType="int">
 		SELECT COUNT(*)
@@ -135,9 +135,47 @@
 			contents=#{contents}
 			WHERE board_no=#{board_no}
 	</update>
-
-
-
-
-
+	<!-- criteria(검색조건) -->
+	<sql id="criteria">
+		    <trim prefix="WHERE (" suffix=")" prefixOverrides="AND">
+	  		<foreach item="type" collection="typeArr">
+	  			<trim prefix="AND">
+	  				<choose>
+	  					<when test="type == 'B'.toString()">
+	  						<trim prefixOverrides="or">
+			  					<foreach collection="boardArr" item="board_no">
+			  						<trim prefix="or">
+			  							board_no = #{board_no}
+			  						</trim>
+			  					</foreach>  						
+	  						</trim>
+	  					</when>
+	  					<when test="type == 'T'.toString()">
+	  						b.title LIKE CONCAT ('%', #{keyword}, '%')
+	  					</when>
+	  					<when test="type == 'C'.toString()">
+	  						b.contents LIKE CONCAT ('%', #{keyword}, '%')
+	  					</when>  					
+	  					<when test="type == 'U'.toString()">
+	  						u.userid LIKE CONCAT ('%', #{keyword}, '%')
+	  					</when>  					
+	  				</choose>
+	  			</trim>
+	  		</foreach>
+	  	</trim>
+	</sql>
+	<select id="searchBoard" resultMap="BoardMap">
+			SELECT  b.*, u.userid
+			FROM BOARD b LEFT JOIN USERS u using(userid)
+			<include refid="criteria"></include>
+			order by board_no desc 
+			limit #{skip}, #{amount}	
+	</select>
+	<select id="boardGetTotal" resultType="int">
+  		SELECT COUNT(*) FROM BOARD b LEFT JOIN USERS u using(userid)
+		<include refid="criteria"></include>
+	</select>
+	<select id="selectSearchAll" resultMap="BoardMap">
+		SELECT * FROM PRODUCT FROM BOARD b LEFT JOIN USERS u using(userid) LIMIT #{skip}, #{amount}
+	</select>
 </mapper>

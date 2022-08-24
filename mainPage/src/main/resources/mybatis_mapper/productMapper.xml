@@ -97,7 +97,6 @@
 			<include refid="criteria"></include>
 			order by productid desc 
 			limit #{skip}, #{amount}	
-	
 	</select>
 	<!-- 상품 총 개수 -->
 	<select id="productsGetTotal" resultType="int">

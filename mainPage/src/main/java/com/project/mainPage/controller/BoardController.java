@@ -27,7 +27,9 @@ import com.project.mainPage.dto.UsersDto;
 import com.project.mainPage.service.BoardService;
 import com.project.mainPage.dto.Board;
 import com.project.mainPage.dto.BoardPrefer;
+import com.project.mainPage.dto.Criteria;
 import com.project.mainPage.dto.Pagination;
+import com.project.mainPage.dto.Product;
 import com.project.mainPage.dto.Reply;
 import com.project.mainPage.dto.ReplyPrefer;
 import com.project.mainPage.mapper.BoardImgMapper;
@@ -61,16 +63,21 @@ public class BoardController {
 	
 	@Value("${spring.servlet.multipart.location}") //파일이 임시저장되는 경로+파일을 저장할 경로
 	private String savePath;
+	
 	@GetMapping("/list/{page}")
 	public String list(@PathVariable int page, Model model) {
-		int row =5;
+		int row =10;
 		int startRow = (page-1)*row;
-		
 		List<Board> boardList = boardMapper.selectPageAll(startRow, row);
-		int rowCount = boardMapper.selectPageAllCount();
-		Pagination paging = new Pagination(page, rowCount, "/board/list/", row);
-		model.addAttribute("paging",paging);
+		int count = boardMapper.selectPageAllCount();
+		
+		Pagination pagination = new Pagination(page, count, "/board/list/", row);
+		System.out.println(pagination);
+		model.addAttribute("pagination", pagination);
 		model.addAttribute("boardList", boardList);
+		model.addAttribute("row", row);
+		model.addAttribute("count", count);
+		model.addAttribute("page", page);
 		return "/board/list";
 	}
 	
@@ -255,8 +262,30 @@ public class BoardController {
 		}else{
 			return "redirect:/users/login.do";
 		}       
-	};
-		
+	}
+	@GetMapping("/search/{page}")
+	public String searchProduct(
+			@RequestParam(value = "type") String type,
+			@RequestParam(value = "keyword") String keyword,
+			@PathVariable int page, Criteria cri, Model model) {
+		int row = 10;
+		int startRow = (page - 1) * row;
+		cri.setAmount(row);
+		cri.setSkip(startRow);
+		List<Board> list= boardMapper.searchBoard(cri);
+		int count = boardMapper.boardGetTotal(cri);
+		  if(!list.isEmpty()) { model.addAttribute("list",list);
+		  }else { model.addAttribute("listCheck","empty"); return "/board/search"; }
+		Pagination pagination = new Pagination(page, count, "/board/search/", row);
+		System.out.println(pagination);
+		model.addAttribute("pagination", pagination);
+		model.addAttribute("list", list);
+		System.out.println("list : "+list);
+		model.addAttribute("row", row);
+		model.addAttribute("count", count);
+		model.addAttribute("page", page);
+		return "/board/search";
+	}	
 	
 }
 	
