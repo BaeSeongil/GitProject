@@ -40,8 +40,16 @@
 	            <tbody>
 				<tr th:each="baskets : ${basketList}">
 					<td class="product-close">
-						<input type="checkbox"></td>
+						<input type="checkbox">
+					</td>
+					<td>
+						<img  style="height:150px; width:150px; object-fit:cover;"
+				 			class="img-thumbnail" alt="상품 이미지">
+				 		<p th:text="${baskets.product.productName}"></p> 
+					</td>
+					<td th:text="${baskets.product.price}"></td>
 					<td th:text="${baskets.count}"></td>
+					<td th:text="${baskets.product.price * baskets.count}"></td>
 				</tr>
 			</tbody>
 			</table>

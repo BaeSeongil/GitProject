@@ -79,7 +79,7 @@ footer {
 					 <div class="col-8 mb-3">
 					    <label for="pSize" class="form-label mt-3">사이즈</label>
 					    
-					    <select name="productid" class="form-select form-select-sm " aria-label=".form-select-sm example">
+					    <select name="product.productid" class="form-select form-select-sm " aria-label=".form-select-sm example">
 						    <option selected>- size -</option>
 						    <th:block th:each="p : ${products}">
 							    <option  th:value="${p.productid}" th:text="${p.productSize+' '+p.productColor}"></option>
@@ -93,19 +93,27 @@ footer {
 	  			    </div>
 	  			   	  			   
 	  			    <div class="col-8 mb-3">
-	  			     <label for="count" class="form-label mt-3">개수</label>
-                    <input class="form-control text-center me-3" id="count" name="count" type="number" value="1"
-                               style="max-width: 20rem"/>
+		  			    <label for="count" class="form-label mt-3">개수</label>
+	                    <input class="form-control text-center me-3" id="count" name="count" type="number"  style="max-width: 20rem"/>   
                     </div>
-	  			    
+	  			   
 	  			    <section class="justify-content-around">
 					  	<div class="col-12 mt-3">
 
 					    <button type="button" class="btn btn-outline-success" onclick="submit2(this.form)">구매 하기</button>
-						<button class="btn btn-outline-dark flex-shrink-0" type="submit">
-	                        <i class="bi-cart-fill me-1"></i>
-	                        장바구니
-                        </button> 
+					    <th:block th:if="${session.loginUsers?.userid != null}">
+							<button class="btn btn-outline-dark flex-shrink-0" type="submit">
+		                        <i class="bi-cart-fill me-1"></i>
+		                        장바구니 
+	                        </button> 
+					    </th:block>
+					    <th:block th:unless="${session.loginUsers?.userid != null}">
+							<a class="btn btn-outline-dark flex-shrink-0" 
+								href="/users/login.do">
+		                        <i class="bi-cart-fill me-1"></i>
+		                        장바구니
+	                        </a> 
+					    </th:block>
 
 					 	</div>
 				 	</section>
