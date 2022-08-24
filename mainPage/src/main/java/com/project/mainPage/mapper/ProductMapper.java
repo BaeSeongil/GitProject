@@ -29,5 +29,6 @@ public interface ProductMapper {
 	public String[] getProductIdList(String keyword);
 	
 	int updateOne (Product product);
+	int insertOne (Product product);
 
 }

@@ -1,4 +1,14 @@
 package com.project.mainPage.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import com.project.mainPage.dto.Product;
+import com.project.mainPage.dto.ProductImg;
+import com.project.mainPage.mapper.ProductImgMapper;
+import com.project.mainPage.mapper.ProductMapper;
+
 //
 //import java.util.ArrayList;
 //import java.util.List;
@@ -10,8 +20,34 @@ package com.project.mainPage.service;
 //import com.project.mainPage.dto.Product;
 //import com.project.mainPage.mapper.ProductMapper;
 
-//@Service
-//public class ProductService {
+@Service
+public class ProductService {
+
+	@Autowired
+	private ProductMapper productMapper;
+	
+	@Autowired
+	private ProductImgMapper productImgMapper;
+	
+	@Value("${spring.servlet.multipart.location}")
+	String savePath;
+	
+	public int registProduct(Product product) throws Exception {
+		int regist = 0;
+		regist = productMapper.insertOne(product);
+		int imgRegist = 0;
+		if (regist>0 && product.getProductImgs()!=null) {
+			for (ProductImg productImg : product.getProductImgs()) {
+				productImg.setProductid(product.getProductid());
+				imgRegist += productImgMapper.insertOne(productImg);
+			}
+		}
+		System.out.println("상품 등록: " + regist);
+		System.out.println("상품 이미지 등록: "+ imgRegist);
+		return regist;
+	}
+	
+}
 //	@Autowired
 //	private ProductMapper productMapper;
 //	
@@ -35,4 +71,5 @@ package com.project.mainPage.service;
 //		return productMapper.productsGetTotal(cri);
 //	}
 //}
+
 
