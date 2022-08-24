@@ -20,6 +20,10 @@
 				<id column="categoryId" property="categoryId"/>
 				<result column="categoryName" property="categoryName"/>
 		</association>
+		<collection property="productImgs" javaType="java.util.ArrayList" ofType="ProductImg">
+				<id column="iproduct_img_no" property="product_img_no"/>
+				<result column="iimg_path" property="img_path"/>
+		</collection>
 	</resultMap>
 
 	<select id="selectAll" resultMap="ProductMap">
@@ -32,8 +36,14 @@
  	</select>
 	
 	<select id="selectOne" resultMap="ProductMap">
-		SELECT *
-			FROM PRODUCT
+		SELECT 
+			p.*,
+			i.product_img_no as iproduct_img_no,
+			i.img_path as iimg_path
+			FROM PRODUCT p
+			LEFT JOIN PRODUCT_IMG i
+			USING(productid)
+			
 			WHERE productid=#{productid}
 	</select>
 	<select id="selectByProductName" resultMap="ProductMap">
@@ -50,7 +60,8 @@
 			productGroup=#{productGroup},
 			productInfo=#{productInfo},
 			productStock=#{productStock},
-			price=#{price}
+			price=#{price},
+			categoryid=#{category.categoryId}
 			WHERE productid=#{productid}
 	</update>
 	

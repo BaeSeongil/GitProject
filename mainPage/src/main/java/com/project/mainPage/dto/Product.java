@@ -1,6 +1,7 @@
 package com.project.mainPage.dto;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -44,5 +45,8 @@ public class Product {
 	//검색필터
 	private String type;
 	private String keyword;
+	
+	//상품 이미지
+	private List<ProductImg> productImgs; // 1:N PRODUCT_IMG.productid 
 
 }

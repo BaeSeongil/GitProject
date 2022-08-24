@@ -175,6 +175,36 @@ public class UsersController {
 		return "/users/search";
 	}
 	
+	
+	/*
+	 	@PostMapping("/login.do")
+		public String login(
+				@RequestParam(value="userid") String userId, 
+				@RequestParam(value="userpw") String userPw,
+				HttpSession session) {
+			UsersDto users = null;
+			try {
+				users = usersMapper.selectIdPwOne(userId, userPw);
+			}catch(Exception e) {e.printStackTrace();}
+			
+			if(users != null) {
+				session.setAttribute("loginUsers", users);
+				System.out.println("로그인 성공! " + users);
+				return "redirect:/";
+			}else {
+				return "redirect:/users/login.do";				
+			}
+	}
+	 */
+	
+//	@GetMapping("/cart/insert.do")
+//	public void insert() {}
+//	
+//	@PostMapping("/cart/insert.do")
+//	public String insert(HttpSession session) {
+//		
+//	}
+	
 	//푸터 연결용
 	@GetMapping("/agreement")
 	public void agreement() {};

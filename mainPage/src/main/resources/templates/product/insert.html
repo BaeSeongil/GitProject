@@ -18,7 +18,7 @@
 			<span>상품등록</span>
 		</h1>
 	<main class="d-flex justify-content-center" >
-		<form action="/product/insert.do" name="insertForm" method="post">
+		<form action="/product/insert.do" name="insertForm" method="post" enctype="multipart/form-data">
 			<div class="row mb-3 g-3 align-items-center">
 				<div class="col-auto labelSize">
 					<label for ="inputName" class="col-form-label"><span class="width">상품명</span></label>
@@ -28,11 +28,17 @@
 				</div>
 			</div>
 			<div class="row mb-3 g-3 align-items-center">
-				<div class="col-auto">
-					<label for="inputCate" class="col-form-label"><span class="width">카테고리</span></label>
+				<div class="col-auto labelSize">
+					<label for ="inputId" class="col-form-label"><span class="width">상품번호</span></label>
 				</div>
+				<div class="col-auto d-flex justify-content-between">
+					<input id="inputId" class="form-control" name="productid" type="text" required>
+				</div>
+			</div>
+			<div class="row mb-3 g-3 align-items-center">
 				<div class="col-auto">
-					<select id="inputCate" class="form-control" name="categoryId" aria-describedby="idHelp" required>
+					<label for="inputCate" class="col-form-label"><span>카테고리</span></label>
+					<select id="inputCate" class="form-control" name="category.categoryId" aria-describedby="idHelp" required>
 						<option value="none" selected="selected">=== 선택 ===</option>
 						<option value="1">상의</option>
 						<option value="2">하의</option>
@@ -42,13 +48,11 @@
 					</select>
 				</div>
 			</div>
+			
 			<div class="row mb-3 g-3 align-items-center">
 				<div class="col-auto">
-					<label for ="inputSize" class="col-form-label"><span class="width">사이즈</span></label>
-				</div>
-				<div class="col-auto">
 					<select id="idHelp" class="form-control" style="display: none;">
-						<option value="none" selected="selected">=== 선택 ===</option>
+						<option value="none" selected="selected"></option>
 						<option value="S">S</option>
 						<option value="M">M</option>
 						<option value="L">L</option>
@@ -77,17 +81,34 @@
 						<option value="60">60</option>
 						<option value="61">61</option>
 					</select>
-				</div>				
+				</div>
 			</div>
 			<div class="row mb-3 g-3 align-items-center">
 				<div class="col-auto">
 					<label for ="inputColor" class="col-form-label"><span class="width">색상</span></label>
+					<select id="inputColor" class="form-control" name="productColor" aria-describedby="idHelp">
+						<option value="none" selected="selected">=== 색상 ===</option>
+						  <option value="White">White</option>
+						  <option value="Beige">Beige</option>
+						  <option value="Yellow">Yellow</option>
+						  <option value="Green">Green</option> 
+						  <option value="Skyblue">Skyblue</option> 
+						  <option value="Blue">Blue</option>     
+						  <option value="Pink">Pink</option>  
+						  <option value="Black">Black</option>    
+						  <option value="Brown">Brown</option> 
+					</select>
 				</div>
-				<div class="col-auto">
-					<input id="inputColor" class="form-control" name="productColor" type="text" aria-describedby="pwHelp" required>
-				</div>	
 			</div>
-			
+			<!-- 상품 이미지 -->
+			<div class="mb-3">
+				<label for="inputImgs" class="form-label">상품 이미지</label>
+				<input name="imgFiles" class="form-control mb-1" type="file" >
+				<input name="imgFiles" class="form-control mb-1" type="file" >
+				<input name="imgFiles" class="form-control mb-1" type="file" >
+				<input name="imgFiles" class="form-control mb-1" type="file" >
+				<input name="imgFiles" class="form-control mb-1" type="file" >
+			</div>
 			<div class="row mb-3 g-3 align-items-center">
 				<div class="col-auto">
 					<label for="inputStock" class="col-form-label"><span class="width">상품재고</span></label>
@@ -101,7 +122,7 @@
 			   		<label for="inputPrice" class="col-form-label"><span class="width">가격</span></label>
 				</div>
 				<div class="col-auto" >
-					<input type="number" name="signup" id="inputPrice" class="form-control" required>
+					<input type="number" name="price" id="inputPrice" class="form-control" required>
 				</div>
 			</div>
 			<div class="row mb-3 g-3 align-items-center">
@@ -110,6 +131,14 @@
 				</div>
 				<div class="col-auto">
 					<textarea name="productInfo" id="inputInfo" class="form-control"></textarea>
+				</div>
+			</div>
+			<div class="row mb-3 g-3 align-items-center">
+				<div class="col-auto">
+			   		<label for="inputProductDate" class="col-form-label"><span class="width">등록일</span></label>
+				</div>
+				<div class="col-auto" >
+					<input type="datetime-local" name="productDate" id="inputProductDate" class="form-control">
 				</div>
 			</div>
 			<div class="row mb-3 g-3 align-items-center">

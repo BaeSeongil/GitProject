@@ -45,7 +45,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr id="detail" th:each="product : ${productList}" th:onclick="location.href='/product/detail/[[${product.productid}]]'">
+					<tr id="detail" th:each="product : ${productList}" th:onclick="location.href='/product/update/[[${product.productid}]]'">
 						<td th:text="${product.productid}"></td>
 						<td th:text="${product.productName}"></td>
 						<td th:text="${product.productSize}"></td>

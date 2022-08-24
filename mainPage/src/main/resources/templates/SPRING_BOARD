@@ -382,6 +382,12 @@ VALUES (1, 'Shirt', 'S', 'White', '상의',5,'2022-08-02', 25000, 1),
 (66, 'Bucket Hat', '57', 'Brown', '모자',4,'2022-06-30', 25000, 5),
 (67, 'Bucket Hat', '54', 'Brown', '모자',4,'2022-06-30', 24000, 5);
 
+
+INSERT INTO PRODUCT (productid, productName, productSize, productColor, productGroup, productStock, productDate, price, categoryid) 
+VALUES
+('111','데님1','29','blue','하의',4,'2022-06-30','21000','20'),
+('112','데님1','30','black','하의',4,'2022-06-30','29000','20');
+
  SELECT 
 	board_no no, 
 	title, 

@@ -32,8 +32,9 @@ public class ShoppingBasketController {
 		if(session.getAttribute("loginUsers")!=null) { 
 			basket.setUserid(loginUsers.getUserid());
 			System.out.println(basket);
-			int insert=basketMappper.insertOne(basket);
+			int insert = 0;
 			//장바구니 페이지로 이동 
+			insert=basketMappper.insertOne(basket);
 			if(insert>0) {
 				return "redirect:/basket/list/1";				
 			}
