@@ -24,42 +24,37 @@ footer {
 <body>
 	<header th:insert="/gAndB"></header>
 	<header th:insert="/headerNav"></header>
-	
-<!-- 	<div class="d-grid">
-		<div style="padding: 50px;"></div>
-		<div class="d-flex mb-10 justify-content-evenly">
-			<a href="/product/update.do" class="btn btn-outline-secondary">상품 수정</a>
-		</div>
-	</div> -->
+
 	<div id="wrapper">
 		<main class="mt-5 container">
 			<section  style="display: table-cell; vertical-align: top;">
-				<figure class="d-flex figure justify-content-center">
-					<th:block th:each="productImg : ${product.productImgs}">
-						<img th:src="@{/public/img/{fileName}(fileName=${productImg.img_path})}"
-						style="height:500px; width:500px; object-fit:cover;"
-						class="figure-img img-fluid rounded" alt="상품 이미지">
-					</th:block>
-					<!-- <figcaption class="figure-caption text-end">
-					A caption for the above image.
-					</figcaption> -->
-				</figure>
-				
-			<div>
-				<div class="mb-3">
-					Lorem Ipsum is simply dummy text of the printing 
-					and typesetting industry. Lorem Ipsum has been the 
-					industry's standard dummy text ever since the 1500s,
-					 when an unknown printer took a galley of type and 
-					 scrambled it to make a type specimen book. It has 
-					 survived not only five centuries, but also the leap into electronic 
-					 typesetting, remaining essentially unchanged. It was popularised in 
-					 the 1960s with the release of Letraset sheets containing Lorem Ipsum 
-					 passages, and more recently with desktop publishing software like Aldus 
-					 PageMaker including versions of Lorem Ipsum.
-					 
+				<div>
+					<figure class="d-flex figure justify-content-center">
+						<th:block th:each="productImg : ${product.productImgs}">
+							<img th:src="@{/public/img/{fileName}(fileName=${productImg.img_path})}"
+							style="height:300px; width:300px;"
+							class="figure-img img-fluid rounded" alt="상품 이미지">
+						</th:block>
+						<!-- <figcaption class="figure-caption text-end">
+						A caption for the above image.
+						</figcaption> -->
+					</figure>
+				</div>	
+				<div>
+					<div class="mb-3">
+						Lorem Ipsum is simply dummy text of the printing 
+						and typesetting industry. Lorem Ipsum has been the 
+						industry's standard dummy text ever since the 1500s,
+						 when an unknown printer took a galley of type and 
+						 scrambled it to make a type specimen book. It has 
+						 survived not only five centuries, but also the leap into electronic 
+						 typesetting, remaining essentially unchanged. It was popularised in 
+						 the 1960s with the release of Letraset sheets containing Lorem Ipsum 
+						 passages, and more recently with desktop publishing software like Aldus 
+						 PageMaker including versions of Lorem Ipsum.
+						 
+					</div>
 				</div>
-			</div>
 			</section>
 			<section style="display: table-cell; vertical-align: top;">
 			<div class="side_bar">
@@ -74,18 +69,7 @@ footer {
 				   			id="pName" disabled>
 					 </div>
 					 <div class="col-8 mb-3">
-
-					 <!--    <label for="pSize" class="form-label mt-3">사이즈(색상)</label>
-						    <select class="form-select form-select-sm " aria-label=".form-select-sm example" id="pSize">
-						    		<option>-- 선택 --</option>
-						    		<option th:each="product : ${products}" th:if="${product.productSize!=null}"
-						    			th:text="${product.productSize} +'('+ ${product.productColor} +')'">
-						    		</option>
-						 	</select>
-					</div> -->
-
 					    <label for="pSize" class="form-label mt-3">사이즈</label>
-					    
 					    <select name="productid" class="form-select form-select-sm " aria-label=".form-select-sm example">
 						    <option selected>- size -</option>
 						    <th:block th:each="p : ${products}">
