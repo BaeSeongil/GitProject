@@ -62,7 +62,9 @@
 			WHERE productid=#{productid}
 	</update>
 	
-	 <insert id="insertOne" parameterType="Product">
+
+	 <insert id="insertOne" parameterType="Product"
+	 useGeneratedKeys="true" keyProperty="productid">
 
       INSERT INTO PRODUCT (productName,productSize,productColor,
          productInfo,productStock,productDate,

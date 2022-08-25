@@ -118,7 +118,16 @@ CREATE TABLE PRODUCT_IMG(
 	productid INT NOT NULL, 
 	img_path VARCHAR(255) NOT NULL,
 	PRIMARY KEY(product_img_no),
-	FOREIGN KEY(productid) REFERENCES  PRODUCT(productid)
+	FOREIGN KEY(productid) REFERENCES PRODUCT(productid)
+	ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE BOARD_IMG(
+	board_img_no INT AUTO_INCREMENT,
+	board_no INT NOT NULL,
+	img_path VARCHAR(255) NOT NULL,
+	PRIMARY KEY(board_img_no),
+	FOREIGN KEY(board_no) REFERENCES BOARD(board_no)
 	ON UPDATE CASCADE ON DELETE CASCADE
 );
 
@@ -377,12 +386,6 @@ VALUES (1, 'Shirt', 'S', 'White',5,'2022-08-02', 25000, 1),
 (65, 'Beanie', '54', 'Black',3,'2022-08-08', 13000, 5),
 (66, 'Bucket Hat', '57', 'Brown',4,'2022-06-30', 25000, 5),
 (67, 'Bucket Hat', '54', 'Brown',4,'2022-06-30', 24000, 5);
-
-
-INSERT INTO PRODUCT (productid, productName, productSize, productColor, productStock, productDate, price, categoryid) 
-VALUES
-('111','데님1','29','blue',4,'2022-06-30','21000','20'),
-('112','데님1','30','black',4,'2022-06-30','29000','20');
 
 
  SELECT 
