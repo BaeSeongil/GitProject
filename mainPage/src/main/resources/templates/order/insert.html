@@ -28,9 +28,13 @@
 			      <th:block th:each="order:${proList}">
 					<th:block th:each="p:${order.products}">
 			    	
-						<label for="inputPro" class="form-label">상품 명</label>
+						<label for="inputPro" class="mt-2 form-label">상품 명</label>
 						<input style="max-width: 150px" name="p.productName" class="form-control" id="inputPro" placeholder="" required readonly
 						th:value="${p.productName}">
+						
+						<label for="inputPro" class="mt-2 form-label">상품 사이즈, 컬러</label>
+						<input style="max-width: 150px" name="p.product" class="form-control" id="inputPro" placeholder="" required readonly
+						th:value="${p.productSize+ ' '+p.productColor}">
 						
 						<label for="inputPro2" class="mt-2 form-label">상품 개당 가격</label>
 						<input style="max-width: 150px" name="p.price" class="form-control" id="inputPro2" placeholder="" required readonly
@@ -51,7 +55,8 @@
 			  
 			    
 		    </div>
-		    <button class="btn btn-outline-primary m-5 d-flex justify-content-end" type="submit">결제 하기</button>
+		    <button class="btn btn-outline-primary m-5 justify-content-end" type="submit">결제 하기</button>
+		    <a href="/category/cate/1" class="btn btn-outline-danger justify-content-end">취소 하기</a>
 	 	</form> 	
 	</main>
 </body>
