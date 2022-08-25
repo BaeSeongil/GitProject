@@ -22,7 +22,6 @@
 			<result column="productName" property="productName"/>
 			<result column="productSize" property="productSize"/>
 			<result column="productColor" property="productColor"/>
-			<result column="productGroup" property="productGroup"/>
 			<result column="productInfo" property="productInfo"/>
 			<result column="productStock" property="productStock"/>
 			<result column="productDate" property="productDate"/>

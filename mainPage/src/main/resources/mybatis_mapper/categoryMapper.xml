@@ -24,6 +24,7 @@
 	</resultMap>
 	
 	<select id="selectAll" resultMap="CategoryMap">
+
 		SELECT 
 		c.*, 
 		p.productid, p.productName, p.productSize, p.productColor,
@@ -32,6 +33,7 @@
 		i.img_path as iimg_path
 		
 		FROM CATEGORY c
+
 		LEFT JOIN PRODUCT p USING(categoryId)
 		LEFT JOIN PRODUCT_IMG i USING(productid)
 		
