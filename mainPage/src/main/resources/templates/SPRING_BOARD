@@ -98,7 +98,7 @@ CREATE TABLE CATEGORY (
 );
 
 CREATE TABLE PRODUCT(
-    productid INT,
+    productid INT AUTO_INCREMENT,
     productName VARCHAR(45) NOT NULL,
     productSize VARCHAR(45) NOT NULL,
     productColor VARCHAR(45) NOT NULL,

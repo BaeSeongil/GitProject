@@ -37,10 +37,18 @@ footer {
 <header th:insert="/headerNav"></header>
 
 	<div style="padding: 30px;">
-		<h3 class="mt-5 d-flex justify-content-center align-items-center">ALL</h3>
+		<h3 class="mt-5 d-flex justify-content-center align-items-center">상품 </h3>
 	</div>
 	<div id="wrapper">
 		<div class="container">
+			<figure class="d-flex figure justify-content-center">	
+				<th:block th:each="category:${categoryList}">		
+					<th:block th:each="productImg :${category.productImgs}">
+						<img th:src="@{/public/img/{fileName}(fileName=${productImg.img_path})}"
+						class="card-img-top" style="width: 18rem;" alt="상품 이미지">
+					</th:block>
+				</th:block>
+			</figure>
 			<th:block th:each="category:${categoryList}">
 				<th:block th:each="product:${category.products}">
 					<div id="lefe" class="d-flex m-5 justify-content-start" 

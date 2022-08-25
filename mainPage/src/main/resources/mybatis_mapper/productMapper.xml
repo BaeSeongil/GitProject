@@ -57,7 +57,6 @@
 			productName=#{productName},
 			productSize=#{productSize},
 			productColor=#{productColor},
-			productGroup=#{productGroup},
 			productInfo=#{productInfo},
 			productStock=#{productStock},
 			price=#{price},
@@ -66,12 +65,14 @@
 	</update>
 	
 	<insert id="insertOne" parameterType="Product">
-		INSERT INTO PRODUCT VALUES
-			(#{productid},#{productName},#{productSize},#{productColor},
-			#{productInfo},#{productStock},#{productDate},
-			#{price},#{category.categoryId})
-	</insert>
-	
+      INSERT INTO PRODUCT (productName,productSize,productColor,
+         productInfo,productStock,productDate,
+         price,categoryid)
+       VALUES
+         (#{productName},#{productSize},#{productColor},
+         #{productInfo},#{productStock},#{productDate},
+         #{price},#{category.categoryId})
+   </insert>
 	
 	<!-- criteria(검색조건) -->
 	<sql id="criteria">
