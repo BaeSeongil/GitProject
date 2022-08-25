@@ -43,20 +43,16 @@
 					</tr>
 				</tbody>
 			</table>
-			<div class="d-flex justify-content-evenly">
-				<form action="/product/search/1" id="searchForm" method="get">
-					<select name="type" class="form-control" style="display: inline; width : 150px;">
-						<option value="none">=== 선택 ===</option>
-						<option value="N">상품명</option>
-						<option value="S">사이즈</option>
-						<option value="C">상품분류</option>
-					</select>
-					<div class=search_input style="display: inline;">
-						<input type="text" name="keyword" value="">
-						<button class="btn btn-outline-primary">검색</button>
-					</div>
-				</form>
-			</div>
+			<th:block th:if="${productList!=null}">
+				<div class="d-flex justify-content-evenly">
+					<form action="/search/product/1" id="searchForm" method="get">
+						<div class=search_input>
+							<input type="text" name="keyword" th:value="${param.keyword}" style="display:none;">
+							<button class="btn btn-outline-primary">더보기+</button>
+						</div>
+					</form>
+				</div>
+			</th:block>
 		</div>
 	</div>
 	<hr>
@@ -95,20 +91,16 @@
 					</tr>
 				</tbody>
 			</table>
+			<th:block th:if="${boardList!=null}">
 			<div class="d-flex justify-content-evenly">
-				<form action="/board/search/1" id="searchForm" method="get">
-					<select name="type" class="form-control" style="display: inline; width : 150px;">
-						<option value="none">=== 선택 ===</option>
-						<option value="T">제목</option>
-						<option value="C">내용</option>
-						<option value="U">작성자</option>
-					</select>
-					<div class=search_input style="display: inline;">
-						<input type="text" name="keyword" value="">
-						<button class="btn btn-outline-primary">검색</button>
+				<form action="/search/board/1" id="searchForm" method="get">
+					<div class=search_input>
+						<input type="text" name="keyword" th:value="${param.keyword}" style="display:none;">
+						<button class="btn btn-outline-primary">더보기+</button>
 					</div>
 				</form>
 			</div>
+			</th:block>
 		</div>
 	</div>
 	<hr>
@@ -141,19 +133,16 @@
 					</tr>
 				</tbody>
 			</table>
+			<th:block th:if="${noticeList!=null}">
 			<div class="d-flex justify-content-evenly">
-				<form action="/notice/search/1" id="searchForm" method="get">
-					<select name="type" class="form-control" style="display: inline; width : 150px;">
-						<option value="none">=== 선택 ===</option>
-						<option value="T">제목</option>
-						<option value="C">내용</option>
-					</select>
-					<div class=search_input style="display: inline;">
-						<input type="text" name="keyword" value="">
-						<button class="btn btn-outline-primary">검색</button>
+				<form action="/search/notice/1" id="searchForm" method="get">
+					<div class=search_input>
+						<input type="text" name="keyword" th:value="${param.keyword}" style="display:none;">
+						<button class="btn btn-outline-primary">더보기+</button>
 					</div>
 				</form>
 			</div>
+			</th:block>
 		</div>
 	</div>
 	</th:block>
