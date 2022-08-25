@@ -40,8 +40,6 @@ public class AdminController {
 	
 	@GetMapping("/search/{page}")
 	public String searchProduct(
-			@RequestParam(required = false) String type,
-			@RequestParam(defaultValue = "search") String keyword,
 			@PathVariable int page, Criteria cri, Model model) {
 		int row = 5;
 		int startRow = (page - 1) * row;

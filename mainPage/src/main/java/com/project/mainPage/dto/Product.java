@@ -16,7 +16,6 @@ Product
 | productName  | varchar(45) | NO   |     | NULL    |       |
 | productSize  | varchar(45) | NO   |     | NULL    |       |
 | productColor | varchar(45) | NO   |     | NULL    |       |
-| productGroup | varchar(45) | NO   |     | NULL    |       |
 | productInfo  | text        | YES  |     | NULL    |       |
 | productStock | int         | YES  |     | NULL    |       |
 | productDate  | date        | YES  |     | NULL    |       |
@@ -32,7 +31,6 @@ public class Product {
 	private String productName;
 	private String productSize;
 	private String productColor;
-	private String productGroup;
 	private String productInfo;
 	private int productStock;
 

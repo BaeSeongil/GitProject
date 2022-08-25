@@ -43,7 +43,9 @@
 				</tbody>
 			</table>
 			<div class="d-flex justify-content-evenly">
-				<div  th:insert="/pagination.html"></div>
+				<th:block th:unless="${productList==null}">
+					<div  th:insert="/pagination.html"></div>
+				</th:block>
 				<form action="/product/search/1" id="searchForm" method="get">
 					<select name="type" class="form-control" style="display: inline; width : 150px;">
 						<option value="N">상품명</option>

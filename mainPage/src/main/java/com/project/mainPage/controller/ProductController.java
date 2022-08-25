@@ -117,10 +117,8 @@ public class ProductController {
 		}
 		
 	}
-	
 	@GetMapping("/insert.do")
 	public void insert() {};
-	
 	@PostMapping("insert.do")
 	public String insert(
 			Product product,
@@ -161,10 +159,7 @@ public class ProductController {
 			session.setAttribute("msg", msg);		
 			return "redirect:/product/insert.do";
 		}
-		
-		
 	}
-	
 	@GetMapping("/idCheck/{categoryId}")
 	public @ResponseBody IdCheck idCheck(@PathVariable int categoryId) {
 		IdCheck idCheck = new IdCheck();
@@ -177,8 +172,6 @@ public class ProductController {
 	}
 	@GetMapping("/search/{page}")
 	public String searchProduct(
-			@RequestParam(value = "type") String type,
-			@RequestParam(value = "keyword") String keyword,
 			@PathVariable int page, Criteria cri, Model model) {
 		int row = 10;
 		int startRow = (page - 1) * row;

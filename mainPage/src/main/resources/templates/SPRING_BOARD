@@ -9,7 +9,7 @@ GRANT SELECT, INSERT, UPDATE, DELETE on PROJECT.*to 'project_user'@'localhost';
 USE PROJECT;
 
 CREATE TABLE USERS(
-    userid VARCHAR(45),
+    userid VARCHAR(45) NOT NULL,
     username VARCHAR(45) NOT NULL,
     userpw VARCHAR(45) NOT NULL,
     phone VARCHAR(20) NOT NULL,
@@ -92,13 +92,13 @@ INSERT INTO USERS (userid, username, userpw, phone, email, birth, add2,add1,admi
 
 
 CREATE TABLE CATEGORY (
-	categoryid INT,
+	categoryid INT NOT NULL AUTO_INCREMENT,
     categoryName VARCHAR(45) NOT NULL,
     PRIMARY KEY(categoryid)
 );
 
 CREATE TABLE PRODUCT(
-    productid INT,
+    productid INT NOT NULL AUTO_INCREMENT,
     productName VARCHAR(45) NOT NULL,
     productSize VARCHAR(45) NOT NULL,
     productColor VARCHAR(45) NOT NULL,
@@ -113,7 +113,7 @@ CREATE TABLE PRODUCT(
 );
 
 
-CREATE TABLE productImg(  
+CREATE TABLE PRODUCT_IMG(  
 	product_img_no INT AUTO_INCREMENT,
 	productid INT NOT NULL, 
 	img_path VARCHAR(255) NOT NULL,

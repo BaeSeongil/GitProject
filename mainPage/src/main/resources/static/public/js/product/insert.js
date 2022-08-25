@@ -4,10 +4,10 @@ const idHelp=document.getElementById("idHelp");
 const idHelp2=document.getElementById("idHelp2");
 const idHelp3=document.getElementById("idHelp3");
 
-insertForm["categoryId"].addEventListener("change",checkId);
+insertForm["category.categoryId"].addEventListener("change",checkId);
 function checkId(){
 	let formCheck=false;
-	let v = insertForm["categoryId"].value; //ID 입력되는 값
+	let v = insertForm["category.categoryId"].value; //ID 입력되는 값
 	console.log(v);
 	if(v==1 || v==2 || v==3){
 		formCheck=true;
