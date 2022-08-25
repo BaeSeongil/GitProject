@@ -1,4 +1,4 @@
--<!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
@@ -10,11 +10,11 @@
 	<div id="wrapper">
 		<div  class="container">
 			<h1 class="m-3 d-flex justify-content-between align-items-center" >
-				<span>검색 결과</span>
+				<span>상품 검색 결과</span>
 			</h1>
 			<p>
 				<span style="font-style: italic; font-weight: bold;" th:text=${param.keyword}></span> 검색 결과 수 : 
-				<span class="badge text-bg-primary" th:text="${count}"></span>
+				<span class="badge text-bg-primary" th:text="${productCount}"></span>
 			</p>
 			<table class="table table-hover">
 				<thead>
@@ -30,7 +30,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr id="detail" th:each="product : ${list}" th:onclick="location.href='/product/detail/[[${product.productid}]]'">
+					<tr id="detail" th:each="product : ${productList}" th:onclick="location.href='/product/detail/[[${product.productid}]]'">
 						<td th:text="${product.productid}"></td>
 						<td th:text="${product.productName}"></td>
 						<td th:text="${product.productSize}"></td>
@@ -57,8 +57,8 @@
 				</form>
 			</div>
 		</div>
-		<footer th:insert="/footer"></footer>
 	</div>
+	<footer th:insert="/footer"></footer>
 </body>
 <script>
 function noSpaceForm(obj) { // 공백사용못하게

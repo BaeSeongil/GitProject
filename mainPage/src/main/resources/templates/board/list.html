@@ -57,13 +57,12 @@
 				<div  th:insert="/pagination.html"></div>
 				<form action="/board/search/1" id="searchForm" method="get">
 					<select name="type" class="form-control" style="display: inline; width : 150px;">
-						<option value="none">=== 선택 ===</option>
 						<option value="T">제목</option>
 						<option value="C">내용</option>
 						<option value="U">작성자</option>
 					</select>
 					<div class=search_input style="display: inline;">
-						<input type="text" name="keyword" value="">
+						<input type="text" name="keyword" onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);">
 						<button class="btn btn-outline-primary">검색</button>
 					</div>
 				</form>
@@ -71,4 +70,15 @@
 	</main>
 </body>
 <footer th:insert="/footer"></footer> 
+<script>
+function noSpaceForm(obj) { // 공백사용못하게
+    var str_space = /\s/;  // 공백체크
+    if(str_space.exec(obj.value.trim)) { //공백 체크
+        //alert("해당 항목에는 공백을 사용할수 없습니다.\n\n공백은 자동적으로 제거 됩니다.");
+        obj.focus();
+        obj.value = obj.value.replace(/\s| /gi,''); // 공백제거
+        return false;
+    }
+}
+</script>
 </html>

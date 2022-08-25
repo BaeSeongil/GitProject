@@ -8,7 +8,7 @@
     <div class="d-flex justify-content-end collapse navbar-collapse" >
     	<div class="mb-0">
 	    	<form class="d-flex" action="/search/1" id="searchForm" method="get">
-	        	<input class="form-control" type="text" name="keyword" placeholder="Search">
+	        	<input class="form-control" type="text" name="keyword" placeholder="Search" onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);">
 	        	<button class="btn btn-outline-success btn-sm " 
 	        		data-bs-toggle="collapse" 
 	        		style="-bs-btn-padding-y: .3rem;"
@@ -71,6 +71,15 @@
 	const msgModal = new bootstrap.Modal('#msgModal');
 	msgModal.show();
 	/*[[${#session.removeAttribute("msg")}]] */
+	function noSpaceForm(obj) { // 공백사용못하게
+    var str_space = /\s/;  // 공백체크
+    if(str_space.exec(obj.value.trim)) { //공백 체크
+        //alert("해당 항목에는 공백을 사용할수 없습니다.\n\n공백은 자동적으로 제거 됩니다.");
+        obj.focus();
+        obj.value = obj.value.replace(/\s| /gi,''); // 공백제거
+        return false;
+    }
+}
 </script>
 </th:block>
 </html>
