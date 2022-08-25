@@ -113,7 +113,7 @@ CREATE TABLE PRODUCT(
 );
 
 
-CREATE TABLE productImg(  
+CREATE TABLE PRODUCT_IMG(  
 	product_img_no INT AUTO_INCREMENT,
 	productid INT NOT NULL, 
 	img_path VARCHAR(255) NOT NULL,

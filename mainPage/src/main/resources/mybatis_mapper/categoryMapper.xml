@@ -12,7 +12,6 @@
 			<result column="productName" property="productName"/>
 			<result column="productSize" property="productSize"/>
 			<result column="productColor" property="productColor"/>
-			<result column="productGroup" property="productGroup"/>
 			<result column="productInfo" property="productInfo"/>
 			<result column="productStock" property="productStock"/>
 			<result column="productDate" property="productDate"/>
@@ -22,7 +21,7 @@
 	
 	<select id="selectAll" resultMap="CategoryMap">
 		SELECT c.*, p.productid, p.productName, p.productSize, p.productColor,
-		 p.productGroup, p.productInfo, p.productStock, p. productDate, p.price 
+		 p.productInfo, p.productStock, p. productDate, p.price 
 		 FROM CATEGORY c
 		LEFT JOIN PRODUCT p USING(categoryId)
 		LIMIT #{startRow},#{pageSize}
@@ -45,7 +44,7 @@
 	
 	<select id="selectCateAll" resultMap="CategoryMap">
 		SELECT c.*, p.productid, p.productName, p.productSize, p.productColor,
-		 p.productGroup, p.productInfo, p.productStock, p. productDate, p.price 
+		 p.productInfo, p.productStock, p. productDate, p.price 
 		 FROM CATEGORY c
 		LEFT JOIN PRODUCT p USING(categoryId)
 		WHERE categoryId=#{categoryId}
