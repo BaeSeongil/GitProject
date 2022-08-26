@@ -2,13 +2,39 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.mainPage.mapper.ShoppingBasketMappper">
-
+	<resultMap type="ShoppingBasket" id="BasketMapper">
+		<id column="basket_id" property="basket_id"/>
+		<result column="count" property="count"/>
+		<!-- ShoppingBasket : Product = N : 1  -->
+		<association property="product" javaType="Product" foreignColumn="productid">
+			<id column="productid" property="productid"/>
+			<result column="productName" property="productName"/>
+			<result column="productSize" property="productSize"/>
+			<result column="productColor" property="productColor"/>
+			<result column="productInfo" property="productInfo"/>
+			<result column="productStock" property="productStock"/>
+			<result column="productDate" property="productDate"/>
+			<result column="price" property="price"/>
+		</association>
+	</resultMap> 
 	<select id="countByid" resultType="int"> 
  		SELECT count(*) FROM SHOPPING_BASKET s JOIN product p ON c.productid=p.productid where userid=#{userid}
  	</select>
  	
- 	<select id="selectAll" resultType="ShoppingBasket" >
- 		SELECT * FROM SHOPPING_BASKET
+ 	<select id="selectAll" resultMap="BasketMapper" parameterType="int">
+ 		SELECT b.*,
+ 			p.productName,
+ 			p.productSize,
+ 			p.productColor,
+ 			p.price
+ 			FROM SHOPPING_BASKET b 
+ 			INNER JOIN PRODUCT p 
+ 			USING(productid)
+ 			LIMIT #{startRow},#{pageSize}
+ 	</select>
+ 	
+ 	<select id="selectAllCount" resultType = "int" >
+ 		SELECT COUNT(*) FROM SHOPPING_BASKET
  	</select>
  	
 	<insert id="insertOne" parameterType="ShoppingBasket">
@@ -16,6 +42,10 @@
 	</insert>
 	
 	<delete id="deleteOne">
- 		DELETE FROM SHOPPING_BASKET WHERE basket_id = #{basket_id}
+ 		DELETE FROM SHOPPING_BASKET WHERE basket_id = #{basket_id} 
  	</delete>
+	<delete id="deleteUser">
+ 		DELETE FROM SHOPPING_BASKET WHERE userid = #{userid}
+ 	</delete>
+ 	
 </mapper>

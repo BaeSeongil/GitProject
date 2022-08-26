@@ -18,6 +18,6 @@ import lombok.Data;
 public class ShoppingBasket {
 	private int basket_id;		// 장바구니 번호 
 	private int count;  		// 상품 개수 
-	private int productid; 
+	private Product product;   // product.productid pk
 	private String userid;
 }

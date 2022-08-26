@@ -91,11 +91,13 @@ INSERT INTO USERS (userid, username, userpw, phone, email, birth, add2,add1,admi
 ('admin','admin','1234','010-7777-7777','admin@gmail.com','1999-11-11','서울 강남구 언주로93길 22-5','02-106','1');
 
 
+
 CREATE TABLE CATEGORY (
 	categoryid INT NOT NULL AUTO_INCREMENT,
     categoryName VARCHAR(45) NOT NULL,
     PRIMARY KEY(categoryid)
 );
+
 
 CREATE TABLE PRODUCT(
     productid INT NOT NULL AUTO_INCREMENT,
@@ -112,13 +114,21 @@ CREATE TABLE PRODUCT(
     ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-
 CREATE TABLE PRODUCT_IMG(  
 	product_img_no INT AUTO_INCREMENT,
 	productid INT NOT NULL, 
 	img_path VARCHAR(255) NOT NULL,
 	PRIMARY KEY(product_img_no),
-	FOREIGN KEY(productid) REFERENCES  PRODUCT(productid)
+	FOREIGN KEY(productid) REFERENCES PRODUCT(productid)
+	ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE BOARD_IMG(
+	board_img_no INT AUTO_INCREMENT,
+	board_no INT NOT NULL,
+	img_path VARCHAR(255) NOT NULL,
+	PRIMARY KEY(board_img_no),
+	FOREIGN KEY(board_no) REFERENCES BOARD(board_no)
 	ON UPDATE CASCADE ON DELETE CASCADE
 );
 
@@ -379,12 +389,6 @@ VALUES (1, 'Shirt', 'S', 'White',5,'2022-08-02', 25000, 1),
 (67, 'Bucket Hat', '54', 'Brown',4,'2022-06-30', 24000, 5);
 
 
-INSERT INTO PRODUCT (productid, productName, productSize, productColor, productStock, productDate, price, categoryid) 
-VALUES
-('111','데님1','29','blue',4,'2022-06-30','21000','20'),
-('112','데님1','30','black',4,'2022-06-30','29000','20');
-
-
  SELECT 
 	board_no no, 
 	title, 
@@ -402,6 +406,7 @@ CREATE TABLE SHOPPING_BASKET(
     ON UPDATE CASCADE ON DELETE CASCADE,
 	FOREIGN KEY(userid) REFERENCES USERS(userid)
     ON UPDATE CASCADE ON DELETE CASCADE
+    
 ); 
 
 CREATE TABLE ORDERS(
@@ -411,8 +416,13 @@ CREATE TABLE ORDERS(
   orderdate DATETIME DEFAULT CURRENT_TIMESTAMP(),
   orderPrice INT NOT NULL,
   orderState VARCHAR(255),
-  orderAdd VARCHAR(255) NOT NULL,
+  orderName VARCHAR(255) NOT NULL,
+  orderPhone VARCHAR(255) NOT NULL,
+  orderAdd1 VARCHAR(255) NOT NULL,
+  orderAdd2 VARCHAR(255) NOT NULL,
+  orderAdd3 VARCHAR(255) NOT NULL,
   orderOption VARCHAR(255) NOT NULL,
+  count INT NOT NULL,
   PRIMARY KEY(orderid),
   FOREIGN KEY(userid) REFERENCES USERS(userid)
   ON UPDATE CASCADE ON DELETE CASCADE,

@@ -5,6 +5,7 @@ const idHelp2=document.getElementById("idHelp2");
 const idHelp3=document.getElementById("idHelp3");
 const defalutSize=document.getElementById("defalutSize");
 
+
 updateForm["category.categoryId"].addEventListener("change",checkId);
 function checkId(){
 	let formCheck=false;
@@ -41,6 +42,7 @@ function checkId(){
 		idHelp3.style.display="inline";
 		inputColor.style.display="inline";
 	}
+
 	return formCheck; //<-async로 했기때문에 무조건 then으로 받아야함
 }
 

@@ -19,6 +19,7 @@
 		</h1>
 	<main class="d-flex justify-content-center" >
 		<form action="/product/update.do" name="updateForm" method="post" enctype="multipart/form-data">
+
 			<div class="row mb-3 g-3 align-items-center">
 				<div class="col-auto labelSize">
 					<label for ="inputName" class="col-form-label"><span class="width">상품명</span></label>
@@ -40,6 +41,7 @@
 			</div>
 			<div class="row mb-3 g-3 align-items-center">
 				<div class="col-auto">
+
 				    <label for="inputCategory" class="col-form-label"><span class="width">카테고리</span></label>
 			    </div>
 			    <div class="col-auto">
@@ -51,6 +53,7 @@
 						<option value="3">아우터</option>
 						<option value="4">신발</option>
 						<option value="5">모자</option>
+
 					</select>
 				</div>
 			</div>
@@ -98,6 +101,7 @@
 						<option value="60">60</option>
 						<option value="61">61</option>
 					</select>
+
 				</div>
 			</div>
 			<div class="row mb-3 g-3 align-items-center">
@@ -107,7 +111,7 @@
 			    <div class="col-auto">
 				    <select id="inputColor" name="productColor" class="form-select " aria-label=".form-select-sm example">
 					    <th:block th:each="p : ${product}">
-						    <option th:value="${p.productColor}" th:text="${p.productColor}+'(Selected)'" selected></option>
+						    <option th:value="${p.productColor}" th:text="${p.productColor}+'(selected)'" selected></option>
 						    <option value="White">White</option>
 						    <option value="Beige">Beige</option>
 						    <option value="Yellow">Yellow</option>
@@ -121,6 +125,29 @@
 				 	</select> 
 				</div>
 			</div>
+
+			<div>
+				<p>삭제할 상품 이미지</p>
+				<th:block th:each="productImg : ${product.productImgs}">
+					<label>
+						<input type="checkbox" class="form-check-input" 
+						th:value="${productImg.product_img_no}" name="productImg">
+						<img alt="상품 이미지" th:src="@{/public/img/{fileName}(fileName=${productImg.img_path})}"
+							class="img-thumbnail" width="200">
+					</label>
+				</th:block>
+			</div>
+			
+			<!-- 상품 이미지 -->
+			<div class="mb-3">
+				<label for="inputImgs" class="form-label">상품 이미지</label>
+				<input name="imgFile" class="form-control mb-1" type="file" >
+				<input name="imgFile" class="form-control mb-1" type="file" >
+				<input name="imgFile" class="form-control mb-1" type="file" >
+				<input name="imgFile" class="form-control mb-1" type="file" >
+				<input name="imgFile" class="form-control mb-1" type="file" >
+			</div>
+			
 			<div class="row mb-3 g-3 align-items-center">
 				<div class="col-auto">
 				    <label for="inputStock" class="form-label mt-3"><span class="width">상품재고</span></label>
@@ -159,6 +186,9 @@
 				</div>
 				<div class="col-auto">
 					<button type="submit" class="btn btn-success">등록</button>
+				</div>
+				<div class="col-auto">
+					<a class="btn btn-danger" th:href="@{/product/delete/{productid}(productid=${product.productid})}">삭제</a>
 				</div>
 			</div>
 		</form>

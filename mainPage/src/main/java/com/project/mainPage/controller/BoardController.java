@@ -135,7 +135,7 @@ public class BoardController {
 				List <MultipartFile> imgFiles,
 				@SessionAttribute(required = false) UsersDto loginUser,
 				HttpSession session) {
-//		System.out.println(board);
+		System.out.println(board);
 		System.out.println(savePath);
 		int insert=0;
 		String msg="";

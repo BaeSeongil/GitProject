@@ -26,6 +26,7 @@ import com.project.mainPage.dto.Pagination;
 
 import com.project.mainPage.dto.Product;
 import com.project.mainPage.dto.ProductImg;
+import com.project.mainPage.dto.UsersDto;
 import com.project.mainPage.mapper.CategoryMapper;
 import com.project.mainPage.mapper.ProductImgMapper;
 import com.project.mainPage.mapper.ProductMapper;
@@ -34,6 +35,9 @@ import com.project.mainPage.service.ProductService;
 @Controller
 @RequestMapping("/product")
 public class ProductController {
+	
+	private final static int PRODUCT_IMG_LIMIT = 5;
+	
 	@Autowired
 	private ProductMapper productMapper;
 	
@@ -47,7 +51,9 @@ public class ProductController {
 	private ProductService productService;
 	
 	@Value("${spring.servlet.multipart.location}")
-	private String savaPath;
+	private String savePath;
+	
+	
 	
 	@GetMapping("/list/{page}")
 	public String list(@PathVariable int page, Model model) {
@@ -73,10 +79,12 @@ public class ProductController {
 			product = productMapper.selectOne(productid); 
 			System.out.println(product);
 			if (product != null) {
+
 			
 				List<Product> products =
 				productMapper.selectByProductName(product.getProductName()); 
 				System.out.println(products);
+
 				model.addAttribute("products",products);
 				model.addAttribute("product",product); 
 
@@ -90,6 +98,7 @@ public class ProductController {
 		return "redirect:/product/cate/1";
 	}
 	
+
 	@GetMapping("/update/{productid}")
 	public String update(@PathVariable int productid, Model model) {
 		Product product = null;
@@ -100,10 +109,43 @@ public class ProductController {
 	}
 	
 	@PostMapping("/update.do")
-	public String update(Product product) {
+	public String update(
+			Product product,
+			@RequestParam(name="productImgNo", required = false) int [] productImgNos,
+			@RequestParam(name="imgFile", required = false) MultipartFile[] imgFiles,
+			HttpSession session
+			) {
 		int update = 0;
+		
 		try {
-			update = productMapper.updateOne(product);
+			int productImgCount = productImgMapper.selectCountProductId(product.getProductid());
+			int insertProductImgLength = 
+					PRODUCT_IMG_LIMIT - productImgCount + ((productImgNos!=null)?productImgNos.length:0);
+			
+			if (imgFiles!=null && insertProductImgLength>0) {
+				List<ProductImg> productImgs = new ArrayList<ProductImg>();
+				
+				for (MultipartFile imgFile : imgFiles) {
+					String [] types = imgFile.getContentType().split("/");
+					System.out.println("types: " + types);
+					if (types[0].equals("image")) {
+						String newFileName = "product_" + System.nanoTime()+"."+types[1];
+						Path newFilePath = Paths.get(savePath+"/"+newFileName);
+						imgFile.transferTo(newFilePath);
+						ProductImg productImg = new ProductImg();
+						productImg.setProductid(product.getProductid());
+						productImg.setImg_path(newFileName);
+						productImgs.add(productImg);
+						if (--insertProductImgLength == 0) {
+							break;
+						}
+					}
+				}
+				if (productImgs.size()>0) {
+					product.setProductImgs(productImgs);
+				}
+			}
+			update = productService.modifyProductRemoveProductImg(product, productImgNos);
 			System.out.println(product.getProductName());
 			System.out.println(update);
 		} catch (Exception e) {
@@ -111,12 +153,13 @@ public class ProductController {
 		}
 		if (update>0) {
 			System.out.println("수정 성공!" + update);
-			return "redirect:/product/list/1";
+			return "redirect:/product/detail/"+product.getProductid();
 		} else {
 			return "redirect:/product/update/"+product.getProductid();
 		}
 		
 	}
+
 	@GetMapping("/insert.do")
 	public void insert() {};
 	@PostMapping("insert.do")
@@ -124,7 +167,7 @@ public class ProductController {
 			Product product,
 			List<MultipartFile> imgFiles,
 			HttpSession session) {
-		System.out.println(savaPath);
+		System.out.println(savePath);
 		int insert = 0;
 		String msg = "";
 		try {
@@ -134,7 +177,7 @@ public class ProductController {
 					String type= imgFile.getContentType();
 					if (type.split("/")[0].equals("image")) {
 						String newFileName = "product_" + System.nanoTime()+"."+type.split("/")[1];
-						Path newFilePath = Paths.get(savaPath+"/"+newFileName);
+						Path newFilePath = Paths.get(savePath+"/"+newFileName);
 						imgFile.transferTo(newFilePath);
 						ProductImg productImg = new ProductImg();
 						productImg.setImg_path(newFileName);
@@ -160,6 +203,31 @@ public class ProductController {
 			return "redirect:/product/insert.do";
 		}
 	}
+	
+	@GetMapping("/delete/{productid}")
+	public String delete(
+			@PathVariable int productid,
+			HttpSession session
+			) {
+		String msg = "";
+		int delete = 0;
+		try {
+			delete = productService.removeProduct(productid);
+			System.out.println(delete);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (delete>0) {
+			msg = "상품 삭제 성공";
+			session.setAttribute("msg", msg);
+			return "redirect:/product/list/1";
+		} else {
+			msg = "상품 삭제 실패";
+			session.setAttribute("msg", msg);
+			return "redirect:/product/update/"+productid;
+		}
+	}
+	
 	@GetMapping("/idCheck/{categoryId}")
 	public @ResponseBody IdCheck idCheck(@PathVariable int categoryId) {
 		IdCheck idCheck = new IdCheck();
