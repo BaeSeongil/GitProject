@@ -24,18 +24,14 @@
 					<label for="inputPhone" class="mt-2 form-label">유저 폰 번호</label>
 					<input style="max-width: 250px" name="users.phone" class="form-control" id="inputPhone" placeholder="" required readonly
 					th:value="${session.loginUsers.phone}">
-					
 			      <th:block th:each="order:${proList}">
 					<th:block th:each="p:${order.products}">
-			    	
 						<label for="inputPro" class="form-label">상품 명</label>
 						<input style="max-width: 150px" name="p.productName" class="form-control" id="inputPro" placeholder="" required readonly
 						th:value="${p.productName}">
-						
 						<label for="inputPro2" class="mt-2 form-label">상품 개당 가격</label>
 						<input style="max-width: 150px" name="p.price" class="form-control" id="inputPro2" placeholder="" required readonly
 						th:value="${p.price}">						
-						
 					</th:block>
 				  </th:block>
 			    
@@ -43,15 +39,11 @@
 			    	<input style="max-width: 1000px" name="orderAdd" 
 			    	onkeyup="noSpace(this);" onchange="noSpace(this);" 
 			    	class="form-control" id="inputOrderAdd">    	
-			    	
-			    	
 			    	<label for="inputOrderState" class="mt-2 form-label">결제 방법</label>
 			    	<br>
 			    	<input type="radio" name="orderOption" id="inputOrderState" value="신용카드">신용카드   
 			    	<input type="radio" name="orderOption" id="inputOrderState" value="계좌이체">계좌이체
 				</div>
-			  
-			    
 		    </div>
 		    <button class="btn btn-outline-primary m-5 d-flex justify-content-end" type="submit">결제 하기</button>
 	 	</form> 	
