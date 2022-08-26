@@ -30,5 +30,5 @@ public interface ProductMapper {
 	
 	int updateOne (Product product);
 	int insertOne (Product product);
-
+	int deleteOne (int productid);
 }

@@ -12,5 +12,17 @@
 			WHERE productid=#{productid}
 	</select>
 	
+	<select id="selectOne" resultType="ProductImg" parameterType="int">
+		SELECT * FROM PRODUCT_IMG
+			WHERE product_img_no=#{productImgNo}
+	</select>
 
+	<delete id="deleteOne" parameterType="int">
+		DELETE FROM PRODUCT_IMG WHERE product_img_no=#{productImgNo}
+	</delete>
+	
+	<select id="selectCountProductId" parameterType="int" resultType="int">
+		SELECT COUNT(*) FROM PRODUCT_IMG
+			WHERE productid = #{productid}
+	</select>
 </mapper>

@@ -1,6 +1,8 @@
 package com.project.mainPage.controller;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,15 +14,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.project.mainPage.dto.Category;
 import com.project.mainPage.dto.Pagination;
+import com.project.mainPage.dto.Product;
 import com.project.mainPage.mapper.CategoryMapper;
+import com.project.mainPage.mapper.ProductMapper;
 
 @Controller
 @RequestMapping("/category")
 public class CategoryController {
 
-		@Autowired
-		private CategoryMapper categoryMapper;
-		  @GetMapping("/cate/{page}") 
+	
+		 @Autowired
+		 private ProductMapper productMapper;
+		 @Autowired
+		 private CategoryMapper categoryMapper;
+		 @GetMapping("/cate/{page}") 
+		  
 		  public String prolist(@PathVariable int page,Model model) { 
 				int row = 12;
 				int startRow = (page - 1) * row;
