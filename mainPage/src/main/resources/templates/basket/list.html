@@ -82,7 +82,9 @@
 			</tbody>
 			</table>
 			<div class="d-flex justify-content-evenly">
-				<div  th:insert="/pagination.html"></div>
+				<th:block th:unless="${basketList==null}">
+                    <div  th:insert="/pagination.html"></div>
+                </th:block>
 			</div>
 		</div>
 	</div>  
