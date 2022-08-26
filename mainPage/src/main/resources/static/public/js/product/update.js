@@ -3,10 +3,8 @@ const checkIdUrl="/product/idCheck/";
 const idHelp=document.getElementById("idHelp");
 const idHelp2=document.getElementById("idHelp2");
 const idHelp3=document.getElementById("idHelp3");
-<<<<<<< HEAD
 const defalutSize=document.getElementById("defalutSize");
-=======
->>>>>>> dcc54e433151a28b206b024258f18c09b73b29f3
+
 
 updateForm["category.categoryId"].addEventListener("change",checkId);
 function checkId(){
@@ -15,10 +13,7 @@ function checkId(){
 	console.log(v);
 	if(v==1 || v==2 || v==3){
 		formCheck=true;
-<<<<<<< HEAD
 		defalutSize.style.display="none";
-=======
->>>>>>> dcc54e433151a28b206b024258f18c09b73b29f3
 		idHelp.style.display="inline";
 		idHelp.setAttribute("name","productSize");
 		idHelp2.style.display="none";
@@ -28,10 +23,7 @@ function checkId(){
 		inputColor.style.display="inline";
 	}else if(v==4){
 		formCheck = true;
-<<<<<<< HEAD
 		defalutSize.style.display="none";
-=======
->>>>>>> dcc54e433151a28b206b024258f18c09b73b29f3
 		idHelp.style.display="none";
 		idHelp.removeAttribute("name");
 		idHelp2.setAttribute("name","productSize");
@@ -41,10 +33,7 @@ function checkId(){
 		inputColor.style.display="inline";
 	}else if(v==5){
 		formCheck = true;
-<<<<<<< HEAD
 		defalutSize.style.display="none";
-=======
->>>>>>> dcc54e433151a28b206b024258f18c09b73b29f3
 		idHelp.style.display="none";
 		idHelp.removeAttribute("name");
 		idHelp2.style.display="none";
@@ -53,19 +42,12 @@ function checkId(){
 		idHelp3.style.display="inline";
 		inputColor.style.display="inline";
 	}
-<<<<<<< HEAD
+
 	return formCheck; //<-async로 했기때문에 무조건 then으로 받아야함
 }
 
 updateForm.addEventListener("submit",async(e)=>{
 	e.preventDefault(); //from 이벤트는 무조건 맨 위에 작성해야한다.
-=======
-	return formCheck; 
-}
-
-updateForm.addEventListener("submit",async(e)=>{
-	e.preventDefault(); 
->>>>>>> dcc54e433151a28b206b024258f18c09b73b29f3
 	let inputId = checkId();
 	if(inputId){
 	updateForm.submit();
