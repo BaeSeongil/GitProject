@@ -121,10 +121,10 @@ public class ProductController {
 			int productImgCount = productImgMapper.selectCountProductId(product.getProductid());
 			int insertProductImgLength = 
 					PRODUCT_IMG_LIMIT - productImgCount + ((productImgNos!=null)?productImgNos.length:0);
-			
+
 			if (imgFiles!=null && insertProductImgLength>0) {
 				List<ProductImg> productImgs = new ArrayList<ProductImg>();
-				
+
 				for (MultipartFile imgFile : imgFiles) {
 					String [] types = imgFile.getContentType().split("/");
 					System.out.println("types: " + types);

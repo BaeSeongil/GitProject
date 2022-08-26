@@ -12,27 +12,15 @@
 			<h1 class="fw-semibold">카테고리 등록</h1>
 		</div>
 		<form action="/category/insert.do" method="post" class="row g-3 needs-validation" validate>
-		
-<<<<<<< HEAD
-			<div class="col-30 mb-3 justify-content-center was-validated">
-				<label for="inputCateId" class="form-label">카테고리 번호</label>
-				<input name="categoryId" class="form-control form-control-sm" 
-					onkeyup="noSpace(this);" onchange="noSpace(this);" 
-					id="inputCateId" required>
-				
-			</div>
-			<div class="col-30 mb-3 justify-content-center needs-validation">
-				<label for="inputCateName" class="form-label">카테고리 이름</label>
-				<input name="categoryName" class="form-control form-control-sm"
-					onkeyup="noSpace(this);" onchange="noSpace(this);" 
-					id="inputCateName" required>
-=======
+
+
 			<div class="row mb-3 justify-content-center was-validated">
 				<div class="col-auto">
 					<label for="inputCateId" class="form-label">카테고리 번호</label>
 				</div>
 				<div class="col-auto">
-					<input name="categoryId" class="form-control form-control-sm" id="inputCateId" required>
+					<input name="categoryId" class="form-control form-control-sm" id="inputCateId" 
+					onkeyup="noSpace(this);" onchange="noSpace(this);" required>
 				</div>
 			</div>
 			<div class="row mb-3 justify-content-center needs-validation">
@@ -40,9 +28,10 @@
 					<label for="inputCateName" class="form-label">카테고리 이름</label>
 				</div>
 				<div class="col-auto">
-					<input name="categoryName" class="form-control form-control-sm" id="inputCateName" required>
+					<input name="categoryName" class="form-control form-control-sm" id="inputCateName" 
+					onkeyup="noSpace(this);" onchange="noSpace(this);" required>
 				</div>
->>>>>>> dcc54e433151a28b206b024258f18c09b73b29f3
+
 			</div>
 			<div class="row mb-3 justify-content-center">
 				<div class="col-auto">
