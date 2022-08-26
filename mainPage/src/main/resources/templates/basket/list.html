@@ -3,11 +3,32 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+	#detail:hover{
+		cursor: Pointer;
+	}
+	html, body {
+		height: 100%;
+		display: flex;
+		flex-flow: column;
+	}
+	footer {
+		flex: 1;
+		height: auto;
+	  	position: relative;
+	}
+	#wrapper {	
+		height: auto;
+	  	/* min-height: 100%; */
+	  	position: relative;
+	}
+</style>
+<script type="text/javascript" th:src="@{/public/js/basket/basket.js}" defer="defer"></script>
 </head>
 <body>
 <header th:insert="/gAndB"></header>
 <header th:insert="headerNav"></header>
-
+<form action="/basket/selected/delete" method="post" >
 	<!-- Page Add Section Begin -->
 	<section class="page-add cart-page-add">
 		<div class="container mt-5">
@@ -16,9 +37,16 @@
 					<div class="page-breadcrumb">
 						<h1>Cart<span>.</span></h1>
 					</div>
-				</div>
-				<div class="col-lg-5 offset-lg-1 text-left text-lg-right" >
-					<div class="btn btn-outline-danger">선택된 리스트 삭제</div>
+				</div> 
+				<div class="d-flex justify-content-end" >
+					<a th:href="@{/basket/user/delete/{userId}(userId=${session.loginUsers?.userid})}" 
+						class="btn btn-sm btn-outline-danger">
+						전체 삭제 
+					</a> 
+					<button  class="btn btn-sm btn-outline-danger">
+							선택 삭제
+					</button>
+					<input type="hidden" name="userId" th:value="${session.loginUsers?.userid}">
 				</div>
 			</div>
 		</div>
@@ -29,29 +57,36 @@
 			<table class="table table-striped mt-3">
 				<thead>
 	                <tr>
-	                    <th><input type="checkbox" checked /></th>
+	                    <th><input type="checkbox" value='selectall' onclick='selectAll(this)' /></th>
 	                    <th class="product-h">Product</th>
 	                    <th>Price</th>
 	                    <th>Quantity</th>
 	                    <th>Total</th>
 	                    <th></th>
 	                </tr>
-	            </thead>
+	            </thead> 
 	            <tbody>
 				<tr th:each="baskets : ${basketList}">
 					<td class="product-close">
-						<input type="checkbox"></td>
-					<td th:text="${baskets.count}"></td>
+						<input type="checkbox" name='basket_id' th:value="${baskets.basket_id}"> 
+					</td>
+					<td>
+						<img  style="height:150px; width:150px; object-fit:cover;"
+				 			class="img-thumbnail" alt="상품 이미지" >
+				 		<p th:text="${baskets.product.productName}" ></p> 
+					</td>
+					<td th:text="${baskets.product.price}"></td>
+					<td th:text="${baskets.count}" ></td>
+					<td th:text="${baskets.product.price * baskets.count}"></td>
 				</tr>
 			</tbody>
 			</table>
+			<div class="d-flex justify-content-evenly">
+				<div  th:insert="/pagination.html"></div>
+			</div>
 		</div>
-	</div>
-       
-     
-            
-                   
-                  
-                    
+	</div>  
+</form>
+	<footer th:insert="/footer"></footer>               
 </body>
 </html>
