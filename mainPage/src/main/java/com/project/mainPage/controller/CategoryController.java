@@ -1,6 +1,8 @@
 package com.project.mainPage.controller;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,15 +14,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.project.mainPage.dto.Category;
 import com.project.mainPage.dto.Pagination;
+import com.project.mainPage.dto.Product;
 import com.project.mainPage.mapper.CategoryMapper;
+import com.project.mainPage.mapper.ProductMapper;
 
 @Controller
 @RequestMapping("/category")
 public class CategoryController {
 
-		@Autowired
-		private CategoryMapper categoryMapper;
-		  @GetMapping("/cate/{page}") 
+	
+		 @Autowired
+		 private ProductMapper productMapper;
+		 @Autowired
+		 private CategoryMapper categoryMapper;
+		 @GetMapping("/cate/{page}") 
+		  
 		  public String prolist(@PathVariable int page,Model model) { 
 				int row = 12;
 				int startRow = (page - 1) * row;
@@ -41,8 +49,6 @@ public class CategoryController {
 				int startRow = (page - 1) * row;
 				List<Category> categoryList = categoryMapper.selectCateAll(categoryId,startRow,row);
 				int count = categoryMapper.selectCateAllCount(categoryId);
-
- 
 				Pagination pagination = new Pagination(page, count, "/category/cate/"+categoryId+"/", row);
 				System.out.println(pagination);
 				model.addAttribute("pagination", pagination);
@@ -52,10 +58,6 @@ public class CategoryController {
 				model.addAttribute("page", page);
 				return "/category/cate";
 		  }
-		  // 관리자만 할 수 있게 해야 하는데 어떻게.. 하지..........?
-		  // 접근이 안 되는 거라 괜찮나요..? ㅠ_ㅠ 
-		  // 네 접근자체가 불가능합니다.
-
 		  @GetMapping("/insert.do")
 		  public void insert() {}
 		  

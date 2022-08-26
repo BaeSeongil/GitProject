@@ -2,32 +2,22 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>회원 리스트</title>
-<style>
-	html, body {
-		height: 100%;
-		display: flex;
-		flex-flow: column;
-	}
-	footer {
-		flex: 1;
-		height: auto;
-	}
-</style>
+<title>검색결과</title>
 </head>
 <body>
 	<header th:insert="/gAndB"></header>
 	<header th:insert="/headerNav"></header>
-	<main class="container" >
-		<h1 class="m-3 d-flex justify-content-between align-items-center" >
-			<span>회원리스트</span>
-		</h1>
+	<div id="wrapper">
+		<div  class="container">
+			<h1 class="m-3 d-flex justify-content-between align-items-center" >
+				<span>검색 결과</span>
+			</h1>
 		<p>
 			페이지 / 총 회원 수 : 
 			<span class="badge text-bg-success" th:text="${page}"></span> / 
 			<span class="badge text-bg-primary" th:text="${count}"></span>
 		</p>
-		<table class="table table-striped">
+		<table class="table table-hover">
 			<thead>
 				<tr>
 					<th>아이디</th>
@@ -40,7 +30,7 @@
 			    </tr>
 			</thead>
 			<tbody>
-				<tr th:each="users : ${userList}">
+				<tr id="detail" th:each="users : ${list}">
 					<td th:text="${users.userid}"></td>
 					<td th:text="${users.username}"></td>
 					<td th:text="${users.phone}"></td>
@@ -67,7 +57,7 @@
 						<button class="btn btn-outline-primary">검색</button>
 					</div>
 				</form>
-			</div></main>
+			</div></div></div>
 </body>
   <footer class="footer" th:insert="/footer"></footer>
 </html>

@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <title>상품 전체 보기</title>
 <style type="text/css">
-
 html, body {
 	height: 100%;
 	display: flex;
@@ -17,7 +16,6 @@ footer {
 }
 #wrapper {	
 	height: auto;
-  	/* min-height: 100%; */
   	position: relative;
 }
 #lefe {
@@ -31,7 +29,6 @@ footer {
 	<div style="padding: 30px;">
 		<h3 class="mt-5 d-flex justify-content-center align-items-center">ALL</h3>
 	</div>
-
 	<div id="wrapper">
 		<th:block th:each="product:${productList}">
 			<div id="lefe" class="d-flex m-5 justify-content-start" 
@@ -46,8 +43,6 @@ footer {
 			</div>
 		</th:block>
 	</div>
-
-	
 	<div>
 		<div class="d-flex justify-content-center" th:insert="/pagination.html"></div>
 	</div>
