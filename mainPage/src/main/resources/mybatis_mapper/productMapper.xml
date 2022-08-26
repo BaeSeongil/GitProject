@@ -76,6 +76,10 @@
 
    	</insert>
 
+	<delete id="deleteOne" parameterType="int">
+		DELETE FROM PRODUCT WHERE productid=#{productid}
+	</delete>
+
 	<!-- criteria(검색조건) -->
 	<sql id="criteria">
 		    <trim prefix="WHERE (" suffix=")" prefixOverrides="AND">

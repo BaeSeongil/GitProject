@@ -9,7 +9,7 @@
 	width:66px;
 }
 </style>
-<script type="text/javascript" src="/public/js/product/insert.js" defer="defer"></script>
+<script type="text/javascript" src="/public/js/product/update.js" defer="defer"></script>
 </head>
 <body>
 	<header th:insert="/gAndB"></header>
@@ -18,7 +18,8 @@
 			<span>상품 수정</span>
 		</h1>
 	<main class="d-flex justify-content-center" >
-		<form action="/product/update.do" name="updateForm" method="post">
+		<form action="/product/update.do" name="updateForm" method="post" enctype="multipart/form-data">
+			
 			<div class="row mb-3 g-3 align-items-center">
 				<div class="col-auto labelSize">
 					<label for ="inputName" class="col-form-label"><span class="width">상품명 : </span></label>
@@ -27,6 +28,8 @@
 					<input id="inputName" class="form-control" name="productName" type="text" 
 					th:value="${product.productName}" required>
 				</div>
+			</div>
+			<div class="row mb-3 g-3 align-items-center">
 				<div class="col-auto labelSize">
 					<label for ="inputId" class="col-form-label"><span class="width">상품번호 : </span></label>
 				</div>
@@ -38,14 +41,15 @@
 			
 			<div class="row mb-3 g-3 align-items-center">
 				<div class="col-auto">
-				    <label for="inputCategory" class="form-label mt-3">카테고리</label>
+				    <label for="inputCate" class="form-label mt-3"><span class="width">카테고리 : </span></label>
 			    </div>
-			    <div>
-					<select id="inputCategory" name="category.categoryId" class="form-select"
-						aria-label=".form-select-sm example">
-						<option>== 카테고리 ==</option>
+			    <div class="col-auto">
+					<select id="inputCate" name="category.categoryId" class="form-select"
+						aria-label=".form-select-sm example" aria-describedby="idHelp">
+						<option>== 선택 ==</option>
 						<th:block>
-							<option th:value="${product.category?.categoryId}" th:text="${product.category?.categoryId}+'(Selected)'" selected></option>
+							<option th:value="${product.category?.categoryId}" 
+							th:text="${product.category?.categoryId}+'(선택됨)'" selected></option>
 							<option value="1">1(상의)</option>
 							<option value="2">2(하의)</option>
 							<option value="3">3(아우터)</option>
@@ -57,52 +61,31 @@
 			</div>
 			<div class="row mb-3 g-3 align-items-center">
 				<div class="col-auto">
-				    <label for="inputSize" class="form-label mt-3">사이즈</label>
+				    <label for="inputSize" class="form-label mt-3">사이즈 </label>
 				</div>
-			    <div>
-				    <select id="inputSize" name="productSize" class="form-select " aria-label=".form-select-sm example">
-					    <option>== 사이즈 == </option>
-					    <th:block th:each="p : ${product}">
-						    <option th:value="${p.productSize}" th:text="${p.productSize}+'(Selected)'" selected></option>
-						    <option value="S">S</option>
-						    <option value="M">M</option>
-						    <option value="L">L</option>
-						    <option value="XL">XL</option>    
-					    </th:block>
-				 	</select> 
-				</div>
-			</div>
-<!-- 			
-			<div class="row mb-3 g-3 align-items-center" style="display:none;">
-				<div>	
-					<label for="inputSize" class="form-label mt-3" style="display:none">신발사이즈</label>
-				</div>
-				<div>
-				    <select id="idHelp2" name="productSize" class="form-select" style="display: none;" aria-label=".form-select-sm example">
-					    <option>== 사이즈 == </option>
-					    <th:block th:each="p : ${product}">
-						    <option th:value="${p.productid}" th:text="${p.productSize}+'(Selected)'" selected></option>
-						   	<option value="230">230</option>
-							<option value="235">235</option>
-							<option value="240">240</option>
-							<option value="245">245</option>
-							<option value="250">250</option>
-							<option value="255">255</option>
-							<option value="260">260</option>
-							<option value="265">265</option>
-							<option value="270">270</option>
-					    </th:block>
-				 	</select> 
-				</div>
-			</div>
-			
-			<div class="row mb-3 g-3 align-items-center" style="display:none;">
-				<div>	
-					<label for="inputSize" class="form-label mt-3"></label>
-				</div>
-				<div>
+
+				<div class="col-auto">
+					<select id="idHelp" class="form-control" style="display: none;">
+						<option value="" selected="selected">=== 선택 ===</option>
+						<option value="S">S</option>
+						<option value="M">M</option>
+						<option value="L">L</option>
+						<option value="XL">XL</option>
+					</select>
+					<select id="idHelp2" class="form-control" style="display: none;">
+						<option value="" selected="selected">=== 선택 ===</option>
+						<option value="230">230</option>
+						<option value="235">235</option>
+						<option value="240">240</option>
+						<option value="245">245</option>
+						<option value="250">250</option>
+						<option value="255">255</option>
+						<option value="260">260</option>
+						<option value="265">265</option>
+						<option value="270">270</option>
+					</select>
 					<select id="idHelp3" class="form-control" style="display: none;">
-						<option value="none" selected="selected">=== 선택 ===</option>
+						<option value="" selected="selected">=== 선택 ===</option>
 						<option value="54">54</option>
 						<option value="55">55</option>
 						<option value="56">56</option>
@@ -113,17 +96,19 @@
 						<option value="61">61</option>
 					</select>
 				</div>				
-			</div> -->
+				
+			</div>
 			
 			<div class="row mb-3 g-3 align-items-center">
 				<div class="col-auto">
-				    <label for="inputColor" class="form-label mt-3">색상</label>
+				    <label for="inputColor" class="form-label mt-3">색상 </label>
 				</div>
-			    <div>
-				    <select id="inputColor" name="productColor" class="form-select " aria-label=".form-select-sm example">
+			    <div class="col-auto">
+				    <select id="inputColor" name="productColor" class="form-select " 
+				    	aria-label=".form-select-sm example"  style="display: none;">
 					    <option> 색상 </option>
 					    <th:block th:each="p : ${product}">
-						    <option th:value="${p.productColor}" th:text="${p.productColor}+'(Selected)'" selected></option>
+						    <option th:value="${p.productColor}" th:text="${p.productColor}+'(selected)'" selected></option>
 						    <option value="White">White</option>
 						    <option value="Beige">Beige</option>
 						    <option value="Yellow">Yellow</option>
@@ -138,11 +123,33 @@
 				</div>
 			</div>
 			
+			<div>
+				<p>삭제할 상품 이미지</p>
+				<th:block th:each="productImg : ${product.productImgs}">
+					<label>
+						<input type="checkbox" class="form-check-input" 
+						th:value="${productImg.product_img_no}" name="productImg">
+						<img alt="상품 이미지" th:src="@{/public/img/{fileName}(fileName=${productImg.img_path})}"
+							class="img-thumbnail" width="200">
+					</label>
+				</th:block>
+			</div>
+			
+			<!-- 상품 이미지 -->
+			<div class="mb-3">
+				<label for="inputImgs" class="form-label">상품 이미지</label>
+				<input name="imgFile" class="form-control mb-1" type="file" >
+				<input name="imgFile" class="form-control mb-1" type="file" >
+				<input name="imgFile" class="form-control mb-1" type="file" >
+				<input name="imgFile" class="form-control mb-1" type="file" >
+				<input name="imgFile" class="form-control mb-1" type="file" >
+			</div>
+			
 			<div class="row mb-3 g-3 align-items-center">
 				<div class="col-auto">
 				    <label for="inputStock" class="form-label mt-3">상품재고</label>
 				</div>
-			    <div>
+			    <div class="col-auto">
 				    <input id="inputStock" class="form-control" name="productStock" type="text" 
 					th:value="${product.productStock}" required> 
 				</div>
@@ -152,7 +159,7 @@
 				<div class="col-auto">
 				    <label for="inputStock" class="form-label mt-3">상품가격</label>
 				</div>
-			    <div>
+			    <div class="col-auto">
 				    <input id="inputStock" class="form-control" name="price" type="text" 
 					th:value="${product.price}" required> 
 				</div>
@@ -174,6 +181,9 @@
 				</div>
 				<div class="col-auto">
 					<button type="submit" class="btn btn-success">등록</button>
+				</div>
+				<div class="col-auto">
+					<a class="btn btn-danger" th:href="@{/product/delete/{productid}(productid=${product.productid})}">삭제</a>
 				</div>
 			</div>
 		</form>

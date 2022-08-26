@@ -41,25 +41,22 @@ footer {
 	</div>
 	<div id="wrapper">
 		<div class="container">
-			<figure class="d-flex figure justify-content-center">	
-				<th:block th:each="category:${categoryList}">		
-					<th:block th:each="productImg :${category.productImgs}">
-						<img th:src="@{/public/img/{fileName}(fileName=${productImg.img_path})}"
-						class="card-img-top" style="width: 18rem;" alt="상품 이미지">
-					</th:block>
-				</th:block>
-			</figure>
+				
 			<th:block th:each="category:${categoryList}">
 				<th:block th:each="product:${category.products}">
 					<div id="lefe" class="d-flex m-5 justify-content-start" 
 						th:onclick="location.href='/product/detail/[[${product.productid}]]'">
 						<!-- th:onclick="|location.href='@{/product/detail/(productName){productName=${product.productName}}'|"> -->
 						<div id="lefe" class="card" style="width: 18rem;">
-						  <img class="card-img-top" alt="상품 이미지">
+							<th:block th:each="productImg : ${product.productImgs}">
+						 		<img class="card-img-top" 
+						 		 	th:src="@{/public/img/{fileName}(fileName=${productImg.img_path})}" 
+						 		 	alt="상품 이미지">
+							</th:block>
 						  <div id="lefe" class="card-body">
 						  	<p class="card-text" th:text="${category.categoryId}"></p>
-							    <p class="card-text" th:text="${product.productName}"></p>
-							    <p class="card-text" th:text="${product.productid}"></p>
+							<p class="card-text" th:text="${product.productName}"></p>
+							<p class="card-text" th:text="${product.productid}"></p>
 						  </div>
 						</div>
 					</div>

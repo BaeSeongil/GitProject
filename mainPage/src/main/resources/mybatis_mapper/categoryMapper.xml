@@ -54,13 +54,22 @@
 	<select id="selectListAllCount" resultType="int">
 		SELECT COUNT(*) FROM CATEGORY
 	</select>
-	
+
 	<select id="selectCateAll" resultMap="CategoryMap">
-		SELECT c.*, p.productid, p.productName, p.productSize, p.productColor,
-		 p.productInfo, p.productStock, p. productDate, p.price 
-		 FROM CATEGORY c
+		SELECT 
+		c.*, 
+		p.productid, p.productName, p.productSize, p.productColor,
+		p.productInfo, p.productStock, p. productDate, p.price,
+		i.product_img_no as iproduct_img_no,
+		i.img_path as iimg_path
+		
+		FROM CATEGORY c
+
 		LEFT JOIN PRODUCT p USING(categoryId)
+		LEFT JOIN PRODUCT_IMG i USING(productid)
+		
 		WHERE categoryId=#{categoryId}
+		
 		LIMIT #{startRow},#{pageSize}
 	</select>
 	
