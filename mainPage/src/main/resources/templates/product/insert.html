@@ -24,7 +24,9 @@
 					<label for ="inputName" class="col-form-label"><span class="width">상품명</span></label>
 				</div>
 				<div class="col-auto d-flex justify-content-between">
-					<input id="inputName" class="form-control" name="productName" type="text" required>
+					<input id="inputName" class="form-control" name="productName" 
+					onkeyup="noSpace(this);" onchange="noSpace(this);" 
+					type="text" required>
 				</div>
 			</div>
 			<div class="row mb-3 g-3 align-items-center">
@@ -32,7 +34,8 @@
 					<label for="inputCate" class="col-form-label"><span class="width">카테고리</span></label>
 				</div>
 				<div class="col-auto">
-					<select id="inputCate" class="form-control" name="category.categoryId" aria-describedby="idHelp" required>
+					<select id="inputCate" class="form-control" name="category.categoryId" 
+					aria-describedby="idHelp" required>
 						<option value="" selected="selected">=== 선택 ===</option>
 						<option value="1">상의</option>
 						<option value="2">하의</option>
@@ -112,7 +115,9 @@
 					<label for="inputStock" class="col-form-label"><span class="width">상품재고</span></label>
 				</div>
 				<div class="col-auto">
-					<input type="number" name="productStock" id="inputStock" class="form-control" required>
+					<input type="number" name="productStock" id="inputStock" 
+						onkeyup="noSpace(this);" onchange="noSpace(this);" 
+						class="form-control" required>
 				</div>
 			</div>
 			<div class="row mb-3 g-3 align-items-center">
@@ -120,7 +125,9 @@
 			   		<label for="inputPrice" class="col-form-label"><span class="width">가격</span></label>
 				</div>
 				<div class="col-auto" >
-					<input type="number" name="price" id="inputPrice" class="form-control" required>
+					<input type="number" name="price" id="inputPrice" 
+						onkeyup="noSpace(this);" onchange="noSpace(this);" 
+						class="form-control" required>
 				</div>
 			</div>
 			<div class="row mb-3 g-3 align-items-center">
@@ -151,4 +158,15 @@
 	</main>
 </body>
 <footer th:insert="/footer"></footer>
+<script>
+function noSpace(obj) { // 공백사용못하게
+    var str = /\s/;  // 공백체크
+    if(str.exec(obj.value.trim)) { //공백 체크
+        //alert("해당 항목에는 첫 글자 공백을 사용할수 없습니다.");
+        obj.focus();
+        obj.value = obj.value.replace(/^ +/,''); // 공백제거
+        return false;
+    }
+}
+</script>
 </html>

@@ -109,6 +109,7 @@
 			FROM PRODUCT p INNER JOIN CATEGORY c USING(categoryid)
 			WHERE productName LIKE CONCAT ('%', #{keyword}, '%') OR
 				productSize LIKE CONCAT ('%', #{keyword}, '%') OR
+				productColor LIKE CONCAT ('%', #{keyword}, '%') OR
 				c.categoryName LIKE CONCAT ('%', #{keyword}, '%')
 			ORDER BY productid desc 
 			LIMIT #{skip}, #{amount}	

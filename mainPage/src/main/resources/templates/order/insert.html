@@ -40,7 +40,9 @@
 				  </th:block>
 			    
 			       	<label for="inputOrderAdd" class="mt-2 form-label">배송받을 지역</label>
-			    	<input style="max-width: 1000px" name="orderAdd" class="form-control" id="inputOrderAdd">    	
+			    	<input style="max-width: 1000px" name="orderAdd" 
+			    	onkeyup="noSpace(this);" onchange="noSpace(this);" 
+			    	class="form-control" id="inputOrderAdd">    	
 			    	
 			    	
 			    	<label for="inputOrderState" class="mt-2 form-label">결제 방법</label>
@@ -56,4 +58,15 @@
 	</main>
 </body>
 <footer th:insert="/footer"></footer>
+<script>
+function noSpace(obj) { // 공백사용못하게
+    var str = /\s/;  // 공백체크
+    if(str.exec(obj.value.trim)) { //공백 체크
+        //alert("해당 항목에는 첫 글자 공백을 사용할수 없습니다.");
+        obj.focus();
+        obj.value = obj.value.replace(/^ +/,''); // 공백제거
+        return false;
+    }
+}
+</script>
 </html>

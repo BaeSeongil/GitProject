@@ -79,7 +79,8 @@ footer {
 
 				  	<div class="col-8 mb-3">
 				   	 	<label for="pName" class="form-label mt-3">상품명</label>
-				   		<input th:value="${product.productName}" class="form-control form-control-sm" 
+				   		<input th:value="${product.productName}" class="form-control form-control-sm"
+				   			 
 				   			id="pName" disabled>
 					 </div>
 					 <div class="col-8 mb-3">
@@ -109,7 +110,8 @@ footer {
 	  			    <div class="col-8 mb-3">
 	  			     <label for="count" class="form-label mt-3">개수</label>
                     <input class="form-control text-center me-3" id="count" name="count" type="number" value="1"
-                               style="max-width: 20rem"/>
+                    	onkeyup="noSpace(this);" onchange="noSpace(this);" 
+                        style="max-width: 20rem"/>
                     </div>
 	  			    <section class="justify-content-around">
 					  	<div class="col-12 mt-3">
@@ -128,5 +130,16 @@ footer {
 		</main>
 	</div>
 </body>
-		<footer th:insert="/footer"></footer>
+<footer th:insert="/footer"></footer>
+<script>
+function noSpace(obj) { // 공백사용못하게
+    var str = /\s/;  // 공백체크
+    if(str.exec(obj.value.trim)) { //공백 체크
+        //alert("해당 항목에는 첫 글자 공백을 사용할수 없습니다.");
+        obj.focus();
+        obj.value = obj.value.replace(/^ +/,''); // 공백제거
+        return false;
+    }
+}
+</script>
 </html>

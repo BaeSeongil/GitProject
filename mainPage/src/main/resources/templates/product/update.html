@@ -9,7 +9,7 @@
 	width:66px;
 }
 </style>
-<script type="text/javascript" src="/public/js/product/insert.js" defer="defer"></script>
+<script type="text/javascript" src="/public/js/product/update.js" defer="defer"></script>
 </head>
 <body>
 	<header th:insert="/gAndB"></header>
@@ -18,91 +18,77 @@
 			<span>상품 수정</span>
 		</h1>
 	<main class="d-flex justify-content-center" >
-		<form action="/product/update.do" name="updateForm" method="post">
+		<form action="/product/update.do" name="updateForm" method="post" enctype="multipart/form-data">
 			<div class="row mb-3 g-3 align-items-center">
 				<div class="col-auto labelSize">
-					<label for ="inputName" class="col-form-label"><span class="width">상품명 : </span></label>
+					<label for ="inputName" class="col-form-label"><span class="width">상품명</span></label>
 				</div>
 				<div class="col-auto d-flex justify-content-between">
 					<input id="inputName" class="form-control" name="productName" type="text" 
+					onkeyup="noSpace(this);" onchange="noSpace(this);" 
 					th:value="${product.productName}" required>
 				</div>
+			</div>
+			<div class="row mb-3 g-3 align-items-center">
 				<div class="col-auto labelSize">
-					<label for ="inputId" class="col-form-label"><span class="width">상품번호 : </span></label>
+					<label for ="inputId" class="col-form-label"><span class="width">상품번호</span></label>
 				</div>
 				<div class="col-auto d-flex justify-content-between">
 					<input id="inputId" class="form-control" name="productid" type="text" 
 					th:value="${product.productid}" readonly>
 				</div>
 			</div>
-			
 			<div class="row mb-3 g-3 align-items-center">
 				<div class="col-auto">
-				    <label for="inputCategory" class="form-label mt-3">카테고리</label>
+				    <label for="inputCategory" class="col-form-label"><span class="width">카테고리</span></label>
 			    </div>
-			    <div>
-					<select id="inputCategory" name="category.categoryId" class="form-select"
-						aria-label=".form-select-sm example">
-						<option>== 카테고리 ==</option>
-						<th:block>
-							<option th:value="${product.category?.categoryId}" th:text="${product.category?.categoryId}+'(Selected)'" selected></option>
-							<option value="1">1(상의)</option>
-							<option value="2">2(하의)</option>
-							<option value="3">3(아우터)</option>
-							<option value="4">4(신발)</option>
-							<option value="5">5(모자)</option>
-						</th:block>	
+			    <div class="col-auto">
+					<select id="inputCategory" class="form-control" name="category.categoryId"
+					 aria-describedby="idHelp" required>
+						<option th:value="${product.category?.categoryId}" th:text="${product.category?.categoryId}+'(Selected)'" selected></option>
+						<option value="1">상의</option>
+						<option value="2">하의</option>
+						<option value="3">아우터</option>
+						<option value="4">신발</option>
+						<option value="5">모자</option>
 					</select>
 				</div>
 			</div>
 			<div class="row mb-3 g-3 align-items-center">
 				<div class="col-auto">
-				    <label for="inputSize" class="form-label mt-3">사이즈</label>
+				    <label for="inputSize" class="form-label mt-3"><span class="width">사이즈</span></label>
 				</div>
-			    <div>
-				    <select id="inputSize" name="productSize" class="form-select " aria-label=".form-select-sm example">
-					    <option>== 사이즈 == </option>
-					    <th:block th:each="p : ${product}">
-						    <option th:value="${p.productSize}" th:text="${p.productSize}+'(Selected)'" selected></option>
-						    <option value="S">S</option>
-						    <option value="M">M</option>
-						    <option value="L">L</option>
-						    <option value="XL">XL</option>    
-					    </th:block>
+			    <div class="col-auto">
+			    	<select id="defalutSize" class="form-select">
+			    		<option th:value="${product.productSize}" th:text="${product.productSize}+'(Selected)'" selected></option>
 				 	</select> 
-				</div>
-			</div>
-<!-- 			
-			<div class="row mb-3 g-3 align-items-center" style="display:none;">
-				<div>	
-					<label for="inputSize" class="form-label mt-3" style="display:none">신발사이즈</label>
-				</div>
-				<div>
-				    <select id="idHelp2" name="productSize" class="form-select" style="display: none;" aria-label=".form-select-sm example">
-					    <option>== 사이즈 == </option>
-					    <th:block th:each="p : ${product}">
-						    <option th:value="${p.productid}" th:text="${p.productSize}+'(Selected)'" selected></option>
-						   	<option value="230">230</option>
-							<option value="235">235</option>
-							<option value="240">240</option>
-							<option value="245">245</option>
-							<option value="250">250</option>
-							<option value="255">255</option>
-							<option value="260">260</option>
-							<option value="265">265</option>
-							<option value="270">270</option>
-					    </th:block>
+				    <select id="idHelp" class="form-select" style="display: none;">
+				    	<th:block th:if="${product.category.categoryId==1 || product.category.categoryId==2 || product.category.categoryId==3}">
+				    		<option th:value="${product.productSize}" th:text="${product.productSize}+'(Selected)'" selected></option>
+				    	</th:block>
+					    <option value="S">S</option>
+					    <option value="M">M</option>
+					    <option value="L">L</option>
+					    <option value="XL">XL</option>    
 				 	</select> 
-				</div>
-			</div>
-			
-			<div class="row mb-3 g-3 align-items-center" style="display:none;">
-				<div>	
-					<label for="inputSize" class="form-label mt-3"></label>
-				</div>
-				<div>
+				 	<select id="idHelp2" class="form-control" style="display: none;">
+				 		<th:block th:if="${product.category.categoryId==4}">
+				    		<option th:value="${product.productSize}" th:text="${product.productSize}+'(Selected)'" selected></option>
+				    	</th:block>
+						<option value="230">230</option>
+						<option value="235">235</option>
+						<option value="240">240</option>
+						<option value="245">245</option>
+						<option value="250">250</option>
+						<option value="255">255</option>
+						<option value="260">260</option>
+						<option value="265">265</option>
+						<option value="270">270</option>
+					</select>
 					<select id="idHelp3" class="form-control" style="display: none;">
-						<option value="none" selected="selected">=== 선택 ===</option>
+						<th:block th:if="${product.category.categoryId==5}">
+				    		<option th:value="${product.productSize}" th:text="${product.productSize}+'(Selected)'" selected></option>
+				    	</th:block>
 						<option value="54">54</option>
 						<option value="55">55</option>
 						<option value="56">56</option>
@@ -112,16 +98,14 @@
 						<option value="60">60</option>
 						<option value="61">61</option>
 					</select>
-				</div>				
-			</div> -->
-			
+				</div>
+			</div>
 			<div class="row mb-3 g-3 align-items-center">
 				<div class="col-auto">
-				    <label for="inputColor" class="form-label mt-3">색상</label>
+				    <label for="inputColor" class="form-label mt-3"><span class="width">색상</span></label>
 				</div>
-			    <div>
+			    <div class="col-auto">
 				    <select id="inputColor" name="productColor" class="form-select " aria-label=".form-select-sm example">
-					    <option> 색상 </option>
 					    <th:block th:each="p : ${product}">
 						    <option th:value="${p.productColor}" th:text="${p.productColor}+'(Selected)'" selected></option>
 						    <option value="White">White</option>
@@ -137,34 +121,35 @@
 				 	</select> 
 				</div>
 			</div>
-			
 			<div class="row mb-3 g-3 align-items-center">
 				<div class="col-auto">
-				    <label for="inputStock" class="form-label mt-3">상품재고</label>
+				    <label for="inputStock" class="form-label mt-3"><span class="width">상품재고</span></label>
 				</div>
-			    <div>
+			    <div class="col-auto">
 				    <input id="inputStock" class="form-control" name="productStock" type="text" 
+				    onkeyup="noSpace(this);" onchange="noSpace(this);" 
 					th:value="${product.productStock}" required> 
 				</div>
 			</div>
 			
 			<div class="row mb-3 g-3 align-items-center">
 				<div class="col-auto">
-				    <label for="inputStock" class="form-label mt-3">상품가격</label>
+				    <label for="inputStock" class="form-label mt-3"><span class="width">가격</span></label>
 				</div>
-			    <div>
+			    <div class="col-auto">
 				    <input id="inputStock" class="form-control" name="price" type="text" 
+				    onkeyup="noSpace(this);" onchange="noSpace(this);" 
 					th:value="${product.price}" required> 
 				</div>
 			</div>
 			
 			<div class="row mb-3 g-3 align-items-center">
 				<div class="col-auto">
-				    <label for="inputInfo" class="form-label mt-3">상품정보</label>
+				    <label for="inputInfo" class="form-label mt-3"><span class="width">상품정보</span></label>
 				</div>
-			    <div>
-				    <input id="inputInfo" class="form-control" name="productInfo" type="text" 
-					th:value="${product.productInfo}" required> 
+			    <div class="col-auto">
+				    <textarea id="inputInfo" class="form-control" name="productInfo" 
+					th:value="${product.productInfo}" required></textarea>
 				</div>
 			</div>
 			
@@ -180,4 +165,15 @@
 	</main>
 </body>
 <footer th:insert="/footer"></footer>
+<script>
+function noSpace(obj) { // 공백사용못하게
+    var str = /\s/;  // 공백체크
+    if(str.exec(obj.value.trim)) { //공백 체크
+        //alert("해당 항목에는 첫 글자 공백을 사용할수 없습니다.");
+        obj.focus();
+        obj.value = obj.value.replace(/^ +/,''); // 공백제거
+        return false;
+    }
+}
+</script>
 </html>
