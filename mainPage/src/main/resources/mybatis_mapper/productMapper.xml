@@ -10,7 +10,6 @@
 		<result column="productName" property="productName"/>
 		<result column="productSize" property="productSize"/>
 		<result column="productColor" property="productColor"/>
-		<result column="productGroup" property="productGroup"/>
 		<result column="productInfo" property="productInfo"/>
 		<result column="productStock" property="productStock"/>
 		<result column="productDate" property="productDate"/>
@@ -20,6 +19,10 @@
 				<id column="categoryId" property="categoryId"/>
 				<result column="categoryName" property="categoryName"/>
 		</association>
+		<collection property="productImgs" javaType="java.util.ArrayList" ofType="ProductImg">
+				<id column="iproduct_img_no" property="product_img_no"/>
+				<result column="iimg_path" property="img_path"/>
+		</collection>
 	</resultMap>
 
 	<select id="selectAll" resultMap="ProductMap">
@@ -32,8 +35,13 @@
  	</select>
 	
 	<select id="selectOne" resultMap="ProductMap">
-		SELECT *
-			FROM PRODUCT
+		SELECT 
+			p.*,
+			i.product_img_no as iproduct_img_no,
+			i.img_path as iimg_path
+			FROM PRODUCT p
+			LEFT JOIN PRODUCT_IMG i
+			USING(productid)
 			WHERE productid=#{productid}
 	</select>
 	<select id="selectByProductName" resultMap="ProductMap">
@@ -44,39 +52,31 @@
 	
 	<update id="updateOne" parameterType="Product">
 		UPDATE PRODUCT SET 
-			productName=#{productName},
+			productName=#{productName}, 
 			productSize=#{productSize},
 			productColor=#{productColor},
-			productGroup=#{productGroup},
 			productInfo=#{productInfo},
 			productStock=#{productStock},
-			price=#{price}
+			price=#{price},
+			categoryid=#{category.categoryId}
 			WHERE productid=#{productid}
 	</update>
 	
-	<insert id="insertOne" parameterType="Product">
-		INSERT INTO PRODUCT VALUES
-			(#{productid},#{productName},#{productSize},#{productColor},
-			#{productGroup},#{productInfo},#{productStock},#{productDate},
-			#{price},#{category.categoryId})
-	</insert>
-	
-	
+	 <insert id="insertOne" parameterType="Product">
+      INSERT INTO PRODUCT (productName,productSize,productColor,
+         productInfo,productStock,productDate,
+         price,categoryid)
+       VALUES
+         (#{productName},#{productSize},#{productColor},
+         #{productInfo},#{productStock},#{productDate},
+         #{price},#{category.categoryId})
+   	</insert>
 	<!-- criteria(검색조건) -->
 	<sql id="criteria">
 		    <trim prefix="WHERE (" suffix=")" prefixOverrides="AND">
 	  		<foreach item="type" collection="typeArr">
 	  			<trim prefix="AND">
 	  				<choose>
-	  					<when test="type == 'P'.toString()">
-	  						<trim prefixOverrides="or">
-			  					<foreach collection="productArr" item="productid">
-			  						<trim prefix="or">
-			  							productid = #{productid}
-			  						</trim>
-			  					</foreach>  						
-	  						</trim>
-	  					</when>
 	  					<when test="type == 'N'.toString()">
 	  						productName LIKE CONCAT ('%', #{keyword}, '%')
 	  					</when>
@@ -97,17 +97,28 @@
 			<include refid="criteria"></include>
 			order by productid desc 
 			limit #{skip}, #{amount}	
-	
 	</select>
 	<!-- 상품 총 개수 -->
 	<select id="productsGetTotal" resultType="int">
   		SELECT COUNT(*) FROM PRODUCT INNER JOIN CATEGORY c USING(categoryid)
 		<include refid="criteria"></include>
 	</select>
-	<select id="selectSearchAll" resultMap="ProductMap">
-		SELECT * FROM PRODUCT INNER JOIN CATEGORY c USING(categoryid) LIMIT #{skip}, #{amount}
+	
+	<select id="searchAllProduct" resultMap="ProductMap">
+			SELECT  p.*, c.categoryName
+			FROM PRODUCT p INNER JOIN CATEGORY c USING(categoryid)
+			WHERE productName LIKE CONCAT ('%', #{keyword}, '%') OR
+				productSize LIKE CONCAT ('%', #{keyword}, '%') OR
+				productColor LIKE CONCAT ('%', #{keyword}, '%') OR
+				c.categoryName LIKE CONCAT ('%', #{keyword}, '%')
+			ORDER BY productid desc 
+			LIMIT #{skip}, #{amount}	
 	</select>
-	<select id="getProductIdList" resultType="String">
-		SELECT productid FROM PRODUCT WHERE productName LIKE CONCAT('%',#{keyword},'%')
+	<select id="productsAllGetTotal" resultType="int">
+  		SELECT COUNT(*) FROM PRODUCT INNER JOIN CATEGORY c USING(categoryid)
+  		WHERE productName LIKE CONCAT ('%', #{keyword}, '%') OR
+			productSize LIKE CONCAT ('%', #{keyword}, '%') OR
+			productColor LIKE CONCAT ('%', #{keyword}, '%') OR
+			c.categoryName LIKE CONCAT ('%', #{keyword}, '%')
 	</select>
 </mapper>

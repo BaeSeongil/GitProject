@@ -15,11 +15,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.project.mainPage.dto.Criteria;
 import com.project.mainPage.dto.Notice;
 import com.project.mainPage.dto.NoticeImg;
+import com.project.mainPage.dto.Pagination;
+import com.project.mainPage.dto.Product;
 import com.project.mainPage.dto.UsersDto;
 import com.project.mainPage.mapper.NoticeMapper;
 import com.project.mainPage.service.NoticeService;
@@ -38,9 +42,18 @@ public class NoticeController {
 	
 	@GetMapping("/list/{page}")
 	public String list(@PathVariable int page, Model model) {
-		List<Notice> noticeList = noticeMapper.selectPageAll();
-		System.out.println("notices : "+noticeList);
-		model.addAttribute(noticeList);
+		int row = 10;
+		int startRow = (page - 1) * row;
+		List<Notice> noticeList = noticeMapper.selectPageAll(startRow, row);
+		int count = noticeMapper.selectPageAllCount();
+		
+		Pagination pagination = new Pagination(page, count, "/notice/list/", row);
+		System.out.println(pagination);
+		model.addAttribute("pagination", pagination);
+		model.addAttribute("noticeList", noticeList);
+		model.addAttribute("row", row);
+		model.addAttribute("count", count);
+		model.addAttribute("page", page);
 		return "/notice/list";
 	}
 	
@@ -130,7 +143,29 @@ public class NoticeController {
 			}
 		
 	}
-	
+	@GetMapping("/search/{page}")
+	public String searchProduct(
+			@RequestParam(value = "type") String type,
+			@RequestParam(value = "keyword") String keyword,
+			@PathVariable int page, Criteria cri, Model model) {
+		int row = 10;
+		int startRow = (page - 1) * row;
+		cri.setAmount(row);
+		cri.setSkip(startRow);
+		List<Notice> list=noticeMapper.searchNotice(cri);
+		int count = noticeMapper.noticeGetTotal(cri);
+		  if(!list.isEmpty()) { model.addAttribute("list",list);
+		  }else { model.addAttribute("listCheck","empty"); return "/notice/search"; }
+		Pagination pagination = new Pagination(page, count, "/notice/search/", row);
+		model.addAttribute("pagination", pagination);
+		System.out.println(pagination);
+		model.addAttribute("list", list);
+		System.out.println("list : "+list);
+		model.addAttribute("row", row);
+		model.addAttribute("count", count);
+		model.addAttribute("page", page);
+		return "/notice/search";
+	}
 	
 	
 }

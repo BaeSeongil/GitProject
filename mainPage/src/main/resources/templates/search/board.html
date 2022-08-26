@@ -10,47 +10,45 @@
 	<div id="wrapper">
 		<div  class="container">
 			<h1 class="m-3 d-flex justify-content-between align-items-center" >
-				<span>검색 결과</span>
+				<span>게시판 검색 결과</span>
 			</h1>
 			<p>
 				<span style="font-style: italic; font-weight: bold;" th:text=${param.keyword}></span> 검색 결과 수 : 
-				<span class="badge text-bg-primary" th:text="${count}"></span>
+				<span class="badge text-bg-primary" th:text="${boardCount}"></span>
 			</p>
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th>상품번호</th>
-						<th>상품명</th>
-						<th>사이즈</th>
-						<th>색</th>
-						<th>재고량</th>
-						<th>상품 등록일</th>
-						<th>가격</th>
-						<th>상품종류</th>		
+						<th>게시글 번호</th>
+						<th>제목</th>
+						<th>작성자</th>
+						<th>등록일</th>
+						<th>조회수</th>
+						<th>추천</th>
+						<th>댓글수</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr id="detail" th:each="product : ${list}" th:onclick="location.href='/product/detail/[[${product.productid}]]'">
-						<td th:text="${product.productid}"></td>
-						<td th:text="${product.productName}"></td>
-						<td th:text="${product.productSize}"></td>
-						<td th:text="${product.productColor}"></td>
-						<td th:text="${product.productStock}"></td>
-						<td th:text="${#dates.format(product.productDate,'yyyy-MM-dd')}"></td>
-						<td th:text="${product.price}"></td>
-						<td th:text="${product.category?.categoryName}"></td>
+					<tr id="detail" th:each="board : ${boardList}" th:onclick="location.href='/board/detail/[[${board.board_no}]]'">
+						<td th:text="${board.board_no}"></td>
+						<td th:text="${board.title}"></td>
+						<td th:text="${board.users?.userid}"></td>
+						<td th:text="${#dates.format(board.post_time,'yyyy-MM-dd HH:mm:ss')}"></td>
+						<td th:text="${board.views}"></td>
+						<td th:text="${board.good}"></td>
+						<td th:text="${board.replys_size}"></td>
 					</tr>
 				</tbody>
 			</table>
 			<div class="d-flex justify-content-evenly">
-				<th:block th:unless="${list==null}">
+				<th:block th:unless="${boardList==null}">
 					<div  th:insert="/pagination.html"></div>
 				</th:block>
-				<form action="/product/search/1" id="searchForm" method="get">
+				<form action="/board/search/1" id="searchForm" method="get">
 					<select name="type" class="form-control" style="display: inline; width : 150px;">
-						<option value="N">상품명</option>
-						<option value="S">사이즈</option>
-						<option value="C">상품분류</option>
+						<option value="T">제목</option>
+						<option value="C">내용</option>
+						<option value="U">작성자</option>
 					</select>
 					<div class=search_input style="display: inline;">
 						<input type="text" name="keyword" onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);">
@@ -59,8 +57,10 @@
 				</form>
 			</div>
 		</div>
-		<footer th:insert="/footer"></footer>
 	</div>
+	<hr>
+	</th:block>
+	<footer th:insert="/footer"></footer>
 </body>
 <script>
 function noSpaceForm(obj) { // 공백사용못하게

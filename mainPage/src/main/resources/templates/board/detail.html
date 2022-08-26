@@ -132,7 +132,8 @@
 						</p>
 						<p class="input-group input-group-sm mb-1">
 							<span class="input-group-text">제목</span>
-							<input name="title"type="text" class="form-control">
+							<input name="title"type="text" class="form-control"
+							onkeyup="noSpace(this);" onchange="noSpace(this);" >
 						</p>
 						<p class="input-group input-group-sm mb-1">
 							<span class="input-group-text">사진</span>
@@ -140,7 +141,8 @@
 						</p>
 						<p class="input-group input-group-sm mb-1">
 							<span class="input-group-text">내용</span>
-							<textarea name="contents" class="form-control"></textarea>
+							<textarea name="contents" class="form-control"
+							onkeyup="noSpace(this);" onchange="noSpace(this);" ></textarea>
 						</p>
 						<p class="mb-1">
 							<button type="reset" class="btn btn-sm btn-outline-warning">초기화</button>
@@ -182,6 +184,7 @@
 							<p class="input-group mb-1">
 								<span class="input-group-text">제목</span>
 								<input name="title" th:value="${reply.title}"
+								onkeyup="noSpace(this);" onchange="noSpace(this);" 
 								class="form-control" type="text" required>
 							</p>
 							<div class="mb-1" th:if="${reply.img_path!=null}">
@@ -189,6 +192,7 @@
 								<p class="input-group mb-1">
 									<span class="input-group-text">내용</span>
 									<textarea name="contents" th:text="${reply.contents}"
+									onkeyup="noSpace(this);" onchange="noSpace(this);" 
 									class="form-control" required></textarea>
 								</p>
 								<p class="mb-1">
@@ -210,5 +214,14 @@
 <script type="text/javascript">
 const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
 const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+function noSpace(obj) { // 공백사용못하게
+    var str = /\s/;  // 공백체크
+    if(str.exec(obj.value.trim)) { //공백 체크
+        //alert("해당 항목에는 첫 글자 공백을 사용할수 없습니다.");
+        obj.focus();
+        obj.value = obj.value.replace(/^ +/,''); // 공백제거
+        return false;
+    }
+}
 </script>
 </html>

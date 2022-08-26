@@ -10,14 +10,15 @@
 	<main class="container">
 		<h1 class="m-3">게시글 등록 페이지</h1>
 	
-		<form  action="/board/insert.do" method="post" class="row g-3 needs-validation" validate enctype="multipart/form-data">
+		<form  action="/board/insert.do" method="post" class="row g-3 needs-validation" enctype="multipart/form-data">
 			<div class="mb-3 was-validated">
 				<label for="inputId" class="form-label">글쓴이(아이디)</label>
 				<input name="users.userid" class="form-control" id="inputId" placeholder="" required readonly th:value="${session.loginUsers.userid}">
 			</div>
 			<div class="mb-3 was-validated">
 				<label for="inputTitle" class="form-label">타이틀</label>
-				<input name="title" class="form-control" id="inputTitle" placeholder="제목을 입력하세요" required>
+				<input name="title" class="form-control" id="inputTitle" placeholder="제목을 입력하세요"
+					onkeyup="noSpace(this);" onchange="noSpace(this);" required>
 				<div class="invalid-feedback">
 					제목을 입력하세요.
 				</div>
@@ -49,4 +50,15 @@
 	</main>
 </body>
 <footer th:insert="/footer"></footer>
+<script>
+function noSpace(obj) { // 공백사용못하게
+    var str = /\s/;  // 공백체크
+    if(str.exec(obj.value.trim)) { //공백 체크
+        //alert("해당 항목에는 첫 글자 공백을 사용할수 없습니다.");
+        obj.focus();
+        obj.value = obj.value.replace(/^ +/,''); // 공백제거
+        return false;
+    }
+}
+</script>
 </html>

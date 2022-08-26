@@ -41,8 +41,6 @@ public class CategoryController {
 				int startRow = (page - 1) * row;
 				List<Category> categoryList = categoryMapper.selectCateAll(categoryId,startRow,row);
 				int count = categoryMapper.selectCateAllCount(categoryId);
-
- 
 				Pagination pagination = new Pagination(page, count, "/category/cate/"+categoryId+"/", row);
 				System.out.println(pagination);
 				model.addAttribute("pagination", pagination);
@@ -52,10 +50,6 @@ public class CategoryController {
 				model.addAttribute("page", page);
 				return "/category/cate";
 		  }
-		  // 관리자만 할 수 있게 해야 하는데 어떻게.. 하지..........?
-		  // 접근이 안 되는 거라 괜찮나요..? ㅠ_ㅠ 
-		  // 네 접근자체가 불가능합니다.
-
 		  @GetMapping("/insert.do")
 		  public void insert() {}
 		  

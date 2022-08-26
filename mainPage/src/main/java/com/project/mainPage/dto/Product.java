@@ -1,6 +1,7 @@
 package com.project.mainPage.dto;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -15,7 +16,6 @@ Product
 | productName  | varchar(45) | NO   |     | NULL    |       |
 | productSize  | varchar(45) | NO   |     | NULL    |       |
 | productColor | varchar(45) | NO   |     | NULL    |       |
-| productGroup | varchar(45) | NO   |     | NULL    |       |
 | productInfo  | text        | YES  |     | NULL    |       |
 | productStock | int         | YES  |     | NULL    |       |
 | productDate  | date        | YES  |     | NULL    |       |
@@ -31,7 +31,6 @@ public class Product {
 	private String productName;
 	private String productSize;
 	private String productColor;
-	private String productGroup;
 	private String productInfo;
 	private int productStock;
 
@@ -44,5 +43,8 @@ public class Product {
 	//검색필터
 	private String type;
 	private String keyword;
+	
+	//상품 이미지
+	private List<ProductImg> productImgs; // 1:N PRODUCT_IMG.productid 
 
 }
