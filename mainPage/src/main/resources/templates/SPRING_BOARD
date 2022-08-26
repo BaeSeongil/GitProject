@@ -91,13 +91,13 @@ INSERT INTO USERS (userid, username, userpw, phone, email, birth, add2,add1,admi
 ('admin','admin','1234','010-7777-7777','admin@gmail.com','1999-11-11','서울 강남구 언주로93길 22-5','02-106','1');
 
 
-CREATE TABLE CATEGORY ( 카테고리 DB
+CREATE TABLE CATEGORY ( 
 	categoryid INT,
     categoryName VARCHAR(45) NOT NULL,
     PRIMARY KEY(categoryid)
 );
 
-CREATE TABLE PRODUCT(  상품 DB
+CREATE TABLE PRODUCT( 
     productid INT,
     productName VARCHAR(45) NOT NULL,
     productSize VARCHAR(45) NOT NULL,
@@ -114,7 +114,7 @@ CREATE TABLE PRODUCT(  상품 DB
 );
 
 
-CREATE TABLE productImg(   상품 이미지 DB 
+CREATE TABLE productImg(   
 	product_img_no INT AUTO_INCREMENT,
 	productid INT NOT NULL, 
 	img_path VARCHAR(255) NOT NULL,
@@ -123,7 +123,7 @@ CREATE TABLE productImg(   상품 이미지 DB
 	ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-CREATE TABLE NOTICE(   공지사항 DB 
+CREATE TABLE NOTICE(  
 	notice_no INT AUTO_INCREMENT,
 	title VARCHAR(255) NOT NULL,
 	contents VARCHAR(255) DEFAULT '',
@@ -399,7 +399,7 @@ CREATE TABLE SHOPPING_BASKET(
     ON UPDATE CASCADE ON DELETE CASCADE,
 	FOREIGN KEY(userid) REFERENCES USERS(userid)
     ON UPDATE CASCADE ON DELETE CASCADE
-    UNIQUE KEY (userid,productid)  
+    
 ); 
 
 CREATE TABLE ORDERS(
