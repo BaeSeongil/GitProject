@@ -53,9 +53,7 @@ public class ProductController {
 			product = productMapper.selectOne(productid); 
 			System.out.println(product);
 			if (product != null) {
-			
-				 List<Product> products =
-				 productMapper.selectByProductName(product.getProductName()); 
+				 List<Product> products = productMapper.selectByProductName(product.getProductName()); 
 					System.out.println(products);
 
 				model.addAttribute("products",products);
@@ -70,6 +68,7 @@ public class ProductController {
 		}
 		return "redirect:/product/cate/1";
 	}
+	
 	@GetMapping("/insert.do")
 	public void insert() {};
 	@PostMapping("insert.do")

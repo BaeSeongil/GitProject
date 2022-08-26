@@ -30,6 +30,11 @@
  			FROM SHOPPING_BASKET b 
  			INNER JOIN PRODUCT p 
  			USING(productid)
+ 			LIMIT #{startRow},#{pageSize}
+ 	</select>
+ 	
+ 	<select id="selectAllCount" resultType = "int" >
+ 		SELECT COUNT(*) FROM SHOPPING_BASKET
  	</select>
  	
 	<insert id="insertOne" parameterType="ShoppingBasket">
@@ -37,6 +42,10 @@
 	</insert>
 	
 	<delete id="deleteOne">
- 		DELETE FROM SHOPPING_BASKET WHERE basket_id = #{basket_id}
+ 		DELETE FROM SHOPPING_BASKET WHERE basket_id = #{basket_id} 
  	</delete>
+	<delete id="deleteUser">
+ 		DELETE FROM SHOPPING_BASKET WHERE userid = #{userid}
+ 	</delete>
+ 	
 </mapper>

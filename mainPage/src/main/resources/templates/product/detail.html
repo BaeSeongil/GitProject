@@ -78,7 +78,6 @@ footer {
 					 </div>
 					 <div class="col-8 mb-3">
 					    <label for="pSize" class="form-label mt-3">사이즈</label>
-					    
 					    <select name="product.productid" class="form-select form-select-sm " aria-label=".form-select-sm example">
 						    <option selected>- size -</option>
 						    <th:block th:each="p : ${products}">
@@ -105,7 +104,8 @@ footer {
 							<button class="btn btn-outline-dark flex-shrink-0" type="submit">
 		                        <i class="bi-cart-fill me-1"></i>
 		                        장바구니 
-	                        </button> 
+	                        </button>
+	                        <input type="hidden" name="productid" th:value="${productid}"> 
 					    </th:block>
 					    <th:block th:unless="${session.loginUsers?.userid != null}">
 							<a class="btn btn-outline-dark flex-shrink-0" 

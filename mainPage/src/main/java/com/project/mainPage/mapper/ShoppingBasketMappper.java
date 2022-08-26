@@ -13,5 +13,7 @@ public interface ShoppingBasketMappper {
 	int countByid(String userid);
 	int insertOne(ShoppingBasket shoppingBasket);
 	int deleteOne(int basket_id);
-	List<ShoppingBasket> selectAll();
+	int deleteUser(String userid);
+	List<ShoppingBasket> selectAll(int startRow, int pageSize);
+	int selectAllCount();
 }
