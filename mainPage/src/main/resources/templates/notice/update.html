@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>공지사항 수정페이지</title>
+</head>
+<body>
+	<header th:insert="/gAndB"></header>
+	<header th:insert="/headerNav"></header>
+	<main class="container">
+	<form action="/notice/update.do" method="post" enctype="multipart/form-data">
+		<p class="mb-3 mt-3 input-group" >
+				<small class="input-group-text" th:text="${notice.notice_no}"></small>
+				<small class="input-group-text">제목</small>
+				<input name="title" class="form-control" type="text" th:value="${notice.title}">
+			</p>
+			<p>
+				글쓴이 아이디 :<strong th:text="${notice.users.userid}"></strong> ,
+				이름 :<strong th:text="${notice.users.username}"></strong>
+			</p>
+			<p>
+				글쓴이 이메일 :<strong th:text="${notice.users.email}"></strong> ,
+				생일 :<strong th:text="${#dates.format(notice.users.birth,'yyyy-MM-dd')}"></strong>
+			</p>
+			<p>
+				게시일 : <span th:text="${notice.post_time}"></span>
+			</p>
+			<p>	 
+				<i class="bi bi-eye" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="조회수">
+					<span th:text="${notice.views}"></span>
+				</i>				
+			</p>
+			<span th:text="${#dates.format(notice.post_time,'yyyy-MM-dd HH:mm:ss')}"></span>
+		<hr>
+		
+		<div>
+				<p>삭제할 이미지 선택</p>
+				<th:block th:each=" noticeImg : ${notice.noticeImgs}">
+					<label>
+						<input type="checkbox" class="form-check-input"
+						th:value="${noticeImg.notice_img_no}" name="noticeImgNo">
+						<img alt="게시글 이미지" 
+						th:src="@{/public/img/{file}(file=${noticeImg.img_path})}" 
+						class="img-thumbnail" width="200">
+					</label>
+				</th:block>
+			</div>
+			<div class="input-group mb-1">
+				<span class="input-group-text">이미지</span>
+				<input type="file" name="imgFile" class="form-control">	
+			</div>
+			<div class="input-group mb-1">
+				<span class="input-group-text">이미지</span>
+				<input type="file" name="imgFile" class="form-control">	
+			</div>
+			<div class="input-group mb-1">
+				<span class="input-group-text">이미지</span>
+				<input type="file" name="imgFile" class="form-control">	
+			</div>
+			<div class="input-group mb-1">
+				<span class="input-group-text">이미지</span>
+				<input type="file" name="imgFile" class="form-control">	
+			</div>
+			<div class="input-group mb-3">
+				<span class="input-group-text">이미지</span>
+				<input type="file" name="imgFile" class="form-control">	
+			</div>
+			<div class="input-group mb-3">
+				<span  class="input-group-text">내용</span>
+				<textarea  name="contents" class="form-control" placeholder="Leave a comment here" 
+			 	style="height: 100px; resize: none; " th:text="${notice.contents}"></textarea>
+			</div>
+			<p>
+				<button type="reset" class="btn btn-outline-warning">초기화</button>	
+				<button class="btn btn-outline-primary">수정</button>
+				<input type="hidden" name="users.userid" th:value="${notice.users.userid}">
+				<input type="hidden" name="notice_no" th:value="${notice.notice_no}">
+			</p>
+		</form>
+	</main>
+</body>
+</html>

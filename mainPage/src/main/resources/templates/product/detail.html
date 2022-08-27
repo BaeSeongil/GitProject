@@ -96,7 +96,6 @@ footer {
 
 					    <label for="pSize" class="form-label mt-3">사이즈</label>
 					    <select name="product.productid" class="form-select form-select-sm " aria-label=".form-select-sm example">
-						    <option selected>- size -</option>
 						    <th:block th:each="p : ${products}">
 							    <option  th:value="${p.productid}" th:text="${p.productSize+' '+p.productColor}"></option>
 						    </th:block>

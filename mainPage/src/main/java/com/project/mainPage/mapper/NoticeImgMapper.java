@@ -12,4 +12,7 @@ import com.project.mainPage.dto.NoticeImg;
 public interface NoticeImgMapper {
 	int insertOne(NoticeImg noticeImg);
 	List<NoticeImg> selectNoticeNo(int noticeNo);
+	int selectCountNoticeNo(int noticeNo);
+	NoticeImg selectOne(int noticeImgNo);
+	int deleteOne(int noticeImgNo);
 }
