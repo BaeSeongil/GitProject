@@ -58,13 +58,17 @@
 	<select id="selectPageAll" resultType="Board">
 		SELECT
 			board_no, title, post_time, views, board_no boardNo,
-			(SELECT count(*) FROM REPLY r WHERE r.board_no = boardNo ) replys_size,
-			(SELECT count(*) FROM BOARD_PREFER WHERE board_no = boardNo) good,
+			(SELECT COUNT(*) FROM REPLY r WHERE r.board_no = boardNo ) replys_size,
+			(SELECT COUNT(*) FROM BOARD_PREFER WHERE board_no = boardNo) good,
 			userid as 'users.userid'
 			FROM BOARD
 			ORDER BY board_no 
+			LIMIT #{startRow},#{pageSize}
 	</select>
-	
+	<select id="selectPageAllCount" resultType="int">
+		SELECT COUNT(*)
+		 	FROM BOARD
+	</select>
 	<select id="selectDetailOneAll" resultMap="BoardMap" parameterType="int">
 		SELECT b.*,
 			(SELECT count(*) FROM BOARD_PREFER WHERE board_no = b.board_no AND prefer = true) prefer_good,
@@ -131,9 +135,61 @@
 			contents=#{contents}
 			WHERE board_no=#{board_no}
 	</update>
-
-
-
-
-
+	<!-- criteria(검색조건) -->
+	<sql id="criteria">
+		    <trim prefix="WHERE (" suffix=")" prefixOverrides="AND">
+	  		<foreach item="type" collection="typeArr">
+	  			<trim prefix="AND">
+	  				<choose>
+	  					<when test="type == 'B'.toString()">
+	  						<trim prefixOverrides="or">
+			  					<foreach collection="boardArr" item="board_no">
+			  						<trim prefix="or">
+			  							board_no = #{board_no}
+			  						</trim>
+			  					</foreach>  						
+	  						</trim>
+	  					</when>
+	  					<when test="type == 'T'.toString()">
+	  						b.title LIKE CONCAT ('%', #{keyword}, '%')
+	  					</when>
+	  					<when test="type == 'C'.toString()">
+	  						b.contents LIKE CONCAT ('%', #{keyword}, '%')
+	  					</when>  					
+	  					<when test="type == 'U'.toString()">
+	  						u.userid LIKE CONCAT ('%', #{keyword}, '%')
+	  					</when>  					
+	  				</choose>
+	  			</trim>
+	  		</foreach>
+	  	</trim>
+	</sql>
+	<select id="searchBoard" resultMap="BoardMap">
+			SELECT  b.*, u.userid
+			FROM BOARD b LEFT JOIN USERS u using(userid)
+			<include refid="criteria"></include>
+			order by board_no desc 
+			limit #{skip}, #{amount}	
+	</select>
+	<select id="boardGetTotal" resultType="int">
+  		SELECT COUNT(*) FROM BOARD b LEFT JOIN USERS u using(userid)
+		<include refid="criteria"></include>
+	</select>
+	
+	<select id="searchAllBoard" resultMap="BoardMap">
+			SELECT  b.*, u.userid
+			FROM BOARD b LEFT JOIN USERS u using(userid)
+			WHERE title LIKE CONCAT ('%', #{keyword}, '%') OR
+				contents LIKE CONCAT ('%', #{keyword}, '%') OR
+				u.userid LIKE CONCAT ('%', #{keyword}, '%')
+			ORDER BY board_no desc 
+			LIMIT #{skip}, #{amount}	
+	</select>
+	<select id="boardAllGetTotal" resultType="int">
+  		SELECT COUNT(*) FROM BOARD b LEFT JOIN USERS u using(userid)
+			WHERE title LIKE CONCAT ('%', #{keyword}, '%') OR
+				contents LIKE CONCAT ('%', #{keyword}, '%') OR
+				u.userid LIKE CONCAT ('%', #{keyword}, '%')
+	</select>
+	
 </mapper>

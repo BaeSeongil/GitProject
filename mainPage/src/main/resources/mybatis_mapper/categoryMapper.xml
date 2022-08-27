@@ -12,22 +12,34 @@
 			<result column="productName" property="productName"/>
 			<result column="productSize" property="productSize"/>
 			<result column="productColor" property="productColor"/>
-			<result column="productGroup" property="productGroup"/>
 			<result column="productInfo" property="productInfo"/>
 			<result column="productStock" property="productStock"/>
 			<result column="productDate" property="productDate"/>
 			<result column="price" property="price"/>
+			<collection property="productImgs" javaType="java.util.ArrayList" ofType="ProductImg">
+				<id column="iproduct_img_no" property="product_img_no"/>
+				<result column="iimg_path" property="img_path"/>
+			</collection>
 		</collection>
 	</resultMap>
 	
 	<select id="selectAll" resultMap="CategoryMap">
-		SELECT c.*, p.productid, p.productName, p.productSize, p.productColor,
-		 p.productGroup, p.productInfo, p.productStock, p. productDate, p.price 
-		 FROM CATEGORY c
+
+		SELECT 
+		c.*, 
+		p.productid, p.productName, p.productSize, p.productColor,
+		p.productInfo, p.productStock, p. productDate, p.price,
+		i.product_img_no as iproduct_img_no,
+		i.img_path as iimg_path
+		
+		FROM CATEGORY c
+
 		LEFT JOIN PRODUCT p USING(categoryId)
+		LEFT JOIN PRODUCT_IMG i USING(productid)
+		
 		LIMIT #{startRow},#{pageSize}
 	</select>
-	
+
 	<select id="selectAllCount" resultType = "int" >
  		SELECT COUNT(*) FROM CATEGORY c
 		LEFT JOIN PRODUCT p USING(categoryId)
@@ -42,13 +54,22 @@
 	<select id="selectListAllCount" resultType="int">
 		SELECT COUNT(*) FROM CATEGORY
 	</select>
-	
+
 	<select id="selectCateAll" resultMap="CategoryMap">
-		SELECT c.*, p.productid, p.productName, p.productSize, p.productColor,
-		 p.productGroup, p.productInfo, p.productStock, p. productDate, p.price 
-		 FROM CATEGORY c
+		SELECT 
+		c.*, 
+		p.productid, p.productName, p.productSize, p.productColor,
+		p.productInfo, p.productStock, p. productDate, p.price,
+		i.product_img_no as iproduct_img_no,
+		i.img_path as iimg_path
+		
+		FROM CATEGORY c
+
 		LEFT JOIN PRODUCT p USING(categoryId)
+		LEFT JOIN PRODUCT_IMG i USING(productid)
+		
 		WHERE categoryId=#{categoryId}
+		
 		LIMIT #{startRow},#{pageSize}
 	</select>
 	
@@ -58,8 +79,30 @@
  		WHERE categoryId=#{categoryId}
  	</select>
  	
+ 	<select id="selectOne" resultMap="CategoryMap">
+ 		SELECT
+ 			c.*,
+ 			p.productid,
+ 			p.productName
+ 			FROM CATEGORY c
+ 			LEFT JOIN PRODUCT p
+ 			USING (categoryId)
+ 			WHERE c.categoryId=#{categoryId}
+ 			
+ 	</select>
+	
  	<insert id="insertOne" parameterType="Category">
- 		INSERT INTO CATEGORY VALUES (#{categoryId}, #{categoryName})
+ 		INSERT INTO CATEGORY (categoryId, categoryName) VALUES (#{categoryId}, #{categoryName})
  	</insert>
+ 	
+ 	<update id="updateOne" parameterType="Category">
+ 		UPDATE CATEGORY SET
+ 			categoryName=#{categoryName}
+ 				WHERE categoryId = #{categoryId}
+ 	</update>
+ 	
+ 	<delete id="deleteOne" parameterType="Category">
+ 		DELETE FROM CATEGORY WHERE categoryId=#{categoryId}
+ 	</delete>
  	
 </mapper>

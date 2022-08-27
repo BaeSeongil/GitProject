@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title> 상품 결제페이지 </title>
+
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js" defer="defer"></script>
+</head>
+<body>
+	<header th:insert="/gAndB"></header>
+	<header th:insert="/headerNav"></header>
+	<main class="container">
+		<h1 class="m-2 d-flex justify-content-center">
+			결제
+		</h1>
+
+		<!-- FORM -->
+		
+		<form  method="post" action="/order/insert.do" class="col-15">
+		<div class="m-5 justify-content-center">
+		<div class="container text-center">
+		  <div class="row">
+		  	<h5><strong>주문자 정보</strong></h5>
+		    <div class="col">
+		      <label for="inputName" class="mt-2 form-label">주문자</label>
+						<input style="max-width: 250px; text-align: center" name="users.username" class="form-control" id="inputName" required readonly
+						th:value="${session.loginUsers.username}">
+
+		    </div>
+		    <div class="col-6">
+		      <label for="inputEmail" class="mt-2 form-label">이메일</label>
+						<input style="max-width: 250px; text-align: center; display:block; margin: 0 auto;"  name="users.email" class="form-control" id="inputEmail"  required readonly
+						th:value="${session.loginUsers.email}">
+		    </div>
+		    <div class="col">
+		      	<label for="inputPhone" class="mt-2 form-label">폰 번호</label>
+						<input style="max-width: 250px; text-align: center" name="users.phone" class="form-control" id="inputPhone" placeholder="" required readonly
+						th:value="${session.loginUsers.phone}">
+				<input type="hidden" name="users.userid" th:value="${session.loginUsers.userid}">
+		    </div>
+		  </div>
+		</div>
+		 <hr>
+		<div class="container text-center">
+		  <div class="row">
+		  	<h5><strong>상품 정보</strong></h5>
+		  	 <th:block th:each="order:${proList}">
+			  <th:block th:each="p:${order.product}">
+		    <div class="col">
+	    		<label for="inputPro" class="mt-2 form-label">상품 명</label>
+				<input style="max-width: 150px; text-align: center; display:block; margin: 0 auto;" name="product.productName" class="form-control" id="inputPro" placeholder="" required readonly
+				th:value="${p.productName}">
+		    </div>
+			<div class="col">
+				<label for="inputPro" class="mt-2 form-label">사이즈</label>
+				<input style="max-width: 100px; text-align: center; display:block; margin: 0 auto;" name="product.productSize" class="form-control" id="inputPro" placeholder="" required readonly
+				th:value="${p.productSize}">
+		    </div>
+		    <div class="col">
+				<label for="inputPro" class="mt-2 form-label">색상</label>
+				<input style="max-width: 100px; text-align: center; display:block; margin: 0 auto;" name="product.productColor" class="form-control" id="inputPro" placeholder="" required readonly
+				th:value="${p.productColor}">
+		    </div>			
+			<div class="col">
+				<label for="inputPro2" class="mt-2 form-label">상품 개당 가격</label>
+				<input style="max-width: 150px; text-align: center; display:block; margin: 0 auto;" name="product.price" class="form-control" id="inputPro2" placeholder="" required readonly
+				th:value="${p.price}">	
+		    </div>	
+		  	 	<input type="hidden" name="product.productid" th:value="${productid}">
+			</th:block>
+		  </th:block>
+		  	<div class="col">
+				<label for="inputCount" class="mt-2 form-label">상품 갯수</label>
+			    <input style="max-width: 100px; text-align: center; display:block; margin: 0 auto;" name="count" class="form-control" id="inputCount"
+			    th:value="${count}" readonly> 	
+		    </div>	
+		  </div>
+		</div>
+		<hr>	    
+				<h4>결제내용 입력</h4>	 
+			    <div class="m-3 mt-4">
+			    	<div class="row mb-3 g-3 align-items-center">
+						<div class="col-auto labelSize">
+							<span class="width">받는 분</span>
+						</div>
+						<div class="col-auto">
+							<input type="text" size="30" name="orderName" 
+							class="form-control" required  style="display:inline; width:50%;">
+						</div>
+					</div>
+			    	
+			    	<div class="row mb-3 g-3 align-items-center">
+						<div class="col-auto labelSize">
+							<span class="width">연락처</span>
+						</div>
+						<div class="col-auto">
+							<input type="text" size="30" name="orderPhone" 
+							class="form-control" required  style="display:inline;">
+						</div>
+						<div class="col-auto">
+							<span id="phoneHelp" class="form-text">
+								Must be 000-0000-0000 pattern.
+							</span>
+						</div>
+					</div>
+					
+			    	<p class="m-3">* 상품을 받으실 주소를 입력해주세요. *</p>
+			    	
+			       	<div class="row mb-3 g-3 align-items-center">
+						<div class="col-auto labelSize">
+							<span class="width">우편번호</span>
+						</div>
+						<div class="col-auto">
+							<input type="text" size="20" placeholder="우편번호" name="orderAdd1" 
+							class="form-control" id="inputAdd1" required readonly style="display:inline; width:50%;">
+							<input  type="button" class="btn" onclick="execution_daum_address()" value="주소 찾기">
+						</div>
+					</div>
+					<div class="row mb-3 g-3 align-items-center">
+						<div class="col-auto labelSize">
+							<span class="width">주소</span>
+						</div>
+						<div class="col-auto">
+							<input type="text" size="40" placeholder="도로명주소" name="orderAdd2" id="inputAdd2" class="form-control" required readonly>
+						</div>
+					</div>
+					<div class="row mb-3 g-3 align-items-center">
+						<div class="col-auto labelSize">
+							<span class="width">상세주소</span>
+						</div>
+						<div class="col-auto">
+							<input type="text" size="40" placeholder="상세주소" name="orderAdd3" id="inputAdd3" class="form-control" readonly>
+						</div>
+					</div>  	
+			    	
+			    	
+			    	<label for="inputOrderState" class="mt-3 form-label">결제 방법</label>
+			    	<br>
+			    	<input type="radio" name="orderOption" id="inputOrderState" value="신용카드">&nbsp;신용카드&nbsp;   
+			    	<input type="radio" name="orderOption" id="inputOrderState" value="계좌이체">&nbsp;계좌이체
+			    	
+			    	<div class="row mb-3 mt-3 g-3 align-items-center">
+						<div class="col-auto labelSize">
+							<span class="width">결제 금액</span>
+						</div>
+						<div class="col-auto">
+							<th:block th:each="order:${proList}">
+			 				 <th:block th:each="p:${order.product}">
+							<input type="text" size="20" name="orderPrice" class="form-control"  th:value="${count*p.price}" readonly>	
+							</th:block>
+						   </th:block>
+						</div>
+					</div>  	
+			    	
+			    </div>
+			    	
+			    	 	
+			</div>
+			
+				
+		    <button class="btn btn-outline-primary m-4 justify-content-end" type="submit">결제 하기</button>
+		    <a href="/category/cate/1" class="btn btn-outline-danger justify-content-end">취소 하기</a>
+	 	</form> 	
+	</main>
+</body>
+<footer th:insert="/footer"></footer>
+
+<script type="text/javascript">
+	/* 다음 주소 연동 */
+	function execution_daum_address(){
+		new daum.Postcode({
+	        oncomplete: function(data) {
+	        	// 내려오는 변수가 값이 없는 경우엔 공백("")값을 가지므로, 이를 참고하여 분기 한다.
+                var addr = ""; // 주소 변수
+                var extraAddr = ""; // 참고항목 변수
+                //선택한 주소 타입에 따라 해당 주소 값을 가져온다
+                if (data.userSelectedType === "R") { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우
+                    addr = data.jibunAddress;
+                }
+                // 선택한 주소가 도로명 타입일때 조합
+                if(data.userSelectedType === "R"){
+                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                    if(data.bname !== "" && /[동|로|가]$/g.test(data.bname)){
+                        extraAddr += data.bname;
+                    }
+                    // 건물명이 있고, 공동주택일 경우 추가한다.
+                    if(data.buildingName !== "" && data.apartment === "Y"){
+                        extraAddr += (extraAddr !== "" ? ", " + data.buildingName : data.buildingName);
+                    }
+                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                    if(extraAddr !== ""){
+                        extraAddr = " (" + extraAddr + ")";
+                    }
+                 	// 주소변수 문자열과 참고항목 문자열 합치기
+                    addr += extraAddr;
+                } else {
+                	addr += " ";
+                }
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById("inputAdd1").value = data.zonecode;
+                document.getElementById("inputAdd2").value = addr;
+                // 커서를 상세주소 필드로 이동한다.
+                // readonly 
+                document.getElementById("inputAdd3").focus();
+                document.getElementById("inputAdd3").removeAttribute("readonly");
+            }
+        }).open();
+	     }
+
+function noSpace(obj) { // 공백사용못하게
+    var str = /\s/;  // 공백체크
+    if(str.exec(obj.value.trim)) { //공백 체크
+        //alert("해당 항목에는 첫 글자 공백을 사용할수 없습니다.");
+        obj.focus();
+        obj.value = obj.value.replace(/^ +/,''); // 공백제거
+        return false;
+    }
+}
+
+</script>
+</html>

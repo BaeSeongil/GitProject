@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="mall/header::head-fragment('주문 결제','order-detail')"> </head>
+
+<body>
+    <div class="wrapper">
+        <!-- Main Header Component -->
+        <div th:replace="mall/header::header-fragment"></div>
+        <!-- Nav Component -->
+        <div th:replace="mall/header::nav-fragment"></div>
+        <!-- Search Modal -->
+        <div th:replace="mall/header::searchmodal"></div>
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Component -->
+            <div class="content">
+                <!-- Container-fluid -->
+                <div class="container-fluid">
+                    <div class="container py-5">
+                        <div class="row">
+                            <!-- sidebar -->
+                            <div th:replace="mall/sidebar::sidebar-fragment"></div>
+                            <!-- /.sidebar-->
+                            <section class="col-lg-9">
+                                <div class="box-hd mb-2">
+                                    <h3 class="title float-start">주문 정보 입력 및 확인</h3>
+                                    <div class="actions float-end">
+                                        <a id="saveOrder" class="btn btn-small btn-primary" title="주문확인">주문확인</a>
+                                    </div>
+                                </div>
+                                <article class="box-bd">
+                                    <div class="order-detail-info">
+                                        <!-- 배송 진행도 -->
+                                        <div class="order-summary">
+                                            <div class="progress">
+                                                <div class="progress-bar bg-success" role="progressbar"
+                                                    style="width: 20%" aria-valuenow="20" aria-valuemin="0"
+                                                    aria-valuemax="100">주문</div>
+                                                <div class="progress-bar bg-secondary" role="progressbar"
+                                                    style="width: 20%" aria-valuenow="20" aria-valuemin="0"
+                                                    aria-valuemax="100">결제</div>
+                                                <div class="progress-bar bg-secondary" role="progressbar"
+                                                    style="width: 20%" aria-valuenow="20" aria-valuemin="0"
+                                                    aria-valuemax="100">포장</div>
+                                                <div class="progress-bar bg-secondary" role="progressbar"
+                                                    style="width: 20%" aria-valuenow="20" aria-valuemin="0"
+                                                    aria-valuemax="100">배송중</div>
+                                                <div class="progress-bar bg-secondary" role="progressbar"
+                                                    style="width: 20%" aria-valuenow="20" aria-valuemin="0"
+                                                    aria-valuemax="100">거래 성공</div>
+                                            </div>
+                                        </div>
+
+                                        <!-- 상품 리스트 -->
+                                        <table class="table order-items-table">
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="col"></th>
+                                                    <th scope="col">상품명</th>
+                                                    <th scope="col">합계</th>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                </tr>
+                                                <th:block th:each="item : ${myCartItems}">
+                                                    <tr>
+                                                        <td class="col col-thumb">
+                                                            <div class="figure figure-thumb">
+                                                                <a target="_blank"
+                                                                    th:href="@{'/mall/product/detail/'+${item.productId}}">
+                                                                    <img id="coverImg" th:src="@{${item.productCoverImg}}" th:alt="${item.productName}">
+                                                                </a>
+                                                            </div>
+                                                        </td>
+                                                        <td class="col col-name">
+                                                            <p class="name">
+                                                                <a target="_blank"
+                                                                    th:href="@{'/mall/product/detail/'+${item.productId}}"
+                                                                    th:text="${item.productName}">상품명</a>
+                                                            </p>
+                                                        </td>
+                                                        <td class="col col-price">
+                                                            <p class="price"
+                                                                th:text="${item.sellingPrice+'₩ x '+item.productCount}">
+                                                                합계</p>
+                                                        </td>
+                                                        <td class="col col-actions" colspan="2"></td>
+                                                    </tr>
+                                                </th:block>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <!-- 배송지 -->
+                                    <div id="editAddr" class="order-detail-info">
+                                        <h3>배송 정보</h3>
+                                        <table class=" info-table">
+                                            <tbody>
+                                                <tr class="visually-hidden">
+                                                    <th>주문자: </th>
+                                                    <td id="userId" class="user_address_label"
+                                                        th:text="${session.AcornUser.userId}">
+                                                        주문자</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>배송지: </th>
+                                                    <td id="userAddress" class="user_address_label"
+                                                        th:text="${session.AcornUser.address==null?'배송지 없음':session.AcornUser.address}">
+                                                        배송지</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="actions float-end">
+                                            <a class="btn btn-small btn-outline-secondary" type="button"
+                                                href="javascript:openDaumPostcode();">변경</a>
+                                        </div>
+                                        
+                                        <div id="daumAddressWrap">
+                                            <img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnFoldWrap" onclick="foldDaumPostcode()" alt="접기 버튼">
+                                        </div>
+                                    </div>
+
+                                    <!-- 결제방법 -->
+                                    <div id="editTime" class="order-detail-info">
+                                        <h3>결제 방법</h3>
+                                        <table class="info-table">
+                                            <tbody>
+                                                <tr>
+                                                    <th>결제 방법: </th>
+                                                    <td>온라인 결제</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="actions">
+                                        </div>
+                                    </div>
+
+                                    <!-- 총 상품가격 -->
+                                    <div class="order-detail-total">
+                                        <table class="total-table">
+                                            <tbody>
+                                                <tr>
+                                                    <th>총 상품 가격: </th>
+                                                    <td>
+                                                        <span class="num" th:text="${priceTotal+' ₩'}"></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>배송비: </th>
+                                                    <td><span class="num">0</span> ₩</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="total">지불 금액: </th>
+                                                    <td class="total">
+                                                        <span class="num" th:text="${priceTotal+' ₩'}"></span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </article>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.Container-fluid -->
+                <div class="clear"></div>
+            </div>
+            <!-- /.Content Component -->
+            <div class="content">
+                <!-- Modal -->
+                <!-- /.Modal-->
+            </div>
+        </div>
+        <div th:replace="mall/footer::footer-fragment"></div>
+    </div>
+    <!-- js 라이브러리 -->
+    <!-- jQuery -->
+    <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+    <!-- Popper-->
+    <script th:src="@{/webjars/popper.js/1.16.1/dist/umd/popper.min.js}"></script>
+    <!-- Bootstrap -->
+    <script th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.bundle.min.js}"></script>
+    <!-- Fontawesome -->
+    <script th:src="@{/webjars/font-awesome/6.1.2/js/fontawesome.min.js}"></script>
+    <!-- Swiper -->
+    <script th:src="@{/webjars/swiper/8.3.2/swiper-bundle.min.js}"></script>
+    <!-- sweetalert -->
+    <script th:src="@{/webjars/sweetalert2/11.4.24/dist/sweetalert2.min.js}"></script>
+    <!-- 우편번호 서비스 https://postcode.map.daum.net/guide -->
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script th:src="@{/mall/js/header-search.js}"></script>
+    <script th:src="@{/mall/js/order-settle.js}"></script>
+</body>
+
+</html>

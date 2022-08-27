@@ -111,7 +111,7 @@ public class tmp_CategoryController {
     }
 
 
- // 업데이트
+    // 업데이트
     @RequestMapping(value = "/categories/update", method = RequestMethod.POST)
     public @ResponseBody Result update(@RequestBody tmp_Category Category) {
         if (Objects.isNull(Category.getCategoryId())

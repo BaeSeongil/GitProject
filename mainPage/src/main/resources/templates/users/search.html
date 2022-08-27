@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>검색결과</title>
+</head>
+<body>
+	<header th:insert="/gAndB"></header>
+	<header th:insert="/headerNav"></header>
+	<div id="wrapper">
+		<div  class="container">
+			<h1 class="m-3 d-flex justify-content-between align-items-center" >
+				<span>검색 결과</span>
+			</h1>
+		<p>
+			페이지 / 총 회원 수 : 
+			<span class="badge text-bg-success" th:text="${page}"></span> / 
+			<span class="badge text-bg-primary" th:text="${count}"></span>
+		</p>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>아이디</th>
+					<th>이름</th>
+					<th>전화번호</th>
+					<th>이메일</th>
+					<th>나이</th>
+					<th>주소</th>
+					<th>가입일</th>
+			    </tr>
+			</thead>
+			<tbody>
+				<tr id="detail" th:each="users : ${list}">
+					<td th:text="${users.userid}"></td>
+					<td th:text="${users.username}"></td>
+					<td th:text="${users.phone}"></td>
+					<td th:text="${users.email}"></td>
+					<td th:text="${(#dates.format(#calendars.createNow(),'yyyy'))} - ${(#dates.format(users.birth,'yyyy'))}"></td>
+					<td th:text="${users.add2}"></td>
+					<td th:text="${#dates.format(users.signup,'yyyy-MM-dd HH:mm')}"></td>
+					<td>
+						<a th:href="@{/users/detail/{userid}(userid=${users.userid})}">상세보기</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="d-flex justify-content-evenly">
+				<div  th:insert="/pagination.html"></div>
+				<form action="/users/search/1" id="searchForm" method="get">
+					<select name="type" class="form-control" style="display: inline; width : 150px;">
+						<option value="none">=== 선택 ===</option>
+						<option value="A">닉네임</option>
+						<option value="N">이름</option>
+					</select>
+					<div class=search_input style="display: inline;">
+						<input type="text" name="keyword" value="">
+						<button class="btn btn-outline-primary">검색</button>
+					</div>
+				</form>
+			</div></div></div>
+</body>
+  <footer class="footer" th:insert="/footer"></footer>
+</html>

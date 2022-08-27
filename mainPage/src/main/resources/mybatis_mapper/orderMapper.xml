@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.project.mainPage.mapper.OrderMapper">
+  	<resultMap type="Order" id="OrderMap">
+  		<id column="orderid" property="orderid"/>
+		<result column="orderdate" property="orderdate"/>
+		<result column="orderPrice" property="orderPrice"/>
+		<result column="orderState" property="orderState"/>
+		<result column="orderName" property="orderName"/>
+		<result column="orderPhone" property="orderPhone"/>
+		<result column="orderAdd1" property="orderAdd1"/>
+		<result column="orderAdd2" property="orderAdd2"/>
+		<result column="orderAdd3" property="orderAdd3"/>
+		<result column="orderOption" property="orderOption"/>
+		<result column="count" property="count"/>
+		<!-- Order : Users = N : 1 -->
+		<association property="users" javaType="UsersDto" foreignColumn="userid">
+			<id column="userid" property="userid"/>
+			<result column="username" property="username"/>
+			<result column="phone" property="phone"/>
+			<result column="email" property="email"/>
+		</association>
+		<association property="product" javaType="Product" foreignColumn="productid" >
+			<id column="productid" property="productid"/>
+			<result column="productName" property="productName"/>
+			<result column="productSize" property="productSize"/>
+			<result column="productColor" property="productColor"/>
+			<result column="price" property="price"/>
+		</association>
+  	</resultMap>
+
+	<select id="selectAll" resultMap="OrderMap">
+		SELECT * FROM ORDERS
+	</select>
+
+	<select id="selectProduct" resultMap="OrderMap">
+		SELECT * FROM PRODUCT WHERE productid=#{productid}
+	</select>
+  	
+  	<insert id="insertOne" parameterType="Order">
+  		INSERT INTO ORDERS 
+  		(orderid,orderdate,orderPrice,orderState,orderName,orderPhone,orderAdd1,orderAdd2,orderAdd3,orderOption,count,userid,productid)
+  		 VALUES (#{orderid},now(),#{orderPrice},'배송 준비',#{orderName},#{orderPhone},#{orderAdd1},#{orderAdd2},#{orderAdd3},#{orderOption},#{count},#{users.userid},#{product.productid})
+  	</insert>
+  	
+  </mapper>

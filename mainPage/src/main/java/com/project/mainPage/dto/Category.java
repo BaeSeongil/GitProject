@@ -20,7 +20,6 @@ import lombok.Data;
 public class Category {
 	private int categoryId;
 	private String categoryName;
-	
-
 	private List<Product> products; 
+	private List<ProductImg> productImgs;
 }

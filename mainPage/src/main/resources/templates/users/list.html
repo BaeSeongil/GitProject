@@ -3,6 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <title>회원 리스트</title>
+<style>
+	html, body {
+		height: 100%;
+		display: flex;
+		flex-flow: column;
+	}
+	footer {
+		flex: 1;
+		height: auto;
+	}
+</style>
 </head>
 <body>
 	<header th:insert="/gAndB"></header>
@@ -43,8 +54,20 @@
 				</tr>
 			</tbody>
 		</table>
-		<div class="d-flex justify-content-evenly" th:insert="/pagination.html"></div>
-	</main>
+		<div class="d-flex justify-content-evenly">
+				<div  th:insert="/pagination.html"></div>
+				<form action="/users/search/1" id="searchForm" method="get">
+					<select name="type" class="form-control" style="display: inline; width : 150px;">
+						<option value="none">=== 선택 ===</option>
+						<option value="A">닉네임</option>
+						<option value="N">이름</option>
+					</select>
+					<div class=search_input style="display: inline;">
+						<input type="text" name="keyword" value="">
+						<button class="btn btn-outline-primary">검색</button>
+					</div>
+				</form>
+			</div></main>
 </body>
-<footer th:insert="/footer"></footer>
+  <footer class="footer" th:insert="/footer"></footer>
 </html>

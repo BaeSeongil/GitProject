@@ -36,12 +36,11 @@ public class Pagination {
 		this.row = row;
 		this.setAll();
 	}
-	
+
 	public void setAll() {
 		this.lastPage = count/row + ((count%row>0)? 1 : 0);
 		this.previousPage = page - 1;
 		this.nextPage = page + 1;
-		
 		
 		this.yourFirst = (page > firstPage)? true : false;
 		this.yourPreviousPage = (page > firstPage)? true : false; 

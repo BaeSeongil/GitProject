@@ -65,7 +65,6 @@ public class tmp_UserServiceImpl implements tmp_UserService {
             // 유저 세션
             UserVO UserVO = new UserVO();
             BeanUtil.copyProperties(user, UserVO);
-            // 장바구니 수량 설정
             httpSession.setAttribute(Constants.MALL_USER_SESSION_KEY, UserVO);
             // session 만료 시간을 2시간으로 설정
             httpSession.setMaxInactiveInterval(60 * 60 * 2);

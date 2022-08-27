@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>검색결과</title>
+</head>
+<body>
+	<header th:insert="/gAndB"></header>
+	<header th:insert="/headerNav"></header>
+	<div id="wrapper">
+		<div  class="container">
+			<h1 class="m-3 d-flex justify-content-between align-items-center" >
+				<span>게시판 검색 결과</span>
+			</h1>
+			<p>
+				<span style="font-style: italic; font-weight: bold;" th:text=${param.keyword}></span> 검색 결과 수 : 
+				<span class="badge text-bg-primary" th:text="${boardCount}"></span>
+			</p>
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>게시글 번호</th>
+						<th>제목</th>
+						<th>작성자</th>
+						<th>등록일</th>
+						<th>조회수</th>
+						<th>추천</th>
+						<th>댓글수</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr id="detail" th:each="board : ${boardList}" th:onclick="location.href='/board/detail/[[${board.board_no}]]'">
+						<td th:text="${board.board_no}"></td>
+						<td th:text="${board.title}"></td>
+						<td th:text="${board.users?.userid}"></td>
+						<td th:text="${#dates.format(board.post_time,'yyyy-MM-dd HH:mm:ss')}"></td>
+						<td th:text="${board.views}"></td>
+						<td th:text="${board.good}"></td>
+						<td th:text="${board.replys_size}"></td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="d-flex justify-content-evenly">
+				<th:block th:unless="${boardList==null}">
+					<div  th:insert="/pagination.html"></div>
+				</th:block>
+				<form action="/board/search/1" id="searchForm" method="get">
+					<select name="type" class="form-control" style="display: inline; width : 150px;">
+						<option value="T">제목</option>
+						<option value="C">내용</option>
+						<option value="U">작성자</option>
+					</select>
+					<div class=search_input style="display: inline;">
+						<input type="text" name="keyword" onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);">
+						<button class="btn btn-outline-primary">검색</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<hr>
+	</th:block>
+	<footer th:insert="/footer"></footer>
+</body>
+<script>
+function noSpaceForm(obj) { // 공백사용못하게
+    var str_space = /\s/;  // 공백체크
+    if(str_space.exec(obj.value.trim)) { //공백 체크
+        //alert("해당 항목에는 공백을 사용할수 없습니다.\n\n공백은 자동적으로 제거 됩니다.");
+        obj.focus();
+        obj.value = obj.value.replace(/\s| /gi,''); // 공백제거
+        return false;
+    }
+}
+</script>
+</html>

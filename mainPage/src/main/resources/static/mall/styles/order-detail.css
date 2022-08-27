@@ -1,0 +1,64 @@
+a {
+    text-decoration: none;
+    color: #212934;
+}
+
+.actions {
+    padding-top: 5px;
+    right: 0;
+}
+
+.box-hd {
+    padding-bottom: 15px;
+    height: 80px;
+    border-bottom: 1px solid grey;
+}
+
+.box-hd::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.order-detail-info {
+    min-height: 150px;
+    height: auto;
+    padding: 20px 0;
+    margin-bottom: 30px;
+    border-bottom: 1px solid grey;
+}
+
+.order-summary {
+    min-height: 30px;
+    margin-bottom: 30px;
+}
+
+#coverImg {
+    height: 60px;
+    width: 60px;
+}
+
+.total-table {
+    text-align: right;
+    margin: 0 0 0 auto;
+}
+
+.total {
+    padding-top: 20px;
+}
+
+#daumAddressWrap {
+    display: none;
+    border: 1px solid;
+    width: 500px;
+    height: 300px;
+    margin: 5px 0;
+    position: relative;
+}
+#btnFoldWrap {
+    cursor: pointer;
+    position: absolute;
+    right: 0px;
+    top: -1px;
+    z-index: 1;
+}

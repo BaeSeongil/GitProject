@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <header th:replace="admin/header::head-fragment"></header>
+    <body class="hold-transition sidebar-mini">
+        <div class="wrapper">
+            <!-- header-fragment -->
+            <div th:replace="admin/header::header-nav"></div>
+            <!-- sidebar-fragment -->
+            <div th:replace="admin/sidebar::sidebar-fragment(${path})"></div>
+            <!-- Content Wrapper. Contains icon content -->
+            <div class="content-wrapper">
+                <!-- Content Header (icon header) -->
+                <div class="content-header">
+                    <!-- container-fluid -->
+                    <div class="container-fluid">
+                        <div class="card card-primary card-outline">
+                            <!-- Header -->
+                            <div class="card-header">
+                                <h3 class="card-title">상품 정보 수정</h3>
+                            </div>
+                            <!-- /.Header -->
+                            <div class="card-body">
+                                <!-- 편집/생성 Form -->
+                                <form id="productForm" onsubmit="return false;">
+                                    <!-- 카테고리 선택 -->
+                                    <div class="form-group" style="display:flex;">
+                                        <!-- 대분류 -->
+                                        <label class="control-label">카테고리:</label>
+                                        <select class="form-control col-sm-3" id="levelOne" data-placeholder="카테고리를 선택하세요">
+                                            <th:block th:unless="${null == firstLevelCategories}">
+                                                <th:block th:each="c : ${firstLevelCategories}">
+                                                    <option th:value="${c.categoryId}" th:text="${c.categoryName}" th:selected="${null !=firstLevelCategoryId and firstLevelCategoryId==c.categoryId} ?true:false">
+                                                        >
+                                                    </option>
+                                                </th:block>
+                                            </th:block>
+                                        </select>
+                                        <!-- 중분류 -->
+                                        <select class="form-control col-sm-3" id="levelTwo" data-placeholder="카테고리를 선택하세요">
+                                            <th:block th:unless="${null == secondLevelCategories}">
+                                                <th:block th:each="c : ${secondLevelCategories}">
+                                                    <option th:value="${c.categoryId}" th:text="${c.categoryName}" th:selected="${null !=secondLevelCategoryId and secondLevelCategoryId==c.categoryId} ?true:false">
+                                                        >
+                                                    </option>
+                                                </th:block>
+                                            </th:block>
+                                        </select>
+                                        <!-- 소분류 -->
+                                        <select class="form-control col-sm-3" id="levelThree" data-placeholder="카테고리를 선택하세요">
+                                            <th:block th:unless="${null == thirdLevelCategories}">
+                                                <th:block th:each="c : ${thirdLevelCategories}">
+                                                    <option th:value="${c.categoryId}" th:text="${c.categoryName}" th:selected="${null !=thirdLevelCategoryId and thirdLevelCategoryId==c.categoryId} ?true:false">
+                                                        >
+                                                    </option>
+                                                </th:block>
+                                            </th:block>
+                                        </select>
+                                    </div>                                   
+                                    <!-- /.카테고리 선택 -->
+                                    <div class="form-group" style="display:flex;">
+                                        <!-- 상품명 -->
+                                        <input type="hidden" id="productId" name="productId" th:value="${product!=null and product.productId!=null }?${product.productId}: 0">
+                                        <input type="text" class="form-control col-sm-6" id="productName" name="productName" placeholder="*상품명을 입력하세요(필수)" th:value="${product!=null and product.productName!=null }?${product.productName}: ''" required="true">
+                                        <!-- 상품 요약 설명 -->
+                                        <input type="text" class="form-control col-sm-6" id="productIntro" name="productIntro" placeholder="*상품의 간략한 추가정보를 입력할 수 있습니다" th:value="${product!=null and product.productIntro!=null }?${product.productIntro}: ''" required="true">
+                                    </div>
+                                    <div class="form-group" style="display:flex;">
+                                        <!-- 소비자가 -->
+                                        <input type="number" class="form-control col-sm-6" id="originalPrice" name="originalPrice" placeholder="*상품 소비자가를 입력해주세요" th:value="${product!=null and product.originalPrice!=null }?${product.originalPrice}: 1" required="true">
+                                        <!-- 판매가 -->
+                                        <input type="number" class="form-control col-sm-6" id="sellingPrice" name="sellingPrice" placeholder="*상품 판매가를 입력해주세요" th:value="${product!=null  and product.sellingPrice!=null }?${product.sellingPrice}: 1" required="true">
+                                    </div>
+                                    <div class="form-group" style="display:flex;">
+                                        <!-- 재고수량 -->
+                                        <input type="number" class="form-control col-sm-6" id="stockNum" name="stockNum" placeholder="*재고수량을 입력해주세요" th:value="${product!=null and  product.stockNum!=null }?${product.stockNum}: 0" required="true">
+                                        <!-- 태그 -->
+                                        <input type="text" class="form-control col-sm-6" id="tag" name="tag" placeholder="*상품 태그를 입력해주세요" th:value="${product!=null and product.tag!=null }?${product.tag}: ''" required="true">
+                                    </div>
+                                    <!-- 진열 상태: 진열, 판매 안함 -->
+                                    <div class="form-group">
+                                        <label class="control-label">진열 상태: </label>
+                                        <input name="productSellStatus" type="radio" id="productSellStatusTrue" checked=true th:checked="${null==product||(null !=product and null !=product.productSellStatus and product.productSellStatus==0)} ?true:false" value="0"/>
+                                        진열
+                                        <input name="productSellStatus" type="radio" id="productSellStatusFalse" value="1" th:checked="${null !=product and null !=product.productSellStatus and product.productSellStatus==1} ?true:false"/>
+                                        판매 안함
+                                    </div>
+                                    <!-- 대표이미지 업로드 -->
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <div class="col-sm-4">
+                                                <th:block th:if="${null == product}">
+                                                    <img id="productCoverImg" src="/admin/dist/img/img-upload.svg" style="height: 64px;width: 64px;">
+                                                </th:block>
+                                                <th:block th:unless="${null == product}">
+                                                    <img id="productCoverImg" th:src="${product.productCoverImg}" style="width:160px ;height: 160px;display:block;">
+                                                </th:block>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="form-group">
+                                            <div class="col-sm-4">
+                                                <button class="btn btn-info" style="margin-bottom: 5px;" id="uploadProductCoverImg">
+                                                    <i class="fa-solid fa-image"></i>상품 대표 이미지 업로드
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Editor -->
+                                    <div class="form-group" id="editor" th:utext="${product!=null and product.productDetailContent !=null}?${product.productDetailContent}: ''">
+                                    </div>
+                                    <!-- /.Editor -->
+                                    <br>
+                                    <div class="form-group">
+                                        <!-- 저장 -->
+                                        <button class="btn btn-info float-right" style="margin-left: 5px;" id="saveButton">상품 등록
+                                        </button>
+                                        <!-- 취소 -->
+                                        <button class="btn btn-secondary float-right" style="margin-left: 5px;" id="cancelButton">취소
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.container-fluid -->
+                </div>
+                <!-- Main content -->
+                <div class="content">
+                    <!-- container-fluid -->
+                    <div class="container-fluid"></div>
+                    <!-- /.container-fluid -->
+                </div>
+            </div>
+            <!-- /.content-wrapper -->
+            <!-- footer-fragment -->
+            <div th:replace="admin/footer::footer-fragment"></div>
+        </div>
+        <!-- jQuery -->
+        <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+        <!-- Bootstrap -->
+        <script th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+        <!-- AdminLTE App -->
+        <script th:src="@{/webjars/AdminLTE/3.2.0/dist/js/adminlte.min.js}"></script>
+<!-- Fontawesome -->
+        <script th:src="@{/webjars/font-awesome/6.1.2/js/fontawesome.min.js}"></script>
+        <!-- jqgrid -->
+        <script th:src="@{/webjars/jqGrid/5.7.0/js/jquery.jqGrid.min.js}"></script>
+        <script th:src="@{/webjars/jqGrid/5.7.0/js/i18n/grid.locale-kr.js}"></script>
+        <!-- sweetalert -->
+        <script th:src="@{/webjars/sweetalert2/11.4.24/dist/sweetalert2.min.js}"></script>
+        <!-- CKEditor -->
+        <script src="https://cdn.ckeditor.com/ckeditor5/35.0.1/classic/ckeditor.js"></script>
+        <script th:src="@{/admin/dist/js/ckeditor.js}"></script>
+        <script th:src="@{/admin/dist/js/public.js}"></script>
+        <script th:src="@{/admin/dist/js/list-product-edit.js}"></script>
+    </body>
+</html>

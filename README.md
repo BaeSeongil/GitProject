@@ -156,7 +156,9 @@
 -   [2022-08-26 update](#2022-08-26)
 -   [2022-08-27~28 update](#2022-08-27~28)
 
-<details><summary>## 2022-08-18 update</summary>
+### 2022-08-18 update
+
+<details>
 
 -   resources/templates 폴더 내부에 admin, mall, error 폴더 추가
     -   admin: 쇼핑몰 관리 페이지
@@ -187,7 +189,9 @@
 
 </details>
 
-<details><summary>## 2022-08-19 update</summary>
+### 2022-08-19 update
+
+<details>
 
 -   mapper.xml mapper.java 추가 - 파일명 앞에 tmp\_ 붙임
 -   common에 상수 추가
@@ -198,7 +202,9 @@
 
 </details>
 
-<details><summary>## 2022-08-20 update</summary>
+### 2022-08-20 update
+
+<details>
 
 -   controller 추가
 -   service 추가
@@ -208,7 +214,9 @@
 
 </details>
 
-<details><summary>## 2022-08-21 update</summary>
+### 2022-08-21 update
+
+<details>
 
 -   로그인 및 회원가입
     -   [비밀번호 MD5 암호화 적용](https://m.blog.naver.com/ntower/220702935388)
@@ -230,7 +238,9 @@
 
 </details>
 
-<details><summary>## 2022-08-22 update</summary>
+### 2022-08-22 update
+
+<details>
 
 -   홈페이지 설정
     -   카테고리 구성을 바꾸면 바뀐 카테고리가 메뉴에 출력되도록 수정
@@ -256,7 +266,9 @@
 
 </details>
 
-<details><summary>## 2022-08-23~24 update</summary>
+### 2022-08-23~24 update
+
+<details>
 
 -   프론트엔드 페이지 정리
     -   프론트엔드 url mapping
@@ -268,7 +280,9 @@
 
 </details>
 
-<details><summary>## 2022-08-25 update</summary>
+### 2022-08-25 update
+
+<details>
 
 **오류 발생**
 
@@ -277,7 +291,9 @@
 
 </details>
 
-<details><summary>## 2022-08-26 update</summary>
+### 2022-08-26 update
+
+<details>
 
 -   [문제 해결](#2022-08-25)
     -   button의 type를 submit으로 하면 event작동 후 페이지 리로드됨
@@ -291,11 +307,14 @@
 
 </details>
 
-<details><summary>## 2022-08-27~28 update</summary>
+### 2022-08-27~28 update
+
+<details>
 
 -   결제
     -   tmpPay에서 결제되도록 넘김
     -   결제되면 주문정보 페이지로 넘어가도록 했음
 -   관리자 페이지에서 포장, 배송 테스트 가능
+- 장바구니 
 
 </details>

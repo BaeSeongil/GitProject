@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <title>카테고리 리스트</title>
 <style type="text/css">
-
 	#detail:hover{
 		cursor: Pointer;
 	}
@@ -12,13 +11,10 @@
 		height: 100%;
 		display: flex;
 		flex-flow: column;
-		
 	}
-	
 	footer {
 		flex: 1;
 		height: auto;
-	  	min-height: 100%; /* footer 높이 조절 */
 	  	position: relative;
 	}
 	
@@ -26,18 +22,19 @@
 		height: auto;
 	  	/* min-height: 100%; */
 	  	position: relative;
-	  
 	}
-	
 </style>
 </head>
 <body>
+	<header th:insert="/gAndB"></header>
 	<header th:insert="/headerNav"></header>
 	<div id="wrapper">
 		<div  class="container">
 			<h1 class="m-3 d-flex justify-content-between align-items-center" >
 				<span>카테고리 목록</span>
+				<a href="/category/insert.do" class="btn btn-secondary">카테고리 등록</a>
 			</h1>
+			
 			<table class="table table-hover">
 				<thead>
 					<tr>
@@ -55,7 +52,7 @@
 			</table>
 			<div class="d-flex justify-content-evenly" th:insert="/pagination.html"></div>
 		</div>
-		<footer th:insert="/footer"></footer>
 	</div>
 </body>
+		<footer th:insert="/footer"></footer>
 </html>

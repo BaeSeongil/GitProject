@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="mall/header::head-fragment('상품 리스트','search')"> </head>
+
+<body>
+    <div class="wrapper">
+        <!-- Main Header Component -->
+        <div th:replace="mall/header::header-fragment"></div>
+        <!-- Nav Component -->
+        <div th:replace="mall/header::nav-fragment"></div>
+        <!-- Search Modal -->
+        <div th:replace="mall/header::searchmodal"></div>
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Component -->
+            <div class="content">
+                <!-- Container-fluid -->
+                <div class="container-fluid">
+                    <section>
+                        <!-- 카테고리 -->
+                        <article class="classify">
+                            <div class="category">
+                                <div class="category_bar">
+                                    <th:block th:if="${searchPageCategoryVO!=null}">
+                                        <div class="d-flex flex-row bd-highlight mb-3">
+                                            <a th:href="@{${'/mall/search?CategoryId='+secondLevelCategoryId}}"
+                                                class="p-2 bd-highlight"
+                                                th:text="${searchPageCategoryVO.secondLevelCategoryName}">중분류</a>
+                                            <div class="p-2 bd-highlight">
+                                                <th:block
+                                                    th:each="thirdLevelCategory : ${searchPageCategoryVO.thirdLevelCategoryList}">
+                                                    <a th:href="@{${'/mall/search?CategoryId='+thirdLevelCategory.categoryId}}"
+                                                        th:text="${thirdLevelCategory.categoryName}">소분류</a>
+                                                </th:block>
+                                            </div>
+                                        </div>
+                                        <i class="fa-solid fa-chevron-right"></i>
+                                        <div class="d-inline p-2 findword">
+                                            "
+                                            <th:block th:text="${searchPageCategoryVO.currentCategoryName}"></th:block>
+                                            "
+                                        </div>
+                                    </th:block>
+                                    <th:block th:if="${searchPageCategoryVO==null}">
+                                        <th:block th:if="${keyword!=null and keyword !=''}">
+                                            <div class="d-inline p-2 findword">
+                                                "
+                                                <th:block th:text="${keyword}"></th:block>
+                                                "에 대한 통합 검색결과입니다
+                                            </div>
+                                        </th:block>
+                                    </th:block>
+                                </div>
+                            </div>
+                        </article>
+                        <!--정렬-->
+                        <article class="sort bg-light mb-2">
+                            <div class="list d-flex bd-highlight mb-3">
+                                <a class="text-dark text-decoration-none ms-auto p-2"
+                                    th:href="@{'/mall/search?keyword='+${keyword==null?'':keyword}+'&CategoryId='+${CategoryId==null?'':CategoryId}+'&orderBy=default'}">
+                                    <div th:class="${orderBy==null || orderBy=='default'?'active':''}">상품정렬</div>
+                                </a>
+                                <a class="text-dark text-decoration-none p-2"
+                                    th:href="@{'/mall/search?keyword='+${keyword==null?'':keyword}+'&CategoryId='+${CategoryId==null?'':CategoryId}+'&orderBy=new'}">
+                                    <div th:class="${orderBy=='new'?'active':''}">신상품순</div>
+                                </a>
+                                <a class="text-dark text-decoration-none p-2"
+                                    th:href="@{'/mall/search?keyword='+${keyword==null?'':keyword}+'&CategoryId='+${CategoryId==null?'':CategoryId}+'&orderBy=price'}">
+                                    <div th:class="${orderBy=='price'?'active':''}">가격순</div>
+                                </a>
+                            </div>
+                        </article>
+                        <!-- 상품 리스트 -->
+                        <article class="product_item center">
+                            <div class="row">
+                                <th:block th:if="${#lists.isEmpty(pageResult.list)}">
+                                        <img style="margin-top: 16px;padding: 16px 20px;" th:src="@{/mall/img/null-content.png}">
+                                    </th:block>
+                                    <th:block th:unless="${#lists.isEmpty(pageResult.list)}">
+                                        <th:block th:each="product : ${pageResult.list}">
+                                            <div class="col-md-4">
+                                                <div class="card mb-4 product-wap rounded-0">
+                                                    <div class="card rounded-0">
+                                                        <img class="card-img rounded-0 img-fluid" th:src="@{${product.productCoverImg}}" th:alt="${product.productName}"/>
+                                                        <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                                                            <ul class="list-unstyled">
+                                                                <li>
+                                                                    <a class="btn btn-success text-white" href="##"><i class="far fa-heart"></i></a>
+                                                                </li>
+                                                                <li>
+                                                                    <a class="btn btn-success text-white mt-2" href="##"><i class="far fa-eye"></i></a>
+                                                                </li>
+                                                                <li>
+                                                                    <a class="btn btn-success text-white mt-2" href="##"><i class="fas fa-cart-plus"></i></a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <a th:href="@{'/mall/product/detail/'+${product.productId}}" class="h3 text-decoration-none" th:text="${product.productName}"></a>
+                                                        <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                                                            <li>M/L/X/XL</li>
+                                                        </ul>
+                                                        <p class="text-center mb-0"><small><th:block th:text="${product.productIntro}"></th:block></small></p>
+                                                        <p class="text-center mb-0" th:text="${product.sellingPrice+'₩'}"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </th:block>
+                                    </th:block>
+                                    <div class="clear"></div>
+                                </div>
+                                <!-- Pagination -->
+                                <div class="pages">
+                                    <div class="page_wrap">
+                                        <th:block th:if="${null != pageResult and !#lists.isEmpty(pageResult.list)}">
+                                        <span class="page_span1">
+                                            <a th:href="@{${pageResult.currPage==1}?'##':'/mall/search?keyword='+${keyword==null?'':keyword}+'&page=' + ${pageResult.currPage-1}+'&CategoryId='+${CategoryId==null?'':CategoryId}+'&orderBy='+${orderBy==null?'':orderBy}}">  &lt; 이전 </a>
+                                            <th:block th:if="${pageResult.currPage-2 >=1}"><a
+                                                    th:href="@{'/mall/search?keyword='+${keyword==null?'':keyword}+'&page=' + ${pageResult.currPage-2}+'&CategoryId='+${CategoryId==null?'':CategoryId}+'&orderBy='+${orderBy==null?'':orderBy}}"
+                                                    th:text="${pageResult.currPage -2}">1</a></th:block>
+                                            <th:block th:if="${pageResult.currPage-1 >=1}"><a
+                                                    th:href="@{'/mall/search?keyword='+${keyword==null?'':keyword}+'&page=' + ${pageResult.currPage-1}+'&CategoryId='+${CategoryId==null?'':CategoryId}+'&orderBy='+${orderBy==null?'':orderBy}}"
+                                                    th:text="${pageResult.currPage -1}">1</a></th:block>
+                                            <a href="##" class="active" th:text="${pageResult.currPage}">1</a>
+                                            <th:block th:if="${pageResult.currPage+1&lt;=pageResult.totalPage}"><a
+                                                    th:href="@{'/mall/search?keyword='+${keyword==null?'':keyword}+'&page=' + ${pageResult.currPage+1}+'&CategoryId='+${CategoryId==null?'':CategoryId}+'&orderBy='+${orderBy==null?'':orderBy}}"
+                                                    th:text="${pageResult.currPage +1}">1</a></th:block>
+                                            <th:block th:if="${pageResult.currPage+2&lt;=pageResult.totalPage}"><a
+                                                    th:href="@{'/mall/search?keyword='+${keyword==null?'':keyword}+'&page=' + ${pageResult.currPage+2}+'&CategoryId='+${CategoryId==null?'':CategoryId}+'&orderBy='+${orderBy==null?'':orderBy}}" th:text="${pageResult.currPage +2}">1</a></th:block>
+                                            <a th:href="@{${pageResult.currPage>=pageResult.totalPage}?'##':'/mall/search?keyword='+${keyword==null?'':keyword}+'&page=' + ${pageResult.currPage+1}+'&CategoryId='+${CategoryId==null?'':CategoryId}+'&orderBy='+${orderBy==null?'':orderBy}}"> 다음 &gt; </a>
+                                                </span>
+                                        </th:block>
+                                    </div>
+                                </div>
+                            </article>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            <div th:replace="mall/footer::footer-fragment"></div>
+        </div>
+        <!-- js 라이브러리 -->
+        <!-- jQuery -->
+        <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+        <!-- Popper-->
+        <script th:src="@{/webjars/popper.js/1.16.1/dist/umd/popper.min.js}"></script>
+        <!-- Bootstrap -->
+        <script th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.bundle.min.js}"></script>
+        <!-- Fontawesome -->
+        <script th:src="@{/webjars/font-awesome/6.1.2/js/fontawesome.min.js}"></script>
+        <!-- Swiper -->
+        <script th:src="@{/webjars/swiper/8.3.2/swiper-bundle.min.js}"></script>
+        <!-- sweetalert -->
+        <script th:src="@{/webjars/sweetalert2/11.4.24/dist/sweetalert2.min.js}"></script>
+        <script th:src="@{/mall/js/header-search.js}"></script>
+        <script th:src="@{/mall/js/search.js}"></script>
+    </body>
+</html>

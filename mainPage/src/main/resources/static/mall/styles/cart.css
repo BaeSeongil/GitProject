@@ -1,0 +1,32 @@
+a {
+    text-decoration: none;
+    color: #212934;
+}
+
+.coverImg {
+    height: 60px;
+    width: 60px;
+}
+
+.tips ul li {
+    float: left;
+    display: inline-block;
+    padding: 0 10px;
+}
+
+.order_div {
+    float: right;
+}
+
+.order-tips {
+    margin: 0;
+    padding: 0;
+}
+
+.order_total {
+    float: left;
+}
+
+.order_button {
+    float: right;
+}

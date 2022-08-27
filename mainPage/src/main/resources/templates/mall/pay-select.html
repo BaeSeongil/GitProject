@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="mall/header::head-fragment('결제 방법 선택','pay-select')"> </head>
+
+    <body>
+        <div class="wrapper">
+            <!-- Main Header Component -->
+            <div th:replace="mall/header::header-fragment"></div>
+            <!-- Nav Component -->
+            <div th:replace="mall/header::nav-fragment"></div>
+            <!-- Search Modal -->
+            <div th:replace="mall/header::searchmodal"></div>
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <!-- Content Component -->
+                <div class="content">
+                    <!-- Container-fluid -->
+                    <div class="container-fluid">
+                        <div class="container py-5">
+
+                            <form action="#" id="payForm" method="post">
+                                <div class="section section-order">
+                                    <div class="order-info">
+                                        <div class="float-start">
+                                            <h2 class="title">주문이 성공적으로 제출되었습니다. 결제 방법을 선택해주세요</h2>
+                                            <input type="hidden" id="orderNoValue" th:value="${orderNo}" />
+                                            <p class="order-time" id="deliverDesc">
+                                                주문 번호:
+                                                <th:block th:text="${orderNo}"></th:block>
+                                            </p>
+                                        </div>
+                                        <div class="float-end">
+                                            <p class="total">
+                                                총 지불액:
+                                                <span class="money"><em> 
+                                                    <th:block th:text="${totalPrice}"></th:block>
+                                                 </em>₩</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="section section-payment">
+                                    <div class="cash-title" id="cashTitle">결제하려면 아래 수단을 선택해주세요</div>
+    
+                                    <div class="payment-box">
+                                        <div class="payment-header">
+                                            <h3 class="title">결제 플랫폼</h3>
+                                            <span class="desc"></span>
+                                        </div>
+                                        <div class="payment-body">
+                                            <ul class="payment-list linksign-customize">
+                                                <li class="naverpay">
+                                                    <input type="radio" name="payOnlineBank" id="naverpay" value="naverpay" />
+                                                    <img onclick="payOrder(1)" th:src="@{/mall/img/pay/payments_npay.png}" alt="네이버페이"/>
+                                                </li>
+                                                <li class="kakaopay">
+                                                    <input type="radio" name="payOnlineBank" id="kakaopay" value="kakaopay" />
+                                                    <img onclick="payOrder(2)" th:src="@{/mall/img/pay/payments_kakao.png}" alt="카카오페이"/>
+                                                </li>
+                                                <li class="bank">
+                                                    <input type="radio" name="payOnlineBank" id="payco" value="payco" />
+                                                    <img th:src="@{/mall/img/pay/payments_payco.png}" alt="Payco"/>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="payment-box">
+                                        <div class="payment-header">
+                                            <h3 class="title">신용카드</h3>
+                                            <span class="desc"></span>
+                                        </div>
+                                        <div class="payment-body">
+                                            <ul class="payment-list linksign-customize">
+                                                <li class="bank">
+                                                    <input type="radio" name="payOnlineBank" id="kb" value="kb" />
+                                                    <img th:src="@{/mall/img/pay/payments_kb.jpg}" alt="KB국민은행"/>
+                                                </li>
+                                                <li class="bank">
+                                                    <input type="radio" name="payOnlineBank" id="bccard" value="bccard" />
+                                                    <img th:src="@{/mall/img/pay/payments_bccard.jpg}" alt="bc카드"/>
+                                                </li>
+                                                <li class="bank">
+                                                    <input type="radio" name="payOnlineBank" id="shinhan" value="shinhan" />
+                                                    <img th:src="@{/mall/img/pay/payments_shinhan.png}" alt="신한은행"/>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </form>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div th:replace="mall/footer::footer-fragment"></div>
+        </div>
+        <!-- js 라이브러리 -->
+        <!-- jQuery -->
+        <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+        <!-- Popper-->
+        <script th:src="@{/webjars/popper.js/1.16.1/dist/umd/popper.min.js}"></script>
+        <!-- Bootstrap -->
+        <script th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.bundle.min.js}"></script>
+        <!-- Fontawesome -->
+        <script th:src="@{/webjars/font-awesome/6.1.2/js/fontawesome.min.js}"></script>
+        <!-- Swiper -->
+        <script th:src="@{/webjars/swiper/8.3.2/swiper-bundle.min.js}"></script>
+        <!-- sweetalert -->
+        <script th:src="@{/webjars/sweetalert2/11.4.24/dist/sweetalert2.min.js}"></script>
+        <script th:src="@{/mall/js/header-search.js}"></script>
+        <script th:src="@{/mall/js/pay-select.js}"></script>
+    </body>
+</html>

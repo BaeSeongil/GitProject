@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <header th:replace="admin/header::head-fragment"></header>
+    <body class="hold-transition sidebar-mini">
+        <div class="wrapper">
+            <!-- header-fragment -->
+            <div th:replace="admin/header::header-nav"></div>
+            <!-- sidebar-fragment -->
+            <div th:replace="admin/sidebar::sidebar-fragment(${path})"></div>
+            <!-- Content Wrapper. Contains icon content -->
+            <div class="content-wrapper">
+                <!-- Content Header (icon header) -->
+                <div class="content-header">
+                    <!-- container-fluid -->
+                    <div class="container-fluid"></div>
+                    <!-- /.container-fluid -->
+                </div>
+                <!-- Main content -->
+                <div class="content">
+                    <!-- container-fluid -->
+                    <div class="container-fluid">
+                        <div class="card card-primary card-outline">
+                            <div class="card-header">
+                                <h3 class="card-title">홈페이지 설정 관리</h3>
+                            </div>
+                            <!-- /.card-body -->
+                            <div class="card-body">
+                                <div class="grid-btn">
+                                    <button class="btn btn-info" onclick="configAdd()"><i class="fa-solid fa-plus"></i> 추가</button>
+                                    <button class="btn btn-info" onclick="configEdit()"><i class="fa-solid fa-pen-to-square"></i> 변경</button>
+                                    <button class="btn btn-danger" onclick="deleteConfig()"><i class="fa-solid fa-trash-can"></i> 삭제</button>
+                                </div>
+                                <br />
+                                <table id="jqGrid" class="table table-bordered"></table>
+                                <div id="jqGridPager"></div>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                    </div>
+                    <!-- /.container-fluid -->
+                </div>
+                <!-- /.content -->
+                <div class="content">
+                    <!-- Modal -->
+                    <div class="modal fade" id="indexConfigModal" tabindex="-1" role="dialog" aria-labelledby="indexConfigModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h6 class="modal-title" id="categoryModalLabel">Modal</h6>
+                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="indexConfigForm">
+                                        <div class="form-group">
+                                            <div class="alert alert-danger" id="edit-error-msg" style="display: none">오류 정보 표시란</div>
+                                        </div>
+                                        <input type="hidden" class="form-control" id="indexConfigModaconfigId" name="indexConfigModaconfigId" />
+                                        <input type="hidden" id="configType" th:value="${configType}" />
+                                        <div class="form-group">
+                                            <label for="configName" class="control-label">구성 항목 표시 문자:</label>
+                                            <input type="text" class="form-control" id="configName" name="configName" placeholder="구성 항목 표시 문자를 입력하세요" required="true" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="redirectUrl" class="control-label">리디렉션:</label>
+                                            <input type="text" class="form-control" id="redirectUrl" name="redirectUrl" placeholder="URL을 입력하세요" value="##" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="productId" class="control-label">관련상품번호:</label>
+                                            <input type="number" class="form-control" id="productId" name="productId" placeholder="관련상품번호" value="0" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="configRank" class="control-label">인덱스:</label>
+                                            <input type="number" class="form-control" id="configRank" name="configRank" placeholder="인덱스를 입력하세요" />
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-bs-dismiss="modal">취소</button>
+                                    <button type="button" class="btn btn-primary" id="saveButton">확인</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.Modal -->
+                </div>
+            </div>
+            <!-- /.content-wrapper -->
+            <!-- footer-fragment -->
+            <div th:replace="admin/footer::footer-fragment"></div>
+        </div>
+        <!-- jQuery -->
+        <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+        <!-- Bootstrap -->
+        <script th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+        <!-- AdminLTE App -->
+        <script th:src="@{/webjars/AdminLTE/3.2.0/dist/js/adminlte.min.js}"></script>
+        <!-- Fontawesome -->
+        <script th:src="@{/webjars/font-awesome/6.1.2/js/fontawesome.min.js}"></script>
+        <!-- jqgrid -->
+        <script th:src="@{/webjars/jqGrid/5.7.0/js/jquery.jqGrid.min.js}"></script>
+        <script th:src="@{/webjars/jqGrid/5.7.0/js/i18n/grid.locale-kr.js}"></script>
+
+        <!-- sweetalert -->
+        <script th:src="@{/webjars/sweetalert2/11.4.24/dist/sweetalert2.min.js}"></script>
+        <script th:src="@{/admin/dist/js/public.js}"></script>
+        <script th:src="@{/admin/dist/js/list-index-config.js}"></script>
+    </body>
+</html>

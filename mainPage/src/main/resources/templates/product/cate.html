@@ -4,31 +4,23 @@
 <meta charset="UTF-8">
 <title>상품 전체 보기</title>
 <style type="text/css">
-
 html, body {
 	height: 100%;
 	display: flex;
 	flex-flow: column;
 }
-
 footer {
 	flex: 1;
 	height: auto;
-  	position: relative;
+  	
 }
-
 #wrapper {	
 	height: auto;
-  	/* min-height: 100%; */
   	position: relative;
 }
-
 #lefe {
-
 	float: left;
 }
-
-
 </style>
 </head>
 <body>
@@ -37,7 +29,6 @@ footer {
 	<div style="padding: 30px;">
 		<h3 class="mt-5 d-flex justify-content-center align-items-center">ALL</h3>
 	</div>
-
 	<div id="wrapper">
 		<th:block th:each="product:${productList}">
 			<div id="lefe" class="d-flex m-5 justify-content-start" 
@@ -52,12 +43,10 @@ footer {
 			</div>
 		</th:block>
 	</div>
-
-	
 	<div>
 		<div class="d-flex justify-content-center" th:insert="/pagination.html"></div>
 	</div>
-	<footer th:insert="/footer"></footer>
 </body>
+	<footer th:insert="/footer"></footer>
 
 </html>

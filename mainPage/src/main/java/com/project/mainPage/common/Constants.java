@@ -8,7 +8,7 @@ public class Constants {
     public final static int INDEX_CAROUSEL_NUMBER = 5;
     // 홈페이지의 캐러셀 사진 수
 
-    public final static int INDEX_CATEGORY_NUMBER = 10;
+    public final static int INDEX_CATEGORY_NUMBER = 5;
     // 홈페이지의 카테고리의 최대 수
 
     public final static int SEARCH_CATEGORY_NUMBER = 8;

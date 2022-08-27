@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="mall/header::head-fragment('결제','tmppay')"> </head>
+
+    <body>
+        <div class="wrapper">
+            <!-- Main Header Component -->
+            <div th:replace="mall/header::header-fragment"></div>
+            <!-- Nav Component -->
+            <div th:replace="mall/header::nav-fragment"></div>
+            <!-- Search Modal -->
+            <div th:replace="mall/header::searchmodal"></div>
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <!-- Content Component -->
+                <div class="content">
+                    <!-- Container-fluid -->
+                    <div class="container-fluid">
+                        <div class="container py-5">
+                            <div>
+                                <div class="amount" id="money">
+                                    <th:block th:text="${totalPrice+'₩'}"></th:block>
+                                </div>
+                                <div>
+                                    <div id="msg">
+                                        <p>결제가 완료되면 주문내역으로 넘어갑니다.</p>
+                                    </div>
+                                    <div>
+                                        <p>주문: <th:block th:text="${orderNo}"></th:block></p>
+                                    </div>
+                                    <input type="hidden" id="orderNoValue" th:value="${orderNo}" />
+                                    <a onclick="payOrderSuccess()" class="btn btn-small btn-success" title="결제 성공">결제 성공</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div th:replace="mall/footer::footer-fragment"></div>
+        </div>
+        <!-- js 라이브러리 -->
+        <!-- jQuery -->
+        <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+        <!-- Popper-->
+        <script th:src="@{/webjars/popper.js/1.16.1/dist/umd/popper.min.js}"></script>
+        <!-- Bootstrap -->
+        <script th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.bundle.min.js}"></script>
+        <!-- Fontawesome -->
+        <script th:src="@{/webjars/font-awesome/6.1.2/js/fontawesome.min.js}"></script>
+        <!-- Swiper -->
+        <script th:src="@{/webjars/swiper/8.3.2/swiper-bundle.min.js}"></script>
+        <!-- sweetalert -->
+        <script th:src="@{/webjars/sweetalert2/11.4.24/dist/sweetalert2.min.js}"></script>
+        <script th:src="@{/mall/js/header-search.js}"></script>
+        <script th:src="@{/mall/js/pay-success.js}"></script>
+    </body>
+</html>

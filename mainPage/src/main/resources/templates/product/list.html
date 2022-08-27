@@ -11,26 +11,20 @@
 		height: 100%;
 		display: flex;
 		flex-flow: column;
-		
 	}
-	
 	footer {
 		flex: 1;
 		height: auto;
-	  	min-height: 100%; /* footer 높이 조절 */
 	  	position: relative;
 	}
-	
 	#wrapper {	
 		height: auto;
-	  	/* min-height: 100%; */
 	  	position: relative;
-	  
 	}
-	
 </style>
 </head>
 <body>
+	<header th:insert="/gAndB"></header>
 	<header th:insert="/headerNav"></header>
 	<div id="wrapper">
 		<div  class="container">
@@ -44,30 +38,52 @@
 						<th>상품명</th>
 						<th>사이즈</th>
 						<th>색</th>
-						<th>그룹</th>
 						<th>재고량</th>
 						<th>상품 등록일</th>
 						<th>가격</th>
-						<th>카테고리 번호</th>		
+						<th>상품분류</th>		
 					</tr>
 				</thead>
 				<tbody>
-					<tr id="detail" th:each="product : ${productList}" th:onclick="location.href='/product/detail/[[${product.productid}]]'">
+					<tr id="detail" th:each="product : ${productList}" th:onclick="location.href='/product/update/[[${product.productid}]]'">
 						<td th:text="${product.productid}"></td>
 						<td th:text="${product.productName}"></td>
 						<td th:text="${product.productSize}"></td>
 						<td th:text="${product.productColor}"></td>
-						<td th:text="${product.productGroup}"></td>
 						<td th:text="${product.productStock}"></td>
 						<td th:text="${#dates.format(product.productDate,'yyyy-MM-dd')}"></td>
 						<td th:text="${product.price}"></td>
-						<td th:text="${product.category?.categoryId}"></td>
+						<td th:text="${product.category?.categoryName}"></td>
 					</tr>
 				</tbody>
 			</table>
-			<div class="d-flex justify-content-evenly" th:insert="/pagination.html"></div>
+			<div class="d-flex justify-content-evenly">
+				<div  th:insert="/pagination.html"></div>
+				<form action="/product/search/1" id="searchForm" method="get">
+					<select name="type" class="form-control" style="display: inline; width : 150px;">
+						<option value="N">상품명</option>
+						<option value="S">사이즈</option>
+						<option value="C">상품분류</option>
+					</select>
+					<div class=search_input style="display: inline;">
+						<input type="text" name="keyword" onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);">
+						<button class="btn btn-outline-primary">검색</button>
+					</div>
+				</form>
+			</div>
 		</div>
 		<footer th:insert="/footer"></footer>
 	</div>
 </body>
+<script>
+function noSpaceForm(obj) { // 공백사용못하게
+    var str_space = /\s/;  // 공백체크
+    if(str_space.exec(obj.value.trim)) { //공백 체크
+        //alert("해당 항목에는 공백을 사용할수 없습니다.\n\n공백은 자동적으로 제거 됩니다.");
+        obj.focus();
+        obj.value = obj.value.replace(/\s| /gi,''); // 공백제거
+        return false;
+    }
+}
+</script>
 </html>
