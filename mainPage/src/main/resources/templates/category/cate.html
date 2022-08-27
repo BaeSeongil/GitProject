@@ -41,22 +41,20 @@ footer {
 	</div>
 	<div id="wrapper">
 		<div class="container">
-				
 			<th:block th:each="category:${categoryList}">
 				<th:block th:each="product:${category.products}">
-					<div id="lefe" class="d-flex m-5 justify-content-start" 
+					<div id="lefe" class="d-flex m-5 justify-content-center align-items-center" 
 						th:onclick="location.href='/product/detail/[[${product.productid}]]'">
-						<!-- th:onclick="|location.href='@{/product/detail/(productName){productName=${product.productName}}'|"> -->
 						<div id="lefe" class="card" style="width: 18rem;">
 							<th:block th:each="productImg : ${product.productImgs}">
-						 		<img class="card-img-top" 
+						 		<img class="card-img-top"
 						 		 	th:src="@{/public/img/{fileName}(fileName=${productImg.img_path})}" 
-						 		 	alt="상품 이미지">
+						 		 	alt="상품 이미지" style="height: 300px;">
 							</th:block>
 						  <div id="lefe" class="card-body">
-						  	<p class="card-text" th:text="${category.categoryId}"></p>
-							<p class="card-text" th:text="${product.productName}"></p>
-							<p class="card-text" th:text="${product.productid}"></p>
+							<p class="card-text" th:text="${product.productName}" 
+								style="font-size:medium; font-weight:bold;"></p>
+							<p class="card-text" th:text="${product.price}"></p>
 						  </div>
 						</div>
 					</div>
