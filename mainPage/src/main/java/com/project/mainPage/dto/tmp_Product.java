@@ -14,11 +14,11 @@ public class tmp_Product {
     private Long CategoryId;    // 카테고리 인덱스
     private String productCoverImg; // 상품 대표 이미지
     private String productCarousel; // 상품 carousel 이미지
-    private Integer originalPrice;  // 원래 상품 가격
-    private Integer sellingPrice;   // 할인된 가격
-    private Integer stockNum;   // 재고량
+    private Integer originalPrice;  // 소비자가
+    private Integer sellingPrice;   // 판매가
+    private Integer stockNum;   // 재고수량
     private String tag; // 상품 라벨
-    private Byte productSellStatus; // 상품 진열 상태(0: 판매안함 1: 진열)
+    private Byte productSellStatus; // 상품 진열 상태(0: 진열안함 1: 진열)
     // 생성일, 생성유저
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;

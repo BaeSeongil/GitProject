@@ -31,9 +31,9 @@ public interface tmp_ProductMapper {
     List<tmp_Product> selectByPrimaryKeys(List<Long> productIds);
     // 일괄 등록
     int batchInsert(@Param("ProductList") List<tmp_Product> ProductList);
-    // 재고량 업데이트
+    // 재고수량 업데이트
     int updateStockNum(@Param("StockNumS") List<tmp_StockNum> StockNumS);
-    // 일괄 업데이트 : 판매 상태
+    // 일괄 업데이트 : 진열 상태
     int batchUpdateSellStatus(@Param("orderIds")Long[] orderIds,@Param("sellStatus") int sellStatus);
     List<tmp_Product> findProductList(PageQueryUtil pageUtil);
     int getTotalProduct(PageQueryUtil pageUtil);

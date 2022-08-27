@@ -74,7 +74,7 @@
             <if test="loginName != null">
                 login_name,
             </if>
-            <if test="password_md5 != null">
+            <if test="password != null">
                 password_md5,
             </if>
             <if test="introduceSign != null">
@@ -104,7 +104,7 @@
             <if test="loginName != null">
                 #{loginName,jdbcType=VARCHAR},
             </if>
-            <if test="password_md5 != null">
+            <if test="password != null">
                 #{password,jdbcType=VARCHAR},
             </if>
             <if test="introduceSign != null">
@@ -142,7 +142,7 @@
             <if test="loginName != null">
                 login_name = #{loginName,jdbcType=VARCHAR},
             </if>
-            <if test="password_md5 != null">
+            <if test="password != null">
                 password_md5 = #{password,jdbcType=VARCHAR},
             </if>
             <if test="introduceSign != null">

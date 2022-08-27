@@ -14,22 +14,19 @@ public interface tmp_IndexConfigMapper {
     int deleteByPrimaryKey(Long configId);
     // 인덱스 등록
     int insert(tmp_IndexConfig record);
-    // 
+    // 인덱스 등록
     int insertSelective(tmp_IndexConfig record);
-
+    // 조회
     tmp_IndexConfig selectByPrimaryKey(Long configId);
-
+    // type과 제품 id로 조회
     tmp_IndexConfig selectByTypeAndProductId(@Param("configType") int configType, @Param("productId") Long productId);
-
+    // 업데이트
     int updateByPrimaryKeySelective(tmp_IndexConfig record);
-
     int updateByPrimaryKey(tmp_IndexConfig record);
-    
     // 일괄삭제
     int deleteBatch(Long[] ids);
-
+    // 조회
     List<tmp_IndexConfig> findIndexConfigsByTypeAndNum(@Param("configType") int configType, @Param("number") int number);
-
     List<tmp_IndexConfig> findIndexConfigList(PageQueryUtil pageUtil);
     int getTotalndexConfigs(PageQueryUtil pageUtil);
 }

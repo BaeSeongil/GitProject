@@ -18,7 +18,7 @@ public interface tmp_ProductService {
     String updateProduct(tmp_Product product);
     // 상품 세부정보 가져오기
     tmp_Product getProductById(Long id);
-    // 판매상태 일괄수정(진열/판매안함)
+    // 판매상태 일괄수정(진열/진열안함)
     Boolean batchUpdateSellStatus(Long[] ids,int sellStatus);
 
     // 상품검색

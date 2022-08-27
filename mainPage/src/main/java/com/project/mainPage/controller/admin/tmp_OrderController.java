@@ -37,7 +37,7 @@ public class tmp_OrderController {
     @GetMapping("/orders")
     public String ordersPage(HttpServletRequest request) {
         request.setAttribute("path", "orders");
-        return "admin/list_order";
+        return "admin/list-order";
     }
 
     // 목록

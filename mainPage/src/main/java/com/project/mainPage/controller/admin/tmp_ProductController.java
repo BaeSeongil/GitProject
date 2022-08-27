@@ -44,7 +44,7 @@ public class tmp_ProductController {
     @GetMapping("/product")
     public String productPage(HttpServletRequest request) {
         request.setAttribute("path", "product");
-        return "admin/list_product";
+        return "admin/list-product";
     }
 
     @GetMapping("/product/edit")
@@ -62,7 +62,7 @@ public class tmp_ProductController {
                 request.setAttribute("secondLevelCategories", secondLevelCategories);
                 request.setAttribute("thirdLevelCategories", thirdLevelCategories);
                 request.setAttribute("path", "product-edit");
-                return "admin/list_product_edit";
+                return "admin/list-product-edit";
             }
         }
         ShopException.fail("카테고리 데이터가 불완전합니다");
@@ -123,7 +123,7 @@ public class tmp_ProductController {
         }
         request.setAttribute("product", Product);
         request.setAttribute("path", "product-edit");
-        return "admin/list_product_edit";
+        return "admin/list-product-edit";
     }
 
     // 목록
@@ -195,7 +195,7 @@ public class tmp_ProductController {
         return ResultGenerator.genSuccessResult(product);
     }
 
-    // 판매 상태 일괄 수정
+    // 진열 상태 일괄 수정
     @RequestMapping(value = "/product/status/{sellStatus}", method = RequestMethod.PUT)
     @ResponseBody
     public Result delete(@RequestBody Long[] ids, @PathVariable("sellStatus") int sellStatus) {

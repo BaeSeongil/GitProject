@@ -11,7 +11,9 @@ import lombok.Getter;
 public enum PayTypeEnum {
 
     DEFAULT(-1, "ERROR"),
-    NOT_PAY(0, "없음");
+    NOT_PAY(0, "없음"),
+    N_PAY(1,"네이버페이"),
+    KAKAO_PAY(2,"카카오페이");
 
     private int payType;
     private String name;

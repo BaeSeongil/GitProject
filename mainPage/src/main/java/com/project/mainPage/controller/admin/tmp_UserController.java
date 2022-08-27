@@ -31,7 +31,7 @@ public class tmp_UserController {
     @GetMapping("/users")
     public String usersPage(HttpServletRequest request) {
         request.setAttribute("path", "users");
-        return "admin/list_user";
+        return "admin/list-user";
     }
 
     // 목록

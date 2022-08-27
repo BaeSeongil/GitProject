@@ -52,12 +52,6 @@ public class tmp_ShopUserController {
         return "mall/register";
     }
 
-    @GetMapping({"", "/", "/index", "/index.html"})
-    public String index(HttpServletRequest request) {
-        request.setAttribute("path", "index");
-        return "mall/index";
-    }
-
     @GetMapping("/myhome/addresses")
     public String addressesPage() {
         return "mall/addresses";
@@ -114,6 +108,24 @@ public class tmp_ShopUserController {
             // 반환 성공
             Result result = ResultGenerator.genSuccessResult();
             return result;
+        }
+    }
+
+    @PostMapping("/myhome/password")
+    @ResponseBody
+    public String passwordUpdate(HttpServletRequest request, @RequestParam("originalPassword") String originalPassword,
+                                 @RequestParam("newPassword") String newPassword, HttpSession httpSession) {
+        if (!StringUtils.hasText(originalPassword) || !StringUtils.hasText(newPassword)) {
+            return "필드는 비워 둘 수 없습니다";
+        }
+        if (UserService.updatePassword(originalPassword, newPassword, httpSession)) {
+            // 비밀번호 수정이 성공적으로 완료되면
+            // 세션의 데이터를 비우고
+            // 로그인 페이지로 이동
+            request.getSession().removeAttribute(Constants.MALL_USER_SESSION_KEY);
+            return ServiceResultEnum.SUCCESS.getResult();
+        } else {
+            return "업데이트 실패";
         }
     }
 }

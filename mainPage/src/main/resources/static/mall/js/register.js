@@ -2,14 +2,14 @@
 function register() {
     var loginName = $("#loginName").val();
     if (!validPhoneNumber(loginName)) {
-        swal("올바른 로그인 ID를 입력하십시오", {
+        Swal.fire("올바른 로그인 ID를 입력하십시오", {
             icon: "error",
         });
         return false;
     }
     var password = $("#password").val();
     if (!validPassword(password)) {
-        swal("올바른 암호 형식을 입력하십시오 (6-20자리와 숫자 조합)", {
+        Swal.fire("올바른 암호 형식을 입력하십시오 (6-20자리와 숫자 조합)", {
             icon: "error",
         });
         return false;
@@ -23,7 +23,7 @@ function register() {
         data: params,
         success: function (result) {
             if (result.resultCode == 200) {
-                swal({
+                Swal.fire({
                     title: "등록 성공",
                     text: "로그인 페이지로 이동합니까?",
                     icon: "success",
@@ -35,13 +35,13 @@ function register() {
                     }
                 });
             } else {
-                swal(result.message, {
+                Swal.fire(result.message, {
                     icon: "error",
                 });
             }
         },
         error: function () {
-            swal("작업 실패", {
+            Swal.fire("작업 실패", {
                 icon: "error",
             });
         },

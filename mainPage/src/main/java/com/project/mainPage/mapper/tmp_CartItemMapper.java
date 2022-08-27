@@ -22,7 +22,7 @@ public interface tmp_CartItemMapper {
     // UserId를 통해 데이터 가져오기
     List<tmp_CartItem> selectByUserId(@Param("userId") Long UserId, @Param("number") int number);
     // UserId와 일치하는 장바구니 개수
-    int selectCountByUserId(Long UserId);
+    int selectCountByUserId(@Param("userId")Long UserId);
     // 업데이트
     int updateByPrimaryKeySelective(tmp_CartItem record);
     // 업데이트

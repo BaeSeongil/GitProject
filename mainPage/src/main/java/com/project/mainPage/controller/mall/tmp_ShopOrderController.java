@@ -60,7 +60,7 @@ public class tmp_ShopOrderController {
         PageQueryUtil pageUtil = new PageQueryUtil(params);
         request.setAttribute("orderPageResult", OrderService.getMyOrders(pageUtil));
         request.setAttribute("path", "orders");
-        return "mall/my-orders";
+        return "mall/my-order";
     }
 
     @GetMapping("/saveOrder")
@@ -138,9 +138,9 @@ public class tmp_ShopOrderController {
         request.setAttribute("orderNo", orderNo);
         request.setAttribute("totalPrice", Order.getTotalPrice());
         if (payType == 1) {
-            return "mall/alipay";
+            return "mall/tmppay";   // 임시 구매 페이지로 이동
         } else {
-            return "mall/wxpay";
+            return "mall/tmppay";
         }
     }
 

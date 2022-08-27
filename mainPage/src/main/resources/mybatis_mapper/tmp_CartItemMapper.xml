@@ -27,7 +27,7 @@
         SELECT
         <include refid="Base_Column_List"/>
         FROM TB_CART_ITEM
-            WHERE user_id = #{UserId,jdbcType=BIGINT} 
+            WHERE user_id = #{userId,jdbcType=BIGINT} 
             AND product_id=#{productId,jdbcType=BIGINT} 
             AND is_deleted = 0
             limit 1
@@ -37,7 +37,7 @@
         SELECT
         <include refid="Base_Column_List"/>
         FROM TB_CART_ITEM
-            WHERE user_id = #{UserId,jdbcType=BIGINT} 
+            WHERE user_id = #{userId,jdbcType=BIGINT} 
             AND is_deleted = 0
             limit #{number}
     </select>
@@ -46,7 +46,7 @@
         SELECT
         count(*)
         FROM TB_CART_ITEM
-            WHERE user_id = #{UserId,jdbcType=BIGINT} 
+            WHERE user_id = #{userId,jdbcType=BIGINT} 
             AND is_deleted = 0
     </select>
 

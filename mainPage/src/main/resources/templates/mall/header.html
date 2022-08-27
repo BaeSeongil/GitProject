@@ -7,106 +7,133 @@
         <link rel="stylesheet" th:href="@{/webjars/swiper/8.3.2/swiper-bundle.min.css}" />
         <!-- 웹 아이콘 라이브러리 -->
         <!-- Font Awasome-->
+        <link rel="stylesheet" th:href="@{/webjars/font-awesome/6.1.2/css/fontawesome.min.css}" />
         <link rel="stylesheet" th:href="@{/webjars/font-awesome/6.1.2/css/all.min.css}" />
         <!-- Bootstrap -->
         <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}" />
+        <!-- Sweetalert -->
+        <link rel="stylesheet" th:href="@{/webjars/sweetalert2/11.4.24/dist/sweetalert2.min.css}" />
+        <!-- TemplateMo 559 Zay Shop -->
+        <link rel="stylesheet" th:href="@{/mall/css/templatemo.min.css}" />
         <!-- 웹 페이지 별 맞춤형 css -->
         <link rel="stylesheet" th:href="@{/mall/styles/header.css}" />
         <link rel="stylesheet" th:href="@{'/mall/styles/'+${path}+'.css'}" />
     </head>
-    <header id="header" th:fragment="header-fragment">
-        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-            <!-- Left navbar links -->
-            <ul class="navbar-nav">
-                <li class="nav-item"><a class="nav-link" th:href="@{/mall/index}">Acorn Shop</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/admin}">Admin</a></li>
-            </ul>
-            <!-- Right navbar links -->
-            <ul class="navbar-nav ml-auto">
-                <th:block th:unless="${session.User==null}">
-                    <div class="user">
-                        <li class="nav-item"><a class="nav-link" th:href="@{/mall/logout}"> 로그아웃 </a></li>
-                        <a href="##" class="username">
-                            <th:block th:text="${session.User.nickName}"></th:block>
-                            <i class="fa fa-chevron-down" aria-hidden="true"></i>
-                        </a>
-                    </div>
-                </th:block>
-                <th:block th:if="${session.User==null}">
-                    <li class="nav-item"><a class="nav-link" th:href="@{/mall/login}">회원로그인</a></li>
-                    <li class="nav-item"><a class="nav-link" th:href="@{/mall/register}">회원가입</a></li>
-                </th:block>
-            </ul>
-        </nav>
-    </header>
-    <nav class="main-header navbar navbar-expand navbar-white navbar-light" th:fragment="nav-fragment">
-        <div class="container">
-            <a th:href="@{/mall/index}" class="navbar-brand">
-                <img src="/img/logo.webp" alt="Acron Logo" class="brand-image img-circle elevation-3" style="opacity: 0.8; height: 50px" />
-                <span class="brand-text font-weight-light"></span>
+    <!-- Header Component -->
+    <nav th:fragment="header-fragment" class="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block" id="templatemo_nav_top">
+        <div class="container text-light">
+            <div class="w-100 d-flex justify-content-between">
+                <!-- Left navbar links -->
+                <div>
+                    <i class="fa-solid fa-house mx-2"></i>
+                    <a class="navbar-sm-brand text-light text-decoration-none" th:href="@{/mall/index}">Acorn Shop</a>
+                    <i class="fa-solid fa-gear mx-2"></i>
+                    <a class="navbar-sm-brand text-light text-decoration-none" th:href="@{/admin}">Admin</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Nav Componenet-->
+    <nav class="navbar navbar-expand-lg navbar-light shadow" th:fragment="nav-fragment">
+        <div class="container d-flex justify-content-between align-items-center">
+            <!-- Brand Logo -->
+            <a class="navbar-brand text-success logo h1 align-self-center" th:href="@{/mall/index}">
+                <img src="/img/logo.webp" alt="Acorn Logo" class="brand-image img-circle elevation-3" style="opacity: 0.8; height: 50px" />
             </a>
-            <!-- SEARCH FORM -->
-            <form class="form-inline ml-3">
-                <div class="input-group input-group-sm search">
-                    <input class="form-control form-control-navbar" type="text" placeholder="Search" aria-label="Search" id="keyword" autocomplete="off" />
-                    <div class="input-group-append search_hot">
-                        <button class="btn btn-navbar" type="submit" onclick="search()">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
+
+            <!-- 모바일 화면 네비게이션 토글 -->
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="templatemo_main_nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- 네비게이션 내용 -->
+            <div class="align-self-center collapse navbar-collapse flex-fill d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
+                <!-- Menus -->
+                <!-- 카테고리가 3단계까지 존재해야 출력됨 -->
+                <div class="flex-fill">
+                    <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+                        <th:block th:each="category : ${categories}">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" th:href="@{'/mall/search?CategoryId='+${category.categoryId}}" type="button" aria-expanded="false">
+                                    <th:block th:text="${category.categoryName}"> </th:block>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <th:block th:each="secondLevelCategory : ${category.secondLevelCategoryVOS}">
+                                        <li class="dropdown-submenu dropend">
+                                            <a class="dropdown-item dropdown-toggle" th:href="@{'/mall/search?CategoryId='+${secondLevelCategory.categoryId}}" data-bs-toggle="dropdown-submenu" type="button" aria-expanded="false">
+                                                <th:block th:text="${secondLevelCategory.categoryName}"> </th:block>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <th:block th:each="thirdLevelCategory : ${secondLevelCategory.thirdLevelCategoryVOS}">
+                                                    <li>
+                                                        <a class="dropdown-item" th:href="@{'/mall/search?CategoryId='+${thirdLevelCategory.categoryId}}">
+                                                            <th:block th:text="${thirdLevelCategory.categoryName}"> </th:block>
+                                                        </a>
+                                                    </li>
+                                                </th:block>
+                                            </ul>
+                                        </li>
+                                    </th:block>
+                                </ul>
+                            </li>
+                        </th:block>
+                    </ul>
+                </div>
+                <!-- Search -->
+                <div class="navbar align-self-center d-flex">
+                    <form class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="mobileKeyword" placeholder="Search ..." autocomplete="off" />
+                            <div class="input-group-text" type="submit" onclick="mobileSearch()">
+                                <i class="fa-solid fa-fw fa-magnifying-glass"></i>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- PC 상태일때 검색기능 -->
+                    <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal" data-bs-target="#templatemo_search">
+                        <i class="fa-solid fa-fw fa-magnifying-glass text-dark mr-2"></i>
+                    </a>
+                    <!-- 로그인 상태임 -->
+                    <th:block th:unless="${session.AcornUser==null}">
+                        <a class="nav-icon position-relative text-decoration-none" th:href="@{/mall/cart}">
+                            <i class="fa-solid fa-fw fa-cart-arrow-down text-dark mr-1"></i>
+                            <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">
+                                <th:block th:text="${session.AcornUser.shopCartItemCount}"></th:block>
+                            </span>
+                        </a>
+                        <a class="nav-icon position-relative text-decoration-none" th:href="@{/mall/myhome}">
+                            <i class="fa-solid fa-fw fa-user text-dark mr-3"></i>
+                        </a>
+                    </th:block>
+                    <!-- 로그인 상태가 아님 -->
+                    <th:block th:if="${session.AcornUser==null}">
+                        <a class="nav-icon position-relative text-decoration-none">
+                            <i class="fa-solid fa-cart-shopping" aria-hidden="true"></i>
+                            <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">0</span>
+                        </a>
+                        <a class="nav-icon position-relative text-decoration-none" th:href="@{/mall/login}">
+                            <i class="fa-solid fa-fw fa-right-to-bracket text-dark mr-3"></i>
+                        </a>
+                    </th:block>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Search Modal -->
+    <div class="modal fade bg-white" id="templatemo_search" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true" th:fragment="searchmodal">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="w-100 pt-1 mb-5 text-right">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="" method="get" class="modal-content modal-body border-0 p-0">
+                <div class="input-group mb-2">
+                    <input type="text" class="form-control" id="keyword" autocomplete="off" placeholder="Search ..." />
+                    <button type="submit" class="input-group-text bg-success text-light" onclick="search()">
+                        <i class="fa-solid fa-fw fa-magnifying-glass text-white"></i>
+                    </button>
                 </div>
             </form>
-            <!-- Right navbar links -->
-            <ul class="navbar-nav ml-auto">
-                <th:block th:unless="${session.User==null}">
-                    <div class="user">
-                        <li class="nav-item"><a class="nav-link" th:href="@{/mall/myhome}"> My Page </a></li>
-                        <li class="nav-item"><a class="nav-link" th:href="@{/mall/orders}"> Order </a></li>
-                    </div>
-                    <div class="shopcart">
-                        <a class="nav-link" th:href="@{/shop-cart}">
-                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                            장바구니(
-                            <th:block th:text="${session.User.shopCartItemCount}"></th:block>
-                            )
-                        </a>
-                    </div>
-                </th:block>
-                <th:block th:if="${session.User==null}">
-                    <div class="shopcart">
-                        <a class="nav-link"><i class="fa fa-shopping-cart" aria-hidden="true"></i> 장바구니(0)</a>
-                    </div>
-                </th:block>
-            </ul>
+            <div class="search_hot"></div>
         </div>
-    </nav>
-    <nav class="main-header navbar navbar-expand navbar-white navbar-light" th:fragment="menu-fragment">
-        <div class="mx-auto d-sm-flex d-block flex-sm-nowrap">
-            <ul class="navbar-nav">
-                <th:block th:each="category : ${categories}">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" type="btn" data-bs-toggle="dropdown" href="#" th:id="${category.categoryName}">
-                            <th:block th:text="${category.categoryName}"></th:block>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <th:block th:each="secondLevelCategory : ${category.secondLevelCategoryVOS}">
-                                <li>
-                                    <h6 class="dropdown-header">
-                                        <th:block th:text="${secondLevelCategory.categoryName}"></th:block>
-                                    </h6>
-                                </li>
-                                <th:block th:each="thirdLevelCategory : ${secondLevelCategory.thirdLevelCategoryVOS}">
-                                    <li>
-                                        <a class="dropdown-item" th:href="@{'/search?productCategoryId='+${thirdLevelCategory.categoryId}}">
-                                            <th:block th:text="${thirdLevelCategory.categoryName}"></th:block>
-                                        </a>
-                                    </li>
-                                </th:block>
-                            </th:block>
-                        </ul>
-                    </li>
-                </th:block>
-            </ul>
-        </div>
-    </nav>
+    </div>
 </html>

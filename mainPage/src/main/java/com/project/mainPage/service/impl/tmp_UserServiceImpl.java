@@ -75,6 +75,27 @@ public class tmp_UserServiceImpl implements tmp_UserService {
     }
 
     @Override
+    public Boolean updatePassword(String originalPassword, String newPassword, HttpSession httpSession) {
+        UserVO userTemp = (UserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
+        tmp_User userFromDB = UserMapper.selectByPrimaryKey(userTemp.getUserId());
+        // 현재 사용자가 비어 있지 않으면 변경할 수 없습니다
+        if (userFromDB != null) {
+            String originalPasswordMd5 = MD5Util.MD5Encode(originalPassword, "UTF-8");
+            String newPasswordMd5 = MD5Util.MD5Encode(newPassword, "UTF-8");
+            // 원본 암호가 정확한지 비교합니다.
+            if (originalPasswordMd5.equals(userFromDB.getPassword())) {
+                // 새 암호 설정 및 변경
+                userFromDB.setPassword(newPasswordMd5);
+                if (UserMapper.updateByPrimaryKeySelective(userFromDB) > 0) {
+                    // 변경이 성공하면 true를 반환
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
     public UserVO updateUserInfo(tmp_User User, HttpSession httpSession) {
         UserVO userTemp = (UserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
         tmp_User userFromDB = UserMapper.selectByPrimaryKey(userTemp.getUserId());
@@ -90,7 +111,7 @@ public class tmp_UserServiceImpl implements tmp_UserService {
             }
             if (UserMapper.updateByPrimaryKeySelective(userFromDB) > 0) {
                 UserVO UserVO = new UserVO();
-                userFromDB = UserMapper.selectByPrimaryKey(User.getUserId());
+                userFromDB = UserMapper.selectByPrimaryKey(userTemp.getUserId());
                 BeanUtil.copyProperties(userFromDB, UserVO);
                 httpSession.setAttribute(Constants.MALL_USER_SESSION_KEY, UserVO);
                 return UserVO;

@@ -6,5 +6,5 @@ import lombok.Data;
 @Data
 public class tmp_StockNum {
     private Long productId; // 상품 인덱스
-    private Integer producCount;    // 상품 개수
+    private Integer productCount;    // 상품 개수
 }

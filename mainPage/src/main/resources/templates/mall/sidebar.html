@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div class="col-lg-3" th:fragment="sidebar-fragment">
+    <h1 class="nav_title h2 pb-4">마이페이지</h1>
+    <div class="title_list">
+        <ul class="list-unstyled">
+            <li class="pb-3">
+                <a class="collapsed d-flex justify-content-between h3 text-decoration-none" th:href="@{'/mall/myhome'}"
+                    th:classappend="${path=='myhome'?'active':''}"> 개인정보 </a>
+            </li>
+            <li class="pb-3">
+                <a class="collapsed d-flex justify-content-between h3 text-decoration-none" th:href="@{'/mall/orders'}"
+                    th:classappend="${path=='orders'?'active':''}"> 주문내역 </a>
+            </li>
+            <li class="pb-3">
+                <a class="collapsed d-flex justify-content-between h3 text-decoration-none" th:href="@{'/mall/logout'}">
+                    로그아웃 </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+</html>

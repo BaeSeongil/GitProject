@@ -46,7 +46,7 @@ public class tmp_CategoryController {
         request.setAttribute("parentId", parentId);
         request.setAttribute("backParentId", backParentId);
         request.setAttribute("categoryLevel", categoryLevel);
-        return "admin/list_category";
+        return "admin/list-category";
     }
 
     // 목록

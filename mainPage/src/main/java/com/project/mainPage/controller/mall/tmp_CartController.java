@@ -35,8 +35,7 @@ public class tmp_CartController {
     private tmp_CartService CartService;
 
     @GetMapping({"/cart"})
-    public String cartListPage(HttpServletRequest request,
-                               HttpSession httpSession) {
+    public String cartListPage(HttpServletRequest request, HttpSession httpSession) {
         UserVO user = (UserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
         int itemsTotal = 0;
         int priceTotal = 0;
@@ -63,8 +62,7 @@ public class tmp_CartController {
 
     @PostMapping({"/cart"})
     @ResponseBody
-    public Result saveCartItem(@RequestBody tmp_CartItem CartItem,
-                                                 HttpSession httpSession) {
+    public Result saveCartItem(@RequestBody tmp_CartItem CartItem, HttpSession httpSession) {
         UserVO user = (UserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
         CartItem.setUserId(user.getUserId());
         String saveResult = CartService.saveCartItem(CartItem);
@@ -78,8 +76,7 @@ public class tmp_CartController {
 
     @PutMapping({"/cart"})
     @ResponseBody
-    public Result updateCartItem(@RequestBody tmp_CartItem CartItem,
-                                                   HttpSession httpSession) {
+    public Result updateCartItem(@RequestBody tmp_CartItem CartItem, HttpSession httpSession) {
         UserVO user = (UserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
         CartItem.setUserId(user.getUserId());
         String updateResult = CartService.updateCartItem(CartItem);
@@ -113,7 +110,7 @@ public class tmp_CartController {
         List<CartItemVO> myCartItems = CartService.getMyCartItems(user.getUserId());
         if (CollectionUtils.isEmpty(myCartItems)) {
             // 데이터가 없으면 결제 페이지로 이동하지 않습니다
-            return "/cart";
+            return "mall/cart";
         } else {
             //총 주문금액
             for (CartItemVO CartItemVO : myCartItems) {

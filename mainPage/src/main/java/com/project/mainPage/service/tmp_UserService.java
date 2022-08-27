@@ -16,6 +16,8 @@ public interface tmp_UserService {
     String register(String loginName, String password);
     // 로그인
     String login(String loginName, String passwordMD5, HttpSession httpSession);
+    // 현재 로그인한 사용자의 비밀번호 수정
+    Boolean updatePassword(String originalPassword, String newPassword, HttpSession httpSession);
     // 사용자 정보 수정 및 최신 사용자 정보 반환
     UserVO updateUserInfo(tmp_User User, HttpSession httpSession);
     // 사용자 계정 차단 활성화 및 비활성화

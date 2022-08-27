@@ -88,15 +88,15 @@ public class tmp_CategoryServiceImpl implements tmp_CategoryService {
     @Override
     public List<CategoryVO> getCategoriesForIndex() {
         List<CategoryVO> CategoryVOS = new ArrayList<>();
-        // 중분류에 대한 고정된 양의 데이터 불러오기
+        // 대분류에 대한 고정된 양의 데이터 불러오기
         List<tmp_Category> firstLevelCategories = CategoryMapper.selectByLevelAndParentIdsAndNumber(Collections.singletonList(0L), CategoryLevelEnum.LEVEL_ONE.getLevel(), Constants.INDEX_CATEGORY_NUMBER);
         if (!CollectionUtils.isEmpty(firstLevelCategories)) {
             List<Long> firstLevelCategoryIds = firstLevelCategories.stream().map(tmp_Category::getCategoryId).collect(Collectors.toList());
-            // 소분류에 대한 데이터 불러오기
+            // 중분류에 대한 데이터 불러오기
             List<tmp_Category> secondLevelCategories = CategoryMapper.selectByLevelAndParentIdsAndNumber(firstLevelCategoryIds, CategoryLevelEnum.LEVEL_TWO.getLevel(), 0);
             if (!CollectionUtils.isEmpty(secondLevelCategories)) {
                 List<Long> secondLevelCategoryIds = secondLevelCategories.stream().map(tmp_Category::getCategoryId).collect(Collectors.toList());
-                // 상세 분류에 대한 데이터 불러오기
+                // 소분류에 대한 데이터 불러오기
                 List<tmp_Category> thirdLevelCategories = CategoryMapper.selectByLevelAndParentIdsAndNumber(secondLevelCategoryIds, CategoryLevelEnum.LEVEL_THREE.getLevel(), 0);
                 if (!CollectionUtils.isEmpty(thirdLevelCategories)) {
                     // parentId를 기반으로 하는 thirdLevelCategories 그룹화
@@ -106,7 +106,7 @@ public class tmp_CategoryServiceImpl implements tmp_CategoryService {
                     for (tmp_Category secondLevelCategory : secondLevelCategories) {
                         SecondLevelCategoryVO secondLevelCategoryVO = new SecondLevelCategoryVO();
                         BeanUtil.copyProperties(secondLevelCategory, secondLevelCategoryVO);
-                        // 보조 카테고리에 데이터가 있으면
+                        // 중분류에 데이터가 있으면
                         // secondLevelCategoryVOS 객체에 넣습니다.
                         if (thirdLevelCategoryMap.containsKey(secondLevelCategory.getCategoryId())) {
                             // 소분류의 id에 따라 thirdLevelCategoryMap 패킷의 상세분류 list를 추출
@@ -122,7 +122,7 @@ public class tmp_CategoryServiceImpl implements tmp_CategoryService {
                         for (tmp_Category firstCategory : firstLevelCategories) {
                             CategoryVO CategoryVO = new CategoryVO();
                             BeanUtil.copyProperties(firstCategory, CategoryVO);
-                            //중분류 카테고리에 데이터가 있으면 CategoryVOS 개체에 넣습니다.
+                            //대분류 카테고리에 데이터가 있으면 CategoryVOS 개체에 넣습니다.
                             if (secondLevelCategoryVOMap.containsKey(firstCategory.getCategoryId())) {
                                 // 중분류의 id에 따라 secondLevelCategoryVOMap 패킷의 소분류 list를 추출
                                 List<SecondLevelCategoryVO> tempProductCategories = secondLevelCategoryVOMap.get(firstCategory.getCategoryId());
@@ -144,10 +144,10 @@ public class tmp_CategoryServiceImpl implements tmp_CategoryService {
         SearchPageCategoryVO searchPageCategoryVO = new SearchPageCategoryVO();
         tmp_Category thirdLevelCategory = CategoryMapper.selectByPrimaryKey(categoryId);
         if (thirdLevelCategory != null && thirdLevelCategory.getCategoryLevel() == CategoryLevelEnum.LEVEL_THREE.getLevel()) {
-            // 현재 상세분류의 소분류를 불러오기
+            // 현재 소분류의 중분류를 불러오기
             tmp_Category secondLevelCategory = CategoryMapper.selectByPrimaryKey(thirdLevelCategory.getParentId());
             if (secondLevelCategory != null && secondLevelCategory.getCategoryLevel() == CategoryLevelEnum.LEVEL_TWO.getLevel()) {
-                // 현재 소분류의 상세분류 리스트를 불러오기
+                // 현재 중분류의 소분류 리스트를 불러오기
                 List<tmp_Category> thirdLevelCategories = CategoryMapper.selectByLevelAndParentIdsAndNumber(Collections.singletonList(secondLevelCategory.getCategoryId()), CategoryLevelEnum.LEVEL_THREE.getLevel(), Constants.SEARCH_CATEGORY_NUMBER);
                 searchPageCategoryVO.setCurrentCategoryName(thirdLevelCategory.getCategoryName());
                 searchPageCategoryVO.setSecondLevelCategoryName(secondLevelCategory.getCategoryName());

@@ -17,16 +17,7 @@ function validLength(obj, length) {
 
 // url 표현식
 function isURL(str_url) {
-    var strRegex =
-        "^((https|http|ftp|rtsp|mms)?://)" +
-        "(([0-9]{1,3}.){3}[0-9]{1,3}" +
-        "|" +
-        "([0-9a-zA-Z_!~*'()-]+.)*" +
-        "([0-9a-zA-Z][0-9a-zA-Z-]{0,61})?[0-9a-zA-Z]." +
-        "[a-zA-Z]{2,6})" +
-        "(:[0-9]{1,4})?" +
-        "((/?)|" +
-        "(/[0-9a-zA-Z_!~*'().;?:@&=+$,%#-]+)+/?)$";
+    var strRegex = "^((https|http|ftp|rtsp|mms)?://)" + "(([0-9]{1,3}.){3}[0-9]{1,3}" + "|" + "([0-9a-zA-Z_!~*'()-]+.)*" + "([0-9a-zA-Z][0-9a-zA-Z-]{0,61})?[0-9a-zA-Z]." + "[a-zA-Z]{2,6})" + "(:[0-9]{1,4})?" + "((/?)|" + "(/[0-9a-zA-Z_!~*'().;?:@&=+$,%#-]+)+/?)$";
     var re = new RegExp(strRegex);
     if (re.test(str_url)) {
         return true;
@@ -88,14 +79,14 @@ function getSelectedRow() {
     var grid = $("#jqGrid");
     var rowKey = grid.getGridParam("selrow");
     if (!rowKey) {
-        swal("데이터를 선택해주세요", {
+        Swal.fire("데이터를 선택해주세요", {
             icon: "warning",
         });
         return;
     }
     var selectedIDs = grid.getGridParam("selarrrow");
     if (selectedIDs.length > 1) {
-        swal("하나 이상의 데이터를 선택할 수 없습니다", {
+        Swal.fire("하나 이상의 데이터를 선택할 수 없습니다", {
             icon: "warning",
         });
         return;
@@ -122,7 +113,7 @@ function getSelectedRows() {
     var grid = $("#jqGrid");
     var rowKey = grid.getGridParam("selrow");
     if (!rowKey) {
-        swal("데이터를 선택해주세요", {
+        Swal.fire("데이터를 선택해주세요", {
             icon: "warning",
         });
         return;

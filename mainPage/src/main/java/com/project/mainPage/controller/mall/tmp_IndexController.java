@@ -27,20 +27,20 @@ public class tmp_IndexController {
     @Resource
     private tmp_CategoryService CategoryService;
 
-    @GetMapping({"/index", "/", "/index.html"})
+    @GetMapping({"", "/index", "/", "/index.html"})
     public String indexPage(HttpServletRequest request) {
         List<CategoryVO> categories = CategoryService.getCategoriesForIndex();
         if (CollectionUtils.isEmpty(categories)) {
             ShopException.fail("카테고리 데이터가 불완전합니다");
         }
-        List<IndexConfigProductVO> hotProductes = IndexConfigService.getConfigProductesForIndex(IndexConfigTypeEnum.INDEX_PRODUCT_HOT.getType(), Constants.INDEX_PRODUCT_HOT_NUMBER);
-        List<IndexConfigProductVO> newProductes = IndexConfigService.getConfigProductesForIndex(IndexConfigTypeEnum.INDEX_PRODUCT_NEW.getType(), Constants.INDEX_PRODUCT_NEW_NUMBER);
-        List<IndexConfigProductVO> recommendProductes = IndexConfigService.getConfigProductesForIndex(IndexConfigTypeEnum.INDEX_PRODUCT_RECOMMOND.getType(), Constants.INDEX_PRODUCT_RECOMMOND_NUMBER);
+        List<IndexConfigProductVO> hotProducts = IndexConfigService.getConfigProductesForIndex(IndexConfigTypeEnum.INDEX_PRODUCT_HOT.getType(), Constants.INDEX_PRODUCT_HOT_NUMBER);
+        List<IndexConfigProductVO> newProducts = IndexConfigService.getConfigProductesForIndex(IndexConfigTypeEnum.INDEX_PRODUCT_NEW.getType(), Constants.INDEX_PRODUCT_NEW_NUMBER);
+        List<IndexConfigProductVO> recommendProducts = IndexConfigService.getConfigProductesForIndex(IndexConfigTypeEnum.INDEX_PRODUCT_RECOMMOND.getType(), Constants.INDEX_PRODUCT_RECOMMOND_NUMBER);
         
         request.setAttribute("categories", categories); // 카테고리
-        request.setAttribute("hotProductes", hotProductes); // 히트 상품
-        request.setAttribute("newProductes", newProductes); // 신상품
-        request.setAttribute("recommendProductes", recommendProductes); // 추천 상품
+        request.setAttribute("hotProducts", hotProducts); // 히트 상품
+        request.setAttribute("newProducts", newProducts); // 신상품
+        request.setAttribute("recommendProducts", recommendProducts); // 추천 상품
         return "mall/index";
     }
 }

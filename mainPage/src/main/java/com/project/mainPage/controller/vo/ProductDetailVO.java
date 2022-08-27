@@ -15,4 +15,5 @@ public class ProductDetailVO implements Serializable {
     private String[] productCarouselList;
     private Integer sellingPrice;
     private Integer originalPrice;
+    private String productDetailContent;
 }

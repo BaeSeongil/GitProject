@@ -42,7 +42,7 @@ public class tmp_IndexConfigController {
 
         request.setAttribute("path", indexConfigTypeEnum.getName());
         request.setAttribute("configType", configType);
-        return "admin/list_index_config";
+        return "admin/list-index-config";
     }
 
     // 목록

@@ -77,7 +77,7 @@ public class tmp_ShopProductController {
         }
         ProductDetailVO productDetailVO = new ProductDetailVO();
         BeanUtil.copyProperties(product, productDetailVO);
-        productDetailVO.setProductCarouselList(product.getProductCarousel().split(","));
+        //productDetailVO.setProductCarouselList(product.getProductCarousel().split(","));
         request.setAttribute("productDetail", productDetailVO);
         return "mall/detail";
     }

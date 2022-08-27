@@ -16,9 +16,9 @@ public class Constants {
 
     public final static int INDEX_PRODUCT_HOT_NUMBER = 4;
     // 홈페이지 히트 상품 수량
-    public final static int INDEX_PRODUCT_NEW_NUMBER = 5;
+    public final static int INDEX_PRODUCT_NEW_NUMBER = 6;
     // 홈페이지 신상품 수량
-    public final static int INDEX_PRODUCT_RECOMMOND_NUMBER = 10;
+    public final static int INDEX_PRODUCT_RECOMMOND_NUMBER = 6;
     // 홈페이지 추천 상품 수량
 
     public final static int SHOPPING_CART_ITEM_TOTAL_NUMBER = 13;
@@ -27,7 +27,7 @@ public class Constants {
     public final static int SHOPPING_CART_ITEM_LIMIT_NUMBER = 5;
     // 장바구니 내 개별상품 최대구매수량
 
-    public final static String MALL_USER_SESSION_KEY = "Acorn";
+    public final static String MALL_USER_SESSION_KEY = "AcornUser";
     // 세션의 사용자 키
 
     public final static int PRODUCT_SEARCH_PAGE_LIMIT = 10;
@@ -39,6 +39,6 @@ public class Constants {
     public final static int SELL_STATUS_UP = 0;
     // 진열
     public final static int SELL_STATUS_DOWN = 1;
-    // 판매안함
+    // 진열안함
 
 }

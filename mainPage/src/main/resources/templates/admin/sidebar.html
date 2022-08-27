@@ -42,34 +42,22 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a th:href="@{/admin/carousels}" th:class="${path}=='list_carousel'?'nav-link active':'nav-link'" class="nav-link">
+                                <a th:href="@{/admin/carousels}" th:class="${path}=='list-carousel'?'nav-link active':'nav-link'" class="nav-link">
                                     <p>Carousel 설정</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a
-                                    th:href="@{/admin/indexConfigs?configType=3}"
-                                    th:class="${path}=='INDEX_PRODUCT_HOTS'?'nav-link active':'nav-link'"
-                                    class="nav-link"
-                                >
+                                <a th:href="@{/admin/indexConfigs?configType=3}" th:class="${path}=='INDEX_PRODUCT_HOTS'?'nav-link active':'nav-link'" class="nav-link">
                                     <p>히트상품 설정</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a
-                                    th:href="@{/admin/indexConfigs?configType=4}"
-                                    th:class="${path}=='INDEX_PRODUCT_NEW'?'nav-link active':'nav-link'"
-                                    class="nav-link"
-                                >
+                                <a th:href="@{/admin/indexConfigs?configType=4}" th:class="${path}=='INDEX_PRODUCT_NEW'?'nav-link active':'nav-link'" class="nav-link">
                                     <p>신상품 설정</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a
-                                    th:href="@{/admin/indexConfigs?configType=5}"
-                                    th:class="${path}=='INDEX_PRODUCT_RECOMMOND'?'nav-link active':'nav-link'"
-                                    class="nav-link"
-                                >
+                                <a th:href="@{/admin/indexConfigs?configType=5}" th:class="${path}=='INDEX_PRODUCT_RECOMMOND'?'nav-link active':'nav-link'" class="nav-link">
                                     <p>추천상품 설정</p>
                                 </a>
                             </li>
@@ -84,16 +72,12 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a
-                                    th:href="@{/admin/categories?parentId=0&categoryLevel=1&backParentId=0}"
-                                    th:class="${path}=='list_category'?'nav-link active':'nav-link'"
-                                    class="nav-link"
-                                >
+                                <a th:href="@{/admin/categories?parentId=0&categoryLevel=1&backParentId=0}" th:class="${path}=='list-category'?'nav-link active':'nav-link'" class="nav-link">
                                     <p>카테고리 관리</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a th:href="@{/admin/product}" th:class="${path}=='list_product'?'nav-link active':'nav-link'" class="nav-link">
+                                <a th:href="@{/admin/product}" th:class="${path}=='list-product'?'nav-link active':'nav-link'" class="nav-link">
                                     <p>상품 관리</p>
                                 </a>
                             </li>
