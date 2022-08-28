@@ -29,7 +29,7 @@ public class OrderConmtroller {
 	private ProductMapper productMapper;
 	
 	@GetMapping("/inserts.do")
-	public String insert(HttpSession session,int count,int productid,Model model) {
+	public String insert(HttpSession session,int count, int productid,Model model) {
 		System.out.println(productid);
 		System.out.println(count);
 		if(session.getAttribute("loginUsers")!=null) {
