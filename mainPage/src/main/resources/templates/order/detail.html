@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title> 주문 상세 </title>
+
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js" defer="defer"></script>
+</head>
+<body>
+	<header th:insert="/gAndB"></header>
+	<header th:insert="/headerNav"></header>
+	<main class="container">
+		<h1 class="m-2 d-flex justify-content-center">
+			주문 상세
+		</h1>
+
+		<!-- FORM -->
+		
+		<div class="m-5 justify-content-center">
+
+		<div class="container text-center">
+		  <div class="row">
+		  	<h5><strong>상품 정보</strong></h5>
+		  	 <th:block th:each="order:${order}">
+
+		    <div class="col">
+	    		<label for="inputPro" class="mt-2 form-label">상품 명</label>
+				<input style="max-width: 150px; text-align: center; display:block; margin: 0 auto;" name="product.productName" class="form-control" id="inputPro" placeholder="" required readonly
+				th:value="${order.product.productName}">
+		    </div>
+			<div class="col">
+				<label for="inputPro" class="mt-2 form-label">사이즈</label>
+				<input style="max-width: 100px; text-align: center; display:block; margin: 0 auto;" name="product.productSize" class="form-control" id="inputPro" placeholder="" required readonly
+				th:value="${order.product.productSize}">
+		    </div>
+		    <div class="col">
+				<label for="inputPro" class="mt-2 form-label">색상</label>
+				<input style="max-width: 100px; text-align: center; display:block; margin: 0 auto;" name="product.productColor" class="form-control" id="inputPro" placeholder="" required readonly
+				th:value="${order.product.productColor}">
+		    </div>			
+			<div class="col">
+				<label for="inputPro2" class="mt-2 form-label">상품 개당 가격</label>
+				<input style="max-width: 150px; text-align: center; display:block; margin: 0 auto;" name="product.price" class="form-control" id="inputPro2" placeholder="" required readonly
+				th:value="${order.product.price}">	
+		    </div>	
+		  	 	<input type="hidden" name="product.productid" th:value="${order.product.productid}">
+		  	<div class="col">
+				<label for="inputCount" class="mt-2 form-label">상품 갯수</label>
+			    <input style="max-width: 100px; text-align: center; display:block; margin: 0 auto;" name="count" class="form-control" id="inputCount"
+			    th:value="${order.count}" readonly> 	
+		    </div>	
+			</th:block>
+		  </div>
+		</div>
+		<hr>	   
+				<div>
+					<h4>주문 정보</h4>	 
+				    <div class="m-3 mt-4">
+				    	 <th:block th:each="order:${order}">
+				    	<div class="row mb-3 g-3 align-items-center">
+							<div class="col-auto labelSize">
+								<span class="width">받는 분</span>
+							</div>
+							<div class="col-auto">
+								<input type="text" size="30" name="orderName" 
+								class="form-control" required  style="display:inline; width:50%;" th:value="${order.orderName}" readonly>
+							</div>
+						</div>
+				    	
+				    	<div class="row mt-3 mb-3 g-3 align-items-center">
+							<div class="col-auto labelSize">
+								<span class="width">연락처</span>
+							</div>
+							<div class="col-auto">
+								<input type="text" size="30" name="orderPhone" 
+								class="form-control" required  style="display:inline;" th:value="${order.orderPhone}" readonly>
+							</div>
+						</div>
+						
+						<div class="row mt-3 mb-3 g-3 align-items-center">
+							<div class="col-auto labelSize">
+								<span class="width">수령자 주소</span>
+							</div>
+							<div class="col-auto">
+								<input type="text" size="40" placeholder="도로명주소" name="orderAdd" id="inputAdd" class="form-control" required readonly th:value="${order.orderAdd2+order.orderAdd3}">
+							</div>
+						</div>
+	
+							    	
+				    	<div class="row mb-3 mt-3 g-3 align-items-center">
+							<div class="col-auto labelSize">
+								<span class="width">결제 금액</span>
+							</div>
+							<div class="col-auto">
+								<input type="text" size="20" name="orderPrice" class="form-control"  th:value="${order.orderPrice}" readonly>	
+							</div>
+						</div>  	
+						
+				    	</th:block>
+				    </div>
+				</div> 
+			    	
+			    	 	
+			</div>
+			
+				
+		    <a href="/order/list" class="btn btn-outline-success">주문 목록</a>
+		    <a class="btn btn-outline-danger" th:href="@{/order/delete/{orderid}(orderid=${order.orderid})}">결체 취소</a>
+	
+	</main>
+</body>
+<footer th:insert="/footer"></footer>
+</html>

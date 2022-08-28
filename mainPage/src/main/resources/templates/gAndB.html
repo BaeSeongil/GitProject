@@ -23,6 +23,10 @@
 					<span th:text="${session.loginUsers.username}"></span>
 					(<span th:text="${session.loginUsers.userid}"></span>)					
 				</a>
+				
+				<a href="/order/list" class="btn btn-sm btn-outline-warning">
+					주문내역
+				</a>
 				<a href="/basket/list/1" class="btn btn-sm btn-outline-primary">
 					<i class="bi bi-cart-fill"></i>
 					장바구니

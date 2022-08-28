@@ -82,6 +82,8 @@
 <script>
 const msgModal = new bootstrap.Modal('#msgModal');
 msgModal.show();
-/*[[${#session.removeAttribute("msg")}]]*/
+if(msgModal !=null){
+/*[[${#session.removeAttribute("msg")}]]*/	
+}
 </script>
 </html>
