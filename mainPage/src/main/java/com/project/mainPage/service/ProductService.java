@@ -71,6 +71,7 @@ public class ProductService {
  		modify = productMapper.updateOne(product);
 		return modify;
 	}
+
 	
 	public int removeProduct(int productid) throws Exception {
 		int remove = 0;

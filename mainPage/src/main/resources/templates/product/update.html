@@ -41,11 +41,10 @@
 			</div>
 			<div class="row mb-3 g-3 align-items-center">
 				<div class="col-auto">
-
-				    <label for="inputCategory" class="col-form-label"><span class="width">카테고리</span></label>
+				    <label for="inputCate" class="col-form-label"><span class="width">카테고리</span></label>
 			    </div>
 			    <div class="col-auto">
-					<select id="inputCategory" class="form-control" name="category.categoryId"
+					<select id="inputCate" class="form-control" name="category.categoryId"
 					 aria-describedby="idHelp" required>
 						<option th:value="${product.category?.categoryId}" th:text="${product.category?.categoryId}+'(Selected)'" selected></option>
 						<option value="1">상의</option>
@@ -76,7 +75,7 @@
 				 	</select> 
 				 	<select id="idHelp2" class="form-control" style="display: none;">
 				 		<th:block th:if="${product.category.categoryId==4}">
-				    		<option th:value="${product.productSize}" th:text="${product.productSize}+'(Selected)'" selected></option>
+				    		<option th:value="${product.productSize}" th:text="${product.productSize}+'(selected)'" selected></option>
 				    	</th:block>
 						<option value="230">230</option>
 						<option value="235">235</option>
@@ -90,7 +89,7 @@
 					</select>
 					<select id="idHelp3" class="form-control" style="display: none;">
 						<th:block th:if="${product.category.categoryId==5}">
-				    		<option th:value="${product.productSize}" th:text="${product.productSize}+'(Selected)'" selected></option>
+				    		<option th:value="${product.productSize}" th:text="${product.productSize}+'(selected)'" selected></option>
 				    	</th:block>
 						<option value="54">54</option>
 						<option value="55">55</option>
@@ -131,12 +130,13 @@
 				<th:block th:each="productImg : ${product.productImgs}">
 					<label>
 						<input type="checkbox" class="form-check-input" 
-						th:value="${productImg.product_img_no}" name="productImg">
+						th:value="${productImg.product_img_no}" name="productImgNo">
 						<img alt="상품 이미지" th:src="@{/public/img/{fileName}(fileName=${productImg.img_path})}"
 							class="img-thumbnail" width="200">
 					</label>
 				</th:block>
 			</div>
+
 			
 			<!-- 상품 이미지 -->
 			<div class="mb-3">
@@ -176,7 +176,7 @@
 				</div>
 			    <div class="col-auto">
 				    <textarea id="inputInfo" class="form-control" name="productInfo" 
-					th:value="${product.productInfo}" required></textarea>
+					th:value="${product.productInfo}" th:text="${product.productInfo}" required></textarea>
 				</div>
 			</div>
 			

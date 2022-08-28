@@ -12,27 +12,13 @@
 			<h1 class="fw-semibold">카테고리 수정</h1>
 		</div>
 		<form action="/category/update.do" method="post" class="row g-3 needs-validation" validate>
-		
-<<<<<<< HEAD
-			<div class="col-30 mb-3 justify-content-center needs-validation">
-				<label for="inputCateId" class="form-label">카테고리 번호</label>
-				<input name="categoryId" class="form-control form-control-sm" id="inputCateId" 
-					onkeyup="noSpace(this);" onchange="noSpace(this);" 
-					th:value="${category.categoryId}" required>
-			</div>
-			
-			<div class="col-30 mb-3 justify-content-center needs-validation">
-				<label for="inputCateName" class="form-label">카테고리 이름</label>
-				<input name="categoryName" class="form-control form-control-sm" id="inputCateName" 
-					onkeyup="noSpace(this);" onchange="noSpace(this);" 
-=======
 			<div class="row mb-3 justify-content-center needs-validation">
 				<div class="col-auto">
 					<label for="inputCateId" class="form-label">카테고리 번호</label>
 				</div>
 				<div class="col-auto">
 					<input name="categoryId" class="form-control form-control-sm" id="inputCateId" 
-						th:value="${category.categoryId}" required>
+						th:value="${category.categoryId}" onkeyup="noSpace(this);" onchange="noSpace(this);" required>
 				</div>
 			</div>
 			
@@ -42,8 +28,7 @@
 				</div>
 				<div class="col-auto">
 					<input name="categoryName" class="form-control form-control-sm" id="inputCateName" 
->>>>>>> dcc54e433151a28b206b024258f18c09b73b29f3
-					th:value="${category.categoryName}" required>
+					th:value="${category.categoryName}" onkeyup="noSpace(this);" onchange="noSpace(this);"  required>
 				</div>
 			</div>
 			
