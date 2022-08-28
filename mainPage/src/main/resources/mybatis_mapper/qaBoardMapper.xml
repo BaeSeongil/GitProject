@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.mainPage.mapper.QaBoardMapper">
+	<resultMap type="QaBoard" id="QaBoardMap">
+		<id column="qaBoardNo" property="qaBoardNo"/>
+		<result column="qaBoardKind" property="qaBoardKind"/>
+		<result column="qaBoardTitle" property="qaBoardTitle"/>
+		<result column="qaBoardContents" property="qaBoardContents"/>
+		<result column="qaBoardAnswer" property="qaBoardAnswer"/>
+		<result column="qaBoardDate" property="qaBoardDate"/>
+		<!-- Board : UsersDto = 1 : 1   -->	
+		<association property="users" javaType="UsersDto"  foreignColumn="userid">
+			<id column="userid" property="userid"/>
+			<result column="username" property="username"/>
+			<result column="email" property="email"/>
+			<result column="phone" property="phone"/>
+		</association>
+		<association property="qaReply" javaType="qaReply"  foreignColumn="qaBoardNo">
+			<id column="qaReplyNo" property="qaReplyNo"/>
+			<result column="qaReplyTitle" property="qaReplyTitle"/>
+			<result column="qaReplyContent" property="qaReplyContent"/>
+			<result column="qaReplyDate" property="qaReplyDate"/>
+		</association>
+		<collection property="product" javaType="Product"  foreignColumn="productid">
+			<id column="productid" property="productid"/>
+			<result column="productName" property="productName"/>
+			<result column="productSize" property="productSize"/>
+			<result column="productColor" property="productColor"/>
+			<association property="category" javaType="Category" foreignColumn="categoryid">
+				<id column="categoryid" property="categoryId"/>
+				<result column="categoryName" property="categoryName"/>
+			</association>
+		</collection>
+	</resultMap>
+	
+	
+	<select id="selectPageAll" resultMap="QaBoardMap">
+		SELECT q.*,u.userid FROM QABOARD q 
+		LEFT JOIN USERS u USING(userid)
+		ORDER BY q.qaBoardNo 
+			LIMIT #{startRow},#{pageSize}
+	</select>
+	<select id="selectPageAllCount" resultType="int">
+		SELECT COUNT(*) FROM QABOARD
+	</select>
+	<select id="selectOne" resultMap="QaBoardMap" parameterType="int">
+		SELECT q.*,
+		u.userid,
+		u.username,
+		u.email,
+		u.phone,
+		p.productname,
+		p.productid,
+		p.productSize,
+		p.productColor,
+		r.qaReplyTitle,
+		r.qaReplyContent,
+		r.qaReplyDate
+		FROM QABOARD q 
+		LEFT JOIN USERS u USING(userid)
+		LEFT JOIN PRODUCT p USING(productid)
+		LEFT JOIN QAREPLY r USING(qaboardno)
+		WHERE qaBoardNo=#{qaBoardNo}
+	</select>
+	<update id="answerOne" parameterType="QaBoard">
+ 		UPDATE QABOARD SET 
+ 			qaBoardAnswer=#{qaBoardAnswer}
+ 			WHERE qaBoardNo=#{qaBoardNo}
+ 	</update>
+	<insert id="insertOne" parameterType="QaBoard"
+	 useGeneratedKeys="true" keyProperty="qaBoardNo">
+		INSERT INTO QABOARD (qaBoardKind,productid,qaBoardTitle,qaBoardContents,userid)
+		VALUES (#{qaBoardKind},#{product.productid},#{qaBoardTitle},#{qaBoardContents},#{users.userid})
+	</insert>
+	<delete id="deleteOne" parameterType="int">
+		DELETE FROM QABOARD WHERE qaBoardNo=#{qaBoardNo}
+	</delete>
+	
+	<!-- criteria(검색조건) -->
+	<sql id="criteria">
+		    <trim prefix="WHERE (" suffix=")" prefixOverrides="AND">
+	  		<foreach item="type" collection="typeArr">
+	  			<trim prefix="AND">
+	  				<choose>
+	  					<when test="type == 'T'.toString()">
+	  						qaBoardKind LIKE CONCAT ('%', #{keyword}, '%')
+	  					</when>
+	  					<when test="type == 'C'.toString()">
+	  						qaBoardTitle LIKE CONCAT ('%', #{keyword}, '%')
+	  					</when>  					
+	  				</choose>
+	  			</trim>
+	  		</foreach>
+	  	</trim>
+	</sql>
+	<select id="searchQaBoard" resultMap="QaBoardMap">
+			SELECT q.*,
+				u.userid,
+				u.username,
+				u.email,
+				u.phone,
+				p.productname,
+				p.productid,
+				p.productSize,
+				p.productColor,
+				r.qaReplyTitle,
+				r.qaReplyContent,
+				r.qaReplyDate
+				FROM QABOARD q 
+				LEFT JOIN USERS u USING(userid)
+				LEFT JOIN PRODUCT p USING(productid)
+				LEFT JOIN QAREPLY r USING(qaboardno)
+			<include refid="criteria"></include>
+			order by qaBoardNo desc 
+			limit #{skip}, #{amount}	
+	</select>
+	<select id="QaBoardGetTotal" resultType="int">
+  		SELECT COUNT(*) FROM QABOARD
+		<include refid="criteria"></include>
+	</select>
+	
+</mapper>

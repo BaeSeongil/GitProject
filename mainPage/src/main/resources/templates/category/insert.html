@@ -11,14 +11,26 @@
 		<div class="mt-5 mb-5 d-flex justify-content-center">
 			<h1 class="fw-semibold">카테고리 등록</h1>
 		</div>
+<<<<<<< HEAD
 		<form action="/category/insert.do" method="post" class="row g-3 needs-validation" validate>
 			<div class="row mb-3 justify-content-center needs-validation">
+=======
+		<form action="/category/insert.do" method="post" class="row g-3 needs-validation">
+		
+			<div class="row mb-3 justify-content-center was-validated">
+>>>>>>> dca76f20c6227b72eed7eaa6d5d5c933577959f3
 				<div class="col-auto">
 					<label for="inputCateId" class="form-label">카테고리 번호</label>
 				</div>
 				<div class="col-auto">
+<<<<<<< HEAD
 					<input name="categoryId" class="form-control form-control-sm" id="inputCateId" 
 					onkeyup="noSpace(this);" onchange="noSpace(this);" required>
+=======
+					<input name="categoryId" class="form-control form-control-sm"
+					onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);"
+					id="inputCateId" required>
+>>>>>>> dca76f20c6227b72eed7eaa6d5d5c933577959f3
 				</div>
 			</div>
 			<div class="row mb-3 justify-content-center needs-validation">
@@ -26,9 +38,15 @@
 					<label for="inputCateName" class="form-label">카테고리 이름</label>
 				</div>
 				<div class="col-auto">
+<<<<<<< HEAD
 					<input name="categoryName" class="form-control form-control-sm" id="inputCateName" 
 					onkeyup="noSpace(this);" onchange="noSpace(this);" required>
 
+=======
+					<input name="categoryName" class="form-control form-control-sm" 
+					onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);"
+					id="inputCateName" required>
+>>>>>>> dca76f20c6227b72eed7eaa6d5d5c933577959f3
 				</div>
 			</div>
 			<div class="row mb-3 justify-content-center">
@@ -43,12 +61,12 @@
 	</main>
 </body>
 <script>
-function noSpace(obj) { // 공백사용못하게
-    var str = /\s/;  // 공백체크
-    if(str.exec(obj.value.trim)) { //공백 체크
-        //alert("해당 항목에는 첫 글자 공백을 사용할수 없습니다.");
+function noSpaceForm(obj) { // 공백사용못하게
+    var str_space = /\s/;  // 공백체크
+    if(str_space.exec(obj.value.trim)) { //공백 체크
+        //alert("해당 항목에는 공백을 사용할수 없습니다.\n\n공백은 자동적으로 제거 됩니다.");
         obj.focus();
-        obj.value = obj.value.replace(/^ +/,''); // 공백제거
+        obj.value = obj.value.replace(/\s| /gi,''); // 공백제거
         return false;
     }
 }
