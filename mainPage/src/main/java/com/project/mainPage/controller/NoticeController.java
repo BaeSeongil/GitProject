@@ -3,6 +3,7 @@ package com.project.mainPage.controller;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -25,12 +26,16 @@ import com.project.mainPage.dto.NoticeImg;
 import com.project.mainPage.dto.Pagination;
 import com.project.mainPage.dto.Product;
 import com.project.mainPage.dto.UsersDto;
+import com.project.mainPage.mapper.NoticeImgMapper;
 import com.project.mainPage.mapper.NoticeMapper;
 import com.project.mainPage.service.NoticeService;
 
 @Controller
 @RequestMapping("/notice")
 public class NoticeController {
+	//notice > notice_img 의 수를 5개로 제한
+	private final static int NOTICE_IMG_LIMIT=5; 
+	
 	@Value("${spring.servlet.multipart.location}") // 파일이 임시저장되는 경로 + 파일을 저장할 경로 
 	private String savePath;
 	
@@ -39,6 +44,11 @@ public class NoticeController {
 	
 	@Autowired
 	private NoticeService noticeService;
+	
+	@Autowired
+	private NoticeImgMapper noticeImgMapper;
+	
+	
 	
 	@GetMapping("/list/{page}")
 	public String list(@PathVariable int page, Model model) {
@@ -166,6 +176,82 @@ public class NoticeController {
 		model.addAttribute("page", page);
 		return "/notice/search";
 	}
+	
+	@GetMapping("/update/{noticeNo}")
+	public String update(
+			@PathVariable int noticeNo,
+			Model model,
+			HttpSession session
+			) {
+		Notice notice = noticeMapper.selectDetailOne(noticeNo); 
+		Object loginUsers_obj = session.getAttribute("loginUsers");
+		if(loginUsers_obj != null && ((UsersDto)loginUsers_obj).getUserid().equals(notice.getUsers().getUserid())) {
+			model.addAttribute(notice);
+			return "/notice/update";	
+		}else {
+			return "redirect:/users/login.do";			
+		}	
+	}
+	
+	@PostMapping("/update.do")
+	public String update(
+			Notice notice,
+			@RequestParam(name = "noticeImgNo",required = false) int [] noticeImgNos,
+			@RequestParam(name = "imgFile", required = false) MultipartFile[]imgFiles,
+			HttpSession session) {
+		int update=0;
+		Object loginUser_obj=session.getAttribute("loginUsers");
+		System.out.println(Arrays.toString(noticeImgNos)); //삭제할 이미지 번호들
+		System.out.println(Arrays.toString(imgFiles)); //등록할 이미지 파일 (blob)
+		System.out.println(notice);
+		if(loginUser_obj!=null && ((UsersDto)loginUser_obj).getUserid().equals(notice.getUsers().getUserid()))  {
+			try {
+				int noticeImgCount=noticeImgMapper.selectCountNoticeNo(notice.getNotice_no()); //3개가 등록되어 있다면..
+				int insertNoticeImgLength = NOTICE_IMG_LIMIT-noticeImgCount+( (noticeImgNos!=null)?noticeImgNos.length:0 );
+					if(imgFiles!=null && insertNoticeImgLength>0) {
+						List<NoticeImg> noticeImgs=new ArrayList<NoticeImg>();
+						for(MultipartFile imgFile : imgFiles) {
+							
+							String[]types=imgFile.getContentType().split("/");
+							if(types[0].equals("image")) {
+								String newFileName="board_"+System.nanoTime()+"."+types[1];
+								Path path=Paths.get(savePath+"/"+newFileName);
+								imgFile.transferTo(path);
+								NoticeImg noticeImg=new NoticeImg();
+								noticeImg.setNotice_no(notice.getNotice_no());
+								noticeImg.setImg_path(newFileName);
+								noticeImgs.add(noticeImg);
+								if(--insertNoticeImgLength == 0) break; //이미지 수가 5개면 반복문 종료
+							}
+						}
+						if(noticeImgs.size()>0) {
+							notice.setNoticeImgs(noticeImgs);
+						}
+					}
+					update = noticeService.modifyBoardRemoveBoardImg(notice, noticeImgNos);
+				} catch (Exception e) {
+					e.printStackTrace();
+					}
+				if(update>0) {
+					return "redirect:/notice/detail/"+notice.getNotice_no();
+				}else {
+					return "redirect:/notice/update/"+notice.getNotice_no();
+				}
+			}else {
+				return "redirect:/users/login.do";
+			}
+		
+		
+	
+	
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }

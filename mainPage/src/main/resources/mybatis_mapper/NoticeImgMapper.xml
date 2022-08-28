@@ -10,4 +10,20 @@
 	<select id="selectNoticeNo" resultType="NoticeImg" parameterType="int">
 		SELECT * FROM NOTICE_IMG WHERE notice_no=#{noticeNo}
 	</select>
+	
+	<select id="selectCountNoticeNo" parameterType="int" resultType="int">
+		SELECT COUNT(*) FROM NOTICE_IMG
+			WHERE notice_no=#{noticeNo}
+	</select>
+	
+	<select id="selectOne" resultType="NoticeImg" parameterType="int">
+		SELECT * FROM NOTICE_IMG
+			WHERE notice_img_no=#{noticeImgNo}
+	</select>
+	<!-- 이미지 삭제  -->
+	<delete id="deleteOne" parameterType="int">
+		DELETE FROM NOTICE_IMG 
+			WHERE notice_img_no=#{noticeImgNo}
+	</delete>
 </mapper>
+
