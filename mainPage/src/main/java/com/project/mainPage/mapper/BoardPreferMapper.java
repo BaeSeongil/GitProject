@@ -9,6 +9,6 @@ import com.project.mainPage.dto.BoardPrefer;
 public interface BoardPreferMapper {
 	BoardPrefer selectFindUserIdAndBoardNo(String userId, int boardNo);
 	int insertOne(BoardPrefer boardPrefer);
-	int updatePreferOne(boolean prefer, int boardPreferNo);
 	int deleteOne(int boardPreferNo);
+	int updateOne(BoardPrefer boardPrefer);
 }
