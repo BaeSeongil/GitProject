@@ -123,15 +123,6 @@ CREATE TABLE PRODUCT_IMG(
 	ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-CREATE TABLE BOARD_IMG(
-	board_img_no INT AUTO_INCREMENT,
-	board_no INT NOT NULL,
-	img_path VARCHAR(255) NOT NULL,
-	PRIMARY KEY(board_img_no),
-	FOREIGN KEY(board_no) REFERENCES BOARD(board_no)
-	ON UPDATE CASCADE ON DELETE CASCADE
-);
-
 CREATE TABLE NOTICE(   
 	notice_no INT AUTO_INCREMENT,
 	title VARCHAR(255) NOT NULL,
@@ -159,7 +150,6 @@ CREATE TABLE NOTICE_IMG(
 	FOREIGN KEY(notice_no) REFERENCES NOTICE(notice_no)
 	ON UPDATE CASCADE ON DELETE CASCADE
 );
-
 
 CREATE TABLE BOARD(
 	board_no INT AUTO_INCREMENT,
@@ -429,3 +419,40 @@ CREATE TABLE ORDERS(
   FOREIGN KEY(productid) REFERENCES PRODUCT(productid)
   ON UPDATE CASCADE ON DELETE CASCADE
 );
+
+CREATE TABLE QABOARD(
+    qaBoardNo INT AUTO_INCREMENT,
+    qaBoardKind VARCHAR(255) NOT NULL,
+    qaBoardTitle VARCHAR(255) NOT NULL,
+    qaBoardContents TEXT,
+    qaBoardAnswer boolean DEFAULT FALSE,
+    qaBoardDate DATETIME DEFAULT CURRENT_TIMESTAMP(),
+    userid VARCHAR(45),
+    productid INT,
+    CONSTRAINT PRIMARY KEY(qaBoardNo),
+    FOREIGN KEY(userid) REFERENCES USERS(userid)
+    ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY(productid) REFERENCES  PRODUCT(productid)
+    ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE QAREPLY(
+    qaReplyNo INT AUTO_INCREMENT,
+    qaReplyTitle VARCHAR(255) NOT NULL,
+    qaReplyContent TEXT,
+    qaReplyDate DATETIME DEFAULT CURRENT_TIMESTAMP(),
+    qaBoardNo INT,
+    CONSTRAINT PRIMARY KEY(qaReplyNo),
+    FOREIGN KEY(qaBoardNo) REFERENCES QABOARD(qaBoardNo)
+    ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+insert into qaboard 
+(qaBoardKind,qaBoardTitle,qaBoardContents,qaBoardAnswer,userid,productid) 
+values ('상품','test','test','1','admin','2');
+insert into qaboard 
+(qaBoardKind,qaBoardTitle,qaBoardContents,qaBoardAnswer,userid,productid) 
+values ('상품','test','test','0','admin','2');
+insert into qaboard 
+(qaBoardKind,qaBoardTitle,qaBoardContents,qaBoardAnswer,userid,productid) 
+values ('상품','test','test','0','11240372','2');

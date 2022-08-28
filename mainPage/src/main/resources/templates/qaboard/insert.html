@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>고객문의등록</title>
+<style type="text/css">
+.width{
+	display:inline-block;
+	width:66px;
+}
+</style>
+</head>
+<body>
+	<header th:insert="/gAndB"></header>
+	<header th:insert="/headerNav"></header>
+		<h1 class="m-5 d-flex justify-content-center align-items-center" >
+			<span>고객문의등록</span>
+		</h1>
+	<main class="d-flex justify-content-center" >
+		<form action="/qaboard/insert.do" name="insertForm" method="post">
+		<div class="row mb-3 g-3 align-items-center">
+				<div class="col-auto">
+				<label for="inputId" class="form-label">작성자</label>
+				<input name="users.userid" id="inputId" class="form-control"  placeholder="" required readonly th:value="${session.loginUsers?.userid}">
+			</div>
+		</div>
+			<div class="row mb-3 g-3 align-items-center">
+				<div class="col-auto">
+					<label for="inputKind" class="col-form-label"><span class="width">문의유형</span></label>
+				</div>
+				<div class="col-auto">
+					<select id="inputKind" class="form-control" name="qaBoardKind" 
+					aria-describedby="idHelp" required>
+						<option value="상품">상품</option>
+						<option value="주문/결제">주문/결제</option>
+						<option value="취소/반품/교환/환불">취소/반품/교환/환불</option>
+						<option value="배송">배송</option>
+						<option value="기타">기타</option>
+					</select>
+				</div>
+			</div>
+			<div class="row mb-3 g-3 align-items-center">
+				<div class="col-auto">
+					<label for ="inputProduct" class="col-form-label"><span class="width">문의제품</span></label>
+				</div>
+			    <select id="inputProduct" name="product.productid" class="form-control">
+				    <th:block th:each="q : ${qList}">
+					    <option  th:value="${q.productid}" th:text="${q.productid+' '+q.productName+' '+q.category.categoryName+' '+q.productSize}"></option>
+				    </th:block>
+			 	</select> 	
+			</div>
+			<div class="row mb-3 g-3 align-items-center">
+				<div class="col-auto labelSize">
+					<label for ="inputTitle" class="col-form-label"><span class="width">문의제목</span></label>
+				</div>
+				<div class="col-auto d-flex justify-content-between">
+					<input id="inputTitle" class="form-control" name="qaBoardTitle" 
+					onkeyup="noSpace(this);" onchange="noSpace(this);" 
+					type="text" required>
+				</div>
+			</div>
+			<div class="row mb-3 g-3 align-items-center">
+				<div class="col-auto">
+					<label for="inputInfo" class="col-form-label"><span class="width">문의내용</span></label>
+				</div>
+				<div class="col-auto">
+					<textarea name="qaBoardContents" id="inputInfo" class="form-control" required></textarea>
+				</div>
+			</div>
+			<div class="row mb-3 g-3 align-items-center">
+				<div class="col-auto">
+					<button type="reset" class="btn btn-light">초기화</button>
+				</div>
+				<div class="col-auto">
+					<button type="submit" class="btn btn-primary">등록</button>
+				</div>
+			</div>
+		</form>
+	</main>
+</body>
+<footer th:insert="/footer"></footer>
+<script>
+function noSpace(obj) { // 공백사용못하게
+    var str = /\s/;  // 공백체크
+    if(str.exec(obj.value.trim)) { //공백 체크
+        //alert("해당 항목에는 첫 글자 공백을 사용할수 없습니다.");
+        obj.focus();
+        obj.value = obj.value.replace(/^ +/,''); // 공백제거
+        return false;
+    }
+}
+</script>
+</html>

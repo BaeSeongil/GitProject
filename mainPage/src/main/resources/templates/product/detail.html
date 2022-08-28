@@ -80,23 +80,11 @@ footer {
 				  	<div class="col-8 mb-3">
 				   	 	<label for="pName" class="form-label mt-3">상품명</label>
 				   		<input th:value="${product.productName}" class="form-control form-control-sm"
-				   			 
 				   			id="pName" disabled>
 					 </div>
 					 <div class="col-8 mb-3">
-
-					 <!--    <label for="pSize" class="form-label mt-3">사이즈(색상)</label>
-						    <select class="form-select form-select-sm " aria-label=".form-select-sm example" id="pSize">
-						    		<option>-- 선택 --</option>
-						    		<option th:each="product : ${products}" th:if="${product.productSize!=null}"
-						    			th:text="${product.productSize} +'('+ ${product.productColor} +')'">
-						    		</option>
-						 	</select>
-					</div> -->
-
 					    <label for="pSize" class="form-label mt-3">사이즈</label>
 					    <select name="product.productid" class="form-select form-select-sm " aria-label=".form-select-sm example">
-						    <option selected>- size -</option>
 						    <th:block th:each="p : ${products}">
 							    <option  th:value="${p.productid}" th:text="${p.productSize+' '+p.productColor}"></option>
 						    </th:block>

@@ -35,7 +35,7 @@ public class ProductService {
 	
 	@Value("${spring.servlet.multipart.location}")
 	String savePath;
-	
+	@Transactional
 	public int registProduct(Product product) throws Exception {
 		int regist = 0;
 		regist = productMapper.insertOne(product);
@@ -50,10 +50,11 @@ public class ProductService {
 		System.out.println("상품 이미지 등록: "+ imgRegist);
 		return regist;
 	}
-	
-	public int modifyProductRemoveProductImg(Product product, int [] productImgNos) throws Exception {
+	@Transactional
+	public int modifyProductRemoveProductImg(Product product,
+			int [] productImgNos) throws Exception {
 		int modify = 0;
-		if (productImgNos!=null) {
+		if (productImgNos!=null) { //선택한 삭제될 board_img.board_img_no
 			for (int no : productImgNos) {
 				ProductImg productImg= productImgMapper.selectOne(no);
 				File f = new File (savePath+"/"+productImg.getImg_path());
@@ -71,7 +72,7 @@ public class ProductService {
  		modify = productMapper.updateOne(product);
 		return modify;
 	}
-	
+	@Transactional
 	public int removeProduct(int productid) throws Exception {
 		int remove = 0;
 		List<ProductImg> productImgs = productImgMapper.selectProductId(productid);
@@ -87,28 +88,3 @@ public class ProductService {
 		return remove;
 	}
 }
-//	@Autowired
-//	private ProductMapper productMapper;
-//	
-//	public List<Product> searchProduct(Criteria cri){
-//		String type = cri.getType();
-//		String[] typeArr = type.split("");
-//		String[] productArr = productMapper.getProductIdList(cri.getKeyword());
-//		if(type.equals("N") || type.equals("S") || type.equals("C")|| type.equals("P")) {
-//			if(productArr.length == 0) {
-//				return new ArrayList();
-//			}
-//		}
-//		for(String t : typeArr) {
-//			if(t.equals("P")) {
-//				cri.setProductArr(productArr);
-//			}
-//		}
-//		return productMapper.searchProduct(cri);
-//	}
-//	public int productsGetTotal(Criteria cri) {
-//		return productMapper.productsGetTotal(cri);
-//	}
-//}
-
-

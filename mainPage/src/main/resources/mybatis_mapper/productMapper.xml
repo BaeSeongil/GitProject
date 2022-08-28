@@ -29,7 +29,10 @@
 		select  p.*, c.categoryName
 			from product p left join category c using(categoryid) LIMIT #{startRow},#{pageSize}
 	</select>
-	
+	<select id="selectAllProduct" resultMap="ProductMap">
+		select  p.*, c.categoryName
+			from product p left join category c using(categoryid)
+	</select>
 	 <select id="selectAllCount" resultType = "int" >
  		SELECT COUNT(*) FROM PRODUCT 
  	</select>

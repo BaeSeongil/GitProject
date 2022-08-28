@@ -131,7 +131,7 @@
 				<th:block th:each="productImg : ${product.productImgs}">
 					<label>
 						<input type="checkbox" class="form-check-input" 
-						th:value="${productImg.product_img_no}" name="productImg">
+						th:value="${productImg.product_img_no}" name="productImgNo">
 						<img alt="상품 이미지" th:src="@{/public/img/{fileName}(fileName=${productImg.img_path})}"
 							class="img-thumbnail" width="200">
 					</label>

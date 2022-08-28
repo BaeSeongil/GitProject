@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>상품 리스트</title>
+<title>고객 센터</title>
 <style type="text/css">
 	#detail:hover{
 		cursor: Pointer;
@@ -28,45 +28,45 @@
 	<header th:insert="/headerNav"></header>
 	<div id="wrapper">
 		<div  class="container">
-			<h1 class="m-3 d-flex justify-content-between align-items-center" >
-				<span>상품 목록</span>
-			</h1>
+			<h1 class="m-3 d-flex justify-content-between align-items-center">
+			<span>고객문의게시판</span>
+			<a href="/qaboard/insert.do" class="small btn btn-secondary">문의 등록</a>
+		</h1>
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th>상품번호</th>
-						<th>상품명</th>
-						<th>사이즈</th>
-						<th>색</th>
-						<th>재고량</th>
-						<th>상품 등록일</th>
-						<th>가격</th>
-						<th>상품분류</th>		
+						<th>No.</th>
+						<th>문의유형</th>
+						<th>문의제목</th>
+						<th>작성자</th>
+						<th>등록일</th>
+						<th>답변여부</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr id="detail" th:each="product : ${productList}" th:onclick="location.href='/product/detail/[[${product.productid}]]'">
-						<td th:text="${product.productid}"></td>
-						<td th:text="${product.productName}"></td>
-						<td th:text="${product.productSize}"></td>
-						<td th:text="${product.productColor}"></td>
-						<td th:text="${product.productStock}"></td>
-						<td th:text="${#dates.format(product.productDate,'yyyy-MM-dd')}"></td>
-						<td th:text="${product.price}"></td>
-						<td th:text="${product.category?.categoryName}"></td>
-						<th:block th:if=${session.loginUsers?.adminCk==1}>
-						<td><a class="btn btn-sm" th:href="@{/product/update/{productid}(productid=${product.productid})}">수정</a><td>
+					<tr id="detail" th:each="q : ${list}" th:onclick="location.href='/qaboard/detail/[[${q.qaBoardNo}]]'">
+						<td th:text="${q.qaBoardNo}"></td>
+						<td th:text="${q.qaBoardKind}"></td>
+						<td th:text="${q.qaBoardTitle}"></td>
+						<td th:text="${q.users.userid}"></td>
+						<td th:text="${#dates.format(q.qaBoardDate,'yyyy-MM-dd')}"></td>
+						<th:block th:if=${q.qaBoardAnswer==0}>
+						<td>미답변</td>
+						</th:block>
+						<th:block th:if=${q.qaBoardAnswer==1}>
+						<td>답변 완료</td>
 						</th:block>
 					</tr>
 				</tbody>
 			</table>
 			<div class="d-flex justify-content-evenly">
-				<div  th:insert="/pagination.html"></div>
-				<form action="/product/search/1" id="searchForm" method="get">
+				<th:block th:unless="${list==null}">
+					<div  th:insert="/pagination.html"></div>
+				</th:block>
+				<form action="/qaboard/search/1" id="searchForm" method="get">
 					<select name="type" class="form-control" style="display: inline; width : 150px;">
-						<option value="N">상품명</option>
-						<option value="S">사이즈</option>
-						<option value="C">상품분류</option>
+						<option value="T">문의유형</option>
+						<option value="C">문의제목</option>
 					</select>
 					<div class=search_input style="display: inline;">
 						<input type="text" name="keyword" onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);">

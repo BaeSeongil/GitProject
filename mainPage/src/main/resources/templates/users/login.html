@@ -16,7 +16,9 @@
 			 <form action="/users/login.do" class="col-lg-4" method="post">
 				<div class="mb-5">
 					<label for="inputId" class="form-label">아이디</label>
-					<input type="text" name="userid" class="form-control" id="inputId" aria-describedby="id" value="11240372">
+					<input type="text" name="userid" class="form-control" id="inputId"
+					onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);"
+					aria-describedby="id" value="11240372">
 						<div class="mt-3 form-text" id="id">
 							아이디를 입력하세요!
 						</div>
@@ -24,7 +26,9 @@
 				
 				<div class=" mb-5 ">
 					<label for="inputPw" class="form-label">비밀번호</label>
-					<input type="password" name="userpw" class="form-control" id="inputPw" value="1234" >
+					<input type="password" name="userpw" class="form-control" 
+					onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);"
+					id="inputPw" value="1234" >
 				</div>
 				
 				<div class="col-12">
@@ -34,5 +38,16 @@
 		</div>
 	</main>
 </body>
+<script>
+function noSpaceForm(obj) { // 공백사용못하게
+    var str_space = /\s/;  // 공백체크
+    if(str_space.exec(obj.value.trim)) { //공백 체크
+        //alert("해당 항목에는 공백을 사용할수 없습니다.\n\n공백은 자동적으로 제거 됩니다.");
+        obj.focus();
+        obj.value = obj.value.replace(/\s| /gi,''); // 공백제거
+        return false;
+    }
+}
+</script>
 <footer th:insert="/footer"></footer>
 </html>
