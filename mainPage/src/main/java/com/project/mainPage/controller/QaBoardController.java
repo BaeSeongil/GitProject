@@ -57,7 +57,7 @@ public class QaBoardController {
 		return "/qaboard/detail";
 	}
 	@GetMapping("/insert.do")
-	public String insert(@PathVariable int qaBoardno,Model model,
+	public String insert(Model model,
 			@SessionAttribute(required = false) UsersDto loginUsers) {
 		List<Product> qList=productMapper.selectAllProduct();
 		System.out.println(qList);
