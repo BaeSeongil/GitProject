@@ -32,11 +32,19 @@
   	</resultMap>
 
 	<select id="selectAll" resultMap="OrderMap">
-		SELECT * FROM ORDERS
+		SELECT * FROM ORDERS JOIN PRODUCT USING(productid) JOIN USERS USING(userid)
 	</select>
-
+	
+	<delete id="deleteOne" parameterType="Order">
+		DELETE FROM ORDERS WHERE orderid=#{orderid}
+	</delete>
+	
 	<select id="selectProduct" resultMap="OrderMap">
 		SELECT * FROM PRODUCT WHERE productid=#{productid}
+	</select>
+	
+  	<select id="selectOne" resultMap="OrderMap">
+		SELECT * FROM ORDERS JOIN PRODUCT USING(productid) JOIN USERS USING(userid) WHERE orderid=${orderid}
 	</select>
   	
   	<insert id="insertOne" parameterType="Order">

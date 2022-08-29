@@ -13,7 +13,7 @@
 	<delete id="deleteOne" parameterType="int">
 		DELETE FROM BOARD_PREFER WHERE board_prefer_no = #{boardPreferNo}
 	</delete>
-	<update id="updatePreferOne" parameterType="BoardPrefer">
-		UPDATE BOARD_PREFER SET prefer = #{prefer} WHERE board_prefer_no = #{boardPreferNo}
+	<update id="updateOne" parameterType="BoardPrefer">
+		UPDATE BOARD_PREFER SET prefer = #{prefer} WHERE board_prefer_no = #{board_prefer_no}
 	</update>
 </mapper>

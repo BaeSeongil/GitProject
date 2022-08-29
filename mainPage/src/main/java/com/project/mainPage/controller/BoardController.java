@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.mainPage.dto.BoardImg;
 import com.project.mainPage.dto.UsersDto;
@@ -65,14 +65,14 @@ public class BoardController {
 	private String savePath;
 	
 	@GetMapping("/list/{page}")
-	public String list(@PathVariable int page, Model model) {
+	public String list(@PathVariable int page, Model model, HttpSession session) {
+		session.setAttribute("msg", null);
 		int row =10;
 		int startRow = (page-1)*row;
 		List<Board> boardList = boardMapper.selectPageAll(startRow, row);
 		int count = boardMapper.selectPageAllCount();
 		
 		Pagination pagination = new Pagination(page, count, "/board/list/", row);
-		System.out.println(pagination);
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("row", row);
@@ -86,13 +86,13 @@ public class BoardController {
 	public String detail(
 			@PathVariable int boardNo,
 			Model model,
-			@SessionAttribute(required = false) UsersDto loginUsers) {
+			@SessionAttribute(required = false) UsersDto loginUsers, HttpSession session) {
+		
 		Board board = null;		
 		BoardPrefer boardPrefer = null;  // 로그인이 안되면 null
 		try {
-			board = boardService.boardUpdateView(boardNo);
-			System.out.println(board);
 			if(loginUsers != null) {
+				board = boardService.boardUpdateView(boardNo,loginUsers.getUserid());
 				boardPrefer = boardPreferMapper.selectFindUserIdAndBoardNo(loginUsers.getUserid(),boardNo);
 				for(Reply reply : board.getReplys()) {
 					for(ReplyPrefer replyPrefer : reply.getGood_prefers()) {
@@ -106,6 +106,8 @@ public class BoardController {
 						}
 					}
 				}
+			}else {
+				board = boardMapper.selectOne(boardNo);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -113,7 +115,8 @@ public class BoardController {
 		if(board != null) {
 			model.addAttribute("boardPrefer",boardPrefer);
 			model.addAttribute("board",board);
-			System.out.println();
+			System.out.println(board.getPrefer_active());
+			System.out.println(board.getUsers().getUserid());
 			return "/board/detail";			
 		}else {
 			return "redirect:/board/list/1";
@@ -207,10 +210,11 @@ public class BoardController {
 	
 	@GetMapping("/update/{boardNo}")
 	public String update(@PathVariable int boardNo,Model model,HttpSession session) {
-		Board board = boardMapper.selectDetailOneAll(boardNo);
+		Board board = null;
+		board = boardMapper.selectDetailOneAll(boardNo);
 		Object loginUsers_obj = session.getAttribute("loginUsers");
-		if(((UsersDto)loginUsers_obj).getUserid().equals(board.getUsers().getUserid())) {
-			model.addAttribute(board);
+		if(board.getUsers().getUserid().equals(((UsersDto)loginUsers_obj).getUserid())) {
+			model.addAttribute("board",board);
 			return "/board/update";			
 		}else {
 			return "redirect:/users/login.do";
@@ -220,15 +224,17 @@ public class BoardController {
 	// 게시글 수정 
 	@PostMapping("/update.do")
 	public String update(
-			Board board,
+			Board board, Model model,
 			@RequestParam(name="boardImgNo", required = false) int [] boardImgNos, // // required = false : 아무것도 안올 수 있는 경우
 			@RequestParam(name="imgFile", required=false) MultipartFile[] imgFiles,
  			HttpSession session
 			) { 
 		int update = 0; 
 		Object loginUsers_obj = session.getAttribute("loginUsers");
+		System.out.println(board);
 		if( ((UsersDto)loginUsers_obj).getUserid().equals(board.getUsers().getUserid()) ) {
 			try {
+
 				int boardImgCount = boardImgMapper.selectCountBoardNo(board.getBoard_no());  // baordImg 등록된 개수 
 				int insertBoardImgLength = BOARD_IMG_LIMIT - boardImgCount + ((boardImgNos != null) ? boardImgNos.length : 0); // 5 -  boardImgCount + 등록될 이미지 개수 
 				// 이미지 저장 
@@ -261,8 +267,54 @@ public class BoardController {
 			}			
 		}else{
 			return "redirect:/users/login.do";
-		}       
+		}     
 	}
+	
+	@GetMapping("/prefer/{boardNo}/{prefer}")
+	public String preferModfy(
+			Model model,
+			@PathVariable int boardNo,
+			@PathVariable boolean prefer,
+			@SessionAttribute(required = false) UsersDto loginUsers,
+			HttpSession session) {
+		session.setAttribute("msg", null);
+		String msg=(prefer)?"좋아요":"싫어요";
+		Board board = boardMapper.selectOne(boardNo,loginUsers.getUserid());
+		System.out.println(board.getPrefer_active());
+		int modify=0;
+		try {
+			BoardPrefer boardPrefer=boardPreferMapper.selectFindUserIdAndBoardNo(loginUsers.getUserid(), boardNo);
+			
+			if(boardPrefer==null) {//좋아요 싫어요를 한번도 한적이 없을 때
+				msg+=" 등록";
+				boardPrefer=new BoardPrefer();
+				boardPrefer.setBoard_no(boardNo);
+				boardPrefer.setPrefer(prefer);
+				boardPrefer.setUserid(loginUsers.getUserid());
+				modify=boardPreferMapper.insertOne(boardPrefer);
+			}else if(prefer==boardPrefer.isPrefer()) {//좋아요 싫어요를 삭제할 때
+				msg+=" 삭제";
+				boardPrefer.setPrefer(prefer);
+				modify=boardPreferMapper.deleteOne(boardPrefer.getBoard_prefer_no());
+			}else if(prefer!=boardPrefer.isPrefer()) {//좋아요에서 싫어요로 바꿀때 or 싫어요에서 좋아요롤 바꿀때
+				msg+=" 수정";
+				boardPrefer.setPrefer(prefer);
+				modify=boardPreferMapper.updateOne(boardPrefer);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			msg+=" (db오류)";
+		}
+		if(modify>0) {
+			msg+=" 성공!";
+		}else {
+			msg+=" 실패!";
+		}
+		session.setAttribute("msg", msg);
+		return "redirect:/board/detail/"+boardNo;
+	}
+
+	
 	@GetMapping("/search/{page}")
 	public String searchProduct(
 			@RequestParam(value = "type") String type,

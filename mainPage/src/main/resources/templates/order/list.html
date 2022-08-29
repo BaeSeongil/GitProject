@@ -2,41 +2,64 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>카테고리 리스트</title>
+<title>주문 내역</title>
 <style type="text/css">
 
 	#detail:hover{
 		cursor: Pointer;
 	}
-	html, body {
-		height: 100%;
-		display: flex;
-		flex-flow: column;
-		
-	}
-	
-	footer {
-		flex: 1;
-		height: auto;
-	  	min-height: 100%; /* footer 높이 조절 */
-	  	position: relative;
-	}
-	
-	#wrapper {	
-		height: auto;
-	  	/* min-height: 100%; */
-	  	position: relative;
-	  
-	}
+html, body {
+	height: 100%;
+	display: flex;
+	flex-flow: column;
+}
+footer {
+	flex: 1;
+	height: auto;
+
+}
 	
 </style>
 </head>
 <body>
 	<header th:insert="/gAndB"></header>
 	<header th:insert="/headerNav"></header>
-		<form action="/order/insert.do" method="get">
-			<button type="submit">결제 하기</button>
-		</form>
+<h1 class="m-3 d-flex justify-content-between align-items-center" >
+			<span>주문 내역</span>
+		</h1>
+
+		<table class="table table-striped">
+			<thead>
+				<tr style="text-align: center;">
+					<th>주문 번호</th>
+					<th>주문자</th>
+					<th>수령자</th>
+					<th>받으실 곳</th>
+					<th>주문자 전화번호</th>
+					<th>수령자 전화번호</th>
+					<th>상품 명</th>
+					<th>사이즈, 색상</th>
+					<th>수량</th>
+					<th>총 가격</th>
+					<th></th>
+			    </tr>
+			</thead>
+			<tbody>
+				<tr id="detail" th:each="order : ${orderList}" style="text-align: center;" th:onclick="location.href='/order/detail/[[${order.orderid}]]'">
+					<td th:text="${order.orderid}"></td>
+					<td th:text="${order.users.username}"></td>
+					<td th:text="${order.orderName}"></td>
+					<td th:text="${order.orderAdd2+order.orderAdd3}"></td>
+					<td th:text="${order.users.phone}"></td>
+					<td th:text="${order.orderPhone}"></td>
+					<td th:text="${order.product.productName}"></td>
+					<td th:text="${order.product.productSize+' '+order.product.productColor}"></td>
+					<td th:text="${order.count}"></td>
+					<td th:text="${order.orderPrice}"></td>
+
+				</tr>
+			</tbody>
+		</table>
 </body>
 		<footer th:insert="/footer"></footer>
 </html>

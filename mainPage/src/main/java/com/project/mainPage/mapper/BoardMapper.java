@@ -18,6 +18,8 @@ public interface BoardMapper {
 	int deleteOne(int boardNo);
 	int insertOne(Board board);
 	int updateOne(Board board);
+	Board selectOne(int boardNo);
+	Board selectOne(int boardNo,String loginUsersId);
 	
 	//검색
 	public List<Board> searchBoard(Criteria cri);

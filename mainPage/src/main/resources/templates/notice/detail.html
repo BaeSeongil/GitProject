@@ -14,9 +14,11 @@
 				<span th:text="${notice.title}"></span>
 			</h1>
 		<div class = "d-flex justify-content-end">
-				<a th:href="@{/notice/update/{noticeNo}(noticeNo=${notice.notice_no})}" class="btn btn-success">
-					수정
-				</a>
+				<th:block th:if=${session.loginUsers?.adminCk==1}>
+					<a th:href="@{/notice/update/{noticeNo}(noticeNo=${notice.notice_no})}" class="btn btn-success">
+						수정
+					</a>					
+				</th:block>
 				<a th:href="@{/notice/delete/{notice_no}/{userId}(notice_no=${notice.notice_no},userId=${notice.users.userid})}" 
 					class="btn btn-primary">
 					공지사항 삭제

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.mainPage.mapper.QaReplyMapper">
+	<resultMap type="QaReply" id="QaReplyMap">
+	<id column="qaReplyNo" property="qaReplyNo"/>
+		<result column="qaReplyTitle" property="qaReplyTitle"/>
+		<result column="qaReplyContent" property="qaReplyContent"/>
+		<result column="qaReplyDate" property="qaReplyDate"/>
+		<association property="qaBoard" javaType="QaBoard"  foreignColumn="qaBoardNo">
+			<id column="qaBoardNo" property="qaBoardNo"/>
+			<result column="qaBoardAnswer" property="qaBoardAnswer"/>
+		</association>
+	</resultMap>
+	
+	<insert id="insertOne" parameterType="QaReply">
+		INSERT INTO QAREPLY (qaReplyTitle,qaReplyContent,qaBoardNo)
+		VALUES (#{qaReplyTitle},#{qaReplyContent},#{qaBoardNo})
+	</insert>
+	<delete id="deleteOne" parameterType="int">
+		DELETE FROM QAREPLY WHERE qaReplyNo=#{qaReplyNo}
+	</delete>
+	<select id="selectOne" resultType="QaReply" parameterType="int">
+		SELECT *
+		FROM QAREPLY 
+		WHERE qaBoardNo=#{qaBoardNo}
+	</select>
+</mapper>

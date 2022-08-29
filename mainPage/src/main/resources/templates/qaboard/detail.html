@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>문의글 상세페이지</title>
+<style>
+	html, body {
+		height: 100%;
+		display: flex;
+		flex-flow: column;
+	}
+	footer {
+		flex: 1;
+		height: auto;
+	}
+</style>
+</head>
+<body>
+<header th:insert="/gAndB"></header>
+<header th:insert="/headerNav"></header>
+	<main class="container">
+		<div>
+			<ul class="list-group">
+				<li class="list-group-item text-bg-light border-success">
+					<h3>고객문의내역</h3>
+					<hr>
+					<th:block th:if="${(session.loginUsers?.adminCk==1) ||(session.loginUsers?.userid==qaBoard.users.userid)}">
+					<form action="/qaboard/update.do" method="post">
+						<p class="input-group input-group-sm mb-1">
+							<span class="input-group-text">제품명</span>
+							<input name="board.productid" th:value="${qaBoard.product.productName+' '+qaBoard.product.productSize+' '+qaBoard.product.productColor}" 
+								type="text" class="form-control" readonly>
+						</p>
+						<p class="input-group input-group-sm mb-1">
+							<span class="input-group-text">문의분류유형</span>
+							<input name="qaBoardKind" th:value="${qaBoard.qaBoardKind}" class="form-control"
+							readonly>
+						</p>
+						<p class="input-group input-group-sm mb-1">
+							<span class="input-group-text">문의제목</span>
+							<input name="qaBoardTitle" th:value="${qaBoard.qaBoardTitle}" 
+								type="text" class="form-control"
+								onkeyup="noSpace(this);" onchange="noSpace(this);">
+						</p>
+						<p class="input-group input-group-sm mb-1">
+							<span class="input-group-text">등록일</span>
+							<input name="qaBoardDate" th:value="${qaBoard.qaBoardDate}" 
+								type="text" class="form-control" readonly>
+						</p>
+						<p class="input-group input-group-sm mb-1">
+							<span class="input-group-text">작성자(ID)</span>
+							<input name="users.userid" th:value="${qaBoard.users.username+'('+qaBoard.users.userid+')'}" 
+								type="text" class="form-control" readonly>
+						</p>
+						<p class="input-group input-group-sm mb-1">
+							<span class="input-group-text">답변 받으실 이메일</span>
+							<input name="users.email" th:value="${qaBoard.users.email}" 
+								type="text" class="form-control" readonly>
+						</p>
+						<p class="input-group input-group-sm mb-1">
+							<span class="input-group-text">알람 받으실 휴대폰 번호</span>
+							<input name="users.phone" th:value="${qaBoard.users.phone}" 
+								type="text" class="form-control" readonly>
+						</p>
+						<p class="input-group input-group-sm mb-1">
+							<span class="input-group-text">문의내용</span>
+							<input name="qaContents" th:value="${qaBoard.qaBoardContents}" 
+								type="text" class="form-control"
+								onkeyup="noSpace(this);" onchange="noSpace(this);">
+						</p>
+						<p class="mb-1">
+							<a class="btn btn-outline-primary btn-sm" href="/qaboard/list/1">확인</a>
+							<button type="submit" class="btn btn-sm btn-outline-success">수정</button>
+							<a class="btn btn-outline-danger btn-sm" th:href="@{/qaboard/delete/{no}(no=${qaBoard.qaBoardNo})}">삭제</a>
+						</p>
+					</form>
+					</th:block>
+					<th:block th:unless="${(session.loginUsers?.adminCk==1) ||(session.loginUsers?.userid==qaBoard.users.userid)}">
+						<p class="input-group input-group-sm mb-1">
+							작성자만 볼 수 있습니다.
+						</p>
+						<p class="mb-1">
+							<a class="btn btn-outline-primary btn-sm" href="/qaboard/list/1">확인</a>
+						</p>
+					</th:block>
+				</li>
+				</ul>
+				<ul class="list-group">
+				<th:block th:if="${(session.loginUsers?.adminCk==1)&&(qaBoard.qaBoardAnswer==0)}">
+				<li class="list-group-item text-bg-light border-success">
+				<form action="/qaboard/answer.do" method="post">
+						<p class="input-group input-group-sm mb-1">
+							<span class="input-group-text">답변제목</span>
+							<input name="qaReplyTitle"  
+								type="text" class="form-control"
+								onkeyup="noSpace(this);" onchange="noSpace(this);">
+						</p>
+						<p class="input-group input-group-sm mb-1">
+							<span class="input-group-text">답변내용</span>
+							<textarea name="qaReplyContent" 
+								class="form-control"
+								onkeyup="noSpace(this);" onchange="noSpace(this);"></textarea>
+						</p>
+						<p class="mb-1">
+							<button type="submit" class="btn btn-sm btn-outline-success">등록</button>
+							<input name="qaBoardNo"  
+								type="hidden" th:value=${qaBoard.qaBoardNo}>
+							<input name="qaBoardAnswer"  
+								type="hidden" value="1">
+						</p>
+					</form>
+				</li>
+				</th:block>
+				<th:block th:if="${(session.loginUsers?.adminCk==1)||(session.loginUsers?.userid==qaBoard.users.userid)||(qaBoard.qaBoardAnswer==1)}">
+				<li class="list-group-item text-bg-light border-success">
+				<h3>에이콘 쇼핑몰 답변 내용</h3>
+				<hr>
+				<p class="input-group input-group-sm mb-1">
+					<span class="input-group-text">답변제목</span>
+					<input name="qaReplyTitle" th:value="${qaBoard.qaReply?.qaReplyTitle}" 
+						type="text" class="form-control" readonly>
+				</p>
+				<p class="input-group input-group-sm mb-1">
+					<span class="input-group-text">답변내용</span>
+					<input name="qaReplyContent" th:value="${qaBoard.qaReply?.qaReplyContent}" 
+						type="text" class="form-control"  readonly>
+				</p>
+				<p class="input-group input-group-sm mb-1">
+					<span class="input-group-text">답변일자</span>
+					<input name="qaReplyDate" th:value="${qaBoard.qaReply?.qaReplyDate}" 
+						type="text" class="form-control"  readonly>
+				</p>
+				<p class="mb-1">
+					<a class="btn btn-outline-primary btn-sm" href="/qaboard/list/1">확인</a>
+				</p>
+				</li>
+				</th:block>
+			</ul>
+		</div>
+	</main>
+</body>
+<footer  class="footer" th:insert="/footer"></footer>
+<script type="text/javascript">
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+function noSpace(obj) { // 공백사용못하게
+    var str = /\s/;  // 공백체크
+    if(str.exec(obj.value.trim)) { //공백 체크
+        //alert("해당 항목에는 첫 글자 공백을 사용할수 없습니다.");
+        obj.focus();
+        obj.value = obj.value.replace(/^ +/,''); // 공백제거
+        return false;
+    }
+}
+</script>
+</html>

@@ -81,12 +81,15 @@
 				</tr>
 			</tbody>
 			</table>
-			
-			<div class="d-flex justify-content-evenly">
-				<th:block th:unless="${basketList==null}">
-                    <div  th:insert="/pagination.html"></div>
-                </th:block>
-			</div>
+
+			<th:block th:each="baskets : ${basketList}">			
+				<div class="d-flex justify-content-evenly">
+					<th:block th:if="${baskets!=null}">
+	                    <div th:insert="/pagination.html"></div>
+	                </th:block>
+				</div>			
+			</th:block>
+
 		</div>
 	</div>  
 </form>

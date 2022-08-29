@@ -19,7 +19,8 @@ import java.util.List;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
-@Data
+import lombok.ToString;
+@Data@ToString
 public class Order {
 	private int orderid;	// 주문 번호
 	@DateTimeFormat(pattern = "yyyy-MM-dd")

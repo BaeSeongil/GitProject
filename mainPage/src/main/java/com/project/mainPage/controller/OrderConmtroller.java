@@ -1,5 +1,7 @@
 package com.project.mainPage.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.project.mainPage.dto.Order;
 import com.project.mainPage.dto.Product;
+import com.project.mainPage.dto.UsersDto;
 import com.project.mainPage.mapper.OrderMapper;
 import com.project.mainPage.mapper.ProductMapper;
 
@@ -22,8 +25,11 @@ public class OrderConmtroller {
 	@Autowired
 	private OrderMapper orderMapper;
 	
+	@Autowired
+	private ProductMapper productMapper;
+	
 	@GetMapping("/inserts.do")
-	public String insert(HttpSession session,int count,int productid,Model model) {
+	public String insert(HttpSession session,int count, int productid,Model model) {
 		System.out.println(productid);
 		System.out.println(count);
 		if(session.getAttribute("loginUsers")!=null) {
@@ -62,9 +68,47 @@ public class OrderConmtroller {
 	}
 	
 	@GetMapping("/list")
-	public String list(Model model) {
+	public String list(Model model,HttpSession session) {
+				
+		if(session.getAttribute("loginUsers")!=null) {
+
+			List<Order> orderList = orderMapper.selectAll();
+			System.out.println(orderList);
+
+			model.addAttribute("orderList",orderList);
+
+			return "/order/list";
+		}else {
+			return "redirect:/users/login.do";
+		}
 		
-		return "/order/list";
 	}
 	
+	@GetMapping("/detail/{orderid}")
+	public String detail(Model model,@PathVariable int orderid) {
+		
+		Order order = orderMapper.selectOne(orderid);
+		
+		model.addAttribute("order",order);
+		
+		return "/order/detail";
+	}
+	
+	@GetMapping("/delete/{orderid}")
+	public String delete(@PathVariable int orderid) {
+		int delete = 0;
+		
+		try {
+			delete = orderMapper.deleteOne(orderid);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		if(delete>0) {
+			return "redirect:/order/list";
+		}else {
+			return "redirect:/order/detail"+orderid;
+		}
+	}
 }

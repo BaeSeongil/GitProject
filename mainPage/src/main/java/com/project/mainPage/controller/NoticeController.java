@@ -185,7 +185,7 @@ public class NoticeController {
 			) {
 		Notice notice = noticeMapper.selectDetailOne(noticeNo); 
 		Object loginUsers_obj = session.getAttribute("loginUsers");
-		if(loginUsers_obj != null && ((UsersDto)loginUsers_obj).getUserid().equals(notice.getUsers().getUserid())) {
+		if(loginUsers_obj != null ) {
 			model.addAttribute(notice);
 			return "/notice/update";	
 		}else {
@@ -204,7 +204,7 @@ public class NoticeController {
 		System.out.println(Arrays.toString(noticeImgNos)); //삭제할 이미지 번호들
 		System.out.println(Arrays.toString(imgFiles)); //등록할 이미지 파일 (blob)
 		System.out.println(notice);
-		if(loginUser_obj!=null && ((UsersDto)loginUser_obj).getUserid().equals(notice.getUsers().getUserid()))  {
+		if(loginUser_obj!=null)  {
 			try {
 				int noticeImgCount=noticeImgMapper.selectCountNoticeNo(notice.getNotice_no()); //3개가 등록되어 있다면..
 				int insertNoticeImgLength = NOTICE_IMG_LIMIT-noticeImgCount+( (noticeImgNos!=null)?noticeImgNos.length:0 );
