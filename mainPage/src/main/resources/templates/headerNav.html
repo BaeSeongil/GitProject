@@ -81,7 +81,10 @@
 </th:block>
 <script>
 const msgModal = new bootstrap.Modal('#msgModal');
-msgModal.show();
-
+if(msgModal ==null){
+	msgModal.show();
+}else{
+	msgModal = null;
+}
 </script>
 </html>
