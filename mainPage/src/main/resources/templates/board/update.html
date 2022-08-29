@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<header th:insert="/gAndB"></header>
+	<header th:insert="/headerNav"></header>
+	<main class="container">
+		<h1 class="m-3">게시글 수정 페이지</h1>
+	
+		<form  action="/board/update.do" method="post" enctype="multipart/form-data">
+			<div class="mb-3 was-validated">
+				<label for="inputId" class="form-label">글쓴이(아이디)</label>
+				<input name="users.userid" class="form-control" id="inputId" placeholder="" required readonly th:value="${session.loginUsers.userid}">
+			</div>
+			<div class="mb-3 was-validated">
+				<label for="inputTitle" class="form-label">타이틀</label>
+				<input th:value="${board.title}" name="title" class="form-control" id="inputTitle" placeholder="제목을 입력하세요"
+					onkeyup="noSpace(this);" onchange="noSpace(this);" required>
+				<div class="invalid-feedback">
+					제목을 입력하세요.
+				</div>
+			</div>
+			
+			<div class="mb-3">
+				<label for="inputTitle" class="form-label">이미지</label>
+				
+				<input name="imgFiles" class="form-control mb-1" type="file" >
+				<input name="imgFiles" class="form-control mb-1" type="file" >
+				<input name="imgFiles" class="form-control mb-1" type="file" >
+				<input name="imgFiles" class="form-control mb-1" type="file" >
+				<input name="imgFiles" class="form-control mb-1" type="file" >
+			</div>
+			<div>
+				<p>삭제할 이미지 선택</p>
+				<th:block th:each=" boardImg : ${board.boardImgs}">
+					<label>
+						<input type="checkbox" class="form-check-input"
+						th:value="${boardImg.board_img_no}" name="boardImgNo">
+						<img alt="게시글 이미지" 
+						th:src="@{/public/img/{file}(file=${boardImg.img_path})}" 
+						class="img-thumbnail" width="200">
+					</label>
+				</th:block>
+			</div>
+					
+			<div class="mb-3 was-validated">
+				<label for="inputContents" class="form-label">내용</label>
+				<textarea th:text="${board.contents}" name="contents" class="form-control" id="inputContents" placeholder="내용을 입력하세요" required></textarea>
+				<div class="invalid-feedback">
+					Please enter a message in the contents.
+				</div>
+			</div>
+			
+			<div class="col-12">
+				<input type="hidden" name="board_no" th:value="${board.board_no}">
+				<button class="btn btn-primary" type="submit">Submit form</button>
+			</div>
+		</form>
+	</main>
+</body>
+</html>
