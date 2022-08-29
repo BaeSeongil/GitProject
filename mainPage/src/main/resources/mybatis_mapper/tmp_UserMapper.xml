@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.mainPage.mapper.tmp_UserMapper">
+    <resultMap id="BaseResultMap" type="com.project.mainPage.dto.tmp_User">
+        <id column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="nick_name" jdbcType="VARCHAR" property="nickName"/>
+        <result column="login_name" jdbcType="VARCHAR" property="loginName"/>
+        <result column="password_md5" jdbcType="VARCHAR" property="password"/>
+        <result column="introduce_sign" jdbcType="VARCHAR" property="introduceSign"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="is_deleted" jdbcType="TINYINT" property="isDeleted"/>
+        <result column="locked_flag" jdbcType="TINYINT" property="lockedFlag"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+   
+    <sql id="Base_Column_List">
+        user_id, nick_name, login_name, password_md5, introduce_sign, address, is_deleted, locked_flag, create_time
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM TB_USER
+            WHERE user_id = #{userId,jdbcType=BIGINT} 
+            AND is_deleted = 0
+    </select>
+
+    <select id="selectByLoginName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM TB_USER
+            WHERE login_name = #{loginName} 
+            AND is_deleted = 0
+    </select>
+
+    <select id="selectByLoginNameAndPasswd" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM TB_USER
+            WHERE login_name = #{loginName} 
+            AND password_md5 = #{password} 
+            AND is_deleted = 0
+    </select>
+    
+    <update id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        UPDATE TB_USER SET is_deleted = 1
+        WHERE user_id = #{userId,jdbcType=BIGINT} AND is_deleted = 0
+    </update>
+    
+    <insert id="insert" parameterType="com.project.mainPage.dto.tmp_User">
+        INSERT INTO TB_USER (user_id, nick_name, login_name, password_md5, introduce_sign, address, is_deleted, locked_flag, create_time)
+            VALUES (
+                #{userId,jdbcType=BIGINT}, 
+                #{nickName,jdbcType=VARCHAR}, 
+                #{loginName,jdbcType=VARCHAR},
+                #{password,jdbcType=VARCHAR}, 
+                #{introduceSign,jdbcType=VARCHAR}, 
+                #{address,jdbcType=VARCHAR},
+                #{isDeleted,jdbcType=TINYINT}, 
+                #{lockedFlag,jdbcType=TINYINT}, 
+                #{createTime,jdbcType=TIMESTAMP}
+            )
+    </insert>
+    
+    <insert id="insertSelective" parameterType="com.project.mainPage.dto.tmp_User">
+        INSERT INTO TB_USER
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="nickName != null">
+                nick_name,
+            </if>
+            <if test="loginName != null">
+                login_name,
+            </if>
+            <if test="password != null">
+                password_md5,
+            </if>
+            <if test="introduceSign != null">
+                introduce_sign,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="isDeleted != null">
+                is_deleted,
+            </if>
+            <if test="lockedFlag != null">
+                locked_flag,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+        </trim>
+    
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="nickName != null">
+                #{nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="loginName != null">
+                #{loginName,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="introduceSign != null">
+                #{introduceSign,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="isDeleted != null">
+                #{isDeleted,jdbcType=TINYINT},
+            </if>
+            <if test="lockedFlag != null">
+                #{lockedFlag,jdbcType=TINYINT},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="login" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM TB_USER
+            WHERE login_user_name = #{login_name,jdbcType=VARCHAR} AND login_password_md5=#{password,jdbcType=VARCHAR} 
+            AND locked = 0
+    </select>
+    
+    <update id="updateByPrimaryKeySelective" parameterType="com.project.mainPage.dto.tmp_User">
+        UPDATE TB_USER
+        <set>
+            <if test="nickName != null">
+                nick_name = #{nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="loginName != null">
+                login_name = #{loginName,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                password_md5 = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="introduceSign != null">
+                introduce_sign = #{introduceSign,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted,jdbcType=TINYINT},
+            </if>
+            <if test="lockedFlag != null">
+                locked_flag = #{lockedFlag,jdbcType=TINYINT},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        WHERE user_id = #{userId,jdbcType=BIGINT}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.project.mainPage.dto.tmp_User">
+        UPDATE TB_USER
+            SET nick_name = #{nickName,jdbcType=VARCHAR},
+                login_name = #{loginName,jdbcType=VARCHAR},
+                password_md5 = #{password,jdbcType=VARCHAR},
+                introduce_sign = #{introduceSign,jdbcType=VARCHAR},
+                address = #{address,jdbcType=VARCHAR},
+                is_deleted = #{isDeleted,jdbcType=TINYINT},
+                locked_flag = #{lockedFlag,jdbcType=TINYINT},
+                create_time = #{createTime,jdbcType=TIMESTAMP}
+            WHERE user_id = #{userId,jdbcType=BIGINT}
+    </update>
+
+    <update id="lockUserBatch">
+        UPDATE TB_USER
+            SET locked_flag=#{lockStatus} 
+            WHERE user_id IN
+            <foreach item="id" collection="ids" open="(" separator="," close=")">
+                #{id}
+            </foreach>
+    </update>
+
+    <select id="findUserList" parameterType="Map" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM TB_USER
+            WHERE 1=1
+            <if test="loginName!=null and loginName!=''">
+                AND login_name = #{loginName}
+            </if>
+            ORDER BY create_time DESC
+            <if test="start!=null and limit!=null">
+                LIMIT #{start},#{limit}
+            </if>
+    </select>
+
+    <select id="getTotalUsers" parameterType="Map" resultType="int">
+        SELECT count(*) FROM TB_USER
+        WHERE 1=1
+        <if test="loginName!=null and loginName!=''">
+            AND login_name = #{loginName}
+        </if>
+    </select>
+</mapper>

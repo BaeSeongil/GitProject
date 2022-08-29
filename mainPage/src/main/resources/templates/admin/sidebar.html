@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <!-- Main Sidebar Container -->
+    <aside th:fragment="sidebar-fragment(path)" class="main-sidebar sidebar-dark-primary elevation-4">
+        <!-- Brand Logo -->
+        <a th:href="@{/admin/index}" class="brand-link">
+            <img src="/img/logo.webp" alt="Acorn Logo" class="brand-image img-circle elevation-3" style="opacity: 0.8" />
+            <span class="brand-text font-weight-light">에이콘 쇼핑몰</span>
+        </a>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <!-- Sidebar Menu -->
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <p>
+                                대시보드
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a th:href="@{/admin/index}" th:class="${path}=='index'?'nav-link active':'nav-link'" class="nav-link">
+                                    <p>대시보드</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a th:href="@{/admin/product/edit}" th:class="${path}=='product-edit'?'nav-link active':'nav-link'" class="nav-link">
+                                    <p>상품 등록</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <p>
+                                메인페이지 설정
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a th:href="@{/admin/carousels}" th:class="${path}=='list-carousel'?'nav-link active':'nav-link'" class="nav-link">
+                                    <p>Carousel 설정</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a th:href="@{/admin/indexConfigs?configType=3}" th:class="${path}=='INDEX_PRODUCT_HOTS'?'nav-link active':'nav-link'" class="nav-link">
+                                    <p>히트상품 설정</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a th:href="@{/admin/indexConfigs?configType=4}" th:class="${path}=='INDEX_PRODUCT_NEW'?'nav-link active':'nav-link'" class="nav-link">
+                                    <p>신상품 설정</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a th:href="@{/admin/indexConfigs?configType=5}" th:class="${path}=='INDEX_PRODUCT_RECOMMOND'?'nav-link active':'nav-link'" class="nav-link">
+                                    <p>추천상품 설정</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <p>
+                                데이터베이스 관리
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a th:href="@{/admin/categories?parentId=0&categoryLevel=1&backParentId=0}" th:class="${path}=='list-category'?'nav-link active':'nav-link'" class="nav-link">
+                                    <p>카테고리 관리</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a th:href="@{/admin/product}" th:class="${path}=='list-product'?'nav-link active':'nav-link'" class="nav-link">
+                                    <p>상품 관리</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a th:href="@{/admin/users}" th:class="${path}=='users'?'nav-link active':'nav-link'" class="nav-link">
+                                    <p>회원 관리</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a th:href="@{/admin/orders}" th:class="${path}=='orders'?'nav-link active':'nav-link'" class="nav-link">
+                                    <p>주문 관리</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <p>
+                                시스템
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a th:href="@{/admin/profile}" th:class="${path}=='profile'?'nav-link active':'nav-link'" class="nav-link">
+                                    <p>관리자 정보 변경</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a th:href="@{/admin/logout}" class="nav-link">
+                                    <p>로그아웃</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <!-- /.sidebar-menu -->
+        </div>
+        <!-- /.sidebar -->
+    </aside>
+</html>

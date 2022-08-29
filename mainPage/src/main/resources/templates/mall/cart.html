@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="mall/header::head-fragment('장바구니','cart')"> </head>
+
+<body>
+    <div class="wrapper">
+        <!-- Main Header Component -->
+        <div th:replace="mall/header::header-fragment"></div>
+        <!-- Nav Component -->
+        <div th:replace="mall/header::nav-fragment"></div>
+        <!-- Search Modal -->
+        <div th:replace="mall/header::searchmodal"></div>
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Component -->
+            <div class="content">
+                <!-- Container-fluid -->
+                <div class="container-fluid">
+                    <section class="container py-5">
+                        <div class="box-hd">
+                            <h3 class="title">나의 주문 내역</h3>
+                        </div>
+                        <!-- 장바구니 리스트 -->
+                        <div class="cart_list center">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col"></th>
+                                        <th scope="col">상품명</th>
+                                        <th scope="col">판매가</th>
+                                        <th scope="col">개수</th>
+                                        <th scope="col">합계</th>
+                                        <th scope="col">선택</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <th:block th:each="item : ${myCartItems}">
+                                        <tr>
+                                            <td><img class="coverImg" th:src="@{${item.productCoverImg}}"></td>
+                                            <td th:text="${item.productName}">상품명</td>
+                                            <td th:text="${item.sellingPrice+'₩'}">판매가</td>
+                                            <td><input class="product_count" th:id="${'productCount'+item.cartItemId}"
+                                                    type="number" th:onblur="'updateItem('+${item.cartItemId}+')'"
+                                                    th:value="${item.productCount}" step="1" min="1" max="5"></td>
+                                            <td th:text="${item.productCount*item.sellingPrice+'₩'}">판매가</td>
+                                            <td><a th:onclick="'deleteItem('+${item.cartItemId}+')'"><i
+                                                        class="fa-solid fa-xmark"></i></a></td>
+                                        </tr>
+                                    </th:block>
+                                </tbody>
+                            </table>
+                            <!-- /.장바구니 리스트 -->
+                            <!-- 주문 -->
+                            <div class="pre-order center">
+                                <div class="tips ms-2">
+                                    <ul class="order-tips">
+                                        <li><a href="/mall/index">계속 쇼핑하기</a></li>
+                                        <li>|</li>
+                                        <li>총 <span th:text="${itemsTotal}"></span>개의 상품</li>
+                                        <div class="clear"></div>
+                                    </ul>
+                                </div>
+                                <div class="order_div me-2">
+                                    <div class="order_total mx-1">총 구매금액(배송비 미포함): <span
+                                            th:text="${priceTotal}+'₩'"></span></div>
+                                    <div class="order_button mx-1">
+                                        <th:block th:if="${itemsTotal == 0}">
+                                            <input class="btn btn-sm btn-secondary" type="button" name="tip"
+                                                onclick="tip()" value="주문하기" />
+                                        </th:block>
+                                        <th:block th:unless="${itemsTotal == 0}">
+                                            <input class="btn btn-sm btn-primary" type="button" name="settle"
+                                                onclick="settle()" value="주문하기" />
+                                        </th:block>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+        <div th:replace="mall/footer::footer-fragment"></div>
+    </div>
+    <!-- js 라이브러리 -->
+    <!-- jQuery -->
+    <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+    <!-- Popper-->
+    <script th:src="@{/webjars/popper.js/1.16.1/dist/umd/popper.min.js}"></script>
+    <!-- Bootstrap -->
+    <script th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.bundle.min.js}"></script>
+    <!-- Fontawesome -->
+    <script th:src="@{/webjars/font-awesome/6.1.2/js/fontawesome.min.js}"></script>
+    <!-- Swiper -->
+    <script th:src="@{/webjars/swiper/8.3.2/swiper-bundle.min.js}"></script>
+    <!-- sweetalert -->
+    <script th:src="@{/webjars/sweetalert2/11.4.24/dist/sweetalert2.min.js}"></script>
+    <script th:src="@{/mall/js/cart.js}"></script>
+    <script th:src="@{/mall/js/header-search.js}"></script>
+</body>
+
+</html>

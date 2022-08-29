@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!-- head 불러오기 -->
+
+<head th:replace="mall/header::head-fragment('shop','index')"></head>
+
+<body>
+    <div class="wrapper">
+        <!-- Main Header Component -->
+        <div th:replace="mall/header::header-fragment"></div>
+        <!-- Nav Component -->
+        <div th:replace="mall/header::nav-fragment"></div>
+        <!-- Search Modal -->
+        <div th:replace="mall/header::searchmodal"></div>
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Component -->
+            <div class="content">
+                <!-- Container-fluid -->
+                <div class="container-fluid">
+                    <section>
+                        <!-- Banner -->
+                        <article class="shopping">
+                            <div class="heading">
+                                <h1>
+                                    <span>With Acorn Academy</span>
+                                    SHOPPING
+                                </h1>
+                                <p>의류 쇼핑몰을 방문해 주셔서 감사합니다.</p>
+                                <p>최고의 서비스를 제공하도록 노력하겠습니다.</p>
+                            </div>
+                            <video src="/medias/shopping.mp4" autoplay="" muted="" loop=""></video>
+                        </article>
+                        <!-- /.Banner -->
+                        <!-- Hot Item List -->
+                        <article class="container py-5" id="hot">
+                            <div class="row text-center pt-3">
+                                <div class="col-lg-6 m-auto">
+                                    <h1 class="h1">히트상품</h1>
+                                    <p>지금 가장 핫한 상품</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <!-- 히트상품이 있으면 다음을 표시 -->
+                                <th:block th:unless="${#lists.isEmpty(hotProducts)}">
+                                        <th:block th:each="hotProduct : ${hotProducts}">
+                                            <div class="col-md-3">
+                                                <div class="card mb-4 product-wap rounded-0">
+                                                    <div class="card rounded-0">
+                                                        <a th:href="@{'/mall/product/detail/'+${hotProduct.productId}}">
+                                                            <img class="card-img rounded-0 img-fluid" th:src="@{${hotProduct.productCoverImg}}" th:alt="${hotProduct.productName}"/>
+                                                        </a>
+                                                        <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                                                            <ul class="list-unstyled">
+                                                                <li>
+                                                                    <a class="btn btn-success text-white" href="##"><i class="far fa-heart"></i></a>
+                                                                </li>
+                                                                <li>
+                                                                    <a class="btn btn-success text-white mt-2" href="##"><i class="far fa-eye"></i></a>
+                                                                </li>
+                                                                <li>
+                                                                    <a class="btn btn-success text-white mt-2" href="##"><i class="fas fa-cart-plus"></i></a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </th:block>
+                                    </th:block>
+                                </div>
+                                <!-- 없으면 공란으로 표시 -->
+                                <th:block th:if="${#lists.isEmpty(hotProducts)}">
+                                <div></div>
+                                </th:block>
+                            </article>
+                            <!-- /.Hot Item List -->
+                            <!-- New Item List -->
+                            <article class="container py-5" id="hot">
+                                <div class="row text-center pt-3">
+                                    <div class="col-lg-6 m-auto">
+                                        <h1 class="h1">신상품</h1>
+                                        <p>매일 신상 업데이트</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <!-- 신상품이 있으면 다음을 표시 -->
+                                    <th:block th:unless="${#lists.isEmpty(newProducts)}">
+                                        <th:block th:each="newProduct : ${newProducts}">
+                                            <div class="col-md-4">
+                                                <div class="card mb-4 product-wap rounded-0">
+                                                    <div class="card rounded-0">
+                                                        <img class="card-img rounded-0 img-fluid" th:src="@{${newProduct.productCoverImg}}" th:alt="${newProduct.productName}"/>
+                                                        <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                                                            <ul class="list-unstyled">
+                                                                <li>
+                                                                    <a class="btn btn-success text-white" href="##"><i class="far fa-heart"></i></a>
+                                                                </li>
+                                                                <li>
+                                                                    <a class="btn btn-success text-white mt-2" href="##"><i class="far fa-eye"></i></a>
+                                                                </li>
+                                                                <li>
+                                                                    <a class="btn btn-success text-white mt-2" href="##"><i class="fas fa-cart-plus"></i></a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <a th:href="@{'/mall/product/detail/'+${newProduct.productId}}" class="h3 text-decoration-none" th:text="${newProduct.productName}"></a>
+                                                        <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                                                            <li>M/L/X/XL</li>
+                                                        </ul>
+                                                        <p class="text-center mb-0"><small><th:block th:text="${newProduct.productIntro}"></th:block></small></p>
+                                                        <p class="text-center mb-0" th:text="${newProduct.sellingPrice}+'₩'"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </th:block>
+                                    </th:block>
+                                    <!-- 없으면 공란 -->
+                                    <th:block th:if="${#lists.isEmpty(newProducts)}">
+                                        <div></div>
+                                    </th:block>
+                                </div>
+                                <div></div>
+                                </th:block>
+                            </article>
+                            <!-- /.New Item List -->
+                            <!-- Recommended  Item List -->
+                            <article class="container py-5" id="hot">
+                                <div class="row text-center pt-3">
+                                    <div class="col-lg-6 m-auto">
+                                        <h1 class="h1">추천상품</h1>
+                                        <p><a href="##" class="more">더보기>></a></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <!-- 추천 상품이 있으면 다음을 표시 -->
+                                    <th:block th:unless="${#lists.isEmpty(recommendProducts)}">
+                                        <th:block th:each="recommendProduct : ${recommendProducts}">
+                                            <div class="col-md-4">
+                                                <div class="card mb-4 product-wap rounded-0">
+                                                    <div class="card-header" th:text="${recommendProduct.productIntro}">
+                                                        태그
+                                                    </div>
+                                                    <div class="card rounded-0">
+                                                        <img class="card-img rounded-0 img-fluid" th:src="@{${recommendProduct.productCoverImg}}" th:alt="${recommendProduct.productName}"/>
+                                                        <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                                                            <ul class="list-unstyled">
+                                                                <li>
+                                                                    <a class="btn btn-success text-white" href="##"><i class="far fa-heart"></i></a>
+                                                                </li>
+                                                                <li>
+                                                                    <a class="btn btn-success text-white mt-2" href="##"><i class="far fa-eye"></i></a>
+                                                                </li>
+                                                                <li>
+                                                                    <a class="btn btn-success text-white mt-2" href="##"><i class="fas fa-cart-plus"></i></a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <a th:href="@{'/mall/product/detail/'+${recommendProduct.productId}}" class="h3 text-decoration-none" th:text="${recommendProduct.productName}"></a>
+                                                        <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                                                            <li>M/L/X/XL</li>
+                                                        </ul>
+                                                        <p class="text-center mb-0"><small><th:block th:text="${recommendProduct.productIntro}"></th:block></small></p>
+                                                        <p class="text-center mb-0" th:text="${recommendProduct.sellingPrice}+'₩'"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </th:block>
+                                    </th:block>
+                                    <!-- 없으면 공란 -->
+                                    <th:block th:if="${#lists.isEmpty(recommendProducts)}">
+                                        <div></div>
+                                    </th:block>
+                                </div>
+                                <div></div>
+                                </th:block>
+                            </article>
+                            <!-- /.Recommended  Item List -->
+                        </section>
+                    </div>
+                    <!-- /.Container-fluid -->
+                </div>
+                <!-- /.Content Component -->
+            </div>
+            <!-- /.Content Wrapper -->
+            <!-- footer-fragment -->
+            <div th:replace="mall/footer::footer-fragment"></div>
+            <!-- /.footer-fragment -->
+        </div>
+        <!-- js 라이브러리 -->
+        <!-- jQuery -->
+        <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+        <!-- Popper-->
+        <script th:src="@{/webjars/popper.js/1.16.1/dist/umd/popper.min.js}"></script>
+        <!-- Bootstrap -->
+        <script th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.bundle.min.js}"></script>
+        <!-- Fontawesome -->
+        <script th:src="@{/webjars/font-awesome/6.1.2/js/fontawesome.min.js}"></script>
+        <!-- Swiper -->
+        <script th:src="@{/webjars/swiper/8.3.2/swiper-bundle.min.js}"></script>
+        <!-- sweetalert -->
+        <script th:src="@{/webjars/sweetalert2/11.4.24/dist/sweetalert2.min.js}"></script>
+        <script th:src="@{/mall/js/index.js}"></script>
+        <script th:src="@{/mall/js/header-search.js}"></script>
+    </body>
+</html>

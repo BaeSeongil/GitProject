@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="mall/header::head-fragment('나의 주문 내역','my-order')"></head>
+
+<body>
+	<div class="wrapper">
+		<!-- Main Header Component -->
+		<div th:replace="mall/header::header-fragment"></div>
+		<!-- Nav Component -->
+		<div th:replace="mall/header::nav-fragment"></div>
+		<!-- Search Modal -->
+		<div th:replace="mall/header::searchmodal"></div>
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+			<!-- Content Component -->
+			<div class="content">
+				<!-- Container-fluid -->
+				<div class="container-fluid">
+					<div class="container py-5">
+						<div class="row">
+							<!-- sidebar -->
+							<div th:replace="mall/sidebar::sidebar-fragment"></div>
+							<!-- /.sidebar -->
+							<!-- 본문 -->
+							<section class="col-lg-9 order-list-box">
+								<div class="box-hd mb-2">
+									<h3 class="title">나의 주문 내역</h3>
+                                </div>
+								<article class="box-bd">
+                                    <!-- 주문 리스트 -->
+									<div id="orderList">
+										<ul class="order-list">
+											<!-- 주문  데이터가 없으면 -->
+											<th:block th:if="${#lists.isEmpty(orderPageResult.list)}"> 
+                                                <img id="nonContentImg" th:src="@{/mall/img/null-content.png}"> 
+                                                <small>
+                                                    <a class="align-bottom" th:href="@{/mall/index}">쇼핑하기 &gt;</a>
+                                                </small> 
+                                            </th:block>
+                                            <!--/. 주문  데이터가 없으면-->
+                                            <!-- 주문  데이터가 있으면 -->
+                                            <th:block th:unless="${#lists.isEmpty(orderPageResult.list)}">
+                                                <!-- 리스트 목록 출력 -->
+                                                <th:block th:each="order : ${orderPageResult.list}">
+                                                    <li class="order-item-list">
+                                                        <!-- 상품 간략 정보 -->
+                                                        <div class="order-detail">
+                                                            <div class="order-summary">
+                                                                <th:block th:if="${order.orderStatus&lt;0}">
+                                                                    <div class="order-status-closed">
+                                                                        <th:block th:text="${' '+order.orderStatusString}"></th:block>
+                                                                    </div>
+                                                                </th:block>
+                                                                <th:block th:if="${order.orderStatus==0}">
+                                                                    <div class="order-status-need-pay">
+                                                                        <th:block th:text="${' '+order.orderStatusString}"></th:block>
+                                                                    </div>
+                                                                </th:block>
+                                                                <th:block th:if="${order.orderStatus&gt;0}">
+                                                                    <div class="order-status-success">
+                                                                        <th:block th:text="${' '+order.orderStatusString}"></th:block>
+                                                                    </div>
+                                                                </th:block>
+                                                            </div>
+                                                            <!-- 상품 상세 정보 -->
+                                                            <table class="order-detail-table">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="col-main">
+                                                                            <p class="caption-info" th:text="${#dates.format(order.createTime, 'yyyy-MM-dd HH:mm:ss')}"> 주문일자
+                                                                            <span class="sep">|</span>
+                                                                            주문번호: <a href="##" th:text="${order.orderNo}">주문번호</a>
+                                                                            <span class="sep">|</span>온라인 결제</p>
+                                                                        </th>
+                                                                        <th class="col-sub">
+                                                                            <p class="caption-price">총 주문금액: 
+                                                                            <span class="num" th:text="${order.totalPrice}">가격</span>₩</p>
+                                                                        </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td class="order-items">
+                                                                            <ul class="product-list">
+                                                                                <th:block th:each="item : ${order.OrderItemVOS}">
+                                                                                    <li class="position-relative">
+                                                                                        <div class="figure position-absolute top-0 start-0">
+                                                                                            <a target="_blank"
+                                                                                            th:href="@{'/mall/product/detail/'+${item.productId}}">
+                                                                                                <img class="product-cover-img" th:src="@{${item.productCoverImg}}" alt="">
+                                                                                            </a>
+                                                                                        </div>
+                                                                                        <p class="name">
+                                                                                            <a target="_blank"th:href="@{'/mall/product/detail/'+${item.productId}}"th:text="${item.productName}">상품명</a>
+                                                                                        </p>
+                                                                                        <p class="price"th:text="${item.sellingPrice+'₩ x '+item.productCount}">합계</p>
+                                                                                    </li>
+                                                                                </th:block>
+                                                                            </ul>
+                                                                        </td>
+                                                                        <td class="order-actions">
+                                                                            <a class="btn btn-small btn-line-gray" th:href="@{${'/mall/orders/'+order.orderNo}}">주문 세부 정보</a>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </li>
+                                                </th:block>
+                                            </th:block>
+                                            <!-- /.주문  데이터가 있으면 -->
+										</ul>
+									</div>
+                                    <!--/. 주문 리스트-->
+                                    <!-- Pagination-->
+                                    <th:block th:unless="${#lists.isEmpty(orderPageResult.list)}">
+                                        <div id="orderListPages">
+                                            <div class="pagenavi">
+                                                <th:block th:if="${orderPageResult.currPage-2 >=1}">
+                                                    <a class="numbers"
+                                                        th:href="@{'/orders?page=' + ${orderPageResult.currPage-2}}"
+                                                        th:text="${orderPageResult.currPage -2}">1</a>
+                                                </th:block>
+                                                <th:block th:if="${orderPageResult.currPage-1 >=1}">
+                                                    <a class="numbers"
+                                                        th:href="@{'/orders?page=' + ${orderPageResult.currPage-1}}"
+                                                        th:text="${orderPageResult.currPage -1}">1</a>
+                                                </th:block>
+                                                    <a href="##" class="numbers current" th:text="${orderPageResult.currPage}">1</a>
+                                                <th:block th:if="${orderPageResult.currPage+1&lt;=orderPageResult.totalPage}">
+                                                    <a class="numbers"
+                                                        th:href="@{'/orders?page=' + ${orderPageResult.currPage+1}}"
+                                                        th:text="${orderPageResult.currPage +1}">1</a>
+                                                    </th:block>
+                                                <th:block th:if="${orderPageResult.currPage+2&lt;=orderPageResult.totalPage}">
+                                                    <a class="numbers"
+                                                        th:href="@{'/orders?page=' + ${orderPageResult.currPage+2}}"
+                                                        th:text="${orderPageResult.currPage +2}">1</a>
+                                                </th:block>
+                                            </div>
+                                        </div>
+                                    </th:block>
+                                    <!-- /.Pagination-->
+								</article>
+							</section>
+                            <!-- /.본문 -->
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div th:replace="mall/footer::footer-fragment"></div>
+	</div>
+	<!-- js 라이브러리 -->
+	<!-- jQuery -->
+	<script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+	<!-- Popper-->
+	<script th:src="@{/webjars/popper.js/1.16.1/dist/umd/popper.min.js}"></script>
+	<!-- Bootstrap -->
+	<script th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.bundle.min.js}"></script>
+	<!-- Fontawesome -->
+	<script th:src="@{/webjars/font-awesome/6.1.2/js/fontawesome.min.js}"></script>
+	<!-- Swiper -->
+	<script th:src="@{/webjars/swiper/8.3.2/swiper-bundle.min.js}"></script>
+	<!-- sweetalert -->
+	<script th:src="@{/webjars/sweetalert2/11.4.24/dist/sweetalert2.min.js}"></script>
+	<script th:src="@{/mall/js/my-order.js}"></script>
+	<script th:src="@{/mall/js/header-search.js}"></script>
+</body>
+
+</html>

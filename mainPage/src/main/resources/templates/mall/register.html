@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>회원가입</title>
+    <!-- css 라이브러리 -->
+    <!-- Bootstrap -->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}" />
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" th:href="@{/mall/styles/login.css}" />
+</head>
+
+<body class="text-center">
+    <form id="registerForm" onsubmit="return false;" action="##" class="form-signin">
+        <div class="text-center mb-4">
+            <h1 class="h3 mb-3 font-weight-normal">Sign Up</h1>
+            <p>이미 회원이라면... <a href="login.html" target="_self">로그인</a></p>
+        </div>
+
+        <div class="form-inline form-group">
+            <label for="loginName" class="sr-only">Username</label>
+            <input type="text" id="loginName" class="form-control" placeholder="Username" name="loginName" required=""
+                autofocus="" />
+        </div>
+
+        <div class="form-inline form-group">
+            <label for="password" class="sr-only">Password</label>
+            <input type="password" id="password" class="form-control" placeholder="Password" name="password"
+                required="" />
+        </div>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit" onclick="login()" value="Sign Up">Sign
+            Up</button>
+    </form>
+</body>
+<!-- jQuery -->
+<script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+<script th:src="@{/admin/dist/js/public.js}"></script>
+<script th:src="@{/webjars/sweetalert2/11.4.24/dist/sweetalert2.min.js}"></script>
+<!-- 주소API기능연동 -->
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js" defer="defer"></script>
+<script th:src="@{/mall/js/register.js}"></script>
+
+</html>

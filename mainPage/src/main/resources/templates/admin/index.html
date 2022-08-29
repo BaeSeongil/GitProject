@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <!-- head 불러오기 -->
+    <header th:replace="admin/header::head-fragment"></header>
+    <body class="hold-transition sidebar-mini">
+        <div class="wrapper">
+            <!-- Main Header Component -->
+            <div th:replace="admin/header::header-nav"></div>
+            <!-- Main Sidebar Component -->
+            <div th:replace="admin/sidebar::sidebar-fragment(${path})"></div>
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <!-- Content Header Component -->
+                <div class="content-header">
+                    <div class="container-fluid">
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                                <h1 class="m-0">Content Header</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.Content Header Component -->
+                <!-- Content Component -->
+                <div class="content">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="card">
+                                    <div class="card-header border-0">
+                                        <div class="d-flex justify-content-between">
+                                            <h3 class="card-title">Lorem Ipsum</h3>
+                                            <a href="#">View Report</a>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="d-flex">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora aut quasi recusandae tenetur aperiam similique ut suscipit eveniet illum reiciendis. Iusto cumque deleniti molestias delectus reprehenderit omnis assumenda vel ullam!</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.Content Component -->
+            </div>
+            <!-- /.Content Wrapper -->
+            <!-- footer-fragment -->
+            <div th:replace="admin/footer::footer-fragment"></div>
+        </div>
+
+        <!-- js 라이브러리 -->
+        <!-- jQuery -->
+        <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+        <!-- Bootstrap -->
+        <script th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+        <!-- AdminLTE App -->
+        <script th:src="@{/webjars/AdminLTE/3.2.0/dist/js/adminlte.min.js}"></script>
+        <!-- Fontawesome -->
+        <script th:src="@{/webjars/font-awesome/6.1.2/js/fontawesome.min.js}"></script>
+    </body>
+</html>

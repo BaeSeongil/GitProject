@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <header th:replace="admin/header::head-fragment"></header>
+    <body class="hold-transition sidebar-mini">
+        <div class="wrapper">
+            <!-- header-fragment -->
+            <div th:replace="admin/header::header-nav"></div>
+            <!-- sidebar-fragment -->
+            <div th:replace="admin/sidebar::sidebar-fragment(${path})"></div>
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <div class="content-header">
+                    <!-- container-fluid -->
+                    <div class="container-fluid"></div>
+                    <!-- /.container-fluid -->
+                </div>
+                <!-- Main content -->
+                <section class="content">
+                    <!-- container-fluid -->
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card card-primary card-outline">
+                                    <div class="card-header">
+                                        <h3 class="card-title">기본정보</h3>
+                                    </div>
+                                    <!-- card-body -->
+                                    <div class="card-body">
+                                        <form role="form" id="userNameForm">
+                                            <div class="form-group col-sm-8">
+                                                <div class="alert alert-danger" id="updateUserName-info" style="display: none"></div>
+                                            </div>
+                                            <!-- text input -->
+                                            <div class="form-group">
+                                                <label>ID</label>
+                                                <input type="text" class="form-control" id="loginUserName" name="loginUserName" placeholder="ID" required="true" th:value="${loginUserName}" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label>닉네임</label>
+                                                <input type="text" class="form-control" id="nickName" name="nickName" placeholder="닉네임" required="true" th:value="${nickName}" />
+                                            </div>
+                                            <div class="card-footer">
+                                                <button type="button" id="updateUserNameButton" onsubmit="return false;" class="btn btn-danger float-right">변경 확인</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card card-primary card-outline">
+                                    <div class="card-header">
+                                        <h3 class="card-title">패스워드 변경</h3>
+                                    </div>
+                                    <!-- /.card-body -->
+                                    <div class="card-body">
+                                        <form role="form" id="userPasswordForm">
+                                            <div class="form-group col-sm-8">
+                                                <div class="alert alert-danger updatePassword-info" id="updatePassword-info" style="display: none"></div>
+                                            </div>
+                                            <!-- input states -->
+                                            <div class="form-group">
+                                                <label class="control-label"><i class="fa-solid fa-key"></i> 현재 비밀번호</label>
+                                                <input type="text" class="form-control" id="originalPassword" name="originalPassword" placeholder="현재비밀번호" required="true" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label"><i class="fa-solid fa-key"></i> 새 비밀번호</label>
+                                                <input type="text" class="form-control" id="newPassword" name="newPassword" placeholder="새 비밀번호" required="true" />
+                                            </div>
+                                            <div class="card-footer">
+                                                <button type="button" id="updatePasswordButton" onsubmit="return false;" class="btn btn-danger float-right">변경 확인</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.container-fluid -->
+                </section>
+                <!-- /.content -->
+            </div>
+            <!-- /.content-wrapper -->
+            <!-- /.footer-fragment -->
+            <div th:replace="admin/footer::footer-fragment"></div>
+        </div>
+        <!-- jQuery -->
+        <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+        <!-- Bootstrap -->
+        <script th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+        <!-- AdminLTE App -->
+        <script th:src="@{/webjars/AdminLTE/3.2.0/dist/js/adminlte.min.js}"></script>
+        <!-- Fontawesome -->
+        <script th:src="@{/webjars/font-awesome/6.1.2/js/fontawesome.min.js}"></script>
+        <!-- jqgrid -->
+        <script th:src="@{/webjars/jqGrid/5.7.0/js/jquery.jqGrid.min.js}"></script>
+        <script th:src="@{/webjars/jqGrid/5.7.0/js/i18n/grid.locale-kr.js}"></script>
+        <!-- sweetalert -->
+        <script th:src="@{/webjars/sweetalert2/11.4.24/dist/sweetalert2.min.js}"></script>
+        <!-- public.js -->
+        <script th:src="@{/admin/dist/js/public.js}"></script>
+        <!-- profile -->
+        <script th:src="@{/admin/dist/js/profile.js}"></script>
+    </body>
+</html>

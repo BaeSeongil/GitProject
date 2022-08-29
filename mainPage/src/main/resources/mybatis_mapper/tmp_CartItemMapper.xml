@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.mainPage.mapper.tmp_CartItemMapper">
+    <resultMap id="BaseResultMap" type="com.project.mainPage.dto.tmp_CartItem">
+        <id column="cart_item_id" jdbcType="BIGINT" property="cartItemId"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="product_id" jdbcType="BIGINT" property="productId"/>
+        <result column="product_count" jdbcType="INTEGER" property="productCount"/>
+        <result column="is_deleted" jdbcType="TINYINT" property="isDeleted"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/> 
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        cart_item_id, user_id, product_id, product_count, is_deleted, create_time, UPDATE_time
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM TB_CART_ITEM
+            WHERE cart_item_id = #{cartItemId,jdbcType=BIGINT} 
+            AND is_deleted = 0
+    </select>
+
+    <select id="selectByUserIdAndProductId" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM TB_CART_ITEM
+            WHERE user_id = #{userId,jdbcType=BIGINT} 
+            AND product_id=#{productId,jdbcType=BIGINT} 
+            AND is_deleted = 0
+            limit 1
+    </select>
+
+    <select id="selectByUserId" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM TB_CART_ITEM
+            WHERE user_id = #{userId,jdbcType=BIGINT} 
+            AND is_deleted = 0
+            limit #{number}
+    </select>
+
+    <select id="selectCountByUserId" resultType="int">
+        SELECT
+        count(*)
+        FROM TB_CART_ITEM
+            WHERE user_id = #{userId,jdbcType=BIGINT} 
+            AND is_deleted = 0
+    </select>
+
+    <update id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        UPDATE TB_CART_ITEM 
+            SET is_deleted = 1
+            WHERE cart_item_id = #{cartItemId,jdbcType=BIGINT} 
+             AND is_deleted = 0
+    </update>
+
+    <update id="deleteBatch">
+        UPDATE TB_CART_ITEM
+        SET is_deleted=1 
+        WHERE cart_item_id IN
+        <foreach item="id" collection="list" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <insert id="insert" parameterType="com.project.mainPage.dto.tmp_CartItem">
+        INSERT INTO TB_CART_ITEM (cart_item_id, user_id, product_id, product_count, is_deleted, create_time, 
+        UPDATE_time)
+            VALUES (
+                #{cartItemId,jdbcType=BIGINT}, 
+                #{userId,jdbcType=BIGINT}, 
+                #{productId,jdbcType=BIGINT}, 
+                #{productCount,jdbcType=INTEGER}, 
+                #{isDeleted,jdbcType=TINYINT}, 
+                #{createTime,jdbcType=TIMESTAMP}, 
+                #{updateTime,jdbcType=TIMESTAMP}
+            )
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.project.mainPage.dto.tmp_CartItem">
+        INSERT INTO TB_CART_ITEM
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="cartItemId != null">
+                cart_item_id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="productId != null">
+                product_id,
+            </if>
+            <if test="productCount != null">
+                product_count,
+            </if>
+            <if test="isDeleted != null">
+                is_deleted,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                UPDATE_time,
+            </if>
+        </trim>
+
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="cartItemId != null">
+                #{cartItemId,jdbcType=BIGINT},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="productId != null">
+                #{productId,jdbcType=BIGINT},
+            </if>
+            <if test="productCount != null">
+                #{productCount,jdbcType=INTEGER},
+            </if>
+            <if test="isDeleted != null">
+                #{isDeleted,jdbcType=TINYINT},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.project.mainPage.dto.tmp_CartItem">
+        UPDATE TB_CART_ITEM
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="productId != null">
+                product_id = #{productId,jdbcType=BIGINT},
+            </if>
+            <if test="productCount != null">
+                product_count = #{productCount,jdbcType=INTEGER},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted,jdbcType=TINYINT},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                UPDATE_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        WHERE cart_item_id = #{cartItemId,jdbcType=BIGINT}
+    </update>
+    
+    <update id="updateByPrimaryKey" parameterType="com.project.mainPage.dto.tmp_CartItem">
+        UPDATE TB_CART_ITEM
+            SET user_id = #{userId,jdbcType=BIGINT},
+                product_id = #{productId,jdbcType=BIGINT},
+                product_count = #{productCount,jdbcType=INTEGER},
+                is_deleted = #{isDeleted,jdbcType=TINYINT},
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+                UPDATE_time = #{updateTime,jdbcType=TIMESTAMP}
+            WHERE cart_item_id = #{cartItemId,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>관리자 로그인 페이지</title>
+        <!-- css 라이브러리 -->
+        <!-- Bootstrap -->
+        <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}" />
+        <!-- Custom styles for this template -->
+        <link rel="stylesheet" th:href="@{/admin/dist/css/login.css}" />
+    </head>
+    <body class="text-center">
+        <form id="loginForm" onsubmit="return false;" action="##" class="form-signin">
+            <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+            <div class="form-inline form-group">
+                <label for="loginName" class="sr-only">Username</label>
+                <input type="text" name="loginName" id="loginName" class="form-control" placeholder="Username" required="" autofocus="" />
+            </div>
+
+            <div class="form-inline form-group">
+                <label for="password" class="sr-only">Password</label>
+                <input type="password" name="password" id="password" class="form-control" placeholder="Password" required="" />
+            </div>
+
+            <div class="checkbox mb-3">
+                <label> <input type="checkbox" value="remember-me" /> Remember me </label>
+            </div>
+            <button id="loginButton" class="btn btn-lg btn-primary btn-block" type="submit" onclick="login()" value="Login">Login</button>
+        </form>
+        <!-- jQuery -->
+        <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+        <!-- Sweetalert -->
+        <script th:src="@{/webjars/sweetalert2/11.4.24/dist/sweetalert2.min.js}"></script>
+        <script th:src="@{/admin/dist/js/public.js}"></script>
+        <script th:src="@{/admin/dist/js/login.js}"></script>
+    </body>
+</html>

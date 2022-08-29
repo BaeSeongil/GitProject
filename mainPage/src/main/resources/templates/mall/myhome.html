@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="mall/header::head-fragment('마이페이지','myhome')"> </head>
+
+    <body>
+        <div class="wrapper">
+            <!-- Main Header Component -->
+            <div th:replace="mall/header::header-fragment"></div>
+            <!-- Nav Component -->
+            <div th:replace="mall/header::nav-fragment"></div>
+            <!-- Search Modal -->
+            <div th:replace="mall/header::searchmodal"></div>
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <!-- Content Component -->
+                <div class="content">
+                    <!-- Container-fluid -->
+                    <div class="container-fluid">
+                        <div class="container py-5">
+                            <div class="row">
+                                <!-- sidebar -->
+                                <div th:replace="mall/sidebar::sidebar-fragment"></div>
+                                <!-- /.sidebar-->
+                                <section id="myhome" class="col-lg-9">
+                                    <!-- 개인 정보 변경 -->
+                                    <div class="box-hd">
+                                        <h3 class="title float-start">내 계정</h3>
+                                        <a id="savePersonalButton" type="button" class="float-end">개인정보 변경</a>
+                                    </div>
+                                    <article class="box-bd userInfo">
+                                        <div class="form-group">
+                                            <label>ID</label>
+                                            <input id="loginName" type="text" class="form-control" readonly th:value="${session.AcornUser.loginName}" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>닉네임</label>
+                                            <input id="nickName" type="text" class="form-control" th:value="${session.AcornUser.nickName}" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>상태메시지</label>
+                                            <input id="introduceSign" type="text" class="form-control" th:value="${session.AcornUser.introduceSign==''?'null':session.AcornUser.introduceSign}" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>주소</label>
+                                            <div class="input-group">
+                                                <input id="address" type="text" class="form-control" readonly th:value="${session.AcornUser.address==''?'배송지 없음':session.AcornUser.address}" aria-describedby="button-address" />
+                                                <button class="btn btn-outline-secondary" type="button" id="button-address" onclick="openDaumPostcode()">변경</button>
+                                            </div>
+                                            <div id="daumAddressWrap">
+                                                <img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnFoldWrap" onclick="foldDaumPostcode()" alt="접기 버튼" />
+                                            </div>
+                                        </div>
+                                    </article>
+
+                                    <!-- 비밀번호 변경 -->
+                                    <div class="box-hd">
+                                        <h3 class="title float-start">비밀번호</h3>
+                                        <a id="updatePasswordButton" class="float-end" type="button" onsubmit="return false;">비밀번호 변경</a>
+                                    </div>
+                                    <article class="box-bd userInfo">
+                                        <form role="form" id="userPasswordForm">
+                                            <div class="form-group">
+                                                <label>현재 비밀번호</label>
+                                                <input id="originalPassword" name="originalPassword" type="password" class="form-control" placeholder="현재 비밀번호" required="true" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label>새 비밀번호</label>
+                                                <input id="newPassword" name="newPassword" type="password" class="form-control" placeholder="새 비밀번호" required="true" />
+                                            </div>
+                                        </form>
+                                    </article>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.Container-fluid -->
+                </div>
+                <!-- /.Content Component -->
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div th:replace="mall/footer::footer-fragment"></div>
+        <!-- js 라이브러리 -->
+        <!-- jQuery -->
+        <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+        <!-- Popper-->
+        <script th:src="@{/webjars/popper.js/1.16.1/dist/umd/popper.min.js}"></script>
+        <!-- Bootstrap -->
+        <script th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.bundle.min.js}"></script>
+        <!-- Fontawesome -->
+        <script th:src="@{/webjars/font-awesome/6.1.2/js/fontawesome.min.js}"></script>
+        <!-- Swiper -->
+        <script th:src="@{/webjars/swiper/8.3.2/swiper-bundle.min.js}"></script>
+        <!-- sweetalert -->
+        <script th:src="@{/webjars/sweetalert2/11.4.24/dist/sweetalert2.min.js}"></script>
+        <!-- 우편번호 서비스 https://postcode.map.daum.net/guide -->
+        <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+        <script th:src="@{/mall/js/header-search.js}"></script>
+        <!-- public.js -->
+        <script th:src="@{/admin/dist/js/public.js}"></script>
+        <script th:src="@{/mall/js/myhome.js}"></script>
+    </body>
+</html>

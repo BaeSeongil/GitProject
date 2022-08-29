@@ -1,0 +1,43 @@
+a {
+    text-decoration: none;
+    color: #212934;
+}
+
+.box-hd {
+    padding-bottom: 15px;
+    height: 60px;
+    border-bottom: 1px solid grey;
+}
+
+.box-hd::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.userInfo{
+    min-height: 150px;
+    height: auto;
+    padding: 20px 0;
+    margin-bottom: 30px;
+}
+
+.form-group{
+    margin: 15px auto;
+}
+
+#daumAddressWrap {
+    display: none;
+    border: 1px solid;
+    width: 500px;
+    height: 300px;
+    margin: 5px 0;
+    position: relative;
+}
+#btnFoldWrap {
+    cursor: pointer;
+    position: absolute;
+    right: 0px;
+    top: -1px;
+    z-index: 1;
+}
