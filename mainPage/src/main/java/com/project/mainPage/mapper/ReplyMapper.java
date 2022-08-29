@@ -15,4 +15,9 @@ public interface ReplyMapper {
 
 	int updateOne(Reply reply);
 
+	int selectBoardNoCount(int boardNo);
+
+	List<Reply> selectBoardNoPage(int boardNo,int startRow,int pageSize);
+	List<Reply> selectBoardNoPage(int boardNo, int startRow, int pageSize, String loginUsersId);
+
 }
