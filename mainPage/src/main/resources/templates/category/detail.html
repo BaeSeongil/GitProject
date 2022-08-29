@@ -3,49 +3,71 @@
 <head>
 <meta charset="UTF-8">
 <title>카테고리 수정</title>
+<style type="text/css">
+html, body {
+	height: 100%;
+	position: reletive;
+}
+#wrapper {
+	padding-bottom: 184px;
+	height: auto;
+}
+.container {
+	margin-top: 200px;	
+}
+.footer {
+	width: 100%;
+	bottom: 0;
+	position: absolute;
+}
+</style>
 </head>
 <body>
 	<header th:insert="/gAndB"></header>
 	<header th:insert="/headerNav"></header>
-	<main class="container">
-		<div class="d-flex mt-5 mb-5 justify-content-center">
-			<h1 class="fw-semibold">카테고리 수정</h1>
+	<div id="wrapper">
+		<main class="container">
+			<div class="d-flex mt-5 mb-5 justify-content-center">
+				<h1 class="fw-semibold">카테고리 수정</h1>
+			</div>
+			<form action="/category/update.do" method="post" class="row g-3 needs-validation">
+				<div class="row mb-3 justify-content-center needs-validation">
+					<div class="col-auto">
+						<label for="inputCateId" class="form-label">카테고리 번호</label>
+					</div>
+					<div class="col-auto">
+						<input name="categoryId" class="form-control form-control-sm" id="inputCateId" 
+							th:value="${category.categoryId}" onkeyup="noSpace(this);" onchange="noSpace(this);" required>
+					</div>
+				</div>
+				
+				<div class="row mb-3 justify-content-center needs-validation">
+					<div class="col-auto">
+						<label for="inputCateName" class="form-label">카테고리 이름</label>
+					</div>
+					<div class="col-auto">
+						<input name="categoryName" class="form-control form-control-sm" id="inputCateName" 
+						th:value="${category.categoryName}" onkeyup="noSpace(this);" onchange="noSpace(this);"  required>
+					</div>
+				</div>
+				
+				<div class="row mb-3 justify-content-center">
+					<div class="col-auto">
+						<button class="btn btn-outline-success" type="submit">EDIT</button>
+					</div>
+					<div class="col-auto">
+						<button class="btn btn-outline-warning" type="reset">RESET</button>
+					</div>
+					<div class="col-auto">
+						<a class="btn btn-outline-danger" th:href="@{/category/delete/{categoryId}(categoryId=${category.categoryId})}">DELETE</a>
+					</div>
+				</div>
+			</form>
+		</main>
+		<div class="footer">
+			<footer th:insert="/footer"></footer>
 		</div>
-		<form action="/category/update.do" method="post" class="row g-3 needs-validation" validate>
-			<div class="row mb-3 justify-content-center needs-validation">
-				<div class="col-auto">
-					<label for="inputCateId" class="form-label">카테고리 번호</label>
-				</div>
-				<div class="col-auto">
-					<input name="categoryId" class="form-control form-control-sm" id="inputCateId" 
-						th:value="${category.categoryId}" onkeyup="noSpace(this);" onchange="noSpace(this);" required>
-				</div>
-			</div>
-			
-			<div class="row mb-3 justify-content-center needs-validation">
-				<div class="col-auto">
-					<label for="inputCateName" class="form-label">카테고리 이름</label>
-				</div>
-				<div class="col-auto">
-					<input name="categoryName" class="form-control form-control-sm" id="inputCateName" 
-					th:value="${category.categoryName}" onkeyup="noSpace(this);" onchange="noSpace(this);"  required>
-				</div>
-			</div>
-			
-			<div class="row mb-3 justify-content-center">
-				<div class="col-auto">
-					<button class="btn btn-outline-success" type="submit">EDIT</button>
-				</div>
-				<div class="col-auto">
-					<button class="btn btn-outline-warning" type="reset">RESET</button>
-				</div>
-				<div class="col-auto">
-					<a class="btn btn-outline-danger" th:href="@{/category/delete/{categoryId}(categoryId=${category.categoryId})}">DELETE</a>
-				</div>
-			</div>
-			
-		</form>
-	</main>
+	</div>
 </body>
 <script>
 function noSpace(obj) { // 공백사용못하게

@@ -3,55 +3,75 @@
 <head>
 <meta charset="UTF-8">
 <title>카테고리 등록 페이지</title>
+<style type="text/css">
+html, body {
+	height: 100%;
+	position: reletive;
+}
+#wrapper {
+	padding-bottom: 184px;
+	height: auto;
+}
+.container {
+	margin-top: 200px;	
+}
+.footer {
+	width: 100%;
+	bottom: 0;
+	position: absolute;
+}
+</style>
 </head>
 <body>
 	<header th:insert="/gAndB"></header>
 	<header th:insert="/headerNav"></header>
-	<main class="container">
-		<div class="mt-5 mb-5 d-flex justify-content-center">
-			<h1 class="fw-semibold">카테고리 등록</h1>
+	<div id="wrapper">
+		<main class="container">
+			<div class="mt-5 mb-5 d-flex justify-content-center">
+				<h1 class="fw-semibold">카테고리 등록</h1>
+			</div>
+			<form action="/category/insert.do" method="post" class="row g-3 needs-validation" validate>
+				<div class="row mb-3 justify-content-center needs-validation">
+					<div class="col-auto">
+						<label for="inputCateId" class="form-label">카테고리 번호</label>
+					</div>
+					<div class="col-auto">
+						<input name="categoryId" class="form-control form-control-sm" id="inputCateId" 
+						onkeyup="noSpace(this);" onchange="noSpace(this);" required>
+					</div>
+				</div>
+				<div class="row mb-3 justify-content-center needs-validation">
+					<div class="col-auto">
+						<label for="inputCateName" class="form-label">카테고리 이름</label>
+					</div>
+					<div class="col-auto">
+						<input name="categoryName" class="form-control form-control-sm" id="inputCateName" 
+						onkeyup="noSpace(this);" onchange="noSpace(this);" required>
+					</div>
+				</div>
+				<div class="row mb-3 justify-content-center">
+					<div class="col-auto">
+						<button class="btn btn-outline-success" type="submit">Save</button>
+					</div>
+					<div class="col-auto">
+					<button class="btn btn-outline-warning" type="reset">Reset</button>
+					</div>
+				</div>
+			</form>
+		</main>
+		<div class="footer">
+			<footer th:insert="/footer"></footer>
 		</div>
-		<form action="/category/insert.do" method="post" class="row g-3 needs-validation">
-		
-			<div class="row mb-3 justify-content-center was-validated">
-				<div class="col-auto">
-					<label for="inputCateId" class="form-label">카테고리 번호</label>
-				</div>
-				<div class="col-auto">
-					<input name="categoryId" class="form-control form-control-sm"
-					onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);"
-					id="inputCateId" required>
-				</div>
-			</div>
-			<div class="row mb-3 justify-content-center needs-validation">
-				<div class="col-auto">
-					<label for="inputCateName" class="form-label">카테고리 이름</label>
-				</div>
-				<div class="col-auto">
-					<input name="categoryName" class="form-control form-control-sm" 
-					onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);"
-					id="inputCateName" required>
+	</div>
 
-				</div>
-			</div>
-			<div class="row mb-3 justify-content-center">
-				<div class="col-auto">
-					<button class="btn btn-outline-success" type="submit">Save</button>
-				</div>
-				<div class="col-auto">
-				<button class="btn btn-outline-warning" type="reset">Reset</button>
-				</div>
-			</div>
-		</form>
-	</main>
 </body>
 <script>
-function noSpaceForm(obj) { // 공백사용못하게
-    var str_space = /\s/;  // 공백체크
-    if(str_space.exec(obj.value.trim)) { //공백 체크
-        //alert("해당 항목에는 공백을 사용할수 없습니다.\n\n공백은 자동적으로 제거 됩니다.");
+function noSpace(obj) { // 공백사용못하게
+    var str = /\s/;  // 공백체크
+    if(str.exec(obj.value.trim)) { //공백 체크
+        //alert("해당 항목에는 첫 글자 공백을 사용할수 없습니다.");
         obj.focus();
-        obj.value = obj.value.replace(/\s| /gi,''); // 공백제거
+        obj.value = obj.value.replace(/^ +/,''); // 공백제거
         return false;
     }
 }
