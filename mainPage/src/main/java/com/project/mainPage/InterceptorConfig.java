@@ -27,6 +27,7 @@ public class InterceptorConfig implements WebMvcConfigurer{
 				.excludePathPatterns("/users/privacy")
 				.excludePathPatterns("/users/emailRejection")
 				.excludePathPatterns("/users/agreement")
+				.addPathPatterns("/qaboard/insert.do")
 				// 추가하거나 예외처리할 주소
 				.addPathPatterns("/ /**")		
 				.excludePathPatterns("/ / ")

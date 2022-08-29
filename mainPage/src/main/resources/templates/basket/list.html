@@ -81,10 +81,14 @@
 				</tr>
 			</tbody>
 			</table>
-		
+			
 			<div class="d-flex justify-content-evenly">
-            	<div th:insert="/pagination.html"></div>
+           	<th:block th:if="${count!=0}">
+                <div th:insert="/pagination.html"></div>
+            </th:block>
+            
 			</div>			
+			
 			
 		</div>
 	</div>  

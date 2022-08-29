@@ -111,7 +111,7 @@
 					</form>
 				</li>
 				</th:block>
-				<th:block th:if="${(session.loginUsers?.adminCk==1)||(session.loginUsers?.userid==qaBoard.users.userid)||(qaBoard.qaBoardAnswer==1)}">
+				<th:block th:if="${(session.loginUsers?.userid==qaBoard.users.userid)&&(qaBoard.qaBoardAnswer==1)}">
 				<li class="list-group-item text-bg-light border-success">
 				<h3>에이콘 쇼핑몰 답변 내용</h3>
 				<hr>
