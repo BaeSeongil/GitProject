@@ -5,6 +5,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +38,7 @@ import com.project.mainPage.mapper.BoardImgMapper;
 import com.project.mainPage.mapper.BoardMapper;
 
 import com.project.mainPage.mapper.BoardPreferMapper;
+import com.project.mainPage.mapper.ReplyMapper;
 import com.project.mainPage.mapper.UsersMapper;
 
 
@@ -61,12 +64,14 @@ public class BoardController {
 	@Autowired
 	private UsersMapper usersMapper;
 	
+	@Autowired
+	private ReplyMapper replyMapper;
+	
 	@Value("${spring.servlet.multipart.location}") //파일이 임시저장되는 경로+파일을 저장할 경로
 	private String savePath;
 	
 	@GetMapping("/list/{page}")
 	public String list(@PathVariable int page, Model model, HttpSession session) {
-		session.setAttribute("msg", null);
 		int row =10;
 		int startRow = (page-1)*row;
 		List<Board> boardList = boardMapper.selectPageAll(startRow, row);
@@ -86,28 +91,54 @@ public class BoardController {
 	public String detail(
 			@PathVariable int boardNo,
 			Model model,
-			@SessionAttribute(required = false) UsersDto loginUsers, HttpSession session) {
+			@SessionAttribute(required = false) UsersDto loginUsers, 
+			@RequestParam( defaultValue = "1") int replyPage,
+			HttpServletRequest req,
+			HttpServletResponse resp) {
 		
 		Board board = null;		
 		BoardPrefer boardPrefer = null;  // 로그인이 안되면 null
+		int row=5;
+		System.out.println(replyPage);
+		int startRow=(replyPage-1)*row;
+		String pagingUrl="/reply/list/"+boardNo;
+		Pagination pagination = null;
+		String loginUsersId=null;
 		try {
 			if(loginUsers != null) {
+				loginUsersId=loginUsers.getUserid();
 				board = boardService.boardUpdateView(boardNo,loginUsers.getUserid());
 				boardPrefer = boardPreferMapper.selectFindUserIdAndBoardNo(loginUsers.getUserid(),boardNo);
-				for(Reply reply : board.getReplys()) {
-					for(ReplyPrefer replyPrefer : reply.getGood_prefers()) {
-						if(replyPrefer.getUserid().equals(loginUsers.getUserid())){
-							reply.setPrefer_active(true);
-						}
-					}
-					for(ReplyPrefer replyPrefer : reply.getGood_prefers()) {
-						if(replyPrefer.getUserid().equals(loginUsers.getUserid())){
-							reply.setPrefer_active(false);
-						}
-					}
+//				for(Reply reply : board.getReplys()) {
+//					for(ReplyPrefer replyPrefer : reply.getGood_prefers()) {
+//						if(replyPrefer.getUserid().equals(loginUsers.getUserid())){
+//							reply.setPrefer_active(true);
+//						}
+//					}
+//					for(ReplyPrefer replyPrefer : reply.getGood_prefers()) {
+//						if(replyPrefer.getUserid().equals(loginUsers.getUserid())){
+//							reply.setPrefer_active(false);
+//						}
+//					}
+//				}
+				int replySize = replyMapper.selectBoardNoCount(boardNo);
+				if(replySize>0) {
+					pagination = new Pagination(replyPage, replySize, pagingUrl, row);
+					List<Reply> replies=replyMapper.selectBoardNoPage(boardNo, startRow, row, loginUsersId);
+					board.setReplys(replies);
+					
+					model.addAttribute("pagination",pagination);
 				}
 			}else {
 				board = boardMapper.selectOne(boardNo);
+				int replySize = replyMapper.selectBoardNoCount(boardNo);
+				if(replySize>0) {
+					pagination = new Pagination(replyPage, replySize, pagingUrl, row);
+					List<Reply> replies=replyMapper.selectBoardNoPage(boardNo, startRow, row, loginUsersId);
+					board.setReplys(replies);
+					
+					model.addAttribute("pagination",pagination);
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -115,8 +146,7 @@ public class BoardController {
 		if(board != null) {
 			model.addAttribute("boardPrefer",boardPrefer);
 			model.addAttribute("board",board);
-			System.out.println(board.getPrefer_active());
-			System.out.println(board.getUsers().getUserid());
+			System.out.println(board);
 			return "/board/detail";			
 		}else {
 			return "redirect:/board/list/1";
@@ -148,7 +178,8 @@ public class BoardController {
 				List<BoardImg> boardImgs=new ArrayList<BoardImg>();
 				// imgFiles 가 null이면 여기서 오류 발생!! 
 				for(MultipartFile imgFile:imgFiles) {		
-					String type=imgFile.getContentType(); 
+					String type=imgFile.getContentType();
+					System.out.println(imgFile.getContentType());
 					if(type.split("/")[0].equals("image")) {
 						String newFileName="board_"+System.nanoTime()+"."+type.split("/")[1]; //"image/jpeg"
 						Path newFilePath=Paths.get(savePath+"/"+newFileName);
@@ -277,10 +308,8 @@ public class BoardController {
 			@PathVariable boolean prefer,
 			@SessionAttribute(required = false) UsersDto loginUsers,
 			HttpSession session) {
-		session.setAttribute("msg", null);
 		String msg=(prefer)?"좋아요":"싫어요";
 		Board board = boardMapper.selectOne(boardNo,loginUsers.getUserid());
-		System.out.println(board.getPrefer_active());
 		int modify=0;
 		try {
 			BoardPrefer boardPrefer=boardPreferMapper.selectFindUserIdAndBoardNo(loginUsers.getUserid(), boardNo);

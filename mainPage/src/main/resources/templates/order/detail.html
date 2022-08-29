@@ -103,9 +103,10 @@
 			    	 	
 			</div>
 			
-				
-		    <a href="/order/list" class="btn btn-outline-success">주문 목록</a>
-		    <a class="btn btn-outline-danger" th:href="@{/order/delete/{orderid}(orderid=${order.orderid})}">결체 취소</a>
+			<div class="mb-4">
+			    <a href="/order/list" class="btn btn-outline-success">주문 목록</a>
+			    <a class="btn btn-outline-danger" th:href="@{/order/delete/{orderid}(orderid=${order.orderid})}">결체 취소</a>
+			</div>
 	
 	</main>
 </body>

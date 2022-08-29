@@ -68,6 +68,9 @@ public class BoardService {
 		// useGeneratedKeys="true" keyProperty="board_no"  :  등록한 pk 를 board에 저장함
 		regist=boardMapper.insertOne(board);
 		int imgRegist=0;
+		for(BoardImg boardImg : board.getBoardImgs()) {
+			System.out.println(boardImg);
+		}
 		if(regist>0 && board.getBoardImgs()!=null) {
 			for(BoardImg boardImg : board.getBoardImgs()) {
 				boardImg.setBoard_no(board.getBoard_no()); //Auto Increment 로 저장된 대표키 값

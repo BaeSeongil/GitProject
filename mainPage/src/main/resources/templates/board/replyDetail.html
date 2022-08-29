@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:if="${session.loginUsers?.userid!=reply.users?.userid}">
+<!--///////////////////////////////////// 로그인 안된 유저의 리플 ///////////////////////////////////////////////////////////////// -->				
+	    <div class="ms-2 me-auto">
+	      <div>글쓴이 : <span th:text="${reply.users.userid}"></span>			      	</div>
+	      <div class="d-flex justify-content-between align-items-center">
+	      	<div>
+		      	등록일 : 
+		      	<span th:text="${#dates.format(reply.post_time,'yyyy-MM-dd HH:mm:ss')}"></span>
+	      	</div>
+      		<div>
+			    <a  
+			    	th:classappend="${
+			    		(reply.prefer_active!=null&&reply.prefer_active)
+		  						?'bi-hand-thumbs-up-fill' 
+		  						: 'bi-hand-thumbs-up'
+			    					}"
+			    	class="btn btn-sm btn-outline-primary rounded-pill bi " 
+			    	th:text="${reply.good}"
+			    	th:href="|javascript:replyPreferHandler(${reply.reply_no},${reply.prefer_active},'good')|">
+			    </a>
+			    <span>/</span> 
+		 		<a  
+			    	th:classappend="${
+			    		(reply.prefer_active!=null&&!reply.prefer_active)
+		  						?'bi-hand-thumbs-down-fill' 
+		  						: 'bi-hand-thumbs-down'
+			    					}"
+			    	class="btn btn-sm btn-outline-danger rounded-pill bi " 
+			    	th:text="${reply.bad}" 
+			    	th:href="|javascript:replyPreferHandler( ${reply.reply_no},${reply.prefer_active},'bad')|">
+			    </a>
+			</div> 
+	      </div>
+	      <div class="fw-bold">
+	      	<span th:text="${reply.reply_no}"></span>.
+	      	<span th:text="${reply.title}"></span>
+	      </div>
+	      <div th:if="${reply.img_path!=null}">
+	      	<img alt="댓글 이미지" class="img-thumbnail"  style="height:50px; width:100%; object-fit: cover;"
+	      	th:src="@{/public/img/{file}(file=${reply.img_path})}">
+	      </div>
+	      <div th:text="${reply.contents}"></div>	
+	    </div>
+		<!-- reply.prefer_active : 
+				(null-아무도 좋아요를 안누름/insert)  
+				(true-좋아요를 누름/좋아요:delete,싫어요:update)  
+				(false-싫어요를 누름/좋아요:update,싫어요:delete)
+				reply_prefer을 reply_no+user_id 로 수정 삭제
+		-->
+    </th:block>
+  	<th:block th:unless="${session.loginUsers?.userid!=reply.users?.userid}">
+<!--///////////////////////////////////// 로그인된 유저의 리플 ///////////////////////////////////////////////////////////////// -->				
+  		<form action="/reply/update.do" method="post" enctype="multipart/form-data" style="width: 100%">
+  			<p class="input-group input-group-sm mb-1">
+				<span class="input-group-text">no</span>
+				<input name="reply_no" th:value="${reply.reply_no}" 
+					type="text" class="form-control" readonly>
+  			
+				<span class="input-group-text">글쓴이</span>
+				<input name="users.userid" th:value="${reply.users?.userid}" 
+					type="text" class="form-control" readonly>
+			</p>
+			<div class="mb-1 d-flex justify-content-between align-items-center">
+				<span>등록일 : <th:block th:text="${#dates.format(reply.post_time,'yyyy-MM-dd HH:mm:ss')}"></th:block></span>
+				<div>
+				    <a  
+				    	th:classappend="${
+				    		(reply.prefer_active!=null&&reply.prefer_active)
+			  						?'bi-hand-thumbs-up-fill' 
+			  						: 'bi-hand-thumbs-up'
+				    					}"
+				    	class="btn btn-sm btn-outline-primary rounded-pill bi " 
+				    	th:text="${reply.good}"
+				    	th:href="|javascript:replyPreferHandler(${reply.reply_no},${reply.prefer_active},'good')|">
+				    </a>
+				    <span>/</span> 
+			 		<a  
+				    	th:classappend="${
+				    		(reply.prefer_active!=null&&!reply.prefer_active)
+			  						?'bi-hand-thumbs-down-fill' 
+			  						: 'bi-hand-thumbs-down'
+				    					}"
+				    	class="btn btn-sm btn-outline-danger rounded-pill bi " 
+				    	th:text="${reply.bad}" 
+				    	th:href="|javascript:replyPreferHandler( ${reply.reply_no},${reply.prefer_active},'bad')|">
+				    </a>
+				</div>						
+			</div>
+			<p class="input-group input-group-sm mb-1">
+				<span class="input-group-text">제목</span>
+				<input name="title"type="text" class="form-control" th:value="${reply.title}">
+			</p>
+			<div class="mb-1" th:if="${reply.img_path!=null}">
+				<!-- Button trigger modal -->
+				<button type="button" class="btn btn-light" data-bs-toggle="modal"
+					style="padding: 0" 
+					th:data-bs-target="'#replyImgModal'+${reply.reply_no}">
+					<img alt="댓글 이미지"  class="img-thumbnail" 
+					 style="height:112px; width:112px; object-fit: cover;"
+					th:src="@{/public/img/{file}(file=${reply.img_path})}">
+				</button>			
+				<!-- Modal -->
+				<div class="modal fade"
+					th:id="'replyImgModal'+${reply.reply_no}" >
+				  <div class="modal-dialog modal-fullscreen-sm-down">
+				    <div class="modal-content" 
+				    style="background-color: rgba(255,255,255,0)">
+				      <div class="modal-header" style="border: none">
+				        <button type="button" 
+				        class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				      </div>
+				      <div class="modal-body">
+   									<img alt="댓글 이미지"  class="img-thumbnail"  style="width:100%;"
+						th:src="@{/public/img/{file}(file=${reply.img_path})}">  
+				      </div>
+				    </div>
+				  </div>
+				</div>							
+			</div>
+			<p class="input-group input-group-sm mb-1">
+				<span class="input-group-text">사진</span>
+				<input name="imgFile"type="file" class="form-control">
+			</p>
+			
+			
+			<p class="input-group input-group-sm mb-1">
+				<span class="input-group-text">내용</span>
+				<textarea name="contents" class="form-control" th:text="${reply.contents}"></textarea>
+			</p>
+			<p class="mb-1">
+				<button type="reset" class="btn btn-sm btn-outline-warning">초기화</button>
+				<a th:href="@{/reply/delete/{no}(no=${reply.reply_no})}"
+					class="btn btn-sm btn-outline-danger"									
+				>삭제</a>
+				<button type="submit" class="btn btn-sm btn-outline-primary">제출</button>
+				<input type="hidden" name="board_no" th:value="${reply.board_no}">
+				<input type="hidden" name="img_path" th:value="${reply.img_path}">
+			</p>
+  		</form>
+  	</th:block>
+</html>

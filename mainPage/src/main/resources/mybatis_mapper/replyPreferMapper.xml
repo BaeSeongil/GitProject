@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.mainPage.mapper.ReplyPreferMapper">
+	<insert id="insertOne" parameterType="ReplyPrefer">
+		INSERT INTO REPLY_PREFER 
+			(reply_no,userid,prefer) VALUES 
+			(#{reply_no},#{userid},#{prefer})
+	</insert>
+	<update id="updateOne" parameterType="ReplyPrefer">
+		UPDATE REPLY_PREFER set prefer=#{prefer}
+			WHERE reply_no=#{reply_no} AND user_id=#{userid}
+	</update>
+	<delete id="deleteOne" parameterType="ReplyPrefer">
+		DELETE FROM REPLY_PREFER
+			WHERE reply_no=#{reply_no} AND user_id=#{userid}
+	</delete>
+</mapper>

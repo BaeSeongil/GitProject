@@ -27,6 +27,7 @@
 						<th>등록일</th>
 						<th>조회수</th>
 						<th>좋아요</th>
+						<th>싫어요</th>
 						<th>댓글수</th>
 					</tr>
 				</thead>
@@ -34,11 +35,14 @@
 					<th:block th:each="board : ${boardList}" >
 						<tr th:onclick="location.href='/board/detail/[[${board.board_no}]]'">
 							<td th:text="${board.board_no}"></td>
-							<td th:text="${board.title}"></td>
+							<td> 
+								<a th:text="${board.title}" ></a>
+							</td>
 							<td th:text="${board.users?.userid}"></td>
 							<td th:text="${#dates.format(board.post_time,'yyyy-MM-dd HH:mm:ss')}"></td>
 							<td th:text="${board.views}"></td>
 							<td th:text="${board.good}"></td>
+							<td th:text="${board.bad}"></td>
 							<td th:text="${board.replys_size}"></td>
 							<!-- <td>
 								<div  class="row g-3 align-items-center" 
