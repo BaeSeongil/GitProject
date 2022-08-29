@@ -11,7 +11,11 @@ import com.project.mainPage.dto.Product;
 public interface OrderMapper {
 	
 	Order selectProduct(int productid);
+	Order selectUsers(String userid);
+	Order selectOne(int orderid);
+	
 	int insertOne(Order order);
+	int deleteOne(int orderid);
 	
 	List<Order> selectAll();
 }

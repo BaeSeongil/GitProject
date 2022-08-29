@@ -37,4 +37,5 @@ public class Board {
 	private List<Reply> replys;  // 1:N Reply.board_no  : fk
 	private List<BoardImg> boardImgs; // 1:N  BOARD_IMG.board_no fk
 	private int replys_size;
+	private Boolean prefer_active; 
 }

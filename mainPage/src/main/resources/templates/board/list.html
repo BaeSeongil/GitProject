@@ -32,10 +32,10 @@
 				</thead>
 				<tbody>
 					<th:block th:each="board : ${boardList}" >
-						<tr>
+						<tr th:onclick="location.href='/board/detail/[[${board.board_no}]]'">
 							<td th:text="${board.board_no}"></td>
 							<td> 
-								<a th:text="${board.title}" th:href="@{/board/detail/{boardNo}(boardNo=${board.board_no})}" style="text-decoration: none; color: black;"></a>
+								<a th:text="${board.title}" ></a>
 							</td>
 							<td th:text="${board.users?.userid}"></td>
 							<td th:text="${#dates.format(board.post_time,'yyyy-MM-dd HH:mm:ss')}"></td>

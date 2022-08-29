@@ -13,7 +13,6 @@
 		<h1 class="m-2 d-flex justify-content-center">
 			결제
 		</h1>
-
 		<!-- FORM -->
 		
 		<form  method="post" action="/order/insert.do" class="col-15">
@@ -25,7 +24,6 @@
 		      <label for="inputName" class="mt-2 form-label">주문자</label>
 						<input style="max-width: 250px; text-align: center" name="users.username" class="form-control" id="inputName" required readonly
 						th:value="${session.loginUsers.username}">
-
 		    </div>
 		    <div class="col-6">
 		      <label for="inputEmail" class="mt-2 form-label">이메일</label>

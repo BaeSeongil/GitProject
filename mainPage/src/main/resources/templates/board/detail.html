@@ -35,57 +35,20 @@
 		</p>
 		<div class="mb-3 d-flex flex-row-reverse">
 			<div>
-				<th:block th:if="${boardPrefer == null}">
-					<a
-					data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="좋아요!" 
-					th:href="@{/board/prefer/insert/{no}/{prefer}(no=${board.board_no},prefer=${true})}"
-					class="btn btn-outline-primary">
-						<i class="bi bi-hand-thumbs-up"></i>	
-						Good : <span th:text="${board.good}"></span>
+					<a 
+				 	data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="좋아요!"
+					th:href="@{/board/prefer/{no}/{prefer}(no=${board.board_no},prefer=${true})}" 
+					class="btn btn-outline-primary rounded-pill">
+						<i th:classappend="${(board.prefer_active!=null&&board.prefer_active)?'bi-hand-thumbs-up-fill':'bi-hand-thumbs-up'}" class="bi "></i>				
+						<span th:text="${board.good}"></span>
+					</a> 
+					<a 
+				 	data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="싫어요!"
+					th:href="@{/board/prefer/{no}/{prefer}(no=${board.board_no},prefer=${false})}"  
+					class="btn btn-outline-danger rounded-pill">
+						<i th:classappend="${(board.prefer_active!=null&&!board.prefer_active)?'bi-hand-thumbs-down-fill':'bi-hand-thumbs-down'}" class="bi "></i>				
+						 <span th:text="${board.bad}"></span>
 					</a> /
-					<a
-					data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="싫어요!"
-					 th:href="@{/board/prefer/insert/{no}/{prefer}(no=${board.board_no},prefer=${false})}" 
-					 class="btn btn-outline-danger">
-						<i class="bi bi-hand-thumbs-down"></i>	
-						bad : <span th:text="${board.bad}"></span>
-					</a> /
-				</th:block>
-				<!--boardPrefer != null 로그인 한 사람이 좋아요 싫어요를 한번이라도 한 글  -->
-				<!--  boardPrefer?.prefer==true : 좋아요를 누른 사람 (좋아요: 삭제, 싫어요 : 수정)-->
-				<th:block th:if="${boardPrefer?.prefer == true}">
-					<a
-					data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="좋아요!" 
-					th:href="@{/board/prefer/delete/{no}/{preferNo}(no=${board.board_no},preferNo=${boardPrefer.board_prefer_no})}"
-					class="btn btn-outline-primary">
-						<i class="bi bi-hand-thumbs-up-fill"></i>	
-						Good : <span th:text="${board.good}"></span>
-					</a> /
-					<a
-					data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="싫어요!"
-					 th:href="@{/board/prefer/update/{no}/{preferNo}/{prefer}(no=${board.board_no},preferNo=${boardPrefer.board_prefer_no},prefer=${false})}" 
-					 class="btn btn-outline-danger">
-						<i class="bi bi-hand-thumbs-down"></i>	
-						bad : <span th:text="${board.bad}"></span>
-					</a> /
-				</th:block>
-				<!--  boardPrefer?.prefer==true : 싫어요를 누른 사람 (좋아요: 삭제, 싫어요 : 수정)-->
-				<th:block th:if="${boardPrefer?.prefer == false}">
-					<a
-					data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="좋아요!" 
-					 th:href="@{/board/prefer/update/{no}/{preferNo}/{prefer}(no=${board.board_no},preferNo=${boardPrefer.board_prefer_no},prefer=${true})}"
-					 class="btn btn-outline-primary" >
-						<i class="bi bi-hand-thumbs-up"></i>	
-						Good : <span th:text="${board.good}"></span>
-					</a> /
-					<a
-					data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="싫어요!"
-					th:href="@{/board/prefer/delete/{no}/{preferNo}(no=${board.board_no},preferNo=${boardPrefer.board_prefer_no})}" 
-					class="btn btn-outline-danger">
-						<i class="bi bi-hand-thumbs-down-fill"></i>	
-						bad : <span th:text="${board.bad}"></span>
-					</a> /
-				</th:block>
 				<i class="bi bi-eye"
 				data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="조회수">
 				views : <span th:text="${board.views}"></span>
@@ -106,6 +69,7 @@
 				<img th:src="@{/public/img/{fileName}(fileName=${boardImg.img_path})}" style="height:150px; width:150px; object-fit:cover;"
 				 class="img-thumbnail" alt="게시글 이미지">
 			</th:block>
+			
 		</div>
 		
 		<div class="form-floating">
@@ -113,6 +77,16 @@
 			style="height: 150px; resize: none;" th:text="${board.contents}" readonly="readonly" ></textarea>
 		</div>
 		<hr>
+		<th:block th:if="${session.loginUsers?.userid==board.users.userid}">
+			<div th:if="${session.loginUsers?.userid==board.users.userid}">
+				<a th:href="@{/board/update/{no}(no=${board.board_no})}" class="btn btn-success">
+					수정
+				</a>
+				<a th:href="@{/board/delete/{boardNo}/{userId}(boardNo=${board.board_no},userId=${board.users.userid})}" class="btn btn-danger">
+					삭제
+				</a>
+			</div>
+		</th:block>
 		<h3 class="mt-3 d-flex justify-content-between">
 		<span>댓글 리스트 : <small th:text="${board.replys?.size}"></small></span>
 		<button class="btn btn-sm btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#replyCollapse">

@@ -30,9 +30,9 @@ public class BoardService {
 	String savePath;
 	
 	
-	public Board boardUpdateView(int boardNo) throws Exception{
+	public Board boardUpdateView(int boardNo, String userId) throws Exception{
 		boardMapper.detailUpdateViews(boardNo);
-		return boardMapper.selectDetailOneAll(boardNo);
+		return boardMapper.selectOne(boardNo, userId);
 	}
 		
 	public int removeBorad(int boardNo) throws Exception{
@@ -100,6 +100,7 @@ public class BoardService {
 			}
 		}
 		modify=boardMapper.updateOne(board);
+		System.out.println(modify);
 		return modify;
 	}
 	

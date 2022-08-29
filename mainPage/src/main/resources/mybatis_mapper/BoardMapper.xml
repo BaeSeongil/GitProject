@@ -9,6 +9,7 @@
 		<result column="post_time" property="post_time"/>
 		<result column="prefer_good" property="good"/>
 		<result column="prefer_bad" property="bad"/>
+		<result column="prefer_active" property="prefer_active"/>
 		<result column="views" property="views"/>
 		<result column="replys_size" property="replys_size"/>
 		<!-- Board : UsersDto = N : 1   -->	
@@ -112,13 +113,40 @@
 			WHERE b.board_no = #{boardNo}
 			ORDER BY reply_no DESC
 	</select>
-
+	<select id="selectOne" resultMap="BoardMap" parameterType="int">
+		SELECT 
+			b.*,
+			(SELECT COUNT(*) FROM BOARD_PREFER WHERE board_no=b.board_no AND prefer=true) prefer_good,
+			(SELECT COUNT(*) FROM BOARD_PREFER WHERE board_no=b.board_no AND prefer=false) prefer_bad,
+			<if test="loginUsersId!=null">
+				(SELECT prefer FROM BOARD_PREFER WHERE board_no=b.board_no AND userid=#{loginUsersId}) 	as prefer_active,
+			</if>
+						
+			u.userid,
+			u.username,
+			u.email,
+			
+			i.board_img_no 	as iboard_img_no,
+			i.img_path 		as iimg_path			
+			
+			FROM BOARD b INNER JOIN USERS u
+			USING (userid)		
+						
+			LEFT JOIN BOARD_IMG i
+			USING (board_no)
+			
+			LEFT JOIN REPLY r
+			USING (board_no)
+			
+			WHERE b.board_no=#{boardNo}
+			ORDER BY reply_no DESC
+	</select>
 	<update id="detailUpdateViews" parameterType="int">
 		UPDATE BOARD SET 
 			views = views+1
 			WHERE board_no=#{boardNo}
 	</update>
-
+	
 	<insert id="insertOne" parameterType="Board"
 	 useGeneratedKeys="true" keyProperty="board_no">
 		INSERT INTO BOARD (title,contents,userid)
