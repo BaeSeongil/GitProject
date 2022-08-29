@@ -13,7 +13,7 @@
 	<select id="selectUserId" resultType="BoardImg" parameterType="String">
 		SELECT * FROM BOARD_IMG
 			WHERE board_no
-			IN (SELECT board_no FROM BOARD WHERE user_id=#{userId})
+			IN (SELECT board_no FROM BOARD WHERE userid=#{userId})
 	</select> 
 	
 	<!-- update  -->
