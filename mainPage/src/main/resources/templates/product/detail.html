@@ -86,8 +86,8 @@ footer {
 			            </div>
 				  		<section class="justify-content-around">
 							<div class="col-auto mt-3">
-								<button type="button" class="btn btn-outline-success" onclick="submit2(this.form)">구매 하기</button>
 								<th:block th:if="${session.loginUsers?.userid != null}">
+									<button type="button" class="btn btn-outline-success" onclick="submit2(this.form)">구매 하기</button>
 									<button class="btn btn-outline-dark flex-shrink-0" type="submit">
 					  				<i class="bi-cart-fill me-1"></i>
 					          	  	 장바구니 
@@ -95,6 +95,7 @@ footer {
 				       				<input type="hidden" name="productid" th:value="${productid}"> 
 								</th:block>
 								<th:block th:unless="${session.loginUsers?.userid != null}">
+									<a href="/users/login.do" class="btn btn-outline-success">구매 하기</a>
 									<a class="btn btn-outline-dark flex-shrink-0" href="/users/login.do">
 								    <i class="bi-cart-fill me-1"></i>
 								             장바구니
