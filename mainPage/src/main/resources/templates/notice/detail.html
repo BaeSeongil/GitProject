@@ -38,7 +38,7 @@
 		
 		<div>
 			<th:block th:each="noticeImg : ${notice.noticeImgs}">
-				<img th:src="@{/public/img/{fileName}(fileName=${noticeImg.img_path})}" width="100%" class="img-thumbnail" alt="게시글 이미지">
+				<img th:src="@{/public/img/{fileName}(fileName=${noticeImg.img_path})}" width="50%" class="img-thumbnail" alt="게시글 이미지">
 			</th:block>
 		</div>
 		<div class="form-floating">
