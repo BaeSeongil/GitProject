@@ -1,0 +1,10 @@
+@charset "UTF-8";
+#nav{
+	 background-color:rgba(255, 166, 0, 0.55);
+}
+#nav a{
+	text-decoration: none;
+	font-size: 18px;
+	color: white;
+	margin-right: 20px;
+}

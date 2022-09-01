@@ -309,6 +309,8 @@ VALUES ( 1, 'user7',false),
  
 INSERT INTO CATEGORY VALUES (1,'상의'),(2,'하의'),(3,'아우터'),(4,'신발'),(5,'모자');
 
+
+
 INSERT INTO PRODUCT (productid, productName, productSize, productColor, productStock, productDate, price, categoryid) 
 VALUES (1, 'Shirt', 'S', 'White',5,'2022-08-02', 25000, 1),
 (2, 'Shirt', 'M', 'White',10,'2022-08-02', 25000, 1),
@@ -340,7 +342,7 @@ VALUES (1, 'Shirt', 'S', 'White',5,'2022-08-02', 25000, 1),
 (28, 'Long Skirt', 'M', 'Black',8,'2022-07-31', 36000, 2),
 (29, 'Long Skirt', 'L', 'White',10,'2022-07-31', 36000, 2),
 (30, 'Long Skirt', 'XL', 'Black',2,'2022-07-30', 36000, 2),
-(31, 'Coat', 'S', 'Black',3,'2022-07-30', 80000, 3),
+(31, 'Coat', 'S', 'Black',3,'2022-07-30', 80000, 3) , 
 (32, 'Coat', 'M', 'Black',2,'2022-07-30', 80000, 3),
 (33, 'Coat', 'L', 'Black',3,'2022-07-27', 80000, 3),
 (34, 'Coat', 'XL', 'Black',1,'2022-07-20', 80000, 3),

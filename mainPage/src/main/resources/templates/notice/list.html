@@ -27,6 +27,11 @@
 .table-hover{
 	cursor: pointer;
 }
+.footer{
+position : fixed;
+bottom : 0;
+width: 100%;
+}
 </style>
 </head>
 <body>
@@ -79,7 +84,7 @@
 		</div>
 	</div>
 </body>
-<footer th:insert="/footer"></footer>
+<footer class = "footer" th:insert="/footer"></footer>
 <script>
 function noSpaceForm(obj) { // 공백사용못하게
     var str_space = /\s/;  // 공백체크

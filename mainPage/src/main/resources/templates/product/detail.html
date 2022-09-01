@@ -12,6 +12,9 @@ html, body {
 footer {
 	flex: 1;
 	height: auto;
+	width : 100%;
+	position : fixed;
+	bottom : 0;
 } 
 #wrapper {	
 	height: auto;
@@ -35,73 +38,73 @@ footer {
 
 	<div id="wrapper">
 		<main class="mt-5 container d-flex justify-content-between">
-			
 			<section  style="display: table-cell; vertical-align: top;" class="justify-content-center">
 				<figure class="d-flex figure justify-content-between">
 					<th:block th:each="productImg : ${product.productImgs}">
 						<img th:src="@{/public/img/{fileName}(fileName=${productImg.img_path})}"
-						style="height:500px; width:500px; object-fit:cover; float:left;"
+						style="height:600px; width:800px; object-fit:cover; float:left;"
 						class="figure-img img-fluid rounded" alt="상품 이미지">
 					</th:block>
 				</figure>
 				<div>
 					<div class="mb-3">
-						<div>
+						<div style="height:300px; width:1000px; font-size: 20px;">
 							<th:block th:value="${product.productInfo}"
-								th:text="${product.productInfo}">
+								th:text="${product.productInfo}" >
 							</th:block>
 						</div> 
 					</div>
 				</div>
+				
 			</section>
 			<section style="display: table-cell; vertical-align: top; flex-grow: 1;">
 				<div class="d-flex align-items-center flex-column mb-3" style="height: 200px;">
 					<div class="col-auto mb-3">
 						<h4 th:text="${product.productid}" style="text-align: center;"></h4>
 					</div>
-					<form class="row g-3 d-flex" method="post" action="/basket/insert.do">
+					<form class="row g-5 d-flex" method="post" action="/basket/insert.do">
 						<div>
-						<div class="col-auto mb-3">
-							<label for="pName" class="form-label mt-3">상품명</label>
-							<input th:value="${product.productName}" class="form-control form-control-sm"
-								   	id="pName" disabled>
-						</div>
-						<div class="col-auto mb-3">
-							<label for="pSize" class="form-label mt-3">사이즈</label>
-							<select name="product.productid" class="form-select form-select-sm " aria-label=".form-select-sm example">
-								<th:block th:each="p : ${products}">
-									<option  th:value="${p.productid}" th:text="${p.productSize+' '+p.productColor}"></option>
-								</th:block>
-							</select> 
-						</div>  
-						<div class="col-auto mb-3">
-							<label for="price" class="form-label mt-3">price</label>
-							<input th:value="${product.price}" class="form-control form-control-sm" id="price" disabled>
-				  		</div>
-				  		<div class="col-auto mb-3">
-					  		<label for="count" class="form-label mt-3">개수</label>
-				            <input class="form-control text-center me-3" id="count" name="count" type="number" value="1"
-				                  onkeyup="noSpace(this);" onchange="noSpace(this);" 
-				                  style="max-width: 20rem"/>
-			            </div>
-				  		<section class="justify-content-around">
-							<div class="col-auto mt-3">
-								<button type="button" class="btn btn-outline-success" onclick="submit2(this.form)">구매 하기</button>
-								<th:block th:if="${session.loginUsers?.userid != null}">
-									<button class="btn btn-outline-dark flex-shrink-0" type="submit">
-					  				<i class="bi-cart-fill me-1"></i>
-					          	  	 장바구니 
-				        			</button>
-				       				<input type="hidden" name="productid" th:value="${productid}"> 
-								</th:block>
-								<th:block th:unless="${session.loginUsers?.userid != null}">
-									<a class="btn btn-outline-dark flex-shrink-0" href="/users/login.do">
-								    <i class="bi-cart-fill me-1"></i>
-								             장바구니
-							        </a> 
-								</th:block>
+							<div class="col-auto mb-3">
+								<label for="pName" class="form-label mt-3">상품명</label>
+								<input th:value="${product.productName}" class="form-control form-control-sm"
+									   	id="pName" disabled>
 							</div>
-						</section>
+							<div class="col-auto mb-3">
+								<label for="pSize" class="form-label mt-3">사이즈</label>
+								<select name="product.productid" class="form-select form-select-sm " aria-label=".form-select-sm example">
+									<th:block th:each="p : ${products}">
+										<option  th:value="${p.productid}" th:text="${p.productSize+' '+p.productColor}"></option>
+									</th:block>
+								</select> 
+							</div>  
+							<div class="col-auto mb-3">
+								<label for="price" class="form-label mt-3">price</label>
+								<input th:value="${product.price}" class="form-control form-control-sm" id="price" disabled>
+					  		</div>
+					  		<div class="col-auto mb-3">
+						  		<label for="count" class="form-label mt-3">개수</label>
+					            <input class="form-control text-center me-3" id="count" name="count" type="number" value="1"
+					                  onkeyup="noSpace(this);" onchange="noSpace(this);" 
+					                  style="max-width: 20rem"/>
+				            </div>
+					  		<section class="justify-content-around">
+								<div class="col-auto mt-3">
+									<button type="button" class="btn btn-outline-success" onclick="submit2(this.form)">구매 하기</button>
+									<th:block th:if="${session.loginUsers?.userid != null}">
+										<button class="btn btn-outline-dark flex-shrink-0" type="submit">
+						  				<i class="bi-cart-fill me-1"></i>
+						          	  	 장바구니 
+					        			</button>
+					       				<input type="hidden" name="productid" th:value="${productid}"> 
+									</th:block>
+									<th:block th:unless="${session.loginUsers?.userid != null}">
+										<a class="btn btn-outline-dark flex-shrink-0" href="/users/login.do">
+									    <i class="bi-cart-fill me-1"></i>
+									             장바구니
+								        </a> 
+									</th:block>
+								</div>
+							</section>
 						</div>
 					</form>
 				</div>

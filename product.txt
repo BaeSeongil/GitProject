@@ -1,0 +1,12 @@
+
+INSERT INTO PRODUCT (productid, productName, productSize, productColor,productInfo, productStock, productDate, price, categoryid ) 
+VALUES (68, 'Baseball Padded Jumper', 'S', 'Black',
+'은은한 광택이 매력적인 카라 바시티 점퍼입니다. 배색처리된 레자 소매와 스트라이프 커프스, 라펠카라가 포인트 됩니다.
+내부 포켓으로 수납이 가능하고 안감에 3온스(소매2온스) 얇은 패딩처리 되어
+초겨울까지 입히실 수 있습니다.
+전면 가슴과 등판에 로고 자수 패치 디테일로 퀄리티를 높혔습니다.
+그레이/블루 두가지 컬러로 구성되어
+다양한 스타일링에 데일리 아우터로 활용하기 좋습니다.
+유행을 타지 않는 야구점퍼 스타일로 매년 꺼내입기 좋은 제품입니다.',
+7,'2022-08-31', 120600, 3
+);

@@ -1,46 +1,47 @@
 <html xmlns:th="http://www.thymeleaf.org">
-<nav class="navbar navbar-expand-lg bg-light">
-	<div class="container-fluid">	
+<link rel="stylesheet" href="/public/css/gAndB.css">
+<nav class="navbar navbar-expand-lg"  id="nav">
+	<div class="container-fluid" >	
 		<div class="d-flex justify-content-start">
 			<a href="/"><img src="/img/logo.webp" style= "width:75px; height:50px;"></a>
 		</div>
 		<div class="d-flex justify-content-end">
 			<!-- 비로그인시 -->
 			<th:block th:if="${session.loginUsers == null}">
-				<a class="btn btn-sm btn-outline-secondary" href="/users/login.do">
+				<a href="/users/login.do">
 					<i class="bi bi-door-open"></i>
 					회원 로그인
 				</a>
-				<a href="/users/signup.do" class="btn btn-sm btn-outline-primary">회원가입</a> 
+				<a href="/users/signup.do" >회원가입</a> 
 			</th:block>
 			<!-- 로그인시 -->
 			<th:block th:unless="${session.loginUsers == null}">
 				<th:block th:if="${session.loginUsers.adminCk == 1}"><!-- 관리자용 -->
-					<a href="/admin/main" class="btn btn-sm btn-outline-warning">관리자페이지</a>
+					<a href="/admin/main">관리자페이지</a>
 				</th:block>
-				<a th:href="@{/users/detail/{userid}(userid=${session.loginUsers.userid})}" 
-				class="btn btn-sm btn-outline-info">
+				<a th:href="@{/users/detail/{userid}(userid=${session.loginUsers.userid})}" >
 					<span th:text="${session.loginUsers.username}"></span>
 					(<span th:text="${session.loginUsers.userid}"></span>)					
 				</a>
 				
-				<a href="/order/list" class="btn btn-sm btn-outline-dark">
+				<a href="/order/list" >
 					주문내역
 				</a>
-				<a href="/basket/list/1" class="btn btn-sm btn-outline-primary">
-					<i class="bi bi-cart-fill"></i>
+				<a href="/basket/list/1" >
+					<i class="bi bi-basket"></i>
 					장바구니
 				</a>
-				<a href="/users/logout.do" class="btn btn-sm btn-outline-danger">
+				<a href="/users/logout.do" >
 					<i class="bi bi-door-open-fill"></i>
 					로그아웃
 				</a>
 			</th:block>
 			<div>
-				<a href="/qaboard/list/1" class="btn btn-sm btn-outline-success">고객센터</a>
+				<a href="/qaboard/list/1" >고객센터</a>
 			</div>
 		</div>
 	</div>
 </nav>
+
 
 </html>

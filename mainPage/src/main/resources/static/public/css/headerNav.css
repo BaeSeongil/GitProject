@@ -1,0 +1,8 @@
+@charset "UTF-8";
+#headerNavDiv{
+	 background-color:rgba(255, 166, 0, 0.55);
+}
+.nav-item{
+	font-size: 22px;
+	margin-right: 20px;
+}
