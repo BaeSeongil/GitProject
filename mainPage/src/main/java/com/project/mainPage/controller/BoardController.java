@@ -99,11 +99,11 @@ public class BoardController {
 		Board board = null;		
 		BoardPrefer boardPrefer = null;  // 로그인이 안되면 null
 		int row=5;
-		System.out.println(replyPage);
 		int startRow=(replyPage-1)*row;
 		String pagingUrl="/reply/list/"+boardNo;
 		Pagination pagination = null;
 		String loginUsersId=null;
+		int replySize = replyMapper.selectBoardNoCount(boardNo);
 		try {
 			if(loginUsers != null) {
 				loginUsersId=loginUsers.getUserid();
@@ -121,22 +121,24 @@ public class BoardController {
 //						}
 //					}
 //				}
-				int replySize = replyMapper.selectBoardNoCount(boardNo);
+				
 				if(replySize>0) {
 					pagination = new Pagination(replyPage, replySize, pagingUrl, row);
 					List<Reply> replies=replyMapper.selectBoardNoPage(boardNo, startRow, row, loginUsersId);
 					board.setReplys(replies);
-					
+					board.setReplys_size(replySize);
 					model.addAttribute("pagination",pagination);
 				}
 			}else {
 				board = boardMapper.selectOne(boardNo);
-				int replySize = replyMapper.selectBoardNoCount(boardNo);
+
+				System.out.println(replySize);
+				
 				if(replySize>0) {
 					pagination = new Pagination(replyPage, replySize, pagingUrl, row);
 					List<Reply> replies=replyMapper.selectBoardNoPage(boardNo, startRow, row, loginUsersId);
 					board.setReplys(replies);
-					
+					board.setReplys_size(replySize);
 					model.addAttribute("pagination",pagination);
 				}
 			}
@@ -146,7 +148,7 @@ public class BoardController {
 		if(board != null) {
 			model.addAttribute("boardPrefer",boardPrefer);
 			model.addAttribute("board",board);
-			System.out.println(board);
+//			System.out.println(board);
 			return "/board/detail";			
 		}else {
 			return "redirect:/board/list/1";

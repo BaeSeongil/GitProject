@@ -23,4 +23,9 @@
 		SELECT *,userid 'users.userid' FROM REPLY 
 		WHERE board_no=#{boardNo}
 	</select>
+	<insert id="insertOne" parameterType="Reply" 
+	useGeneratedKeys="true" keyProperty="reply_no">
+		insert into reply (title,contents,userid,board_no,img_path)
+		values (#{title},#{contents},#{users.userid},#{board_no},#{img_path})
+	</insert>
 </mapper>

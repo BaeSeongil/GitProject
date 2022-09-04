@@ -34,17 +34,37 @@
 			이메일 : <strong th:text="${board.users.email}"></strong>
 		</p>
 		<div class="mb-3 d-flex flex-row-reverse">
-			<div>
+			<div th:if="${session.loginUsers!=null}">
 					<a 
 				 	data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="좋아요!"
 					th:href="@{/board/prefer/{no}/{prefer}(no=${board.board_no},prefer=${true})}" 
 					class="btn btn-outline-primary rounded-pill">
 						<i th:classappend="${(board.prefer_active!=null&&board.prefer_active)?'bi-hand-thumbs-up-fill':'bi-hand-thumbs-up'}" class="bi "></i>				
 						<span th:text="${board.good}"></span>
-					</a> 
+					</a>
 					<a 
 				 	data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="싫어요!"
 					th:href="@{/board/prefer/{no}/{prefer}(no=${board.board_no},prefer=${false})}"  
+					class="btn btn-outline-danger rounded-pill">
+						<i th:classappend="${(board.prefer_active!=null&&!board.prefer_active)?'bi-hand-thumbs-down-fill':'bi-hand-thumbs-down'}" class="bi "></i>				
+						 <span th:text="${board.bad}"></span>
+					</a> /
+				<i class="bi bi-eye"
+				data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="조회수">
+				views : <span th:text="${board.views}"></span>
+				</i>
+			</div>
+			<div th:unless="${session.loginUsers!=null}">
+					<a 
+				 	data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="좋아요!"
+					th:href="@{/users/login.do}" 
+					class="btn btn-outline-primary rounded-pill">
+						<i th:classappend="${(board.prefer_active!=null&&board.prefer_active)?'bi-hand-thumbs-up-fill':'bi-hand-thumbs-up'}" class="bi "></i>				
+						<span th:text="${board.good}"></span>
+					</a>
+					<a 
+				 	data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="싫어요!"
+					th:href="@{/users/login.do}"  
 					class="btn btn-outline-danger rounded-pill">
 						<i th:classappend="${(board.prefer_active!=null&&!board.prefer_active)?'bi-hand-thumbs-down-fill':'bi-hand-thumbs-down'}" class="bi "></i>				
 						 <span th:text="${board.bad}"></span>
@@ -87,18 +107,18 @@
 				</a>
 			</div>
 		</th:block>
-		<h3 class="mt-3 d-flex justify-content-between">
-		<span>댓글 리스트 : <small th:text="${board.replys?.size}"></small></span>
-		<button class="btn btn-sm btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#replyCollapse">
-    		상세
-  		</button>
-  		</h3>	
-		<div>
+		
+		<div class="container">
+			
 			<ul class="list-group collapse show" id="replyCollapse">
 				<li class="list-group-item text-bg-light border-success" 
 				th:if="${session.loginUsers!=null}">
+				
 <!--///////////////////////////////////// 리플 등록 폼 ///////////////////////////////////////////////////////////////// -->				
 					<form action="/reply/insert.do" method="post" enctype="multipart/form-data">
+					<h3 class="mt-3 d-flex justify-content-between">
+						<span>댓글 작성</span>
+  					</h3>	
 						<p class="input-group input-group-sm mb-1">
 							<span class="input-group-text">글쓴이</span>
 							<input name="users.userid" th:value="${session.loginUsers?.userid}" 
@@ -126,7 +146,19 @@
 						
 					</form>
 				</li>
-				<div th:insert="/board/replyList" th:with="replys=${board.replys}" id="replyList">
+				<hr>
+				<div>
+					<h3>
+						<span>댓글 리스트 : <small th:text="${board.replys_size}"></small></span>
+						<button class="btn btn-sm btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#replyList">
+    						상세
+  						</button>
+  					</h3>
+  					<ul class="list-group collapse show" id="replyCollapse">
+  						<div th:insert="/board/replyList" th:with="replys=${board.replys}" id="replyList">
+						</div>
+					</ul>
+				
 				</div>
 				
 			</ul>

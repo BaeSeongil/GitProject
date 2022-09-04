@@ -38,33 +38,46 @@ public class Pagination {
 	}
 
 	public void setAll() {
-		this.lastPage = count/row + ((count%row>0)? 1 : 0);
-		this.previousPage = page - 1;
-		this.nextPage = page + 1;
-		
-		this.yourFirst = (page > firstPage)? true : false;
-		this.yourPreviousPage = (page > firstPage)? true : false; 
-		
-		this.yourLast = (page < lastPage)? true : false;
-		this.yourNext = (page < lastPage)? true : false;
-		
-		this.start = this.page - 2;
-		this.end = this.page + 2;
-		
-		if(this.start < firstPage) {
-			end = end - start + 1;
-			if(end < lastPage) {
-				start = lastPage;
-			}
-			start = firstPage;
-		}
-		
-		if(end > lastPage) {
-			start = start - end + lastPage;
-			if(start < firstPage) {
+		if(count>0) {
+			this.lastPage = count/row + ((count%row>0)? 1 : 0);
+			this.previousPage = page - 1;
+			this.nextPage = page + 1;
+			
+			this.yourFirst = (page > firstPage)? true : false;
+			this.yourPreviousPage = (page > firstPage)? true : false; 
+			
+			this.yourLast = (page < lastPage)? true : false;
+			this.yourNext = (page < lastPage)? true : false;
+			
+			this.start = this.page - 2;
+			this.end = this.page + 2;
+			
+			if(this.start < firstPage) {
+				end = end - start + 1;
+				if(end < lastPage) {
+					start = lastPage;
+				}
 				start = firstPage;
 			}
-			end = lastPage;
+			
+			if(end > lastPage) {
+				start = start - end + lastPage;
+				if(start < firstPage) {
+					start = firstPage;
+				}
+				end = lastPage;
+			}
+		}else {
+			this.end=1;
+			this.start=1;
+			this.firstPage=1;
+			this.lastPage=1;
+			this.nextPage=1;
+			this.previousPage=1;
+			this.yourFirst=false;
+			this.yourLast=false;
+			this.yourNext=false;
+			this.yourPreviousPage=false;
 		}
 	}
 }

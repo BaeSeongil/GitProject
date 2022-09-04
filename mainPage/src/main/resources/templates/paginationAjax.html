@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<nav aria-label="Page navigation example">
+  <ul class="pagination" id="pageAjax">
+    <li class="page-item" th:classappend="${(pagination.yourFirst)?'':'disabled'}">
+      <a class="page-link" 
+      	href="javascript:void(0)" 
+      	th:data-url="${pagination.url}"
+      	th:data-page="${pagination.firstPage}"
+      	aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li class="page-item" th:classappend="${(pagination.yourPreviousPage)?'':'disabled'}">
+      <a class="page-link" 
+       	href="javascript:void(0)" 
+      	th:data-url="${pagination.url}"
+      	th:data-page="${pagination.previousPage}"
+      >
+      	Prev
+      </a>
+    </li>
+    
+    <th:block th:each="n:${#numbers.sequence(pagination.start,pagination.end)}">
+	    <li class="page-item" th:classappend="${(pagination.page==n)?'active':''}">
+	    	<a class="page-link"
+	    	href="javascript:void(0)" 
+	      	th:data-url="${pagination.url}"
+	      	th:data-page="${n}"	
+	    	th:text="${n}"></a>
+	    </li>
+    </th:block>
+    
+    <li class="page-item" th:classappend="${(pagination.yourNext)?'':'disabled'}">
+      <a class="page-link" 
+      	href="javascript:void(0)" 
+      	th:data-url="${pagination.url}"
+      	th:data-page="${pagination.nextPage}"	
+     
+      >
+      	Next
+      </a>
+    </li>
+
+    <li class="page-item" th:classappend="${(pagination.yourLast)?'':'disabled'}">
+      <a class="page-link" 
+      	href="javascript:void(0)" 
+	   	th:data-url="${pagination.url}"
+      	th:data-page="${pagination.lastPage}"	
+      
+      
+      	 aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+</html>

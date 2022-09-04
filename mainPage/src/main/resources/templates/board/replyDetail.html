@@ -62,8 +62,10 @@
 				<input name="users.userid" th:value="${reply.users?.userid}" 
 					type="text" class="form-control" readonly>
 			</p>
-			<div class="mb-1 d-flex justify-content-between align-items-center">
-				<span>등록일 : <th:block th:text="${#dates.format(reply.post_time,'yyyy-MM-dd HH:mm:ss')}"></th:block></span>
+			<div class="input-group input-group-sm mb-1">
+				<span class="input-group-text">등록일 : </span>
+				<input name="reply_no" th:value="${#dates.format(reply.post_time,'yyyy-MM-dd HH:mm:ss')}" 
+					type="text" class="form-control" readonly>
 				<div>
 				    <a  
 				    	th:classappend="${
@@ -92,7 +94,7 @@
 				<span class="input-group-text">제목</span>
 				<input name="title"type="text" class="form-control" th:value="${reply.title}">
 			</p>
-			<div class="mb-1" th:if="${reply.img_path!=null}">
+			<div class="input-group mb-1" th:if="${reply.img_path!=null}">
 				<!-- Button trigger modal -->
 				<button type="button" class="btn btn-light" data-bs-toggle="modal"
 					style="padding: 0" 
@@ -119,9 +121,8 @@
 				  </div>
 				</div>							
 			</div>
-			<p class="input-group input-group-sm mb-1">
-				<span class="input-group-text">사진</span>
-				<input name="imgFile"type="file" class="form-control">
+			<p class="input-group input-group-sm mb-1" hidden>
+				<input name="imgFile" type="file" class="form-control">
 			</p>
 			
 			

@@ -76,7 +76,6 @@ public class BoardService {
 				boardImg.setBoard_no(board.getBoard_no()); //Auto Increment 로 저장된 대표키 값
 				imgRegist+=boardImgMapper.insertOne(boardImg);
 			}
-			
 		}
 		System.out.println("보드 등록 :"+regist);
 		System.out.println("보드 이미지 등록 :"+imgRegist);

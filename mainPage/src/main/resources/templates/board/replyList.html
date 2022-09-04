@@ -12,7 +12,7 @@
 		</th:block>
 	</ul>
 	
-<!-- 	<div class="m-2 d-flex justify-content-center" 
-		 th:insert="/pagination.html">
-	</div>	 -->
+		<div class="m-2 d-flex justify-content-center" 
+		th:if="${(pagination!=null)}" th:insert="/paginationAjax" >
+		</div>	
 </html>
