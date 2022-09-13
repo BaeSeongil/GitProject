@@ -1,0 +1,32 @@
+@charset "UTF-8";
+html, body {
+    height: 100%
+}
+
+#wrapper {
+    min-height: 100%;
+    position: relative;
+    padding-bottom: 450px;
+}
+
+.footer {
+    bottom: 0;
+}
+
+#sectionTop{
+	display: table-cell; 
+	vertical-align: top;
+	justify-content: center;
+} 
+#imgId{
+	height:600px; 
+	width:800px; 
+	object-fit:cover; 
+	float:left;
+}
+
+#productInfoId{
+	height:300px; 
+	width:1000px; 
+	font-size: 20px;
+}

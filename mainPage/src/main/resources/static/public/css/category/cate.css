@@ -1,10 +1,4 @@
-
-
-.container{
-	margin: 30px;
-	padding: 50px;
-}
-
+@charset "UTF-8";
 html, body {
     height: 100%
 }
@@ -17,4 +11,17 @@ html, body {
 
 .footer {
     bottom: 0;
+}
+
+#lefe {
+	float: left;
+}
+.card{
+	cursor: pointer;
+}
+
+#pagination{
+	display: flex;
+	justify-content: center;
+	clear: both;
 }

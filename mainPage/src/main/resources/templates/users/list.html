@@ -3,59 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <title>회원 리스트</title>
-<style>
-	html, body {
-		height: 100%;
-		display: flex;
-		flex-flow: column;
-	}
-	footer {
-		flex: 1;
-		height: auto;
-	}
-</style>
+<link rel="stylesheet" href="/public/css/user/list.css">
 </head>
 <body>
 	<header th:insert="/gAndB"></header>
 	<header th:insert="/headerNav"></header>
-	<main class="container" >
-		<h1 class="m-3 d-flex justify-content-between align-items-center" >
-			<span>회원리스트</span>
-		</h1>
-		<p>
-			페이지 / 총 회원 수 : 
-			<span class="badge text-bg-success" th:text="${page}"></span> / 
-			<span class="badge text-bg-primary" th:text="${count}"></span>
-		</p>
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th>아이디</th>
-					<th>이름</th>
-					<th>전화번호</th>
-					<th>이메일</th>
-					<th>나이</th>
-					<th>주소</th>
-					<th>가입일</th>
-			    </tr>
-			</thead>
-			<tbody>
-				<tr th:each="users : ${userList}">
-					<td th:text="${users.userid}"></td>
-					<td th:text="${users.username}"></td>
-					<td th:text="${users.phone}"></td>
-					<td th:text="${users.email}"></td>
-					<td th:text="${(#dates.format(#calendars.createNow(),'yyyy'))} - ${(#dates.format(users.birth,'yyyy'))}"></td>
-					<td th:text="${users.add2}"></td>
-					<td th:text="${#dates.format(users.signup,'yyyy-MM-dd HH:mm')}"></td>
-					<td>
-						<a th:href="@{/users/detail/{userid}(userid=${users.userid})}">상세보기</a>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-		<div class="d-flex justify-content-evenly">
-				<div  th:insert="/pagination.html"></div>
+	<div id="wrapper">
+		<main class="container" >
+			<h1 class="m-3 d-flex justify-content-between align-items-center" >
+				<span>회원리스트</span>
+			</h1>
+			<p>
+				페이지 / 총 회원 수 : 
+				<span class="badge text-bg-success" th:text="${page}"></span> / 
+				<span class="badge text-bg-primary" th:text="${count}"></span>
+			</p>
+			<div id="searchId">
 				<form action="/users/search/1" id="searchForm" method="get">
 					<select name="type" class="form-control" style="display: inline; width : 150px;">
 						<option value="none">=== 선택 ===</option>
@@ -67,7 +30,39 @@
 						<button class="btn btn-outline-primary">검색</button>
 					</div>
 				</form>
-			</div></main>
+			</div>
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>아이디</th>
+						<th>이름</th>
+						<th>전화번호</th>
+						<th>이메일</th>
+						<th>나이</th>
+						<th>주소</th>
+						<th>가입일</th>
+				    </tr>
+				</thead>
+				<tbody>
+					<tr th:each="users : ${userList}">
+						<td th:text="${users.userid}"></td>
+						<td th:text="${users.username}"></td>
+						<td th:text="${users.phone}"></td>
+						<td th:text="${users.email}"></td>
+						<td th:text="${(#dates.format(#calendars.createNow(),'yyyy'))} - ${(#dates.format(users.birth,'yyyy'))}"></td>
+						<td th:text="${users.add2}"></td>
+						<td th:text="${#dates.format(users.signup,'yyyy-MM-dd HH:mm')}"></td>
+						<td>
+							<a th:href="@{/users/detail/{userid}(userid=${users.userid})}">상세보기</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div id="paginationId" >
+				<div  th:insert="/pagination.html"></div>
+			</div>
+		</main>
+	  <footer class="footer" th:insert="/footer"></footer>
+	</div>
 </body>
-  <footer class="footer" th:insert="/footer"></footer>
 </html>

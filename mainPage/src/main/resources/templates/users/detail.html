@@ -3,138 +3,134 @@
 <head>
 <meta charset="UTF-8">
 <title>회원 상세 페이지</title>
-<style type="text/css">
-.width{
-	display:inline-block;
-	width:66px;
-}
-</style>
+<link rel="stylesheet" href="/public/css/user/detail.css">
 <!-- 주소API기능연동 -->
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js" defer="defer"></script>
 </head>
 <body>
 	<header th:insert="/gAndB"></header>
 	<header th:insert="/headerNav"></header>
-		<h1 class="m-5 d-flex justify-content-center align-items-center" >
+	<div id="wrapper">
+		<h1 class="m-5">
 			<span>회원 정보</span>
 		</h1>
-	<main class="d-flex justify-content-center" >
-		<form action="/users/update.do" method="post">
-			<div class="row mb-3 g-3 align-items-center">
-				<div class="col-auto">
-					<span class="width">아이디</span>
-					<input name="userid" type="hidden" th:value="${usersDto.userid}">
-				</div>
-				<div class="col-auto">
-					<strong th:text="${usersDto.userid}"></strong>
-				</div>
-			</div>
-			
-			<div class="row mb-3 g-3 align-items-center">
-				<div class="col-auto">
-					<label for ="inputName" class="col-form-label"><span class="width">이름</span></label>
-				</div>
-				<div class="col-auto">
-					<input id="inputName" class="form-control" name="username" type="text" th:value="${usersDto.username}">
-				</div>				
-			</div>
-			
-			<div class="row mb-3 g-3 align-items-center">
-				<div class="col-auto">
-					<label for ="inputPw" class="col-form-label"><span class="width">패스워드</span></label>
-				</div>
-				<div class="col-auto">
-					<input id="inputPw" class="form-control" name="userpw" type="text" th:value="${usersDto.userpw}">
-				</div>				
-			</div>
-			<div class="row mb-3 g-3 align-items-center">
-				<div class="col-auto">
-					<label for="inputPhone" class="col-form-label"><span class="width">Phone</span></label>
+		<main>
+			<form action="/users/update.do" method="post">
+				<div class="row mb-3 g-3 align-items-center">
+					<div class="col-auto">
+						<span class="width">아이디</span>
+						<input name="userid" type="hidden" th:value="${usersDto.userid}">
+					</div>
+					<div class="col-auto">
+						<strong th:text="${usersDto.userid}"></strong>
+					</div>
 				</div>
 				
-			 	<div class="col-auto">
-			   		<input type="tel" name="phone" id="inputPhone" class="form-control" aria-describedby="phoneHelpInline" th:value="${usersDto.phone}">
-			  	</div>
-				<div class="col-auto">
-					<span id="phoneHelpInline" class="form-text">
-						Must be 000-0000-0000 pattern.
-					</span>
+				<div class="row mb-3 g-3 align-items-center">
+					<div class="col-auto">
+						<label for ="inputName" class="col-form-label"><span class="width">이름</span></label>
+					</div>
+					<div class="col-auto">
+						<input id="inputName" class="form-control" name="username" type="text" th:value="${usersDto.username}">
+					</div>				
 				</div>
-			</div>
-			<div class="row mb-3 g-3 align-items-center">
-				<div class="col-auto">
-					<label for="inputEmail" class="col-form-label"><span class="width">Email</span></label>
+				
+				<div class="row mb-3 g-3 align-items-center">
+					<div class="col-auto">
+						<label for ="inputPw" class="col-form-label"><span class="width">패스워드</span></label>
+					</div>
+					<div class="col-auto">
+						<input id="inputPw" class="form-control" name="userpw" type="text" th:value="${usersDto.userpw}">
+					</div>				
 				</div>
-				<div class="col-auto">
-					<input type="email" name="email" id="inputEmail" class="form-control" aria-describedby="emailHelpInline" th:value="${usersDto.email}">
+				<div class="row mb-3 g-3 align-items-center">
+					<div class="col-auto">
+						<label for="inputPhone" class="col-form-label"><span class="width">Phone</span></label>
+					</div>
+					
+				 	<div class="col-auto">
+				   		<input type="tel" name="phone" id="inputPhone" class="form-control" aria-describedby="phoneHelpInline" th:value="${usersDto.phone}">
+				  	</div>
+					<div class="col-auto">
+						<span id="phoneHelpInline" class="form-text">
+							Must be 000-0000-0000 pattern.
+						</span>
+					</div>
 				</div>
-				<div class="col-auto">
-					<span id="emailHelpInline" class="form-text">
-						Must be id@domain pattern.
-					</span>
+				<div class="row mb-3 g-3 align-items-center">
+					<div class="col-auto">
+						<label for="inputEmail" class="col-form-label"><span class="width">Email</span></label>
+					</div>
+					<div class="col-auto">
+						<input type="email" name="email" id="inputEmail" class="form-control" aria-describedby="emailHelpInline" th:value="${usersDto.email}">
+					</div>
+					<div class="col-auto">
+						<span id="emailHelpInline" class="form-text">
+							Must be id@domain pattern.
+						</span>
+					</div>
 				</div>
-			</div>
-			<div class="row mb-3 g-3 align-items-center">
-				<div class="col-auto">
-					<label for="inputBirth" class="col-form-label"><span class="width">생일</span></label>
+				<div class="row mb-3 g-3 align-items-center">
+					<div class="col-auto">
+						<label for="inputBirth" class="col-form-label"><span class="width">생일</span></label>
+					</div>
+					<div class="col-auto">
+						<input type="date" name="birth" id="inputBirth" class="form-control" th:value="${#dates.format(usersDto.birth, 'yyyy-MM-dd')}">
+					</div>
 				</div>
-				<div class="col-auto">
-					<input type="date" name="birth" id="inputBirth" class="form-control" th:value="${#dates.format(usersDto.birth, 'yyyy-MM-dd')}">
+				<div class="row mb-3 g-3 align-items-center">
+					<div class="col-auto labelSize">
+						<span class="width">우편번호</span>
+					</div>
+					<div class="col-auto">
+						<input type="text" size="20" th:value="${usersDto.add1}" name="add1" 
+						class="form-control" id="inputAdd1" required readonly style="display:inline; width:50%;">
+						<input  type="button" class="btn" onclick="execution_daum_address()" value="주소 찾기">
+					</div>
 				</div>
-			</div>
-			<div class="row mb-3 g-3 align-items-center">
-				<div class="col-auto labelSize">
-					<span class="width">우편번호</span>
+				<div class="row mb-3 g-3 align-items-center">
+					<div class="col-auto labelSize">
+						<span class="width">주소</span>
+					</div>
+					<div class="col-auto">
+						<input type="text" size="40"  th:value="${usersDto.add2}" name="add2" id="inputAdd2" class="form-control" required readonly>
+					</div>
 				</div>
-				<div class="col-auto">
-					<input type="text" size="20" th:value="${usersDto.add1}" name="add1" 
-					class="form-control" id="inputAdd1" required readonly style="display:inline; width:50%;">
-					<input  type="button" class="btn" onclick="execution_daum_address()" value="주소 찾기">
+				<div class="row mb-3 g-3 align-items-center">
+					<div class="col-auto labelSize">
+						<span class="width">상세주소</span>
+					</div>
+					<div class="col-auto">
+						<input type="text" size="40" th:value="${usersDto.add3}" name="add3" id="inputAdd3" class="form-control" readonly>
+					</div>
 				</div>
-			</div>
-			<div class="row mb-3 g-3 align-items-center">
-				<div class="col-auto labelSize">
-					<span class="width">주소</span>
+				<div class="row mb-3 g-3 align-items-center">
+					<div class="col-auto">
+				    	<label for="inputSignup" class="col-form-label"><span class="width">가입일</span></label>
+				  	</div>
+				 	 <div class="col-auto">
+				    	<input type="datetime-local" name="signup" id="inputSignup" class="form-control"
+				    			 th:value="${#dates.format(usersDto.signup, 'yyyy-MM-dd''T''HH:mm')}" readonly>
+				 	 </div>
 				</div>
-				<div class="col-auto">
-					<input type="text" size="40"  th:value="${usersDto.add2}" name="add2" id="inputAdd2" class="form-control" required readonly>
+				<div class="row mb-3 g-3 align-items-center">
+					<div class="col-auto">
+						<button type="reset" class="btn btn-light">초기화</button>
+					</div>
+					<div class="col-auto">
+						<button type="submit" class="btn btn-primary">수정</button>
+					</div>
+					<div class="col-auto">
+						<a class="btn btn-danger" th:href="@{/users/delete/{userid}(userid=${usersDto.userid})}">삭제</a>
+					</div>
 				</div>
-			</div>
-			<div class="row mb-3 g-3 align-items-center">
-				<div class="col-auto labelSize">
-					<span class="width">상세주소</span>
-				</div>
-				<div class="col-auto">
-					<input type="text" size="40" th:value="${usersDto.add3}" name="add3" id="inputAdd3" class="form-control" readonly>
-				</div>
-			</div>
-			<div class="row mb-3 g-3 align-items-center">
-				<div class="col-auto">
-			    	<label for="inputSignup" class="col-form-label"><span class="width">가입일</span></label>
-			  	</div>
-			 	 <div class="col-auto">
-			    	<input type="datetime-local" name="signup" id="inputSignup" class="form-control"
-			    			 th:value="${#dates.format(usersDto.signup, 'yyyy-MM-dd''T''HH:mm')}" readonly>
-			 	 </div>
-			</div>
-			<div class="row mb-3 g-3 align-items-center">
-				<div class="col-auto">
-					<button type="reset" class="btn btn-light">초기화</button>
-				</div>
-				<div class="col-auto">
-					<button type="submit" class="btn btn-primary">수정</button>
-				</div>
-				<div class="col-auto">
-					<a class="btn btn-danger" th:href="@{/users/delete/{userid}(userid=${usersDto.userid})}">삭제</a>
-				</div>
-			</div>
-		</form>
-	</main>
+			</form>
+		</main>
+	<footer class="footer" th:insert="/footer"></footer>
+	</div>
 </body>
-<footer th:insert="/footer"></footer>
 <script type="text/javascript">
 	document.getElementById("inputSignup").value=new Date().toISOString().slice(0, 16);
-	
 	/* 다음 주소 연동 */
 	function execution_daum_address(){
 		new daum.Postcode({

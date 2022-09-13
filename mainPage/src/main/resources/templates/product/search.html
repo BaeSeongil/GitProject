@@ -3,19 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <title>검색결과</title>
+<link rel="stylesheet" href="/public/css/product/search.css">
 </head>
 <body>
 	<header th:insert="/gAndB"></header>
 	<header th:insert="/headerNav"></header>
 	<div id="wrapper">
 		<div  class="container">
-			<h1 class="m-3 d-flex justify-content-between align-items-center" >
+			<h1 class="m-5 d-flex justify-content-between align-items-center" >
 				<span>검색 결과</span>
 			</h1>
 			<p>
 				<span style="font-style: italic; font-weight: bold;" th:text=${param.keyword}></span> 검색 결과 수 : 
 				<span class="badge text-bg-primary" th:text="${count}"></span>
 			</p>
+			<form action="/product/search/1" id="searchForm" method="get">
+					<select name="type" class="form-control" id="selectSearch">
+						<option value="N">상품명</option>
+						<option value="S">사이즈</option>
+						<option value="C">상품분류</option>
+					</select>
+					<div class=search_input id="inputSearch">
+						<input type="text" name="keyword" onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);">
+						<button class="btn btn-outline-primary">검색</button>
+					</div>
+				</form>
 			<table class="table table-hover">
 				<thead>
 					<tr>
@@ -42,24 +54,13 @@
 					</tr>
 				</tbody>
 			</table>
-			<div class="d-flex justify-content-evenly">
+			<div class="pagination">
 				<th:block th:unless="${list==null}">
 					<div  th:insert="/pagination.html"></div>
 				</th:block>
-				<form action="/product/search/1" id="searchForm" method="get">
-					<select name="type" class="form-control" style="display: inline; width : 150px;">
-						<option value="N">상품명</option>
-						<option value="S">사이즈</option>
-						<option value="C">상품분류</option>
-					</select>
-					<div class=search_input style="display: inline;">
-						<input type="text" name="keyword" onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);">
-						<button class="btn btn-outline-primary">검색</button>
-					</div>
-				</form>
 			</div>
 		</div>
-		<footer th:insert="/footer"></footer>
+		<footer class="footer" th:insert="/footer"></footer>
 	</div>
 </body>
 <script>

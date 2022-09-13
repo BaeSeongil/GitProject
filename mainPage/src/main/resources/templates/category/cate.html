@@ -3,44 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <title>상품 전체 보기</title>
-<style type="text/css">
-
-html, body {
-	height: 100%;
-	display: flex;
-	flex-flow: column;
-}
-footer {
-	flex: 1;
-	height: auto;
-}
-
-#wrapper {	
-	height: auto;
-  	/* min-height: 100%; */
-  	position: relative;
-  
-}
-
-#lefe {
-
-	float: left;
-}
-.card{
-	cursor: pointer;
-}
-
-</style>
+<link rel="stylesheet" href="/public/css/category/cate.css">
 </head>
 <body>
 <header th:insert="/gAndB"></header>
 <header th:insert="/headerNav"></header>
 
-	<div style="padding: 30px;">
-		<h3 class="mt-5 d-flex justify-content-center align-items-center">상품 </h3>
-	</div>
 	<div id="wrapper">
 		<div class="container">
+			<div style="padding: 30px;">
+				<h3 class="mt-5 d-flex justify-content-center align-items-center">상품 </h3>
+			</div>
 			<th:block th:each="category:${categoryList}">
 				<th:block th:each="product:${category.products}">
 					<div id="lefe" class="d-flex m-5 justify-content-center align-items-center" 
@@ -52,21 +25,19 @@ footer {
 						 		 	alt="상품 이미지" style="height: 300px;">
 							</th:block>
 						  <div id="lefe" class="card-body">
-							<p class="card-text" th:text="${product.productName}" 
-								style="font-size:medium; font-weight:bold;"></p>
-							<p class="card-text" th:text="${product.price}"></p>
+								<p class="card-text" th:text="${product.productName}" 
+									style="font-size:medium; font-weight:bold;"></p>
+								<p class="card-text" th:text="${product.price}"></p>
 						  </div>
 						</div>
 					</div>
 				</th:block>
-
-			</div>
-		</th:block>
-		
+			</th:block>
+			<div id="pagination">
+				<div  th:insert="/pagination.html"></div>
+			</div>	
+		</div>
+		<footer class="footer" th:insert="/footer"></footer>
 	</div>
-	<div>
-		<div class="d-flex justify-content-center" th:insert="/pagination.html"></div>
-	</div>
-	<footer class="footer" th:insert="/footer"></footer>
 </body>
 </html>

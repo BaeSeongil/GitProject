@@ -4,29 +4,39 @@
 	<nav aria-label="Page navigation example">
 		<ul class="pagination">
 			<li class="page-item" th:classappend="${(pagination.yourFirst)?'':'disabled'}">
-				<a class="page-link" th:href="@{{url}{page}?type={t}&keyword={k}(url=${pagination.url},page=${pagination.firstPage},t=${param.type},k=${param.keyword})}">
+				<a class="page-link" 
+					th:href="@{{url}{page}?type={t}&keyword={k}
+								(url=${pagination.url},page=${pagination.firstPage},t=${param.type},k=${param.keyword})}">
 					<span aria-hidden="true">&laquo;</span>
 				</a>
 			</li>
 			<li class="page-item" th:classappend="${ (pagination.yourPreviousPage) ? '' : 'disabled' }">
-				<a class="page-link" th:href="@{{url}{page}?type={t}&keyword={k}(url=${pagination.url},page=${pagination.previousPage},t=${param.type},k=${param.keyword})}" >
+				<a class="page-link" 
+					th:href="@{{url}{page}?type={t}&keyword={k}
+								(url=${pagination.url},page=${pagination.previousPage},t=${param.type},k=${param.keyword})}" >
 					Previous
 				</a>
 			</li>
 			  
 			<th:block th:each="n:${#numbers.sequence(pagination.start,pagination.end)}">
 				<li class="page-item" th:classappend="${(pagination.page==n)?'active':''}">
-					<a class="page-link" th:href="@{{url}{page}?type={t}&keyword={k}(url=${pagination.url},page=${n},t=${param.type},k=${param.keyword})}" th:text="${n}"></a>
+					<a class="page-link"
+						 th:href="@{{url}{page}?type={t}&keyword={k}
+						 			(url=${pagination.url},page=${n},t=${param.type},k=${param.keyword})}" th:text="${n}"></a>
 				</li>
 			</th:block>
 			    
 			<li class="page-item" th:classappend="${ (pagination.yourNext) ? '' : 'disabled' }">
-				<a class="page-link" th:href="@{{url}{page}?type={t}&keyword={k}(url=${pagination.url},page=${pagination.nextPage},t=${param.type},k=${param.keyword})}" >
+				<a class="page-link" 
+					th:href="@{{url}{page}?type={t}&keyword={k}
+								(url=${pagination.url},page=${pagination.nextPage},t=${param.type},k=${param.keyword})}" >
 					Next
 				</a>
 			</li>
 			<li class="page-item" th:classappend="${(pagination.yourLast)?'':'disabled'}">
-      			<a class="page-link" th:href="@{{url}{page}?type={t}&keyword={k}(url=${pagination.url},page=${pagination.lastPage},t=${param.type},k=${param.keyword})}">
+      			<a class="page-link" 
+      				th:href="@{{url}{page}?type={t}&keyword={k}
+      					(url=${pagination.url},page=${pagination.lastPage},t=${param.type},k=${param.keyword})}">
 		      	  <span aria-hidden="true">&raquo;</span>
 		      	</a>
    			</li>

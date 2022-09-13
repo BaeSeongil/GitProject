@@ -1,8 +1,7 @@
+@charset "UTF-8";
 
-
-.container{
-	margin: 30px;
-	padding: 50px;
+#detail:hover{
+	cursor: Pointer;
 }
 
 html, body {

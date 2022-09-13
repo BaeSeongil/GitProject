@@ -3,23 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <title>상품 수정</title>
-<style type="text/css">
-.width{
-	display:inline-block;
-	width:66px;
-}
-</style>
+<link rel="stylesheet" href="/public/css/product/update.css">
 <script type="text/javascript" src="/public/js/product/update.js" defer="defer"></script>
 </head>
 <body>
 	<header th:insert="/gAndB"></header>
 	<header th:insert="/headerNav"></header>
-		<h1 class="m-5 d-flex justify-content-center align-items-center" >
+		<h1 id="h1Id" class="m-5" >
 			<span>상품 수정</span>
 		</h1>
-	<main class="d-flex justify-content-center" >
+	<div id="wrapper">
+	<main id="main">
 		<form action="/product/update.do" name="updateForm" method="post" enctype="multipart/form-data">
-
 			<div class="row mb-3 g-3 align-items-center">
 				<div class="col-auto labelSize">
 					<label for ="inputName" class="col-form-label"><span class="width">상품명</span></label>
@@ -193,8 +188,9 @@
 			</div>
 		</form>
 	</main>
+	<footer class="footer" th:insert="/footer"></footer>
+	</div>
 </body>
-<footer th:insert="/footer"></footer>
 <script>
 function noSpace(obj) { // 공백사용못하게
     var str = /\s/;  // 공백체크

@@ -3,25 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>상품 상세 페이지</title>
-<style type="text/css">
-html, body {
-	height: 100%;
-	display: flex;
-	flex-flow: column;
-}
-footer {
-	flex: 1;
-	height: auto;
-	width : 100%;
-	position : fixed;
-	bottom : 0;
-} 
-#wrapper {	
-	height: auto;
-  	position: relative;
-}
-</style>
-
+<link rel="stylesheet" href="/public/css/product/detail.css">
 </head>
 <body>
 <script> 
@@ -38,17 +20,16 @@ footer {
 
 	<div id="wrapper">
 		<main class="mt-5 container d-flex justify-content-between">
-			<section  style="display: table-cell; vertical-align: top;" class="justify-content-center">
+			<section  id="sectionTop">
 				<figure class="d-flex figure justify-content-between">
 					<th:block th:each="productImg : ${product.productImgs}">
-						<img th:src="@{/public/img/{fileName}(fileName=${productImg.img_path})}"
-						style="height:600px; width:800px; object-fit:cover; float:left;"
+						<img id="imgId" th:src="@{/public/img/{fileName}(fileName=${productImg.img_path})}"
 						class="figure-img img-fluid rounded" alt="상품 이미지">
 					</th:block>
 				</figure>
 				<div>
 					<div class="mb-3">
-						<div style="height:300px; width:1000px; font-size: 20px;">
+						<div id="productInfoId">
 							<th:block th:value="${product.productInfo}"
 								th:text="${product.productInfo}" >
 							</th:block>
@@ -110,9 +91,9 @@ footer {
 				</div>
 			</section>
 		</main>
+ 	<footer class="footer" th:insert="/footer"></footer>
 	</div>
 </body>
- <footer th:insert="/footer"></footer>
 <script>
 function noSpace(obj) { // 공백사용못하게
     var str = /\s/;  // 공백체크

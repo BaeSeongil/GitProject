@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>검색결과</title>
+<link rel="stylesheet" href="/public/css/user/search.css">
 </head>
 <body>
 	<header th:insert="/gAndB"></header>
@@ -17,6 +18,19 @@
 			<span class="badge text-bg-success" th:text="${page}"></span> / 
 			<span class="badge text-bg-primary" th:text="${count}"></span>
 		</p>
+		<div id="searchId">
+			<form action="/users/search/1" id="searchForm" method="get">
+				<select name="type" class="form-control" style="display: inline; width : 150px;">
+					<option value="none">=== 선택 ===</option>
+					<option value="A">닉네임</option>
+					<option value="N">이름</option>
+				</select>
+				<div class=search_input style="display: inline;">
+					<input type="text" name="keyword" value="">
+					<button class="btn btn-outline-primary">검색</button>
+				</div>
+			</form>
+		</div>
 		<table class="table table-hover">
 			<thead>
 				<tr>
@@ -43,21 +57,12 @@
 					</td>
 				</tr>
 			</tbody>
-		</table>
-		<div class="d-flex justify-content-evenly">
+			</table>
+			<div id="paginrionClass">
 				<div  th:insert="/pagination.html"></div>
-				<form action="/users/search/1" id="searchForm" method="get">
-					<select name="type" class="form-control" style="display: inline; width : 150px;">
-						<option value="none">=== 선택 ===</option>
-						<option value="A">닉네임</option>
-						<option value="N">이름</option>
-					</select>
-					<div class=search_input style="display: inline;">
-						<input type="text" name="keyword" value="">
-						<button class="btn btn-outline-primary">검색</button>
-					</div>
-				</form>
-			</div></div></div>
+			</div>
+		</div>
+		<footer class="footer" th:insert="/footer"></footer>
+	</div>
 </body>
-  <footer class="footer" th:insert="/footer"></footer>
 </html>

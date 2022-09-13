@@ -3,12 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>회원 가입</title>
-<style type="text/css">
-.width{
-	display:inline-block;
-	width:66px;
-}
-</style>
+<link rel="stylesheet" href="/public/css/user/signup.css">
 <script src="/public/js/user/signup.js" defer="defer"></script>
 <!-- 주소API기능연동 -->
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js" defer="defer"></script>
@@ -16,10 +11,11 @@
 <body>
 	<header th:insert="/gAndB"></header>
 	<header th:insert="/headerNav"></header>
-		<h1 class="m-5 d-flex justify-content-center align-items-center" >
-			<span>회원가입</span>
-		</h1>
-	<main class="d-flex justify-content-center" >
+	<div id="wrapper">
+	<h1 class="m-5" >
+		<span>회원가입</span>
+	</h1>
+	<main>
 		<form action="/users/signup.do" name="insertForm" method="post">
 			<div class="row mb-3 g-3 align-items-center">
 				<div class="col-auto labelSize">
@@ -146,8 +142,9 @@
 			</div>
 		</form>
 	</main>
+		<footer class="footer" th:insert="/footer"></footer>
+	</div>
 </body>
-<footer th:insert="/footer"></footer>
 <script type="text/javascript">
 	document.getElementById("inputSignup").value=new Date().toISOString().slice(0, 16);
 	

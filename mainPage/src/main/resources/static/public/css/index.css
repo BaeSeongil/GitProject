@@ -1,7 +1,19 @@
 @charset "UTF-8";
+html{
+	height: 100%;
+}
 body{
+	height: 100%;
     font-size: 25px;      
     line-height: 1.8rem; 
+}
+#wrapper {
+    min-height: 100%;
+    position: relative;
+    padding-bottom: 300px;
+}
+.footer {
+    bottom: 0;
 }
 .shopping{
 	margin: 10px;

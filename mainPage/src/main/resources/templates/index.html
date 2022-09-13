@@ -5,17 +5,6 @@
 <title>shop</title>
 <link rel="stylesheet" href="/public/css/index.css">
 </head>
-<style>
-html, body {
-	height: 100%;
-	display: flex;
-	flex-flow: column;
-}
-footer {
-	flex: 1;
-	height: auto;
-}
-</style>
 <body>
 	<header th:insert="/gAndB"></header>
 	<header th:insert="/headerNav"></header>
@@ -74,8 +63,8 @@ footer {
 		        </div>
 	        </section>
 	    </div>
+  	  <footer class="footer" th:insert="/footer"></footer>
     </div>
     
 </body>
-  	  <footer class="footer" th:insert="/footer"></footer>
 </html>

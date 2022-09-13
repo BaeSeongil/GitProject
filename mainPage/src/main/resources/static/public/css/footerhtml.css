@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+#footerConfig{
+    background: #f0f0f0;
+    overflow: hidden;
+    word-break: keep-all;
+    padding: 40px;
+    width: 100%;
+	height: auto;
+  	position: absolute;
+  	bottom: 0px;
+}
+.footerList{
+	display: inline-block;
+	float: none; 
+    text-align: center;
+}
+.footerList>a{
+	text-decoration: none;
+	margin-right: 15px;
+	color: black;
+}
+
+
+

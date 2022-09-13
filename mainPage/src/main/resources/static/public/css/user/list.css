@@ -1,0 +1,26 @@
+@charset "UTF-8";
+
+html, body {
+    height: 100%;
+}
+
+#wrapper {
+    min-height: 100%;
+    position: relative;
+    padding-bottom: 300px;
+}
+
+.footer {
+    bottom: 0;
+}
+#searchId{
+	display: flex;
+	justify-content: center;
+	margin: 20px;
+}
+#paginationId{
+	display: flex;
+	justify-content: center;
+	margin: 30px;
+}
+

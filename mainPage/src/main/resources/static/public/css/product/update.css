@@ -1,0 +1,30 @@
+@charset "UTF-8";
+
+html, body {
+    height: 100%;
+}
+
+#wrapper {
+    min-height: 100%;
+    position: relative;
+    padding-bottom: 300px;
+}
+
+.footer {
+    bottom: 0;
+}
+.width{
+	display:inline-block;
+	width:66px;
+}
+
+#main{
+	display: flex;
+	justify-content: center;
+}
+
+#h1Id{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

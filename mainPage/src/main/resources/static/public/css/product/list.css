@@ -1,0 +1,33 @@
+@charset "UTF-8";
+
+#detail:hover{
+	cursor: Pointer;
+}
+
+#pagination{
+	display: flex;
+	justify-content: center;
+	margin-top: 30px;
+}
+
+#search{
+	display: flex;
+	justify-content: center;
+	margin-bottom: 30px;
+}
+
+html, body {
+    height: 100%;
+}
+
+#wrapper {
+    min-height: 100%;
+    position: relative;
+    padding-bottom: 300px;
+}
+
+.footer {
+    bottom: 0;
+}
+
+
